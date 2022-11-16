@@ -6,7 +6,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
         <div class="my_auth_form_box">
             <div class="my_auth_form_box_title">JSotry</div>
             <div class="my_error_box my_hidden"></div>
-            <form action="/user/password-reset" method="post">
+            <form action="" method="">
                 <input
                     id="username"
                     class="my_auth_form_box_input"
@@ -29,8 +29,8 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                 </button>
             </form>
             <div class="my_auth_form_box_link">
-                <div><a href="/login-form">로그인</a></div>
-                <div><a href="/join-form">회원가입</a></div>
+                <div><a href="">로그인</a></div>
+                <div><a href="">회원가입</a></div>
             </div>
         </div>
     </div>

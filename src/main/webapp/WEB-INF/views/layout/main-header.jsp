@@ -36,7 +36,7 @@ pageEncoding="UTF-8"%>
     </head>
 
     <body>
-        <input type="hidden" id="principal-id" value="{{id}}" />
+        <input type="hidden" id="principal-id" value="" />
 
         <nav class="navbar navbar-expand-sm my_navbar">
             <a href="/">
@@ -64,6 +64,7 @@ pageEncoding="UTF-8"%>
                     </g>
                 </svg>
             </a>
+            
             <div class="dropdown dropleft">
                 <div data-toggle="dropdown">
                     <img
@@ -74,19 +75,15 @@ pageEncoding="UTF-8"%>
                 </div>
 
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="/user/{{id}}/post"
-                        >내블로그</a
-                    >
-                    <a class="dropdown-item" href="/s/user/{{id}}">계정관리</a>
-                    <a class="dropdown-item" href="/s/category/writeForm"
-                        >카테고리관리</a
-                    >
+                    <a class="dropdown-item" href="">내블로그</a>
+                    <a class="dropdown-item" href="">계정관리</a>
+                    <a class="dropdown-item" href="">카테고리관리</a>
                     <a class="dropdown-item" href="/logout">로그아웃</a>
                 </div>
             </div>
 
             <div>
-                <a class="my_main_start_btn" href="/login-form">시작하기</a>
+                <a class="my_main_start_btn" href="">시작하기</a>
             </div>
         </nav>
         <br />

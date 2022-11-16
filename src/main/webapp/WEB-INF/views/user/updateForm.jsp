@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%> <%@ include file="layout/main-header.jsp"%>
+pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
 
-<input type="hidden" id="userId" value="{{principal.id}}" />
+<input type="hidden" id="userId" value="" />
 
 <div class="container">
     <div class="my_auth_box">
@@ -64,8 +64,8 @@ pageEncoding="UTF-8"%> <%@ include file="layout/main-header.jsp"%>
                 </button>
             </form>
             <div class="my_auth_form_box_link">
-                <div><a href="/login-form">로그인</a></div>
-                <div><a href="/user/password-reset-form">비밀번호 찾기</a></div>
+                <div><a href="">로그인</a></div>
+                <div><a href="">비밀번호 찾기</a></div>
             </div>
         </div>
     </div>

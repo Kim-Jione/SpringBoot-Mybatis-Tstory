@@ -30,17 +30,13 @@
     </head>
 
     <body class="drawer drawer--left">
-        <input type="hidden" id="principal-id" value="{{id}}" />
+        <input type="hidden" id="principal-id" value="" />
 
         <nav class="drawer-nav my_nav_slider" role="navigation">
             <ul class="drawer-menu">
                 <li><a class="drawer-brand" href="/">Home</a></li>
                 <li>
-                    <a
-                        class="drawer-menu-item"
-                        href="/user/{{user.id}}/post?categoryId={{id}}"
-                        >{{title}}</a
-                    >
+                    <a class="drawer-menu-item" href="">제목</a>
                 </li>
             </ul>
 
@@ -81,13 +77,13 @@
                         />
                     </div>
                     <div class="dropdown-menu my_dropdown_menu">
-                        <a class="dropdown-item" href="/user/{{id}}/post"
+                        <a class="dropdown-item" href=""
                             >내블로그</a
                         >
-                        <a class="dropdown-item" href="/s/user/{{id}}"
+                        <a class="dropdown-item" href=""
                             >계정관리</a
                         >
-                        <a class="dropdown-item" href="/s/category/writeForm"
+                        <a class="dropdown-item" href=""
                             >카테고리관리</a
                         >
                         <a class="dropdown-item" href="/logout">로그아웃</a>
@@ -95,7 +91,7 @@
                 </div>
 
                 <div>
-                    <a class="my_main_start_btn" href="/login-form">시작하기</a>
+                    <a class="my_main_start_btn" href="">시작하기</a>
                 </div>
             </ul>
 

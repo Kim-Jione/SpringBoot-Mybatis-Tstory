@@ -9,29 +9,50 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Controller
 public class UserController {
-    @GetMapping("/login-form")
-    public String loginForm() {
-        return "/user/loginForm";
+
+    @GetMapping("/write/category")
+    public String writeForm() {
+        return "/category/writeForm";
     }
 
-    @GetMapping({ "mainForm", "/" })
-    public String mainForm() {
-        return "/main";
+    @GetMapping("/post/detail/{postId}")
+    public String detail(@PathVariable Integer postId) {
+        return "/post/detailForm";
     }
 
-    @GetMapping("/join-form")
+    @GetMapping("/post/list/{userId}")
+    public String list(@PathVariable Integer userId) {
+        return "/post/listForm";
+    }
+
+    @GetMapping("/write/post/{userId}")
+    public String writeForm(@PathVariable Integer userId) {
+        return "/post/writeForm";
+    }
+
+    @GetMapping("/join")
     public String joinForm() {
         return "/user/joinForm";
     }
 
-    @GetMapping("/s/user/{id}")
-    public String updateForm(@PathVariable Integer id) {
+    @GetMapping("/login")
+    public String loginForm() {
+        return "/user/loginForm";
+    }
+
+    @GetMapping("/passwordReset/{userId}")
+    public String passwordResetForm(@PathVariable Integer userId) {
+        return "/user/passwordResetForm";
+    }
+
+    @GetMapping("/update/{userId}")
+    public String updateForm(@PathVariable Integer userId) {
         return "/user/updateForm";
     }
 
-    @GetMapping("/user/password-reset-form")
-    public String passwordResetForm() {
-        return "/user/passwordResetForm";
+    @GetMapping({ "main", "/" })
+    public String mainForm() {
+        return "/mainForm";
     }
 
 }

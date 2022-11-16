@@ -33,7 +33,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
 
     <div class="my_livere">
         <!-- 라이브리 시티 설치 코드 -->
-        <div
+        <!-- <div
             id="lv-container"
             data-id="city"
             data-uid="MTAyMC81MTM0MC8yNzgyMQ=="
@@ -55,7 +55,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                 >라이브리 댓글 작성을 위해 JavaScript를 활성화
                 해주세요</noscript
             >
-        </div>
+        </div> -->
         <!-- 시티 설치 코드 끝 -->
     </div>
 </div>

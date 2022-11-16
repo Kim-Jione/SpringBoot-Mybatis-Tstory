@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%> <%@ include file="layout/main-header.jsp"%>
+pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
 <style>
     .ql-editor {
         min-height: 40vh;
@@ -9,14 +9,14 @@ pageEncoding="UTF-8"%> <%@ include file="layout/main-header.jsp"%>
 <div class="container">
     <form
         id="hello"
-        action="/s/post"
-        method="post"
+        action=""
+        method=""
         enctype="multipart/form-data"
         onsubmit="return getQuill()"
     >
         <div class="form-group">
             <select class="form-control" name="categoryId">
-                <option value="{{id}}">제목</option>
+                <option value="">제목</option>
             </select>
         </div>
         <input
@@ -91,7 +91,7 @@ pageEncoding="UTF-8"%> <%@ include file="layout/main-header.jsp"%>
 </script>
 
 <!-- Include the Quill library -->
-<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<!-- <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script> -->
 
 <script>
     var quill = new Quill("#editor-container", {
