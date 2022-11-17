@@ -27,6 +27,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
             </div>
         </div>
 
+        <!-- 페이지 -->
         <div
             class="my_paging d-flex justify-content-center align-items-center my_mb_lg_1"
         >

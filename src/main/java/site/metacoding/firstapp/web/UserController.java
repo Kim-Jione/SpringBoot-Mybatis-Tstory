@@ -19,26 +19,6 @@ public class UserController {
     private final HttpSession session;
     private final UserDao userDao;
 
-    @GetMapping("/write/category")
-    public String writeForm() {
-        return "/category/writeForm";
-    }
-
-    @GetMapping("/post/detail/{postId}")
-    public String detail(@PathVariable Integer postId) {
-        return "/post/detailForm";
-    }
-
-    @GetMapping("/post/list/{userId}")
-    public String list(@PathVariable Integer userId) {
-        return "/post/listForm";
-    }
-
-    @GetMapping("/write/post/{userId}")
-    public String writeForm(@PathVariable Integer userId) {
-        return "/post/writeForm";
-    }
-
     @GetMapping("/join")
     public String joinForm() {
         return "/user/joinForm";
@@ -68,6 +48,12 @@ public class UserController {
         } else {
             return "redirect:/login";
         }
+    }
+
+    @GetMapping("/logout")
+    public String logout() {
+        session.invalidate();
+        return "redirect:/";
     }
 
     @GetMapping("/passwordReset/{userId}")

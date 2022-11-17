@@ -7,7 +7,7 @@
 
         <!-- 아이템 시작 -->
         <div class="my_main_item">
-            <a href="" class="my_atag_none">
+            <a href="/post/detail/1" class="my_atag_none">
                 <div class="my_main_item_thumnail">
                     <img src="" width="100%" height="100%">
                    
@@ -21,7 +21,7 @@
                     <div class="my_main_item_date my_mb_sm_1">
                     </div>
             </a>
-            <a href="" class="my_atag_none">
+            <a href="/post/list/1" class="my_atag_none">
                 <div class="my_main_item_username">
                     <span>by </span>
                 </div>

@@ -35,7 +35,7 @@ pageEncoding="UTF-8"%>
     </head>
 
     <body>
-        <input type="hidden" id="principal-id" value="" />
+        <input type="hidden" id="principal-id" value="${principal.userId}" />
 
         <nav class="navbar navbar-expand-sm my_navbar">
             <a href="/">
@@ -79,7 +79,11 @@ pageEncoding="UTF-8"%>
                 </div>
 
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="/post/list/1">내블로그</a>
+                    <a
+                        class="dropdown-item"
+                        href="/post/list/${principal.userId}"
+                        >내블로그</a
+                    >
                     <a class="dropdown-item" href="/update/1">계정관리</a>
                     <a class="dropdown-item" href="/write/category"
                         >카테고리관리</a
@@ -88,9 +92,13 @@ pageEncoding="UTF-8"%>
                 </div>
             </div>
 
-            <div>
-                <a class="my_main_start_btn" href="/">시작하기</a>
-            </div>
+            <c:choose>
+                <c:when test="${empty principal}">
+                    <div>
+                        <a class="my_main_start_btn" href="/login">시작하기</a>
+                    </div>
+                </c:when>
+            </c:choose>
         </nav>
         <br />
     </body>
