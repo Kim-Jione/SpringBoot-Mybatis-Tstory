@@ -41,6 +41,16 @@ public class UserController {
         return "/user/joinForm";
     }
 
+    @PostMapping("/join")
+    public String join(JoinDto joinDto) {
+        User userPS = userDao.findByUsername(joinDto.getUsername());
+        if (userPS == null) {
+            userDao.insertJoin(joinDto);
+            return "redirect:/login";
+        }
+        return "redirect:/join";
+    }
+
     @GetMapping("/login")
     public String loginForm() {
         return "/user/loginForm";
