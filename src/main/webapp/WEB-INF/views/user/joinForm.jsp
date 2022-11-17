@@ -6,7 +6,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
         <div class="my_auth_form_box">
             <div class="my_auth_form_box_title">JSotry</div>
             <div class="my_error_box my_hidden"></div>
-            <form action="/join" method="post" onsubmit="return validation()">
+            <form action="/join" method="post">
                 <input
                     id="username"
                     class="my_auth_form_box_input"
@@ -41,7 +41,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                     placeholder="이메일"
                     maxlength="60"
                     required
-                />  
+                />
                 <button type="submit" class="my_secondary_btn">회원가입</button>
             </form>
             <div class="my_auth_form_box_link">

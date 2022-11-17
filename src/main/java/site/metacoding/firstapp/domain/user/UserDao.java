@@ -2,6 +2,8 @@ package site.metacoding.firstapp.domain.user;
 
 import java.util.List;
 
+import site.metacoding.firstapp.web.dto.request.JoinDto;
+
 public interface UserDao {
 
 	public User findById(Integer userId);
@@ -13,4 +15,8 @@ public interface UserDao {
 	public void update(User user);
 
 	public void delete(User user);
+
+	public void insertJoin(JoinDto joinDto);
+
+	public User findByUsername(String username);
 }
