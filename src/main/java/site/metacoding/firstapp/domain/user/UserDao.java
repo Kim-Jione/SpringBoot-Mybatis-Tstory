@@ -2,7 +2,7 @@ package site.metacoding.firstapp.domain.user;
 
 import java.util.List;
 
-import site.metacoding.firstapp.web.dto.request.JoinDto;
+import site.metacoding.firstapp.web.dto.request.LoginDto;
 
 public interface UserDao {
 
@@ -17,4 +17,6 @@ public interface UserDao {
 	public void delete(User user);
 
 	public User findByUsername(String username);
+
+	public User login(LoginDto loginDto);
 }
