@@ -45,7 +45,7 @@ public class UserController {
     public String join(JoinDto joinDto) {
         User userPS = userDao.findByUsername(joinDto.getUsername());
         if (userPS == null) {
-            userDao.insertJoin(joinDto);
+            userDao.insert(joinDto.toEntity());
             return "redirect:/login";
         }
         return "redirect:/join";

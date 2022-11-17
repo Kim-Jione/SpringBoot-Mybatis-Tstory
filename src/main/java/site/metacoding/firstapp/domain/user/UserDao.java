@@ -16,7 +16,5 @@ public interface UserDao {
 
 	public void delete(User user);
 
-	public void insertJoin(JoinDto joinDto);
-
 	public User findByUsername(String username);
 }

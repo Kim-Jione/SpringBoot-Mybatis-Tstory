@@ -15,4 +15,10 @@ public class User {
 	private String profileImg;
 	private Timestamp updatedAt;
 	private Timestamp createdAt;
+
+	public User(String username, String password, String email) {
+		this.username = username;
+		this.password = password;
+		this.email = email;
+	}
 }

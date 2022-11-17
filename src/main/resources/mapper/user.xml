@@ -22,12 +22,6 @@
 		VALUES(#{username}, #{password}, #{email}, #{profileImg}, now(), now())
 	</insert>
 
-	<insert id="insertJoin">
-          INSERT
-		INTO user(username, password, email, updated_at, created_at)
-		VALUES(#{username}, #{password}, #{email},  now(), now())
-    </insert>
-
     <update id="update">
           UPDATE user
 		  SET username = #{username},
