@@ -13,4 +13,6 @@ public interface CategoryDao {
 	public void update(Category category);
 
 	public void delete(Category category);
+
+	public Category findByUserId(Integer userId);
 }

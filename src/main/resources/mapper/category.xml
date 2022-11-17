@@ -32,6 +32,10 @@
 		DELETE FROM category WHERE category_id = #{categoryId}
 	</delete>
 
-
+	<select id="findByUserId"
+		resultType="site.metacoding.firstapp.domain.category.Category">
+		SELECT * FROM category WHERE user_id=#{userId}
+	</select>
 
 </mapper>
+

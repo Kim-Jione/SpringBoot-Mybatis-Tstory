@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
+
 <style>
     .ql-editor {
         min-height: 40vh;
@@ -10,13 +11,15 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
     <form
         id="hello"
         action=""
-        method=""
+        method="post"
         enctype="multipart/form-data"
         onsubmit="return getQuill()"
     >
         <div class="form-group">
             <select class="form-control" name="categoryId">
-                <option value="">제목</option>
+                <option value="categoryTitle">
+                    ${categoryTitle.categoryTitle}
+                </option>
             </select>
         </div>
         <input
@@ -81,27 +84,11 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
     </form>
     <br />
 </div>
-
 <script>
     function getQuill() {
         let quillContent = $("#editor-container .ql-editor").html();
         $("#content").html(quillContent);
         return true;
     }
-</script>
-
-<!-- Include the Quill library -->
-<!-- <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script> -->
-
-<script>
-    var quill = new Quill("#editor-container", {
-        modules: {
-            formula: true,
-            syntax: true,
-            toolbar: "#toolbar-container",
-        },
-        placeholder: "게시물을 작성해주세요.",
-        theme: "snow",
-    });
 </script>
 <%@ include file="../layout/footer.jsp"%>
