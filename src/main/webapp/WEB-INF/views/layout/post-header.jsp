@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<!DOCTYPE html><%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
 <html lang="ko">
     <head>
         <title>Bootstrap Example</title>
@@ -77,13 +78,11 @@
                         />
                     </div>
                     <div class="dropdown-menu my_dropdown_menu">
-                        <a class="dropdown-item" href=""
+                        <a class="dropdown-item" href="/post/list/1"
                             >내블로그</a
                         >
-                        <a class="dropdown-item" href=""
-                            >계정관리</a
-                        >
-                        <a class="dropdown-item" href=""
+                        <a class="dropdown-item" href="/update/1">계정관리</a>
+                        <a class="dropdown-item" href="/write/category"
                             >카테고리관리</a
                         >
                         <a class="dropdown-item" href="/logout">로그아웃</a>
@@ -91,7 +90,7 @@
                 </div>
 
                 <div>
-                    <a class="my_main_start_btn" href="">시작하기</a>
+                    <a class="my_main_start_btn" href="/">시작하기</a>
                 </div>
             </ul>
 

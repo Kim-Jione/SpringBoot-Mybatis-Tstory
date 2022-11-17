@@ -50,9 +50,4 @@ public class UserController {
         return "/user/updateForm";
     }
 
-    @GetMapping({ "main", "/" })
-    public String mainForm() {
-        return "/mainForm";
-    }
-
 }

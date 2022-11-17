@@ -27,9 +27,8 @@ pageEncoding="UTF-8"%>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/iScroll/5.2.0/iscroll.min.js"></script>
         <!-- drawer.js -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/drawer/3.2.2/js/drawer.min.js"></script>
-        <link
-            href="https://cdn.quilljs.com/1.3.6/quill.snow.css"
-            rel="stylesheet"
+
+        <link rel="stylesheet" href="/css/styles.css" />
         />
 
         <link rel="stylesheet" href="/css/styles.css" />
@@ -64,9 +63,14 @@ pageEncoding="UTF-8"%>
                     </g>
                 </svg>
             </a>
-            
+
             <div class="dropdown dropleft">
                 <div data-toggle="dropdown">
+                    <img
+                        id="profile-img-btn"
+                        src=""
+                        class="my_profile_rounded_img_btn dropdown-toggle"
+                    />
                     <img
                         id="profile-img-btn"
                         src="https://i1.sndcdn.com/avatars-000373392764-zp0p80-t500x500.jpg"
@@ -75,15 +79,17 @@ pageEncoding="UTF-8"%>
                 </div>
 
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="">내블로그</a>
-                    <a class="dropdown-item" href="">계정관리</a>
-                    <a class="dropdown-item" href="">카테고리관리</a>
+                    <a class="dropdown-item" href="/post/list/1">내블로그</a>
+                    <a class="dropdown-item" href="/update/1">계정관리</a>
+                    <a class="dropdown-item" href="/write/category"
+                        >카테고리관리</a
+                    >
                     <a class="dropdown-item" href="/logout">로그아웃</a>
                 </div>
             </div>
 
             <div>
-                <a class="my_main_start_btn" href="">시작하기</a>
+                <a class="my_main_start_btn" href="/">시작하기</a>
             </div>
         </nav>
         <br />

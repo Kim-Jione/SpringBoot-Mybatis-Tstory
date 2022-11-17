@@ -3,7 +3,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
 
 <div class="container">
     <div class="d-flex justify-content-end my_mb_sm_1">
-        <a href="" class="my_atag_none">
+        <a href="/write/post/1" class="my_atag_none">
             <div
                 class="my_icon_rounded_btn d-flex justify-content-center align-items-center"
             >
@@ -22,7 +22,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
                 <div class="my_text_title my_ellipsis">제목</div>
                 <div class="my_text_body_sm">날짜</div>
                 <div class="my_mt_md_1">
-                    <a href="" class="my_success_btn">Read More</a>
+                    <a href="/post/detail/1" class="my_success_btn">더보기</a>
                 </div>
             </div>
         </div>
