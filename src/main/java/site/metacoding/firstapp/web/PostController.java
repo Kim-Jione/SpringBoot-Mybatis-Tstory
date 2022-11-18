@@ -27,12 +27,13 @@ public class PostController {
 	private final PostService postService;
 
 	@GetMapping("/post/detail/{postId}")
-	public String detail(@PathVariable Integer postId) {
+	public String detail(@PathVariable Integer postId, Model model) {
 		return "/post/detailForm";
 	}
 
 	@GetMapping("/post/list/{userId}")
-	public String list(@PathVariable Integer userId) {
+	public String list(@PathVariable Integer userId, Model model) {
+		model.addAttribute("postList", postDao.findByUserId(userId));
 		return "/post/listForm";
 	}
 
@@ -43,9 +44,7 @@ public class PostController {
 			return "redirect:/login";
 		}
 		List<Category> titleDto = categoryDao.findByUserId(principal.getUserId());
-
 		model.addAttribute("titleList", titleDto);
-
 		return "/post/writeForm";
 	}
 

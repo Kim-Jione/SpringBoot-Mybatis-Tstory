@@ -38,7 +38,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
             <ul class="drawer-menu">
                 <li><a class="drawer-brand" href="/">Home</a></li>
                 <li>
-                    <a class="drawer-menu-item" href="">카테고리 제목</a>
+                    <a class="drawer-menu-item" href="">카테고리명</a>
                 </li>
             </ul>
 
