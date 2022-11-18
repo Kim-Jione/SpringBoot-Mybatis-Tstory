@@ -28,6 +28,7 @@ public class PostController {
 
 	@GetMapping("/post/detail/{postId}")
 	public String detail(@PathVariable Integer postId, Model model) {
+		model.addAttribute("postList", postDao.findById(postId));
 		return "/post/detailForm";
 	}
 

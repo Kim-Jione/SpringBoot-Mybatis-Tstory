@@ -7,11 +7,13 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
     <input id="my-loveId" type="hidden" value="" />
 
     <div class="my_post_detail_title">
-        <h2>제목</h2>
+        <h2>${postList.postTitle}</h2>
     </div>
+    <div>최근 수정일: ${postList.updatedAt}</div>
     <hr />
 
-    <div class="my_post_detail_content">내용</div>
+    <div class="my_post_detail_content">${postList.postContent}</div>
+
     <div class="my_post_info_box d-flex">
         <div class="my_post_info">
             <i
