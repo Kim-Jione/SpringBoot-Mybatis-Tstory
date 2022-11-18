@@ -6,84 +6,44 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
         min-height: 40vh;
     }
 </style>
-
 <div class="container">
-    <form
-        id="hello"
-        action=""
-        method="post"
-        enctype="multipart/form-data"
-        onsubmit="return getQuill()"
-    >
+    <form action="/write/post" method="post">
+        <!-- 카테고리 목록 -->
         <div class="form-group">
             <select class="form-control" name="categoryId">
-                <option value="categoryTitle">
-                    ${categoryTitle.categoryTitle}
-                </option>
+                <c:forEach var="category" items="${titleList}">
+                    <option value="${category.categoryId}">${category.categoryTitle}</option>
+                </c:forEach>
             </select>
+
+            <input type="hidden" name="userId" value="${titleList[0].userId}" />
         </div>
+
         <input
             type="text"
-            placeholder="Enter Title"
-            name="title"
+            placeholder="제목을 입력하세요"
+            name="postTitle"
             class="form-control"
         />
-
-        <div id="toolbar-container">
-            <span class="ql-formats">
-                <select class="ql-font"></select>
-                <select class="ql-size"></select>
-            </span>
-            <span class="ql-formats">
-                <button class="ql-bold"></button>
-                <button class="ql-italic"></button>
-                <button class="ql-underline"></button>
-                <button class="ql-strike"></button>
-            </span>
-            <span class="ql-formats">
-                <select class="ql-color"></select>
-                <select class="ql-background"></select>
-            </span>
-            <span class="ql-formats">
-                <button class="ql-script" value="sub"></button>
-                <button class="ql-script" value="super"></button>
-            </span>
-            <span class="ql-formats">
-                <button class="ql-header" value="1"></button>
-                <button class="ql-header" value="2"></button>
-                <button class="ql-blockquote"></button>
-            </span>
-            <span class="ql-formats">
-                <button class="ql-list" value="ordered"></button>
-                <button class="ql-list" value="bullet"></button>
-                <button class="ql-indent" value="-1"></button>
-                <button class="ql-indent" value="+1"></button>
-            </span>
-            <span class="ql-formats">
-                <button class="ql-direction" value="rtl"></button>
-                <select class="ql-align"></select>
-            </span>
-            <span class="ql-formats">
-                <button class="ql-link"></button>
-                <button class="ql-image"></button>
-                <button class="ql-video"></button>
-            </span>
-            <span class="ql-formats">
-                <button class="ql-clean"></button>
-            </span>
+        <div class="mb-3">
+            <textarea
+                id="content"
+                class="form-control"
+                rows="8"
+                name="postContent"
+            ></textarea>
         </div>
-
-        <div id="editor-container"></div>
-        <textarea name="content" id="content" class="my_hidden"> </textarea>
         <div class="form-control d-flex justify-content-end">
             <div>
-                섬네일 사진 등록 : <input type="file" name="thumnailFile" />
+                섬네일 사진 등록 :
+                <input type="file" name="postThumnail" />
             </div>
         </div>
         <button type="submit" class="my_active_btn">글쓰기 등록</button>
     </form>
     <br />
 </div>
+
 <script>
     function getQuill() {
         let quillContent = $("#editor-container .ql-editor").html();
@@ -91,4 +51,20 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
         return true;
     }
 </script>
+
+<!-- Include the Quill library -->
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+<script>
+    var quill = new Quill("#editor-container", {
+        modules: {
+            formula: true,
+            syntax: true,
+            toolbar: "#toolbar-container",
+        },
+        placeholder: "게시물을 작성해주세요.",
+        theme: "snow",
+    });
+</script>
+
 <%@ include file="../layout/footer.jsp"%>

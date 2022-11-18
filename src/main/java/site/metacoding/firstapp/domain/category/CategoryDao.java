@@ -14,5 +14,6 @@ public interface CategoryDao {
 
 	public void delete(Category category);
 
-	public Category findByUserId(Integer userId);
+	public List<Category> findByUserId(Integer userId);
+
 }

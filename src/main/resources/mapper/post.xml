@@ -29,13 +29,22 @@
 		  post_thumnail = #{postThumnail},
 		  user_id = #{userId}
 		  category_id = #{categoryId}
-
     </update>
 
 	<delete id="delete">
 		DELETE FROM post WHERE post_id = #{postId}
 	</delete>
 
+    <insert id="insertSave">
+          INSERT
+		INTO post(post_title, post_content, post_thumnail, user_id, category_id)
+		VALUES(#{postTitle}, #{postContent}, #{postThumnail}, #{userId}, #{categoryId})
+    </insert>
 
+
+	<select id="findByUserId"
+		resultType="site.metacoding.firstapp.domain.post.Post">
+		SELECT * FROM post WHERE user_id=#{userId}
+	</select>
 
 </mapper>

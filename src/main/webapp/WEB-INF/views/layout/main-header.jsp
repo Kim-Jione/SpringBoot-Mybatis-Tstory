@@ -28,8 +28,10 @@ uri="http://java.sun.com/jsp/jstl/core"%>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/iScroll/5.2.0/iscroll.min.js"></script>
         <!-- drawer.js -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/drawer/3.2.2/js/drawer.min.js"></script>
-
-        <link rel="stylesheet" href="/css/styles.css" />
+        <link
+            href="https://cdn.quilljs.com/1.3.6/quill.snow.css"
+            rel="stylesheet"
+        />
 
         <link rel="stylesheet" href="/css/styles.css" />
     </head>
@@ -93,7 +95,9 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                                 href="/post/list/${principal.userId}"
                                 >내블로그</a
                             >
-                            <a class="dropdown-item" href="/update/${principal.userId}"
+                            <a
+                                class="dropdown-item"
+                                href="/update/${principal.userId}"
                                 >계정관리</a
                             >
                             <a class="dropdown-item" href="/write/category"
