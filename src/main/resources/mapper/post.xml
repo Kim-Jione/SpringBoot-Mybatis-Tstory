@@ -35,6 +35,24 @@
 		DELETE FROM post WHERE post_id = #{postId}
 	</delete>
 
+    <select id="findByIdUpdate" resultType="site.metacoding.firstapp.web.dto.response.PostUpdateDto">
+          SELECT c.category_id, c.category_title, p.post_id, p.post_title, p.post_content, p.post_thumnail, p.user_id
+		  FROM category c left JOIN post p ON c.user_id = p.user_id
+		  WHERE c.user_id = #{userId} AND c.category_id = #{categoryId} AND p.post_id = #{postId}
+    </select>
+
+
+    <update id="insertUpdate">
+           UPDATE post
+		  SET post_title = #{postTitle},
+		  post_content = #{postContent},
+		  post_thumnail = #{postThumnail},
+		  user_id = #{userId},
+		  category_id = #{categoryId}
+		  WHERE post_id = #{postId}
+    </update>
+
+
     <insert id="insertSave">
           INSERT
 		INTO post(post_title, post_content, post_thumnail, user_id, category_id)

@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class CategoryController {
-	@GetMapping("/write/category")
+	@GetMapping("/write/categoryForm")
 	public String writeForm() {
 		return "/category/writeForm";
 	}

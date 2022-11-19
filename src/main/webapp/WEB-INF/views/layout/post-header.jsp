@@ -63,7 +63,9 @@ uri="http://java.sun.com/jsp/jstl/core"%>
             <c:choose>
                 <c:when test="${empty principal}">
                     <div>
-                        <a class="my_main_start_btn" href="/login">시작하기</a>
+                        <a class="my_main_start_btn" href="/loginForm"
+                            >시작하기</a
+                        >
                     </div>
                 </c:when>
                 <c:otherwise>
@@ -85,15 +87,15 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                         <div class="dropdown-menu">
                             <a
                                 class="dropdown-item"
-                                href="/post/list/${principal.userId}"
+                                href="/post/listForm/${principal.userId}"
                                 >내블로그</a
                             >
                             <a
                                 class="dropdown-item"
-                                href="/update/${principal.userId}"
+                                href="/updateForm/${principal.userId}"
                                 >계정관리</a
                             >
-                            <a class="dropdown-item" href="/write/category"
+                            <a class="dropdown-item" href="/write/categoryForm"
                                 >카테고리관리</a
                             >
                             <a class="dropdown-item" href="/logout">로그아웃</a>

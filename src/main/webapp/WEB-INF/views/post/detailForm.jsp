@@ -7,12 +7,12 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
     <input id="my-loveId" type="hidden" value="" />
 
     <div class="my_post_detail_title">
-        <h2>${postList.postTitle}</h2>
+        <h2>${post.postTitle}</h2>
     </div>
-    <div>최근 수정일: ${postList.updatedAt}</div>
+    <div>최근 수정일: ${post.updatedAt}</div>
     <hr />
 
-    <div class="my_post_detail_content">${postList.postContent}</div>
+    <div class="my_post_detail_content">${post.postContent}</div>
 
     <div class="my_post_info_box d-flex">
         <div class="my_post_info">
@@ -28,7 +28,11 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
         </div>
     </div>
     <div class="my_mt_md_1">
-        <a class="btn btn-outline-success" href="#">수정</a>
+        <a
+            class="btn btn-outline-success"
+            href="/${post.categoryId}/${post.postId}/updateForm"
+            >수정</a
+        >
         <button id="btn-delete" class="btn btn-outline-danger">삭제</button>
     </div>
     <br />

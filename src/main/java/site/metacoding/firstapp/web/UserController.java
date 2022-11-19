@@ -19,7 +19,7 @@ public class UserController {
     private final HttpSession session;
     private final UserDao userDao;
 
-    @GetMapping("/join")
+    @GetMapping("/joinForm")
     public String joinForm() {
         return "/user/joinForm";
     }
@@ -29,12 +29,12 @@ public class UserController {
         User userPS = userDao.findByUsername(joinDto.getUsername());
         if (userPS == null) {
             userDao.insert(joinDto.toEntity());
-            return "redirect:/login";
+            return "redirect:/loginForm";
         }
-        return "redirect:/join";
+        return "redirect:/joinForm";
     }
 
-    @GetMapping("/login")
+    @GetMapping("/loginForm")
     public String loginForm() {
         return "/user/loginForm";
     }
@@ -46,7 +46,7 @@ public class UserController {
             session.setAttribute("principal", userPS);
             return "redirect:/";
         } else {
-            return "redirect:/login";
+            return "redirect:/loginForm";
         }
     }
 
@@ -56,12 +56,12 @@ public class UserController {
         return "redirect:/";
     }
 
-    @GetMapping("/passwordReset/{userId}")
-    public String passwordResetForm(@PathVariable Integer userId) {
+    @GetMapping("/passwordResetForm")
+    public String passwordResetForm() {
         return "/user/passwordResetForm";
     }
 
-    @GetMapping("/update/{userId}")
+    @GetMapping("/updateForm/{userId}")
     public String updateForm(@PathVariable Integer userId) {
         return "/user/updateForm";
     }

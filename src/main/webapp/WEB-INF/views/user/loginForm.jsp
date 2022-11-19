@@ -9,7 +9,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                     class="my_auth_form_box_input"
                     type="text"
                     name="username"
-                    placeholder="유저네임"
+                    placeholder="아이디"
                 />
                 <input
                     class="my_auth_form_box_input"
@@ -20,8 +20,10 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                 <button type="submit" class="my_secondary_btn">로그인</button>
             </form>
             <div class="my_auth_form_box_link">
-                <div><a href="">회원가입</a></div>
-                <div><a href="">비밀번호 찾기</a></div>
+                <div><a href="/joinForm">회원가입</a></div>
+                <div>
+                    <a href="/passwordResetForm">비밀번호 찾기</a>
+                </div>
             </div>
         </div>
     </div>

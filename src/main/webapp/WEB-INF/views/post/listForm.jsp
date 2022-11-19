@@ -3,7 +3,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
 
 <div class="container">
     <div class="d-flex justify-content-end my_mb_sm_1">
-        <a href="/write/post" class="my_atag_none">
+        <a href="/write/postForm" class="my_atag_none">
             <div
                 class="my_icon_rounded_btn d-flex justify-content-center align-items-center"
             >
@@ -28,7 +28,9 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
                     </div>
                     <div class="my_text_body_sm">${post.createdAt}</div>
                     <div class="my_mt_md_1">
-                        <a href="/post/detail/${post.postId}" class="my_success_btn"
+                        <a
+                            href="/post/detailForm/${post.postId}"
+                            class="my_success_btn"
                             >더보기</a
                         >
                     </div>
