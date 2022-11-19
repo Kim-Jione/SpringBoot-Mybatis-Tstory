@@ -4,12 +4,17 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
     <div class="my_auth_box">
         <div class="my_auth_form_box">
             <div class="my_auth_form_box_title">JSotry</div>
-            <form action="" method="">
+            <form action="/category/write/${principal.userId}" method="post">
                 <input
                     class="my_auth_form_box_input"
                     type="text"
-                    name="title"
+                    name="categoryTitle"
                     placeholder="카테고리명"
+                />
+                <input
+                    type="hidden"
+                    name="userId"
+                    value="${principal.userId}"
                 />
                 <button type="submit" class="my_secondary_btn">등록</button>
             </form>

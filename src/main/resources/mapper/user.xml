@@ -39,6 +39,12 @@
 		FROM user
 		WHERE username = #{username}
     </select>
+
+	<select id="findByUsernameAndEmail" resultType="site.metacoding.firstapp.domain.user.User" >
+        SELECT *
+		FROM user
+		WHERE username = #{username} AND email = #{email}
+    </select>
 	
 	<select id="login"
 		resultType="site.metacoding.firstapp.domain.user.User">

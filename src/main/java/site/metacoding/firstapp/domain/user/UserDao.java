@@ -19,4 +19,6 @@ public interface UserDao {
 	public User findByUsername(String username);
 
 	public User login(LoginDto loginDto);
+
+	public User findByUsernameAndEmail(String username, String email);
 }

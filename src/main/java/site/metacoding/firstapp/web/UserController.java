@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import lombok.RequiredArgsConstructor;
 import site.metacoding.firstapp.domain.user.User;
 import site.metacoding.firstapp.domain.user.UserDao;
+import site.metacoding.firstapp.service.UserService;
 import site.metacoding.firstapp.web.dto.request.JoinDto;
 import site.metacoding.firstapp.web.dto.request.LoginDto;
 
@@ -18,6 +19,7 @@ import site.metacoding.firstapp.web.dto.request.LoginDto;
 public class UserController {
     private final HttpSession session;
     private final UserDao userDao;
+    private final UserService userService;
 
     @GetMapping("/joinForm")
     public String joinForm() {
@@ -65,5 +67,6 @@ public class UserController {
     public String updateForm(@PathVariable Integer userId) {
         return "/user/updateForm";
     }
+  
 
 }

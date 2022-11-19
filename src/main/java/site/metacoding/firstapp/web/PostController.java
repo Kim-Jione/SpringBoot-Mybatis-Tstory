@@ -26,7 +26,6 @@ public class PostController {
 	private final HttpSession session;
 	private final PostDao postDao;
 	private final CategoryDao categoryDao;
-	private final PostService postService;
 
 	// 게시글 상세보기 페이지
 	@GetMapping("/post/detailForm/{postId}")
