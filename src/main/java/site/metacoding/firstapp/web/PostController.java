@@ -59,7 +59,8 @@ public class PostController {
 	// 게시글 삭제
 	@PostMapping("/delete/{postId}")
 	public String delete(@PathVariable Integer postId) {
-		postDao.delete(postId);;
+		postDao.delete(postId);
+		;
 		return "redirect:/";
 	}
 
@@ -75,7 +76,7 @@ public class PostController {
 	public String writeForm(Model model) {
 		User principal = (User) session.getAttribute("principal");
 		if (principal == null) {
-			return "redirect:/login";
+			return "redirect:/loginForm";
 		}
 		List<Category> titleDto = categoryDao.findByUserId(principal.getUserId());
 		model.addAttribute("titleList", titleDto);
@@ -83,9 +84,10 @@ public class PostController {
 	}
 
 	// 게시글 등록 응답
-	@PostMapping("/write/post")
-	public String write(PostSaveDto postSaveDto) {
+	@PostMapping("/write/post/{userId}")
+	public String write(@PathVariable Integer userId, PostSaveDto postSaveDto) {
 		postDao.insertSave(postSaveDto);
 		return "redirect:/post/listForm/{userId}";
 	}
+
 }
