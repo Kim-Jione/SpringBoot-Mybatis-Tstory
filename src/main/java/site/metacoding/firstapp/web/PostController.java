@@ -66,6 +66,7 @@ public class PostController {
 	// 블로그 게시글 목록 페이지
 	@GetMapping("/post/listForm/{userId}")
 	public String list(@PathVariable Integer userId, Model model) {
+		model.addAttribute("categoryList", categoryDao.findByUserId(userId));
 		model.addAttribute("postList", postDao.findByUserId(userId));
 		return "/post/listForm";
 	}

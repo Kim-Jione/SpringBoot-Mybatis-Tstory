@@ -37,4 +37,5 @@ public class CategoryController {
 		categoryDao.insertCategoryTitle(categoryTitle, principal.getUserId());
 		return "redirect:/post/listForm/{userId}";
 	}
+
 }

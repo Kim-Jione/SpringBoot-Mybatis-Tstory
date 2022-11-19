@@ -32,18 +32,21 @@ uri="http://java.sun.com/jsp/jstl/core"%>
     </head>
 
     <body class="drawer drawer--left">
-        <input type="hidden" id="principal-id" value="" />
+        <input type="hidden" id="principal-id" value="principal.userId" />
 
         <nav class="drawer-nav my_nav_slider" role="navigation">
             <ul class="drawer-menu">
                 <li><a class="drawer-brand" href="/">Home</a></li>
-                <li>
-                    <a class="drawer-menu-item" href="">카테고리명</a>
-                </li>
+                <c:forEach var="category" items="${categoryList}">
+                    <li>
+                        <a class="drawer-menu-item" href=""
+                            >${category.categoryTitle}</a
+                        >
+                    </li>
+                </c:forEach>
             </ul>
-
             <div class="my_nav_slider_visit">
-                <div>방문자수 :</div>
+                <div>블로그 방문자수 :</div>
                 <i class="fa-solid fa-camera"></i>
             </div>
         </nav>
@@ -58,7 +61,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                 </li>
             </ul>
 
-            <div class="my_navbar_title">Getinthere</div>
+            <div class="my_navbar_title">제이스토리</div>
 
             <c:choose>
                 <c:when test="${empty principal}">

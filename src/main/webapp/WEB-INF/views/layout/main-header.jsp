@@ -68,7 +68,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
             </a>
 
             <c:choose>
-                <c:when test="${empty principal}">
+                <c:when test="${principal == null}">
                     <div>
                         <a class="my_main_start_btn" href="/loginForm">시작하기</a>
                     </div>
