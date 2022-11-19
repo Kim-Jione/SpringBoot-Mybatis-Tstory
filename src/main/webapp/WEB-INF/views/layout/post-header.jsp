@@ -32,14 +32,17 @@ uri="http://java.sun.com/jsp/jstl/core"%>
     </head>
 
     <body class="drawer drawer--left">
-        <input type="hidden" id="principal-id" value="principal.userId" />
+        <input type="hidden" id="principal-id" value="" />
 
         <nav class="drawer-nav my_nav_slider" role="navigation">
             <ul class="drawer-menu">
                 <li><a class="drawer-brand" href="/">Home</a></li>
+                ${category.categoryTitle}
                 <c:forEach var="category" items="${categoryList}">
                     <li>
-                        <a class="drawer-menu-item" href=""
+                        <a
+                            class="drawer-menu-item"
+                            href="/category/listForm/${category.categoryId}/${category.userId}"
                             >${category.categoryTitle}</a
                         >
                     </li>
@@ -61,7 +64,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                 </li>
             </ul>
 
-            <div class="my_navbar_title">제이스토리</div>
+            <div class="my_navbar_title">블로그 주인명</div>
 
             <c:choose>
                 <c:when test="${empty principal}">

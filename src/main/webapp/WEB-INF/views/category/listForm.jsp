@@ -11,7 +11,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
             </div>
         </a>
     </div>
-    <h5>전체글()</h5>
+    <h5>${category.categoryTitle}()</h5>
     <div class="my_post_list">
         <c:forEach var="post" items="${postList}">
             <div class="my_post_list_item">

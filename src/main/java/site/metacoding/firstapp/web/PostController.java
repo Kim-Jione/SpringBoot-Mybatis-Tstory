@@ -63,7 +63,7 @@ public class PostController {
 		return "redirect:/";
 	}
 
-	// 블로그 게시글 목록 페이지
+	// 블로그 전체 게시글 목록 페이지
 	@GetMapping("/post/listForm/{userId}")
 	public String list(@PathVariable Integer userId, Model model) {
 		model.addAttribute("categoryList", categoryDao.findByUserId(userId));

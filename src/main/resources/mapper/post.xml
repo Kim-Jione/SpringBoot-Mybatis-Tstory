@@ -35,6 +35,11 @@
 		DELETE FROM post WHERE post_id = #{postId}
 	</delete>
 
+    <select id="findByCategoryId" resultType="site.metacoding.firstapp.domain.post.Post">
+          SELECT * FROM post WHERE category_id=#{categoryId}
+    </select>
+
+
     <select id="findByIdUpdate" resultType="site.metacoding.firstapp.web.dto.response.PostUpdateDto">
           SELECT c.category_id, c.category_title, p.post_id, p.post_title, p.post_content, p.post_thumnail, p.user_id
 		  FROM category c left JOIN post p ON c.user_id = p.user_id

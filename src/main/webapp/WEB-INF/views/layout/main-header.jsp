@@ -66,7 +66,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                     </g>
                 </svg>
             </a>
-
+ <div class="my_navbar_title"><a class="drawer-brand" href="/">제이스토리</a></div>
             <c:choose>
                 <c:when test="${principal == null}">
                     <div>
