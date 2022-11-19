@@ -17,7 +17,7 @@ public interface PostDao {
 
 	public void update(Post post);
 
-	public void delete(Post post);
+	public void delete(Integer postId);
 
 	public List<Post> findByUserId(Integer userId);
 

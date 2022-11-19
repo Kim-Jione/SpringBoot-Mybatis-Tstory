@@ -56,6 +56,13 @@ public class PostController {
 		return "redirect:/";
 	}
 
+	// 게시글 삭제
+	@PostMapping("/delete/{postId}")
+	public String delete(@PathVariable Integer postId) {
+		postDao.delete(postId);;
+		return "redirect:/";
+	}
+
 	// 블로그 게시글 목록 페이지
 	@GetMapping("/post/listForm/{userId}")
 	public String list(@PathVariable Integer userId, Model model) {

@@ -33,7 +33,9 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             href="/${post.categoryId}/${post.postId}/updateForm"
             >수정</a
         >
-        <button id="btn-delete" class="btn btn-outline-danger">삭제</button>
+        <form action="/delete/${post.postId}" method="post">
+            <button class="btn btn-danger">삭제하기</button>
+        </form>
     </div>
     <br />
 </div>
