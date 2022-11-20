@@ -68,7 +68,11 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                 </li>
             </ul>
 
-            <div class="my_navbar_title">${user.username}의 블로그</div>
+            <div class="my_navbar_title">
+                <a href="/post/listForm/${user.userId}"
+                    >${user.username}의 블로그</a
+                >
+            </div>
 
             <c:choose>
                 <c:when test="${empty principal}">
