@@ -29,7 +29,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
                     <div class="my_text_body_sm">${post.createdAt}</div>
                     <div class="my_mt_md_1">
                         <a
-                            href="/post/detailForm/${post.postId}"
+                            href="/post/detailForm/${post.postId}/${post.userId}"
                             class="my_success_btn"
                             >더보기</a
                         >

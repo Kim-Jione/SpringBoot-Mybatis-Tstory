@@ -29,10 +29,13 @@ public class PostController {
 	private final CategoryDao categoryDao;
 
 	// 게시글 상세보기 페이지
-	@GetMapping("/post/detailForm/{postId}")
-	public String detailForm(@PathVariable Integer postId, Model model) {
+	@GetMapping("/post/detailForm/{postId}/{userId}")
+	public String detailForm(@PathVariable Integer postId, @PathVariable Integer userId, Model model) {
 		PostDetailDto postDetail = postDao.findByIdAndUser(postId);
 		model.addAttribute("post", postDetail);
+		model.addAttribute("user", userDao.findById(userId));
+		model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리
+		model.addAttribute("postList", postDao.findByUserId(userId)); // 블로그 전체게시글
 		return "/post/detailForm";
 	}
 

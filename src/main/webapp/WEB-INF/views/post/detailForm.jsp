@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
+pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
 
 <div class="container">
     <div class="my_post_detail_title">
