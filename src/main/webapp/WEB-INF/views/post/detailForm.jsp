@@ -27,16 +27,19 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             ></i>
         </div>
     </div>
-    <div class="my_mt_md_1">
-        <a
-            class="btn btn-outline-success"
-            href="/${post.categoryId}/${post.postId}/updateForm"
-            >수정</a
-        >
-        <form action="/delete/${post.postId}" method="post">
-            <button class="btn btn-danger">삭제하기</button>
-        </form>
-    </div>
+
+    <c:if test="${principal.userId==post.userId}">
+        <div class="my_mt_md_1">
+            <a
+                class="btn btn-outline-success"
+                href="/${post.categoryId}/${post.postId}/updateForm"
+                >수정</a
+            >
+            <form action="/delete/${post.postId}" method="post">
+                <button class="btn btn-danger">삭제하기</button>
+            </form>
+        </div>
+    </c:if>
     <br />
 </div>
 
