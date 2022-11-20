@@ -35,6 +35,13 @@
 		  category_id = #{categoryId}
     </update>
 
+    <select id="findByIdAndUser" resultType="site.metacoding.firstapp.web.dto.response.PostDetailDto">
+          SELECT p.post_id,p.post_title,p.post_content,p.post_thumnail,p.user_id,p.category_id,p.updated_at,p.created_at, u.username
+		  FROM post p LEFT JOIN  user u ON p.user_id = u.user_id
+		  WHERE p.post_id = #{postId}
+    </select>
+
+
 	<delete id="delete">
 		DELETE FROM post WHERE post_id = #{postId}
 	</delete>

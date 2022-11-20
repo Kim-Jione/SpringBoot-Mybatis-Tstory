@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import site.metacoding.firstapp.web.dto.request.PostSaveDto;
 import site.metacoding.firstapp.web.dto.response.PostAllDto;
+import site.metacoding.firstapp.web.dto.response.PostDetailDto;
 import site.metacoding.firstapp.web.dto.response.PostUpdateDto;
 
 public interface PostDao {
@@ -32,5 +33,7 @@ public interface PostDao {
 	public List<Post> findByCategoryId(Integer categoryId);
 
 	public List<PostAllDto> findAllAndUsername();
+
+	public PostDetailDto findByIdAndUser(Integer postId);
 
 }

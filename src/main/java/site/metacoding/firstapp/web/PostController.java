@@ -17,6 +17,7 @@ import site.metacoding.firstapp.domain.post.PostDao;
 import site.metacoding.firstapp.domain.user.User;
 import site.metacoding.firstapp.domain.user.UserDao;
 import site.metacoding.firstapp.web.dto.request.PostSaveDto;
+import site.metacoding.firstapp.web.dto.response.PostDetailDto;
 import site.metacoding.firstapp.web.dto.response.PostUpdateDto;
 
 @RequiredArgsConstructor
@@ -30,7 +31,8 @@ public class PostController {
 	// 게시글 상세보기 페이지
 	@GetMapping("/post/detailForm/{postId}")
 	public String detailForm(@PathVariable Integer postId, Model model) {
-		model.addAttribute("post", postDao.findById(postId));
+		PostDetailDto postDetail = postDao.findByIdAndUser(postId);
+		model.addAttribute("post", postDetail);
 		return "/post/detailForm";
 	}
 
