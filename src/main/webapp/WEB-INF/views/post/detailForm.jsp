@@ -2,10 +2,6 @@
 pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
 
 <div class="container">
-    <input id="postId" type="hidden" value="" />
-    <input id="pageOwnerId" type="hidden" value="" />
-    <input id="my-loveId" type="hidden" value="" />
-
     <div class="my_post_detail_title">
         <h2>${post.postTitle}</h2>
     </div>

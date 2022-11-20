@@ -51,10 +51,10 @@ public class PostController {
 	}
 
 	// 게시글 수정 응답
-	@PostMapping("/update/post")
+	@PostMapping("/update/post/{userId}")
 	public String update(PostUpdateDto postUpdateDto) {
 		postDao.insertUpdate(postUpdateDto);
-		return "redirect:/";
+		return "redirect:/post/listForm/{userId}";
 	}
 
 	// 게시글 삭제

@@ -7,17 +7,19 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
     }
 </style>
 <div class="container">
-    <form action="/update/post" method="post">
+    <form action="/update/post/${post.userId}" method="post">
         <!-- 카테고리 목록 -->
         <div class="form-group">
             <select class="form-control" name="categoryId">
                 <option>${post.categoryTitle}</option>
                 <c:forEach var="category" items="${titleList}"
-                    ><option value="${category.categoryId}">${category.categoryTitle}</option>
+                    ><option value="${category.categoryId}">
+                        ${category.categoryTitle}
+                    </option>
                 </c:forEach>
             </select>
 
-            <input type="hidden" name="userId" value="${post.userId}" />
+            <input type="hidden" name="userId" value="${principal.userId}" />
             <input type="hidden" name="postId" value="${post.postId}" />
         </div>
 
