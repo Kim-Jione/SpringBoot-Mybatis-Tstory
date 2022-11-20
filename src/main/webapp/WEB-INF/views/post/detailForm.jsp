@@ -9,7 +9,10 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
     <div class="my_post_detail_title">
         <h2>${post.postTitle}</h2>
     </div>
-    <div>작성자: ${post.username} 최근 수정일: ${post.updatedAt}</div>
+    <div>
+        작성자:<a href="/post/listForm/${post.userId}"> ${post.username}</a>
+        최근 수정일: ${post.updatedAt}
+    </div>
     <hr />
 
     <div class="my_post_detail_content">${post.postContent}</div>
