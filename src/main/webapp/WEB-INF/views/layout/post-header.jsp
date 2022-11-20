@@ -37,7 +37,6 @@ uri="http://java.sun.com/jsp/jstl/core"%>
         <nav class="drawer-nav my_nav_slider" role="navigation">
             <ul class="drawer-menu">
                 <li><a class="drawer-brand" href="/">Home</a></li>
-                ${category.categoryTitle}
                 <c:forEach var="category" items="${categoryList}">
                     <li>
                         <a
