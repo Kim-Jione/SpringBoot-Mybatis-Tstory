@@ -12,12 +12,14 @@ import lombok.RequiredArgsConstructor;
 import site.metacoding.firstapp.domain.category.CategoryDao;
 import site.metacoding.firstapp.domain.post.PostDao;
 import site.metacoding.firstapp.domain.user.User;
+import site.metacoding.firstapp.domain.user.UserDao;
 
 @RequiredArgsConstructor
 @Controller
 public class CategoryController {
 	private final CategoryDao categoryDao;
 	private final PostDao postDao;
+	private final UserDao userDao;
 	private final HttpSession session;
 
 	@GetMapping("/write/categoryForm")
@@ -40,9 +42,11 @@ public class CategoryController {
 	// 블로그 카테고리별 게시글 목록 페이지
 	@GetMapping("/category/listForm/{categoryId}/{userId}")
 	public String listForm(@PathVariable Integer categoryId, @PathVariable Integer userId, Model model) {
+		model.addAttribute("user", userDao.findById(userId));
+
 		model.addAttribute("category", categoryDao.findById(categoryId)); // 카테고리 제목 표시
 		model.addAttribute("postList", postDao.findByCategoryId(categoryId)); // 카테고리 내부 게시글
 		model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 유저 카테고리 내용
-		return "/category/listForm"; 
+		return "/category/listForm";
 	}
 }

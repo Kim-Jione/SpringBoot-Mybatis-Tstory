@@ -32,11 +32,16 @@ uri="http://java.sun.com/jsp/jstl/core"%>
     </head>
 
     <body class="drawer drawer--left">
-        <input type="hidden" id="principal-id" value="" />
-
         <nav class="drawer-nav my_nav_slider" role="navigation">
             <ul class="drawer-menu">
                 <li><a class="drawer-brand" href="/">Home</a></li>
+                <li>
+                    <a
+                        class="drawer-menu-item"
+                        href="/post/listForm/${user.userId}"
+                        >전체 게시글 보기</a
+                    >
+                </li>
                 <c:forEach var="category" items="${categoryList}">
                     <li>
                         <a

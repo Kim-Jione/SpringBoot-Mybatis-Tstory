@@ -15,6 +15,7 @@ import site.metacoding.firstapp.domain.category.Category;
 import site.metacoding.firstapp.domain.category.CategoryDao;
 import site.metacoding.firstapp.domain.post.PostDao;
 import site.metacoding.firstapp.domain.user.User;
+import site.metacoding.firstapp.domain.user.UserDao;
 import site.metacoding.firstapp.web.dto.request.PostSaveDto;
 import site.metacoding.firstapp.web.dto.response.PostUpdateDto;
 
@@ -23,6 +24,7 @@ import site.metacoding.firstapp.web.dto.response.PostUpdateDto;
 public class PostController {
 	private final HttpSession session;
 	private final PostDao postDao;
+	private final UserDao userDao;
 	private final CategoryDao categoryDao;
 
 	// 게시글 상세보기 페이지
@@ -64,8 +66,9 @@ public class PostController {
 	// 블로그 전체 게시글 목록 페이지
 	@GetMapping("/post/listForm/{userId}")
 	public String list(@PathVariable Integer userId, Model model) {
-		model.addAttribute("categoryList", categoryDao.findByUserId(userId));
-		model.addAttribute("postList", postDao.findByUserId(userId));
+		model.addAttribute("user", userDao.findById(userId));
+		model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리
+		model.addAttribute("postList", postDao.findByUserId(userId)); // 블로그 전체게시글
 		return "/post/listForm";
 	}
 
