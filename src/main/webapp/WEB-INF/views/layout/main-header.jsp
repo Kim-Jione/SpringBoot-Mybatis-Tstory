@@ -4,7 +4,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <html lang="ko">
     <head>
-        <title>Bootstrap Example</title>
+        <title>제이스토리</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link
@@ -66,11 +66,15 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                     </g>
                 </svg>
             </a>
- <div class="my_navbar_title"><a class="drawer-brand" href="/">제이스토리</a></div>
+            <div class="my_navbar_title">
+                <a class="drawer-brand" href="/">제이스토리</a>
+            </div>
             <c:choose>
                 <c:when test="${principal == null}">
                     <div>
-                        <a class="my_main_start_btn" href="/loginForm">시작하기</a>
+                        <a class="my_main_start_btn" href="/loginForm"
+                            >시작하기</a
+                        >
                     </div>
                 </c:when>
                 <c:otherwise>
@@ -95,9 +99,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                                 href="/post/listForm/${principal.userId}"
                                 >내블로그</a
                             >
-                            <a
-                                class="dropdown-item"
-                                href="/updateForm"
+                            <a class="dropdown-item" href="/updateForm"
                                 >계정관리</a
                             >
                             <a class="dropdown-item" href="/write/categoryForm"
@@ -110,5 +112,3 @@ uri="http://java.sun.com/jsp/jstl/core"%>
             </c:choose>
         </nav>
         <br />
-    </body>
-</html>

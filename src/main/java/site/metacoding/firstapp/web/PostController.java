@@ -13,10 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import lombok.RequiredArgsConstructor;
 import site.metacoding.firstapp.domain.category.Category;
 import site.metacoding.firstapp.domain.category.CategoryDao;
-import site.metacoding.firstapp.domain.post.Post;
 import site.metacoding.firstapp.domain.post.PostDao;
 import site.metacoding.firstapp.domain.user.User;
-import site.metacoding.firstapp.service.PostService;
 import site.metacoding.firstapp.web.dto.request.PostSaveDto;
 import site.metacoding.firstapp.web.dto.response.PostUpdateDto;
 

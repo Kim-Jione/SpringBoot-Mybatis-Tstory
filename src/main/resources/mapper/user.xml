@@ -13,7 +13,6 @@
 		resultType="site.metacoding.firstapp.domain.user.User">
 		SELECT *
 		FROM user 
-		WHERE user_id=#{userId}
 	</select>
 
 	<insert id="insert">

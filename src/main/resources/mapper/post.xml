@@ -13,8 +13,12 @@
 		resultType="site.metacoding.firstapp.domain.post.Post">
 		SELECT *
 		FROM post 
-		WHERE post_id=#{postId}
 	</select>
+
+    <select id="findAllAndUsername" resultType="site.metacoding.firstapp.web.dto.response.PostAllDto">
+        SELECT u.user_id, p.post_id, u.username, p.post_title, p.post_thumnail
+		FROM post p LEFT JOIN  user u ON p.user_id = u.user_id
+    </select>
 
 	<insert id="insert">
 		INSERT
@@ -34,6 +38,8 @@
 	<delete id="delete">
 		DELETE FROM post WHERE post_id = #{postId}
 	</delete>
+
+
 
     <select id="findByCategoryId" resultType="site.metacoding.firstapp.domain.post.Post">
           SELECT * FROM post WHERE category_id=#{categoryId}

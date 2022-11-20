@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import site.metacoding.firstapp.web.dto.request.PostSaveDto;
+import site.metacoding.firstapp.web.dto.response.PostAllDto;
 import site.metacoding.firstapp.web.dto.response.PostUpdateDto;
 
 public interface PostDao {
@@ -29,5 +30,7 @@ public interface PostDao {
 			@Param("categoryId") Integer categoryId, @Param("userId") Integer userId); // 누구의 카테코리의 페이지를 수정
 
 	public List<Post> findByCategoryId(Integer categoryId);
+
+	public List<PostAllDto> findAllAndUsername();
 
 }
