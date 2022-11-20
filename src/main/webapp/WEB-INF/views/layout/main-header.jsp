@@ -97,7 +97,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                             >
                             <a
                                 class="dropdown-item"
-                                href="/updateForm/${principal.userId}"
+                                href="/updateForm"
                                 >계정관리</a
                             >
                             <a class="dropdown-item" href="/write/categoryForm"

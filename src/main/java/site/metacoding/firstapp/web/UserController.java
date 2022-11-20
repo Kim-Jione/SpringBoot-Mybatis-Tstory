@@ -3,6 +3,7 @@ package site.metacoding.firstapp.web;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +14,7 @@ import site.metacoding.firstapp.domain.user.UserDao;
 import site.metacoding.firstapp.service.UserService;
 import site.metacoding.firstapp.web.dto.request.JoinDto;
 import site.metacoding.firstapp.web.dto.request.LoginDto;
+import site.metacoding.firstapp.web.dto.request.UserUpdateDto;
 
 @RequiredArgsConstructor
 @Controller
@@ -63,10 +65,22 @@ public class UserController {
         return "/user/passwordResetForm";
     }
 
-    @GetMapping("/updateForm/{userId}")
-    public String updateForm(@PathVariable Integer userId) {
+    // 계정 수정 페이지
+    @GetMapping("/updateForm")
+    public String updateForm(Model model) {
+        User principal = (User) session.getAttribute("principal");
+        if (principal == null) {
+            return "redirect:/loginForm";
+        }
+        model.addAttribute("user", userDao.findById(principal.getUserId()));
         return "/user/updateForm";
     }
-  
+
+    // 계정 수정 응답
+    @PostMapping("/user/update")
+    public String write(UserUpdateDto userUpdateDto) {
+        userDao.updateById(userUpdateDto);
+        return "redirect:/";
+    }
 
 }

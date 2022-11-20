@@ -22,14 +22,6 @@
 		VALUES(#{username}, #{password}, #{email}, #{profileImg}, now(), now())
 	</insert>
 
-    <update id="update">
-          UPDATE user
-		  SET username = #{username},
-		  password = #{password},
-		  email = #{email},
-		  profile_img = #{profileImg}
-    </update>
-
 	<delete id="delete">
 		DELETE FROM user WHERE user_id = #{userId}
 	</delete>
@@ -38,6 +30,22 @@
         SELECT *
 		FROM user
 		WHERE username = #{username}
+    </select>
+	
+
+	 <update id="updateById">
+          UPDATE user
+		  SET username = #{username},
+		  password = #{passwordUpdate},
+		  email = #{email},
+		  profile_img = #{profileImg}
+		  WHERE user_id = #{userId}
+    </update>
+
+ 	<select id="findByUsernameAndPassword" resultType="site.metacoding.firstapp.domain.user.User" >
+        SELECT *
+		FROM user
+		WHERE username=#{username} AND password = #{password}
     </select>
 
 	<select id="findByUsernameAndEmail" resultType="site.metacoding.firstapp.domain.user.User" >
@@ -49,6 +57,13 @@
 	<select id="login"
 		resultType="site.metacoding.firstapp.domain.user.User">
 		SELECT * FROM user WHERE username=#{username} AND password = #{password}
+	</select>
+
+	<select id="findByUser"
+		resultType="site.metacoding.firstapp.domain.user.User">
+		SELECT * 
+		FROM user 
+		WHERE username=#{username} AND password = #{password} AND email=#{email} AND user_id = #{userId}
 	</select>
 
 </mapper>
