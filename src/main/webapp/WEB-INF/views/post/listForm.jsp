@@ -53,17 +53,6 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
 				href="?page=${paging.currentPage+1}">이후</a></li>
 		</ul>
 	</div>
-        <div style="background-color: grey">
-            <h3>blockCount : ${paging.blockCount}</h3>
-            <h3>currentBlock : ${paging.currentBlock}</h3>
-            <h3>startPageNum : ${paging.startPageNum}</h3>
-            <h3>lastPageNum : ${paging.lastPageNum}</h3>
-            <h3>totalCount : ${paging.totalCount}</h3>
-            <h3>totalPage : ${paging.totalPage}</h3>
-            <h3>currentPage : ${paging.currentPage}</h3>
-            <h3>isLast : ${paging.last}</h3>
-            <h3>isFirst : ${paging.first}</h3>
-        </div>
-    </div>
+        
 </div>
 <%@ include file="../layout/footer.jsp"%>
