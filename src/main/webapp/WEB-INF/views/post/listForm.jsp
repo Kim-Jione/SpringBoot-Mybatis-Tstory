@@ -39,20 +39,30 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
         </c:forEach>
 
         <!-- 페이지 -->
-        <div
-            class="my_paging d-flex justify-content-center align-items-center my_mb_lg_1"
-        >
-            <a class="my_atag_none my_mr_sm_1" href="">
-                <i class="fa-solid fa-angle-left"></i>
-            </a>
+        <div class="d-flex justify-content-center">
+		<ul class="pagination">
+			<li class='page-item ${paging.first ? "disabled" : ""}'><a class="page-link"
+				href="?page=${paging.currentPage-1}">이전</a></li>
 
-            <a class="my_atag_none" href="">
-                <div class="my_paging_number_box my_mr_sm_1"></div>
-            </a>
+			<c:forEach var="num" begin="${paging.startPageNum}" end="${paging.lastPageNum}" step="1">
+				<li class='page-item ${paging.currentPage == num-1 ? "active" : ""}'><a class='page-link'
+					href="?page=${num-1}">${num}</a></li>
+			</c:forEach>
 
-            <a class="my_atag_none my_ml_sm_1" href="">
-                <i class="fa-solid fa-angle-right"></i>
-            </a>
+			<li class='page-item ${paging.last ? "disabled" : ""}'><a class="page-link"
+				href="?page=${paging.currentPage+1}">이후</a></li>
+		</ul>
+	</div>
+        <div style="background-color: grey">
+            <h3>blockCount : ${paging.blockCount}</h3>
+            <h3>currentBlock : ${paging.currentBlock}</h3>
+            <h3>startPageNum : ${paging.startPageNum}</h3>
+            <h3>lastPageNum : ${paging.lastPageNum}</h3>
+            <h3>totalCount : ${paging.totalCount}</h3>
+            <h3>totalPage : ${paging.totalPage}</h3>
+            <h3>currentPage : ${paging.currentPage}</h3>
+            <h3>isLast : ${paging.last}</h3>
+            <h3>isFirst : ${paging.first}</h3>
         </div>
     </div>
 </div>

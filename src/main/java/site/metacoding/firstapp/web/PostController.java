@@ -16,9 +16,11 @@ import site.metacoding.firstapp.domain.category.CategoryDao;
 import site.metacoding.firstapp.domain.post.PostDao;
 import site.metacoding.firstapp.domain.user.User;
 import site.metacoding.firstapp.domain.user.UserDao;
-import site.metacoding.firstapp.web.dto.request.PostSaveDto;
-import site.metacoding.firstapp.web.dto.response.PostDetailDto;
-import site.metacoding.firstapp.web.dto.response.PostUpdateDto;
+import site.metacoding.firstapp.web.dto.request.post.PostSaveDto;
+import site.metacoding.firstapp.web.dto.response.post.PagingDto;
+import site.metacoding.firstapp.web.dto.response.post.PostAllDto;
+import site.metacoding.firstapp.web.dto.response.post.PostDetailDto;
+import site.metacoding.firstapp.web.dto.response.post.PostUpdateDto;
 
 @RequiredArgsConstructor
 @Controller
@@ -70,10 +72,19 @@ public class PostController {
 
 	// 블로그 전체 게시글 목록 페이지
 	@GetMapping("/post/listForm/{userId}")
-	public String list(@PathVariable Integer userId, Model model) {
+	public String list(@PathVariable Integer userId, Integer page, Model model) {
+		if (page == null) {
+			page = 0;
+		}
+		Integer startNum = page * 5;
+		List<PostAllDto> postList = postDao.findAllPost(userId, startNum);
+		PagingDto paging = postDao.paging(userId, page);
+		paging.makeBlockInfo();
+
+		model.addAttribute("paging", paging);
 		model.addAttribute("user", userDao.findById(userId));
 		model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리
-		model.addAttribute("postList", postDao.findByUserId(userId)); // 블로그 전체게시글
+		model.addAttribute("postList", postList); // 블로그 전체게시글
 		return "/post/listForm";
 	}
 

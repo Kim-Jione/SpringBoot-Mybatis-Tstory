@@ -1,4 +1,4 @@
-package site.metacoding.firstapp.web.dto.response;
+package site.metacoding.firstapp.web.dto.response.post;
 
 import java.sql.Timestamp;
 
@@ -7,14 +7,13 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class PostDetailDto {
+public class PostAllDto {
 	private Integer postId;
 	private String postTitle;
-	private String postContent;
-	private String postThumnail;
+	private String username;
 	private Integer userId;
+	private String postThumnail;
 	private Integer categoryId;
 	private Timestamp updatedAt;
 	private Timestamp createdAt;
-	private String username;
 }
