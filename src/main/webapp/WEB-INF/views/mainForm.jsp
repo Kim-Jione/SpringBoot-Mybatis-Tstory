@@ -3,7 +3,19 @@
     
 <%@ include file="layout/main-header.jsp"%>
 <div class="container">
+    <!-- 검색바 -->
 
+<div class="form-group row justify-content-center">
+    
+    <div class="d-flex justify-content-end">
+		<div style="width: 300px">
+			<form style="display: inline-flex" method="get" action="/">
+				<input class="form-control me-2" type="text" name="keyword">
+				<button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-search -retro fa-lg"></i> </button>
+			</form>
+		</div>
+	</div>
+</div>
     <div class="my_main_list">
 
         <!-- 아이템 시작 -->
@@ -43,4 +55,5 @@
 </div>
 
 </div>
+
 <%@ include file="layout/footer.jsp"%>

@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import site.metacoding.firstapp.web.dto.request.post.PostSaveDto;
+import site.metacoding.firstapp.web.dto.response.main.KeywordDto;
 import site.metacoding.firstapp.web.dto.response.post.PagingDto;
 import site.metacoding.firstapp.web.dto.response.post.PostAllDto;
 import site.metacoding.firstapp.web.dto.response.post.PostDetailDto;
@@ -40,5 +41,7 @@ public interface PostDao {
 	public PagingDto paging(@Param("userId") Integer userId, @Param("page") Integer page);
 
 	public List<PostAllDto> findAllPost(@Param("userId") Integer userId, @Param("startNum") Integer startNum);
+
+	public List<KeywordDto> findSearchAllPost(String keyword);
 
 }
