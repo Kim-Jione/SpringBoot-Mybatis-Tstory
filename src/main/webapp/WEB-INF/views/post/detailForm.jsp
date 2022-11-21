@@ -34,8 +34,12 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
                 href="/${post.categoryId}/${post.postId}/updateForm"
                 >수정</a
             >
+        </div>
+        <div>
             <form action="/delete/${post.postId}" method="post">
-                <button class="btn btn-danger">삭제하기</button>
+                <button id="btn-delete" class="btn btn-outline-danger">
+                    삭제
+                </button>
             </form>
         </div>
     </c:if>

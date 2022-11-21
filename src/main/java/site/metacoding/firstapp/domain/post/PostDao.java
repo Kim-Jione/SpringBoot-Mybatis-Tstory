@@ -4,10 +4,11 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import site.metacoding.firstapp.web.dto.request.PostSaveDto;
-import site.metacoding.firstapp.web.dto.response.PostAllDto;
-import site.metacoding.firstapp.web.dto.response.PostDetailDto;
-import site.metacoding.firstapp.web.dto.response.PostUpdateDto;
+import site.metacoding.firstapp.web.dto.request.post.PostSaveDto;
+import site.metacoding.firstapp.web.dto.response.post.PagingDto;
+import site.metacoding.firstapp.web.dto.response.post.PostAllDto;
+import site.metacoding.firstapp.web.dto.response.post.PostDetailDto;
+import site.metacoding.firstapp.web.dto.response.post.PostUpdateDto;
 
 public interface PostDao {
 
@@ -35,5 +36,9 @@ public interface PostDao {
 	public List<PostAllDto> findAllAndUsername();
 
 	public PostDetailDto findByIdAndUser(Integer postId);
+
+	public PagingDto paging(@Param("userId") Integer userId, @Param("page") Integer page);
+
+	public List<PostAllDto> findAllPost(@Param("userId") Integer userId, @Param("startNum") Integer startNum);
 
 }

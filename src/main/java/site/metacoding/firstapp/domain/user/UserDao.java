@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import site.metacoding.firstapp.web.dto.request.LoginDto;
-import site.metacoding.firstapp.web.dto.request.UserUpdateDto;
+import site.metacoding.firstapp.web.dto.request.user.LoginDto;
+import site.metacoding.firstapp.web.dto.request.user.UserUpdateDto;
 
 public interface UserDao {
 

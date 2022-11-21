@@ -12,9 +12,9 @@ import lombok.RequiredArgsConstructor;
 import site.metacoding.firstapp.domain.user.User;
 import site.metacoding.firstapp.domain.user.UserDao;
 import site.metacoding.firstapp.service.UserService;
-import site.metacoding.firstapp.web.dto.request.JoinDto;
-import site.metacoding.firstapp.web.dto.request.LoginDto;
-import site.metacoding.firstapp.web.dto.request.UserUpdateDto;
+import site.metacoding.firstapp.web.dto.request.user.JoinDto;
+import site.metacoding.firstapp.web.dto.request.user.LoginDto;
+import site.metacoding.firstapp.web.dto.request.user.UserUpdateDto;
 
 @RequiredArgsConstructor
 @Controller

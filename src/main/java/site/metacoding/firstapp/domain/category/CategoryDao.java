@@ -20,8 +20,8 @@ public interface CategoryDao {
 
 	public List<Category> findByPostId(Integer postId);
 
-	public List<Category> findByCategoryTitle(@Param("userId") Integer userId, @Param("categoryId") Integer categoryId); // 기존 카테고리명 제외한 카테고리명
+	public List<Category> findByCategoryTitle(@Param("userId") Integer userId, @Param("categoryId") Integer categoryId); 
 
-	public void insertCategoryTitle(@Param("categoryTitle") String categoryTitle, @Param("userId")  Integer userId);
+	public void insertCategoryTitle(@Param("categoryTitle") String categoryTitle, @Param("userId") Integer userId);
 
 }
