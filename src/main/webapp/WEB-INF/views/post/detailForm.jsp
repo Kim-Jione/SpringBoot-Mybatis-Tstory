@@ -8,6 +8,22 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
     <div>
         작성자:<a href="/post/listForm/${post.userId}"> ${post.username}</a>
         최근 수정일: ${post.updatedAt}
+        <c:if test="${principal.userId==post.userId}">
+            <a
+                class="btn btn-outline-success"
+                href="/${post.categoryId}/${post.postId}/updateForm"
+                >수정</a
+            >
+            <form
+                action="/delete/${post.postId}"
+                method="post"
+                style="display: inline"
+            >
+                <button id="btn-delete" class="btn btn-outline-danger">
+                    삭제
+                </button>
+            </form>
+        </c:if>
     </div>
     <hr />
 
@@ -27,22 +43,6 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
         </div>
     </div>
 
-    <c:if test="${principal.userId==post.userId}">
-        <div class="my_mt_md_1">
-            <a
-                class="btn btn-outline-success"
-                href="/${post.categoryId}/${post.postId}/updateForm"
-                >수정</a
-            >
-        </div>
-        <div>
-            <form action="/delete/${post.postId}" method="post">
-                <button id="btn-delete" class="btn btn-outline-danger">
-                    삭제
-                </button>
-            </form>
-        </div>
-    </c:if>
     <br />
 </div>
 
