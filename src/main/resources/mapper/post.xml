@@ -114,7 +114,7 @@
 	FROM user u 
 	LEFT JOIN post p
 	ON u.user_id = p.user_id
-	WHERE p.post_title LIKE '%오늘은%' 
+	WHERE p.post_title LIKE '%${keyword}%' 
 	ORDER BY p.post_id DESC
     </select>
 

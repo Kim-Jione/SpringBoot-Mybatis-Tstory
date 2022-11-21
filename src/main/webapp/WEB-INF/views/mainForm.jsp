@@ -7,10 +7,10 @@
 
 <div class="form-group row justify-content-center">
     
-    <div class="d-flex justify-content-end">
-		<div style="width: 300px">
+    <div class="d-flex justify-content-end" >
+		<div style="width: 1100px">
 			<form style="display: inline-flex" method="get" action="/">
-				<input class="form-control me-2" type="text" name="keyword">
+				<input style="width: 1070px;" class="form-control me-2" type="text" name="keyword">
 				<button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-search -retro fa-lg"></i> </button>
 			</form>
 		</div>
