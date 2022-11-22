@@ -109,6 +109,16 @@
 	) p 
     </select>
 
+    <select id="findSearchAllPost" resultType="site.metacoding.firstapp.web.dto.response.main.KeywordDto">
+	SELECT p.post_title, p.user_id, u.username, p.post_id, p.post_content
+	FROM user u 
+	LEFT JOIN post p
+	ON u.user_id = p.user_id
+	WHERE p.post_title LIKE '%${keyword}%' 
+	ORDER BY p.post_id DESC
+    </select>
+
+
 
     <select id="countCategory" resultType="site.metacoding.firstapp.domain.post.Post">
         SELECT COUNT(post_title) as categoryCount

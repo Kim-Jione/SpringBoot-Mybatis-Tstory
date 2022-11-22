@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import site.metacoding.firstapp.web.dto.request.post.PostSaveDto;
+import site.metacoding.firstapp.web.dto.response.main.KeywordDto;
 import site.metacoding.firstapp.web.dto.response.post.PagingDto;
 import site.metacoding.firstapp.web.dto.response.post.PostAllDto;
 import site.metacoding.firstapp.web.dto.response.post.PostDetailDto;
@@ -44,6 +45,7 @@ public interface PostDao {
 	public Post postCount(Integer userId);
 
 	public Post countCategory(Integer categoryId);
+
 
 
 }

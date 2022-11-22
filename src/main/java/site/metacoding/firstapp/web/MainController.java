@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import lombok.RequiredArgsConstructor;
 import site.metacoding.firstapp.domain.post.PostDao;
+import site.metacoding.firstapp.web.dto.response.main.KeywordDto;
 import site.metacoding.firstapp.web.dto.response.post.PostAllDto;
 
 @RequiredArgsConstructor
@@ -16,10 +17,18 @@ public class MainController {
 	private final PostDao postDao;
 
 	@GetMapping({ "main", "/" })
-	public String mainForm(Model model) {
-		List<PostAllDto> postPS = postDao.findAllAndUsername();
-		model.addAttribute("postList", postPS);
+	public String mainForm(Model model, String keyword) {
+
+		if (keyword == null  || keyword.isEmpty()) {
+			List<PostAllDto> postPS = postDao.findAllAndUsername();
+			model.addAttribute("postList", postPS);
+		} else {
+			List<KeywordDto> postPS = postDao.findSearchAllPost(keyword);
+			model.addAttribute("postList", postPS);
+		}
+
 		return "/mainForm";
+
 	}
 
 }
