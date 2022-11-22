@@ -52,9 +52,6 @@
 		INTO category(category_title, user_id)
 		VALUES(#{categoryTitle}, #{userId})
     </insert>
-
-
-
 </mapper>
 
 

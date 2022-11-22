@@ -16,4 +16,10 @@ public class Post {
 	private Integer categoryId;
 	private Timestamp updatedAt;
 	private Timestamp createdAt;
+
+	// DB값 아님
+	private Integer postCount;
+	private Integer categoryCount;
+	
+
 }

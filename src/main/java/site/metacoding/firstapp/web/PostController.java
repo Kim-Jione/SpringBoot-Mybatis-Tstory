@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import lombok.RequiredArgsConstructor;
 import site.metacoding.firstapp.domain.category.Category;
 import site.metacoding.firstapp.domain.category.CategoryDao;
+import site.metacoding.firstapp.domain.post.Post;
 import site.metacoding.firstapp.domain.post.PostDao;
 import site.metacoding.firstapp.domain.user.User;
 import site.metacoding.firstapp.domain.user.UserDao;
@@ -81,6 +82,9 @@ public class PostController {
 		PagingDto paging = postDao.paging(userId, page);
 		paging.makeBlockInfo();
 
+		Post postPS = postDao.postCount(userId);
+
+		model.addAttribute("postCount", postPS);
 		model.addAttribute("paging", paging);
 		model.addAttribute("user", userDao.findById(userId));
 		model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리

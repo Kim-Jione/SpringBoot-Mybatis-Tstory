@@ -11,7 +11,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
             </div>
         </a>
     </div>
-    <h5>${category.categoryTitle}()</h5>
+    <h5>${category.categoryTitle}(${categoryCount.categoryCount})</h5>
     <div class="my_post_list">
         <c:forEach var="post" items="${postList}">
             <div class="my_post_list_item">
@@ -39,21 +39,20 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
         </c:forEach>
 
         <!-- 페이지 -->
-        <div
-            class="my_paging d-flex justify-content-center align-items-center my_mb_lg_1"
-        >
-            <a class="my_atag_none my_mr_sm_1" href="">
-                <i class="fa-solid fa-angle-left"></i>
-            </a>
+        <div class="d-flex justify-content-center">
+		<ul class="pagination">
+			<li class='page-item ${paging.first ? "disabled" : ""}'><a class="page-link"
+				href="?page=${paging.currentPage-1}">이전</a></li>
 
-            <a class="my_atag_none" href="">
-                <div class="my_paging_number_box my_mr_sm_1"></div>
-            </a>
+			<c:forEach var="num" begin="${paging.startPageNum}" end="${paging.lastPageNum}" step="1">
+				<li class='page-item ${paging.currentPage == num-1 ? "active" : ""}'><a class='page-link'
+					href="?page=${num-1}">${num}</a></li>
+			</c:forEach>
 
-            <a class="my_atag_none my_ml_sm_1" href="">
-                <i class="fa-solid fa-angle-right"></i>
-            </a>
-        </div>
+			<li class='page-item ${paging.last ? "disabled" : ""}'><a class="page-link"
+				href="?page=${paging.currentPage+1}">이후</a></li>
+		</ul>
+	</div>
     </div>
 </div>
 <%@ include file="../layout/footer.jsp"%>

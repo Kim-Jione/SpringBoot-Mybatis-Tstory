@@ -24,4 +24,5 @@ public interface CategoryDao {
 
 	public void insertCategoryTitle(@Param("categoryTitle") String categoryTitle, @Param("userId") Integer userId);
 
+
 }
