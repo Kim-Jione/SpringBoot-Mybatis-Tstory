@@ -109,4 +109,20 @@
 	) p 
     </select>
 
+
+    <select id="countCategory" resultType="site.metacoding.firstapp.domain.post.Post">
+        SELECT COUNT(post_title) as categoryCount
+		FROM post
+		WHERE category_id= #{categoryId}
+    </select>
+
+
+    <select id="postCount" resultType="site.metacoding.firstapp.domain.post.Post">
+        SELECT COUNT(post_title) as postCount
+		FROM post
+		WHERE user_id = #{userId}
+    </select>
+
+
+
 </mapper>

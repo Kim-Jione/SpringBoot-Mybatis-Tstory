@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import lombok.RequiredArgsConstructor;
 import site.metacoding.firstapp.domain.category.CategoryDao;
+import site.metacoding.firstapp.domain.post.Post;
 import site.metacoding.firstapp.domain.post.PostDao;
 import site.metacoding.firstapp.domain.user.User;
 import site.metacoding.firstapp.domain.user.UserDao;
@@ -53,8 +54,13 @@ public class CategoryController {
 		List<PostAllDto> postList = postDao.findAllPost(userId, startNum);
 		PagingDto paging = postDao.paging(userId, page);
 		paging.makeBlockInfo();
-		model.addAttribute("paging", paging);
+		Post postPS = postDao.postCount(userId);
 
+		Post postPS2 = postDao.countCategory( categoryId);
+
+		model.addAttribute("categoryCount", postPS2);
+		model.addAttribute("postCount", postPS);
+		model.addAttribute("paging", paging);
 		model.addAttribute("user", userDao.findById(userId));
 		model.addAttribute("category", categoryDao.findById(categoryId)); // 카테고리 제목 표시
 		model.addAttribute("postList", postDao.findByCategoryId(categoryId)); // 카테고리 내부 게시글

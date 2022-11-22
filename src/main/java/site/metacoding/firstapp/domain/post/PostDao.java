@@ -41,4 +41,9 @@ public interface PostDao {
 
 	public List<PostAllDto> findAllPost(@Param("userId") Integer userId, @Param("startNum") Integer startNum);
 
+	public Post postCount(Integer userId);
+
+	public Post countCategory(Integer categoryId);
+
+
 }
