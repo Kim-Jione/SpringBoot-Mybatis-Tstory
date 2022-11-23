@@ -14,6 +14,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                     <input
                         name="email"
                         class="my_auth_form_box_input"
+                        type="password"
                     />
                 </div>
 
