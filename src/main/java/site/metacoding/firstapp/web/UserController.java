@@ -101,13 +101,13 @@ public class UserController {
         return "/user/emailCheckForm";
     }
 
-    @GetMapping("/leaveForm")
-    public String leaveForm() {
+    @GetMapping("/leaveCheckForm")
+    public String leaveCheckForm() {
         User principal = (User) session.getAttribute("principal");
         if (principal == null) {
             return "redirect:/loginForm";
         }
-        return "/user/leaveForm";
+        return "/user/leaveCheckForm";
     }
 
     // 계정 수정 페이지
