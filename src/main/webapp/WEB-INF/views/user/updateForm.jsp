@@ -6,7 +6,6 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
 <div class="container">
     <div class="my_auth_box">
         <div class="my_auth_form_box">
-
             <!-- 프로필 이미지 -->
             <div class="d-flex justify-content-center">
                 <img
@@ -33,16 +32,15 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                     <i class="fa-solid fa-user"></i> 계정정보
                 </div>
 
-                <form action="" method="post">
                     <div style="display: flex">
                         <div class="my_auth_form_box_info_detail">아이디</div>
                         <input
                             id="username"
                             class="my_auth_form_box_input"
-                            type="text"
                             placeholder="${user.username}"
                             maxlength="20"
                             required
+                            readonly
                         />
                     </div>
                     <div style="display: flex">
@@ -57,11 +55,15 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                         />
                     </div>
                     <div style="text-align: right">
-                        <button type="submit" class="btn btn-outline-primary">
-                            저장
-                        </button>
+                        <a href="/emailCheckForm"
+                            ><button
+                                type="submit"
+                                class="btn btn-outline-primary"
+                            >
+                                저장
+                            </button></a
+                        >
                     </div>
-                </form>
             </div>
 
             <hr />

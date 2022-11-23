@@ -83,6 +83,15 @@ public class UserController {
         return "redirect:/updateForm";
     }
 
+    @GetMapping("/emailCheckForm")
+    public String emailCheckForm() {
+        User principal = (User) session.getAttribute("principal");
+        if (principal == null) {
+            return "redirect:/loginForm";
+        }
+        return "/user/emailCheckForm";
+    }
+
     @GetMapping("/leaveForm")
     public String leaveForm() {
         User principal = (User) session.getAttribute("principal");
