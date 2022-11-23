@@ -10,6 +10,8 @@
     padding: 70px;
 }
 
+
+
 .my_auth_form_security_box {
     width: 800px;
     border: 1px solid rgb(185, 185, 185);
@@ -47,6 +49,12 @@
     width: 100px;
     line-height: 60px;
 }
+
+.my_auth_form_box_info_detail_email {
+    width: 150px;
+    line-height: 60px;
+}
+
 
 .my_auth_form_box_info_security_detail {
     width: 150px;

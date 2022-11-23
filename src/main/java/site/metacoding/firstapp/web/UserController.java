@@ -87,7 +87,7 @@ public class UserController {
         User principal = (User) session.getAttribute("principal");
         User userPS = userDao.findByPassword(password, principal.getUserId());
         if (userPS == null) {
-            return "redirect:/";
+            return "redirect:/passwordCheckForm";
         }
         return "redirect:/updateForm";
     }

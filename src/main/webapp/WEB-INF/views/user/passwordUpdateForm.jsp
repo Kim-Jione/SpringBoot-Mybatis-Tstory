@@ -52,6 +52,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                     required
                 />
             </div>
+           
 
             <a href="/updateForm">
                 <div style="text-align: right">
