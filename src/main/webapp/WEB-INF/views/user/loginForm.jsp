@@ -25,7 +25,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                     <a href="/passwordResetForm">비밀번호 찾기</a>
                 </div>
             </div>
-        </div>
+        </div> 
     </div>
     <br />
 </div>

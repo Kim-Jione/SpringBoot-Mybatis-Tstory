@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%> <div class="my_footer">
+pageEncoding="UTF-8"%> <div class="my_footer" style="margin-top: 100px;">
     <div class="my_footer_left_menu">
         <div class="my_text_menu_title">JStory</div>
         <div class="my_text_menu_body">제이스토리는 마음을 담아 만듭니다.</div>
