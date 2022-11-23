@@ -5,9 +5,9 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
     <div class="my_post_detail_title">
         <h2>${post.postTitle}</h2>
     </div>
-    <div>
-        작성자:<a href="/post/listForm/${post.userId}"> ${post.username}</a>
-        최근 수정일: ${post.updatedAt}
+    <div style="display: flex;" >
+
+        <div>
         <c:if test="${principal.userId==post.userId}">
             <a
                 class="btn btn-outline-success"
@@ -19,17 +19,25 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
                 method="post"
                 style="display: inline"
             >
-                <button id="btn-delete" class="btn btn-outline-danger">
+                <button class="btn btn-outline-danger">
                     삭제
                 </button>
             </form>
         </c:if>
+        </div>
+
+
+        <div  style="padding-left: 760px;">
+        작성자:<a href="/post/listForm/${post.userId}"> ${post.username}</a>&nbsp;&nbsp;
+                최근 수정일: ${post.updatedAt}
+        </div>
     </div>
-    <hr />
+    <hr><br>
+   
 
     <div class="my_post_detail_content">${post.postContent}</div>
 
-    <div class="my_post_info_box d-flex">
+    <div class="my_post_info_box d-flex" style="margin-top: 50px;">
         <div class="my_post_info">
             <i
                 class="fa-solid fa-heart my_fake_like my_mr_sm_1"
@@ -42,6 +50,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
             ></i>
         </div>
     </div>
+    <hr>
     <!-- 라이브리 시티 설치 코드 -->
     <div id="lv-container" data-id="city" data-uid="MTAyMC81NzY3MS8zNDEzNA==">
         <script type="text/javascript">
