@@ -32,38 +32,35 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                     <i class="fa-solid fa-user"></i> 계정정보
                 </div>
 
-                    <div style="display: flex">
-                        <div class="my_auth_form_box_info_detail">아이디</div>
-                        <input
-                            id="username"
-                            class="my_auth_form_box_input"
-                            placeholder="${user.username}"
-                            maxlength="20"
-                            required
-                            readonly
-                        />
-                    </div>
-                    <div style="display: flex">
-                        <div class="my_auth_form_box_info_detail">이메일</div>
-                        <input
-                            name="email"
-                            class="my_auth_form_box_input"
-                            type="email"
-                            value="${user.email}"
-                            maxlength="60"
-                            required
-                        />
-                    </div>
-                    <div style="text-align: right">
-                        <a href="/emailCheckForm"
-                            ><button
-                                type="submit"
-                                class="btn btn-outline-primary"
-                            >
-                                저장
-                            </button></a
-                        >
-                    </div>
+                <div style="display: flex">
+                    <div class="my_auth_form_box_info_detail">아이디</div>
+                    <input
+                        id="username"
+                        class="my_auth_form_box_input"
+                        placeholder="${user.username}"
+                        maxlength="20"
+                        required
+                        readonly
+                    />
+                </div>
+                <div style="display: flex">
+                    <div class="my_auth_form_box_info_detail">이메일</div>
+                    <input
+                        name="email"
+                        class="my_auth_form_box_input"
+                        type="email"
+                        value="${user.email}"
+                        maxlength="60"
+                        required
+                    />
+                </div>
+                <div style="text-align: right">
+                    <a href="/emailCheckForm"
+                        ><button type="submit" class="btn btn-outline-primary">
+                            저장
+                        </button></a
+                    >
+                </div>
             </div>
 
             <hr />
@@ -73,15 +70,18 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                     <i class="fa-sharp fa-solid fa-lock"></i> 보안
                 </div>
 
-                <div style="display: flex">
-                    <div class="my_auth_form_box_security_password">
-                        비밀번호
-                    </div>
+                <div >
+                   
 
                     <div style="text-align: right">
-                        <button type="submit" class="btn btn-outline-primary">
-                            비밀번호 변경
-                        </button>
+                        <a href="/passwordUpdateForm">
+                            <button
+                                type="submit"
+                                class="btn btn-outline-primary"
+                            >
+                                비밀번호 변경
+                            </button></a
+                        >
                     </div>
                 </div>
             </div>

@@ -73,6 +73,15 @@ public class UserController {
         return "/user/passwordCheckForm";
     }
 
+    @GetMapping("/passwordUpdateForm")
+    public String passwordUpdateForm() {
+        User principal = (User) session.getAttribute("principal");
+        if (principal == null) {
+            return "redirect:/loginForm";
+        }
+        return "/user/passwordUpdateForm";
+    }
+
     @PostMapping("/passwordCheck")
     public String passwordCheck(String password) {
         User principal = (User) session.getAttribute("principal");
