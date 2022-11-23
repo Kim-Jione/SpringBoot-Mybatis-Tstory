@@ -29,5 +29,6 @@ public interface UserDao {
 
 	public User findByUsernameAndPassword(UserUpdateDto userUpdateDto);
 
+	public User findByPassword(@Param("password") String password, @Param("userId") Integer userId);
 
 }

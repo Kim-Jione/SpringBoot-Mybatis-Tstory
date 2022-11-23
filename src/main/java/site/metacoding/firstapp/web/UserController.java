@@ -5,7 +5,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import lombok.RequiredArgsConstructor;
@@ -63,6 +62,25 @@ public class UserController {
     @GetMapping("/passwordResetForm")
     public String passwordResetForm() {
         return "/user/passwordResetForm";
+    }
+
+    @GetMapping("/passwordCheckForm")
+    public String passwordCheckForm() {
+        User principal = (User) session.getAttribute("principal");
+        if (principal == null) {
+            return "redirect:/loginForm";
+        }
+        return "/user/passwordCheckForm";
+    }
+
+    @PostMapping("/passwordCheck")
+    public String passwordCheck(String password) {
+        User principal = (User) session.getAttribute("principal");
+        User userPS = userDao.findByPassword(password, principal.getUserId());
+        if (userPS == null) {
+            return "redirect:/";
+        }
+        return "redirect:/updateForm";
     }
 
     // 계정 수정 페이지

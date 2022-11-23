@@ -65,6 +65,13 @@
 		WHERE username=#{username} AND password = #{password} AND email=#{email} AND user_id = #{userId}
 	</select>
 
+
+    <select id="findByPassword" resultType="site.metacoding.firstapp.domain.user.User">
+        SELECT * 
+		FROM user 
+		WHERE password = #{password} AND user_id=#{userId}
+    </select>
+
 </mapper>
     
 

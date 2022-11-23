@@ -99,7 +99,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                                 href="/post/listForm/${principal.userId}"
                                 >내블로그</a
                             >
-                            <a class="dropdown-item" href="/updateForm"
+                            <a class="dropdown-item" href="/passwordCheckForm"
                                 >계정관리</a
                             >
                             <a class="dropdown-item" href="/write/categoryForm"
