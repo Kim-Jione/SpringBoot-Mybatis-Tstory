@@ -5,7 +5,7 @@
 }
 
 .my_auth_form_box {
-    width: 550px;
+    width: 600px;
     border: 1px solid rgb(185, 185, 185);
     padding: 70px;
 }
@@ -26,6 +26,32 @@
     color: rgb(155, 154, 154);
     padding-bottom: 10px;
 }
+
+.my_auth_form_box_info {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.my_auth_form_box_security {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.my_auth_form_box_info_detail {
+    width: 100px;
+    line-height: 60px;
+}
+
+.my_auth_form_box_security_password {
+    line-height: 40px;
+    padding-right: 265px;
+}
+
+.my_auth_form_box_security_leave {
+    line-height: 40px;
+    padding-right: 300px;
+}
+
 
 .my_auth_form_box_input {
     display: block;

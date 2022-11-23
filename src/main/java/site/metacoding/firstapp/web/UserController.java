@@ -83,6 +83,15 @@ public class UserController {
         return "redirect:/updateForm";
     }
 
+    @GetMapping("/leaveForm")
+    public String leaveForm() {
+        User principal = (User) session.getAttribute("principal");
+        if (principal == null) {
+            return "redirect:/loginForm";
+        }
+        return "/user/leaveForm";
+    }
+
     // 계정 수정 페이지
     @GetMapping("/updateForm")
     public String updateForm(Model model) {

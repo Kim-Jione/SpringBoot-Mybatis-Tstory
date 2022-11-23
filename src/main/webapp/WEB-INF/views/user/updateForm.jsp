@@ -6,6 +6,8 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
 <div class="container">
     <div class="my_auth_box">
         <div class="my_auth_form_box">
+
+            <!-- 프로필 이미지 -->
             <div class="d-flex justify-content-center">
                 <img
                     src="https://i1.sndcdn.com/avatars-000373392764-zp0p80-t500x500.jpg"
@@ -21,63 +23,88 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                     />
                 </form>
             </div>
-            <div class="my_error_box my_hidden"></div>
-            <!-- 수정은 put 요청 fetch 사용해야함 -->
-            <form action="/user/update" method="post">
+            <br /><br />
+
+            <!-- 계정정보 -->
+            <div>
                 <input type="hidden" name="userId" value="${user.userId}" />
-                <input
-                    id="username"
-                    class="my_auth_form_box_input"
-                    name="username"
-                    type="text"
-                    value="${user.username}"
-                    maxlength="20"
-                    required
-                />
-                <input
-                    name="password"
-                    id="password"
-                    class="my_auth_form_box_input"
-                    type="password"
-                    placeholder="현재 비밀번호를 입력해주세요."
-                    maxlength="20"
-                    required
-                />
-                <input
-                    name="passwordUpdate"
-                    id="same-password"
-                    class="my_auth_form_box_input"
-                    type="password"
-                    placeholder="변경할 비밀번호를 입력해주세요."
-                    maxlength="20"
-                    required
-                /><input
-                    id="same-password"
-                    class="my_auth_form_box_input"
-                    type="password"
-                    placeholder="비밀번호를 확인해주세요."
-                    maxlength="20"
-                    required
-                />
-                <input
-                    name="email"
-                    class="my_auth_form_box_input"
-                    type="email"
-                    value="${user.email}"
-                    maxlength="60"
-                    required
-                />
-                <button type="submit" class="my_secondary_btn">
-                    회원정보수정
-                </button>
-            </form>
-            <div class="my_auth_form_box_link">
-                <div><a href="/loginForm">로그인</a></div>
-                <div><a href="/passwordResetForm">비밀번호 찾기</a></div>
+
+                <div class="my_auth_form_box_info">
+                    <i class="fa-solid fa-user"></i> 계정정보
+                </div>
+
+                <form action="" method="post">
+                    <div style="display: flex">
+                        <div class="my_auth_form_box_info_detail">아이디</div>
+                        <input
+                            id="username"
+                            class="my_auth_form_box_input"
+                            type="text"
+                            placeholder="${user.username}"
+                            maxlength="20"
+                            required
+                        />
+                    </div>
+                    <div style="display: flex">
+                        <div class="my_auth_form_box_info_detail">이메일</div>
+                        <input
+                            name="email"
+                            class="my_auth_form_box_input"
+                            type="email"
+                            value="${user.email}"
+                            maxlength="60"
+                            required
+                        />
+                    </div>
+                    <div style="text-align: right">
+                        <button type="submit" class="btn btn-outline-primary">
+                            저장
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <hr />
+            <!-- 보안 -->
+            <div>
+                <div class="my_auth_form_box_security">
+                    <i class="fa-sharp fa-solid fa-lock"></i> 보안
+                </div>
+
+                <div style="display: flex">
+                    <div class="my_auth_form_box_security_password">
+                        비밀번호
+                    </div>
+
+                    <div style="text-align: right">
+                        <button type="submit" class="btn btn-outline-primary">
+                            비밀번호 변경
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <!-- 위험 -->
+            <div>
+                <div>
+                    <i
+                        class="fa-solid fa-triangle-exclamation fa-lg"
+                        style="color: red"
+                    >
+                        위험</i
+                    >
+                </div>
+
+                <div style="text-align: right">
+                    <button type="submit" class="btn btn-outline-danger">
+                        회원탈퇴
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
-    <br />
-</div>
 
-<%@ include file="../layout/footer.jsp"%>
+        <br />
+    </div>
+
+    <%@ include file="../layout/footer.jsp"%>
+</div>
