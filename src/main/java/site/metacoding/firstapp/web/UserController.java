@@ -22,77 +22,87 @@ public class UserController {
     private final UserDao userDao;
     private final UserService userService;
 
-    @GetMapping("/joinForm")
+    // 회원가입 페이지
+    @GetMapping("/user/joinForm")
     public String joinForm() {
         return "/user/joinForm";
     }
 
-    @PostMapping("/join")
+    // 회원가입 응답
+    @PostMapping("/user/join")
     public String join(JoinDto joinDto) {
         User userPS = userDao.findByUsername(joinDto.getUsername());
         if (userPS == null) {
             userDao.insert(joinDto.toEntity());
-            return "redirect:/loginForm";
+            return "redirect:/user/loginForm";
         }
-        return "redirect:/joinForm";
+        return "redirect:/user/joinForm";
     }
 
-    @GetMapping("/loginForm")
+    // 로그인 페이지
+    @GetMapping("/user/loginForm")
     public String loginForm() {
         return "/user/loginForm";
     }
 
-    @PostMapping("/login")
+    // 로그인 응답
+    @PostMapping("/user/login")
     public String login(LoginDto loginDto) {
         User userPS = userDao.login(loginDto);
         if (userPS != null) {
             session.setAttribute("principal", userPS);
             return "redirect:/";
         } else {
-            return "redirect:/loginForm";
+            return "redirect:/user/loginForm";
         }
     }
 
-    @GetMapping("/logout")
+    // 로그아웃
+    @GetMapping("/user/logout")
     public String logout() {
         session.invalidate();
         return "redirect:/";
     }
 
-    @GetMapping("/passwordResetForm")
+    // 패스워드 초기화 페이지
+    @GetMapping("/user/passwordResetForm")
     public String passwordResetForm() {
         return "/user/passwordResetForm";
     }
 
-    @GetMapping("/passwordCheckForm")
+    // 패스워드 확인 페이지
+    @GetMapping("/user/passwordCheckForm")
     public String passwordCheckForm() {
         User principal = (User) session.getAttribute("principal");
         if (principal == null) {
-            return "redirect:/loginForm";
+            return "redirect:/user/loginForm";
         }
         return "/user/passwordCheckForm";
     }
 
-    @GetMapping("/passwordUpdateForm")
-    public String passwordUpdateForm() {
-        User principal = (User) session.getAttribute("principal");
-        if (principal == null) {
-            return "redirect:/loginForm";
-        }
-        return "/user/passwordUpdateForm";
-    }
-
-    @PostMapping("/passwordCheck")
+    // 패스워드 확인 응답
+    @PostMapping("/user/passwordCheck")
     public String passwordCheck(String password) {
         User principal = (User) session.getAttribute("principal");
         User userPS = userDao.findByPassword(password, principal.getUserId());
         if (userPS == null) {
-            return "redirect:/passwordCheckForm";
+            return "redirect:/user/passwordCheckForm";
         }
-        return "redirect:/updateForm";
+        return "redirect:/user/updateForm";
     }
 
-    @GetMapping("/emailCheckForm")
+    // 패스워드 수정 페이지
+    @GetMapping("/user/passwordUpdateForm")
+    public String passwordUpdateForm() {
+        User principal = (User) session.getAttribute("principal");
+        if (principal == null) {
+            return "redirect:/user/loginForm";
+        }
+        return "/user/passwordUpdateForm";
+    }
+
+    // 이메일 응답 페이지
+    @GetMapping("/user/emailCheckForm")
     public String emailCheckForm() {
         User principal = (User) session.getAttribute("principal");
         if (principal == null) {
@@ -101,7 +111,8 @@ public class UserController {
         return "/user/emailCheckForm";
     }
 
-    @GetMapping("/leaveCheckForm")
+    // 회원 탈퇴 페이지
+    @GetMapping("/user/leaveCheckForm")
     public String leaveCheckForm() {
         User principal = (User) session.getAttribute("principal");
         if (principal == null) {
@@ -111,7 +122,7 @@ public class UserController {
     }
 
     // 계정 수정 페이지
-    @GetMapping("/updateForm")
+    @GetMapping("/user/updateForm")
     public String updateForm(Model model) {
         User principal = (User) session.getAttribute("principal");
         if (principal == null) {
@@ -123,7 +134,7 @@ public class UserController {
 
     // 계정 수정 응답
     @PostMapping("/user/update")
-    public String write(UserUpdateDto userUpdateDto) {
+    public String update(UserUpdateDto userUpdateDto) {
         userDao.updateById(userUpdateDto);
         return "redirect:/";
     }

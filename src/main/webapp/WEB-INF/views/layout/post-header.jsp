@@ -33,17 +33,13 @@ uri="http://java.sun.com/jsp/jstl/core"%>
 
     <body class="drawer drawer--left">
         <div style="margin-bottom: 70px">
-            <nav
-                class="drawer-nav my_nav_slider"
-                role="navigation"
-                
-            >
+            <nav class="drawer-nav my_nav_slider" role="navigation">
                 <ul class="drawer-menu">
                     <li><a class="drawer-brand" href="/">Home</a></li>
                     <li>
                         <a
                             class="drawer-menu-item"
-                            href="/post/listForm/${user.userId}"
+                            href="/post/listForm/${categoryList[0].userId}"
                             >전체 게시글 보기</a
                         >
                     </li>
@@ -67,22 +63,25 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                 <!-- Links -->
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <div class="my_icon_btn drawer-toggle" style="border: none">
+                        <div
+                            class="my_icon_btn drawer-toggle"
+                            style="border: none"
+                        >
                             <i class="fa-solid fa-bars fa-2x"></i>
                         </div>
                     </li>
                 </ul>
 
                 <div class="my_navbar_title">
-                    <a href="/post/listForm/${user.userId}" style="color: black"
-                        >${user.username}의 블로그</a
+                    <a href="/post/listForm/${categoryList[0].userId}" style="color: black"
+                        >${categoryList[0].username} 의 블로그</a
                     >
                 </div>
 
                 <c:choose>
                     <c:when test="${empty principal}">
                         <div>
-                            <a class="my_main_start_btn" href="/loginForm"
+                            <a class="my_main_start_btn" href="/user/loginForm"
                                 >시작하기</a
                             >
                         </div>
@@ -104,15 +103,15 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                                     href="/post/listForm/${principal.userId}"
                                     >내블로그</a
                                 >
-                                <a class="dropdown-item" href="/updateForm"
+                                <a class="dropdown-item" href="/user/updateForm"
                                     >계정관리</a
                                 >
                                 <a
                                     class="dropdown-item"
-                                    href="/write/categoryForm"
+                                    href="/category/writeForm"
                                     >카테고리관리</a
                                 >
-                                <a class="dropdown-item" href="/logout"
+                                <a class="dropdown-item" href="/user/logout"
                                     >로그아웃</a
                                 >
                             </div>

@@ -8,7 +8,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                 <div >중요한 정보에 접근하려고 합니다.</div>
                 <div >비밀번호를 다시 입력하세요</div>
             </div>
-            <form action="/passwordCheck" method="POST">
+            <form action="/user/passwordCheck" method="POST">
                 <input
                     class="my_auth_form_box_input"
                     type="password"
@@ -18,7 +18,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                 <input type="hidden" name="userId", value="${principal.userId}">
                 <button type="submit" class="my_secondary_btn">확인</button>
                  <div>
-                    <a href="/passwordResetForm">비밀번호 찾기</a>
+                    <a href="/user/passwordResetForm">비밀번호 찾기</a>
                 </div>
             </form>
             

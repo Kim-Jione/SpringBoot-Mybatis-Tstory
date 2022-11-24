@@ -33,6 +33,7 @@
                         <h3>${post.postTitle}</h3>
                     </div>
                     <div class="my_main_item_summary my_mb_sm_1 my_text_two_line">
+                        ${post.createdAt}
                     </div>
                     <div class="my_main_item_date my_mb_sm_1">
                     </div>

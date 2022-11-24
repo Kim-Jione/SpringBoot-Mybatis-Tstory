@@ -33,8 +33,12 @@
 	</delete>
 
 	<select id="findByUserId"
-		resultType="site.metacoding.firstapp.domain.category.Category">
-		SELECT * FROM category WHERE user_id=#{userId}
+		resultType="site.metacoding.firstapp.web.dto.response.main.HeaderDto">
+		SELECT c.category_id, c.category_title, u.username, u.user_id
+		FROM user u 
+		LEFT JOIN category c
+		ON u.user_id = c.user_id
+		WHERE u.user_id=#{userId}
 	</select>
 
 	<select id="findByPostId"
@@ -42,10 +46,6 @@
 		SELECT * FROM category WHERE post_id=#{postId}
 	</select>
 
-	<select id="findByCategoryTitle"
-		resultType="site.metacoding.firstapp.domain.category.Category">
-		SELECT * FROM category WHERE user_id=#{userId} AND NOT category_id =#{categoryId}
-	</select>
 
 	<insert id="insertCategoryTitle">
         INSERT

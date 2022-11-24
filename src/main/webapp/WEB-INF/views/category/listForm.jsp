@@ -32,10 +32,9 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
 
 
          <!-- 게시글 작성 -->
-        <c:if test="${principal.userId == user.userId}">
+        <c:if test="${principal.userId == postList[0].userId}">
         <div class="d-flex justify-content-end my_mb_sm_1" style="padding-left: 800px;">
-        <a href="/write/postForm" class="my_atag_none">
-            
+        <a href="/post/writeForm" class="my_atag_none">
                 <i class="fa-solid fa-pencil fa-2x" style="padding-top: 20px;"></i>
         </a>
     </div>
@@ -81,7 +80,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
 			</c:forEach>
 
 			<li class='page-item ${paging.last ? "disabled" : ""}'><a class="page-link"
-				href="?page=${paging.currentPage+1}">이후</a></li>
+				href="?page=${paging.currentPage+1}">다음</a></li>
 		</ul>
 	</div>
     </div>

@@ -9,7 +9,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                 <div >작성하신 게시글도 모두 삭제됩니다.</div>
             </div>
             
-<div style="display: flex">
+                <div style="display: flex">
                     <div class="my_auth_form_box_info_detail">비밀번호</div>
                     <input
                         name="email"
