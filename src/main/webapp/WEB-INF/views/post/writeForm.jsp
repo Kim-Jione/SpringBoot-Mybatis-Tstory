@@ -7,7 +7,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
     }
 </style>
 <div class="container">
-    <form action="/write/post/${principal.userId}" method="post">
+    <form action="/post/write" method="post">
         <!-- 카테고리 목록 -->
         <div class="form-group">
             <select class="form-control" name="categoryId">

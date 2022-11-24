@@ -16,11 +16,12 @@ import site.metacoding.firstapp.web.dto.response.post.PostAllDto;
 public class MainController {
 	private final PostDao postDao;
 
-	@GetMapping({ "main", "/" })
+	// 메인 페이지
+	@GetMapping({ "main/mainForm", "/" })
 	public String mainForm(Model model, String keyword) {
 
 		if (keyword == null  || keyword.isEmpty()) {
-			List<PostAllDto> postPS = postDao.findAllAndUsername();
+			List<PostAllDto> postPS = postDao.findAll();
 			model.addAttribute("postList", postPS);
 		} else {
 			List<KeywordDto> postPS = postDao.findSearchAllPost(keyword);

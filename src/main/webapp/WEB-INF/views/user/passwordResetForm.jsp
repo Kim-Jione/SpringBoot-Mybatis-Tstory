@@ -29,8 +29,8 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                 </button>
             </form>
             <div class="my_auth_form_box_link">
-                <div><a href="/loginForm">로그인</a></div>
-                <div><a href="/joinForm">회원가입</a></div>
+                <div><a href="/user/loginForm">로그인</a></div>
+                <div><a href="/user/joinForm">회원가입</a></div>
             </div>
         </div>
     </div>

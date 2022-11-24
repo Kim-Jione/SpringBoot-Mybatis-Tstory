@@ -55,7 +55,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                     />
                 </div>
                 <div style="text-align: right">
-                    <a href="/emailCheckForm"
+                    <a href="/user/emailCheckForm"
                         ><button type="submit" class="btn btn-outline-primary">
                             저장
                         </button></a
@@ -74,7 +74,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                    
 
                     <div style="text-align: right">
-                        <a href="/passwordUpdateForm">
+                        <a href="/user/passwordUpdateForm">
                             <button
                                 type="submit"
                                 class="btn btn-outline-primary"
@@ -96,7 +96,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                         위험</i
                     >
                 </div>
-                <a href="/leaveCheckForm">
+                <a href="/user/leaveCheckForm">
                 <div style="text-align: right">
                     <button type="submit" class="btn btn-outline-danger">
                         회원탈퇴

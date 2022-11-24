@@ -10,9 +10,11 @@
 	</select>
 
 	<select id="findAll"
-		resultType="site.metacoding.firstapp.domain.post.Post">
+		resultType="site.metacoding.firstapp.web.dto.response.post.PostAllDto">
 		SELECT *
-		FROM post 
+		FROM user u
+		LEFT JOIN post p
+		On  u.user_id = p.user_id
 	</select>
 
     <select id="findAllAndUsername" resultType="site.metacoding.firstapp.web.dto.response.post.PostAllDto">
@@ -61,7 +63,7 @@
 
 
     <update id="insertUpdate">
-           UPDATE post
+          UPDATE post
 		  SET post_title = #{postTitle},
 		  post_content = #{postContent},
 		  post_thumnail = #{postThumnail},
@@ -85,7 +87,7 @@
 
 
     <select id="findAllPost" resultType="site.metacoding.firstapp.web.dto.response.post.PostAllDto">
-          SELECT p.post_id, p.post_title, u.username, u.user_id, p.post_thumnail, p.category_id
+          SELECT p.post_id, p.post_title, u.username, u.user_id, p.post_thumnail, p.category_id, p.created_at, p.updated_at
 		  FROM post p
 		  INNER JOIN user u
 		  ON p.user_id = u.user_id
@@ -110,7 +112,7 @@
     </select>
 
     <select id="findSearchAllPost" resultType="site.metacoding.firstapp.web.dto.response.main.KeywordDto">
-	SELECT p.post_title, p.user_id, u.username, p.post_id, p.post_content
+	SELECT *
 	FROM user u 
 	LEFT JOIN post p
 	ON u.user_id = p.user_id
