@@ -21,7 +21,7 @@ public class MainController {
 	public String mainForm(Model model, String keyword) {
 
 		if (keyword == null  || keyword.isEmpty()) {
-			List<PostAllDto> postPS = postDao.findAllAndUsername();
+			List<PostAllDto> postPS = postDao.findAll();
 			model.addAttribute("postList", postPS);
 		} else {
 			List<KeywordDto> postPS = postDao.findSearchAllPost(keyword);
