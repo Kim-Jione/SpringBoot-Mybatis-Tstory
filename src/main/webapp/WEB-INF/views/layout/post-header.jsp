@@ -73,7 +73,9 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                 </ul>
 
                 <div class="my_navbar_title">
-                    <a href="/post/listForm/${categoryList[0].userId}" style="color: black"
+                    <a
+                        href="/post/listForm/${categoryList[0].userId}"
+                        style="color: black"
                         >${categoryList[0].username} 의 블로그</a
                     >
                 </div>
@@ -103,7 +105,9 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                                     href="/post/listForm/${principal.userId}"
                                     >내블로그</a
                                 >
-                                <a class="dropdown-item" href="/user/updateForm"
+                                <a
+                                    class="dropdown-item"
+                                    href="/user/passwordCheckForm"
                                     >계정관리</a
                                 >
                                 <a
