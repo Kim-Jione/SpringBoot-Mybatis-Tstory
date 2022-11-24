@@ -8,7 +8,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                 <div >계정의 메일주소를 변경하려고 합니다.</div> <div>계속하려면 메일로 발송된 확인 코드를 입력하세요.</div>
             </div><br>
 
-            <form action="/updateForm">
+            <form action="/user/updateForm">
                 <div style="display: flex">
                     <div class="my_auth_form_box_info_detail_email">확인코드</div>
                 <input

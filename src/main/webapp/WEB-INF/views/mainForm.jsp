@@ -19,6 +19,7 @@
 </div>
     <div class="my_main_list">
 
+
         <!-- 아이템 시작 -->
         <c:forEach var="post" items="${postList}" varStatus = "status">
 
@@ -33,13 +34,13 @@
                         <h3>${post.postTitle}</h3>
                     </div>
                     <div class="my_main_item_summary my_mb_sm_1 my_text_two_line">
+                        ${post.createdAt}
                     </div>
                     <div class="my_main_item_date my_mb_sm_1">
                     </div>
             </a>
             <a href="/post/listForm/${post.userId}" class="my_atag_none">
                 <div class="my_main_item_username">
-
                     <span>by ${post.username} </span>
                 </div>
             </a>

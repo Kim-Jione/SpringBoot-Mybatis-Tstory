@@ -4,7 +4,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
     <div class="my_auth_box">
         <div class="my_auth_form_box">
             <div class="my_auth_form_box_title">JSotry</div>
-            <form action="/category/write/${principal.userId}" method="post">
+            <form action="/category/write" method="post">
                 <input
                     class="my_auth_form_box_input"
                     type="text"

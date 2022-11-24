@@ -54,7 +54,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             </div>
            
 
-            <a href="/updateForm">
+            <a href="/user/updateForm">
                 <div style="text-align: right">
                     <button class="btn btn-outline-primary">저장</button>
                 </div></a
