@@ -72,7 +72,7 @@ public class PostController {
 		redirect.addAttribute("userId", principal.getUserId());
 		return "redirect:/post/listForm/{userId}";
 	}
-	
+
 	// 게시글 등록 페이지
 	@GetMapping("/post/writeForm")
 	public String writeForm(Model model) {
@@ -93,7 +93,7 @@ public class PostController {
 		return "redirect:/post/listForm/{userId}";
 	}
 
-  // 블로그 전체 게시글 목록 페이지
+	// 블로그 전체 게시글 목록 페이지
 	@GetMapping("/post/listForm/{userId}")
 	public String list(@PathVariable Integer userId, Integer page, Model model) {
 

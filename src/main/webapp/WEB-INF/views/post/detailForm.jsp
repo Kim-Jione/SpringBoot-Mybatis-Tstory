@@ -7,7 +7,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
     </div>
     <div style="display: flex;" >
 
-        <div style="display: inline-flex">
+        <div style="display: inline-flex;">
         <c:if test="${principal.userId==post.userId}">
             <a
                 class="btn btn-outline-success"

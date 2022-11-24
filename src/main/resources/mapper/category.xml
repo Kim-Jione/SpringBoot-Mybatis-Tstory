@@ -41,19 +41,18 @@
 		WHERE u.user_id=#{userId}
 	</select>
 
-  <select id="findByPostId"
+	<select id="findByPostId"
 		resultType="site.metacoding.firstapp.domain.category.Category">
 		SELECT * FROM category WHERE post_id=#{postId}
 	</select>
+
 
 	<insert id="insertCategoryTitle">
         INSERT
 		INTO category(category_title, user_id)
 		VALUES(#{categoryTitle}, #{userId})
     </insert>
-	
 </mapper>
-
 
 
 

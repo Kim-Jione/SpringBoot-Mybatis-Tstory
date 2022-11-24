@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import site.metacoding.firstapp.domain.category.CategoryDao;
 import site.metacoding.firstapp.domain.post.PostDao;
 import site.metacoding.firstapp.domain.user.User;
+import site.metacoding.firstapp.domain.user.UserDao;
 import site.metacoding.firstapp.web.dto.response.post.PagingDto;
 
 @RequiredArgsConstructor
@@ -19,6 +20,7 @@ import site.metacoding.firstapp.web.dto.response.post.PagingDto;
 public class CategoryController {
 	private final CategoryDao categoryDao;
 	private final PostDao postDao;
+	private final UserDao userDao;
 	private final HttpSession session;
 
 	// 카테고리 등록 페이지

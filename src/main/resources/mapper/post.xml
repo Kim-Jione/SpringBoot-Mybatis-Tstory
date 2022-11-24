@@ -10,11 +10,9 @@
 	</select>
 
 	<select id="findAll"
-		resultType="site.metacoding.firstapp.web.dto.response.post.PostAllDto">
+		resultType="site.metacoding.firstapp.domain.post.Post">
 		SELECT *
-		FROM user u
-		LEFT JOIN post p
-		On  u.user_id = p.user_id
+		FROM post 
 	</select>
 
     <select id="findAllAndUsername" resultType="site.metacoding.firstapp.web.dto.response.post.PostAllDto">
@@ -48,6 +46,13 @@
 		DELETE FROM post WHERE post_id = #{postId}
 	</delete>
 
+
+
+    <select id="findByCategoryId" resultType="site.metacoding.firstapp.domain.post.Post">
+          SELECT * FROM post WHERE category_id=#{categoryId}
+    </select>
+
+
     <select id="findByIdUpdate" resultType="site.metacoding.firstapp.web.dto.response.post.PostUpdateDto">
           SELECT c.category_id, c.category_title, p.post_id, p.post_title, p.post_content, p.post_thumnail, p.user_id
 		  FROM category c left JOIN post p ON c.user_id = p.user_id
@@ -56,7 +61,7 @@
 
 
     <update id="insertUpdate">
-          UPDATE post
+           UPDATE post
 		  SET post_title = #{postTitle},
 		  post_content = #{postContent},
 		  post_thumnail = #{postThumnail},
@@ -80,7 +85,7 @@
 
 
     <select id="findAllPost" resultType="site.metacoding.firstapp.web.dto.response.post.PostAllDto">
-          SELECT p.post_id, p.post_title, u.username, u.user_id, p.post_thumnail, p.category_id, p.created_at, p.updated_at
+          SELECT p.post_id, p.post_title, u.username, u.user_id, p.post_thumnail, p.category_id
 		  FROM post p
 		  INNER JOIN user u
 		  ON p.user_id = u.user_id
@@ -104,21 +109,8 @@
 	) p 
     </select>
 
-	<select id="pagingByCategory" resultType="site.metacoding.firstapp.web.dto.response.post.PagingDto">
-    SELECT p.totalCount,p.totalPage,p.currentPage,
-	(case currentPage when 0 then 1 else 0 END) FIRST,
-	(case currentPage when totalPage-1 then 1 else 0 END) last
-	FROM
-	(
-	select  count(*) totalCount, CEILING(count(*)/5) totalPage, #{page} as currentPage, 0 as
-	first, 0 as last
-	FROM post 
-	WHERE user_id=#{userId} AND category_id=#{categoryId}
-	) p 
-    </select>
-
     <select id="findSearchAllPost" resultType="site.metacoding.firstapp.web.dto.response.main.KeywordDto">
-	SELECT *
+	SELECT p.post_title, p.user_id, u.username, p.post_id, p.post_content
 	FROM user u 
 	LEFT JOIN post p
 	ON u.user_id = p.user_id
@@ -132,17 +124,6 @@
         SELECT COUNT(post_title) as categoryCount
 		FROM post
 		WHERE category_id= #{categoryId}
-    </select>
-
-	<select id="findPost"  resultType="site.metacoding.firstapp.web.dto.response.post.PostAllDto">
-          SELECT p.post_id, p.post_title, u.username, u.user_id, p.post_thumnail, p.category_id
-		  FROM post p
-		  INNER JOIN user u
-		  ON p.user_id = u.user_id
-		  WHERE p.user_id = #{userId} AND p.category_id=#{categoryId}
-		  ORDER BY p.post_id DESC
-		  OFFSET #{startNum} ROWS
-		  FETCH NEXT 5 ROWS ONLY
     </select>
 
 

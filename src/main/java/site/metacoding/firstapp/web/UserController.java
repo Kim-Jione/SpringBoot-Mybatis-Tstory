@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import lombok.RequiredArgsConstructor;
 import site.metacoding.firstapp.domain.user.User;
 import site.metacoding.firstapp.domain.user.UserDao;
+import site.metacoding.firstapp.service.UserService;
 import site.metacoding.firstapp.web.dto.request.user.JoinDto;
 import site.metacoding.firstapp.web.dto.request.user.LoginDto;
 import site.metacoding.firstapp.web.dto.request.user.UserUpdateDto;
@@ -19,6 +20,7 @@ import site.metacoding.firstapp.web.dto.request.user.UserUpdateDto;
 public class UserController {
     private final HttpSession session;
     private final UserDao userDao;
+    private final UserService userService;
 
     // 회원가입 페이지
     @GetMapping("/user/joinForm")
@@ -76,17 +78,6 @@ public class UserController {
             return "redirect:/user/loginForm";
         }
         return "/user/passwordCheckForm";
-    }
-    
-    // 패스워드 확인 응답
-    @PostMapping("/user/passwordCheck")
-    public String passwordCheck(String password) {
-        User principal = (User) session.getAttribute("principal");
-        User userPS = userDao.findByPassword(password, principal.getUserId());
-        if (userPS == null) {
-            return "redirect:/user/passwordCheckForm";
-        }
-        return "redirect:/user/updateForm";
     }
 
     // 패스워드 확인 응답
