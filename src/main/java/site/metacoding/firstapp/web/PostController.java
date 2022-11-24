@@ -12,16 +12,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.RequiredArgsConstructor;
-import site.metacoding.firstapp.domain.category.Category;
 import site.metacoding.firstapp.domain.category.CategoryDao;
-import site.metacoding.firstapp.domain.post.Post;
 import site.metacoding.firstapp.domain.post.PostDao;
 import site.metacoding.firstapp.domain.user.User;
 import site.metacoding.firstapp.domain.user.UserDao;
 import site.metacoding.firstapp.web.dto.request.post.PostSaveDto;
 import site.metacoding.firstapp.web.dto.response.main.HeaderDto;
 import site.metacoding.firstapp.web.dto.response.post.PagingDto;
-import site.metacoding.firstapp.web.dto.response.post.PostAllDto;
 import site.metacoding.firstapp.web.dto.response.post.PostDetailDto;
 import site.metacoding.firstapp.web.dto.response.post.PostUpdateDto;
 
@@ -96,11 +93,10 @@ public class PostController {
 		return "redirect:/post/listForm/{userId}";
 	}
 
-
-	// 블로그 전체 게시글 목록 페이지
+  // 블로그 전체 게시글 목록 페이지
 	@GetMapping("/post/listForm/{userId}")
 	public String list(@PathVariable Integer userId, Integer page, Model model) {
-		
+
 		if (page == null) {
 			page = 0;
 		}

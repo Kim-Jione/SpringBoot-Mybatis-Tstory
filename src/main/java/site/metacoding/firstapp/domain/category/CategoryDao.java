@@ -20,6 +20,8 @@ public interface CategoryDao {
 
 	public List<HeaderDto> findByUserId(Integer userId);
 
+	public List<Category> findByPostId(Integer postId);
+
 	public void insertCategoryTitle(@Param("categoryTitle") String categoryTitle, @Param("userId") Integer userId);
 
 }

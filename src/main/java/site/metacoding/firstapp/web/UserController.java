@@ -89,6 +89,17 @@ public class UserController {
         return "redirect:/user/updateForm";
     }
 
+    // 패스워드 확인 응답
+    @PostMapping("/user/passwordCheck")
+    public String passwordCheck(String password) {
+        User principal = (User) session.getAttribute("principal");
+        User userPS = userDao.findByPassword(password, principal.getUserId());
+        if (userPS == null) {
+            return "redirect:/user/passwordCheckForm";
+        }
+        return "redirect:/user/updateForm";
+    }
+
     // 패스워드 수정 페이지
     @GetMapping("/user/passwordUpdateForm")
     public String passwordUpdateForm() {
@@ -98,7 +109,6 @@ public class UserController {
         }
         return "/user/passwordUpdateForm";
     }
-
 
     // 이메일 응답 페이지
     @GetMapping("/user/emailCheckForm")
