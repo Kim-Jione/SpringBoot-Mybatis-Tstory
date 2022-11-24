@@ -96,7 +96,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                         위험</i
                     >
                 </div>
-                <a href="/leaveCheckForm">
+                <a href="/user/leaveCheckForm">
                 <div style="text-align: right">
                     <button type="submit" class="btn btn-outline-danger">
                         회원탈퇴

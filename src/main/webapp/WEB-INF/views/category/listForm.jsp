@@ -3,19 +3,18 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
 
 <div class="container">
    
-
     <div style="display: inline-flex;">
 <div>
     <h5 style="line-height: 50px;">${category.categoryTitle}(${categoryCount.categoryCount})</h5></div>
 
-     <!-- 검색바 -->
+        <!-- 검색바 -->
         <div
             class="form-group row justify-content-left"
             style="margin-left: 10px"
         >
             <div class="d-flex justify-content-end">
                 <div>
-                    <form style="display: inline-flex" method="get" action="">
+                    <form style="display: inline-flex" action="">
                         <input
                             style="width: 150px"
                             class="my_auth_form_box_input"
@@ -41,7 +40,6 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
     </c:if>
 </div>
 
-
     <div class="my_post_list">
         <c:forEach var="post" items="${postList}">
             <div class="my_post_list_item">
@@ -58,17 +56,21 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
                     </div>
                     <div class="my_text_body_sm">${post.createdAt}</div>
                     <div class="my_mt_md_1">
-                        <a
-                            href="/post/detailForm/${post.postId}/${post.userId}"
-                            
-                            ><button type="button" class="btn btn-light"   style="border:2px solid black">더보기</button></a
+                        <a href="/post/detailForm/${post.postId}/${post.userId}"
+                            ><button
+                                type="button"
+                                class="btn btn-light"
+                                style="border: 2px solid black"
+                            >
+                                더보기
+                            </button></a
                         >
                     </div>
                 </div>
             </div>
         </c:forEach>
 
-        <!-- 페이지 -->
+         <!-- 페이지 -->
         <div class="d-flex justify-content-center">
 		<ul class="pagination">
 			<li class='page-item ${paging.first ? "disabled" : ""}'><a class="page-link"
@@ -85,4 +87,5 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
 	</div>
     </div>
 </div>
+
 <%@ include file="../layout/footer.jsp"%>

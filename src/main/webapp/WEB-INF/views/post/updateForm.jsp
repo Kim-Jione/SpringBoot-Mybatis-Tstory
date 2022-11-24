@@ -11,7 +11,9 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
         <!-- 카테고리 목록 -->
         <div class="form-group">
             <select class="form-control" name="categoryId">
-                <option value="${post.categoryId}">${post.categoryTitle}</option>
+                <option value="${post.categoryId}">
+                    ${post.categoryTitle}
+                </option>
                 <c:forEach var="category" items="${titleList}"
                     ><option value="${category.categoryId}">
                         ${category.categoryTitle}
