@@ -1,7 +1,5 @@
 package site.metacoding.firstapp.web;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -12,12 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import lombok.RequiredArgsConstructor;
 import site.metacoding.firstapp.domain.category.CategoryDao;
-import site.metacoding.firstapp.domain.post.Post;
 import site.metacoding.firstapp.domain.post.PostDao;
 import site.metacoding.firstapp.domain.user.User;
-import site.metacoding.firstapp.domain.user.UserDao;
 import site.metacoding.firstapp.web.dto.response.post.PagingDto;
-import site.metacoding.firstapp.web.dto.response.post.PostAllDto;
 
 @RequiredArgsConstructor
 @Controller
