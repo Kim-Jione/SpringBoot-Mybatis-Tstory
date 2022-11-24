@@ -61,7 +61,7 @@
 
 
     <update id="insertUpdate">
-           UPDATE post
+          UPDATE post
 		  SET post_title = #{postTitle},
 		  post_content = #{postContent},
 		  post_thumnail = #{postThumnail},

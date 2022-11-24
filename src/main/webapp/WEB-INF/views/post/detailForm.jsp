@@ -11,14 +11,14 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
         <c:if test="${principal.userId==post.userId}">
             <a
                 class="btn btn-outline-success"
-                href="/${post.categoryId}/${post.postId}/updateForm"
+                href="/post/updateForm/${post.categoryId}/${post.postId}"
                 >수정</a
             >
             <form
-                action="/delete/${post.postId}"
+                action="/post/delete"
                 method="post"
                 style="display: inline"
-            >
+            ><input type="hidden" value="${post.postId}" name="postId">
                 <button class="btn btn-outline-danger">
                     삭제
                 </button>

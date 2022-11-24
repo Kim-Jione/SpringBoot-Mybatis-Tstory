@@ -27,21 +27,23 @@ public class CategoryController {
 	private final UserDao userDao;
 	private final HttpSession session;
 
-	@GetMapping("/write/categoryForm")
+	// 카테고리 등록 페이지
+	@GetMapping("/category/writeForm")
 	public String writeForm(Model model) {
 		User principal = (User) session.getAttribute("principal");
 		if (principal == null) {
-			return "redirect:/loginForm";
+			return "redirect:/user/loginForm";
 		}
 		model.addAttribute("principal", principal);
 		return "/category/writeForm";
 	}
 
-	@PostMapping("/category/write/{userId}")
+	// 카테고리 등록 응답
+	@PostMapping("/category/write")
 	public String write(String categoryTitle) {
 		User principal = (User) session.getAttribute("principal");
 		categoryDao.insertCategoryTitle(categoryTitle, principal.getUserId());
-		return "redirect:/post/listForm/{userId}";
+		return "redirect:/";
 	}
 
 	// 블로그 카테고리별 게시글 목록 페이지
@@ -56,7 +58,7 @@ public class CategoryController {
 		paging.makeBlockInfo();
 		Post postPS = postDao.postCount(userId);
 
-		Post postPS2 = postDao.countCategory( categoryId);
+		Post postPS2 = postDao.countCategory(categoryId);
 
 		model.addAttribute("categoryCount", postPS2);
 		model.addAttribute("postCount", postPS);
