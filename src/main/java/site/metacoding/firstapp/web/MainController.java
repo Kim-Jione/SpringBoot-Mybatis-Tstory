@@ -20,16 +20,15 @@ public class MainController {
 	@GetMapping({ "main/mainForm", "/" })
 	public String mainForm(Model model, String keyword) {
 
-		if (keyword == null  || keyword.isEmpty()) {
-			List<PostAllDto> postPS = postDao.findAll();
+		if (keyword == null || keyword.isEmpty()) {
+			List<PostAllDto> postPS = postDao.findAllAndUsername();
 			model.addAttribute("postList", postPS);
 		} else {
 			List<KeywordDto> postPS = postDao.findSearchAllPost(keyword);
 			model.addAttribute("postList", postPS);
 		}
 
-		return "/mainForm";
+		return "mainForm";
 
 	}
-
 }

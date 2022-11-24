@@ -2,12 +2,10 @@
 pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
 
 <div class="container">
-    <div style="display: inline-flex">
-        <div>
-            <h5 style="line-height: 50px">
-                ${category.categoryTitle}(${categoryCount.categoryCount})
-            </h5>
-        </div>
+   
+    <div style="display: inline-flex;">
+<div>
+    <h5 style="line-height: 50px;">${category.categoryTitle}(${categoryCount.categoryCount})</h5></div>
 
         <!-- 검색바 -->
         <div
@@ -31,20 +29,14 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
             </div>
         </div>
 
-        <!-- 게시글 작성 -->
-        <c:if test="${principal.userId == user.userId}">
-            <div
-                class="d-flex justify-content-end my_mb_sm_1"
-                style="padding-left: 800px"
-            >
-                <a href="/post/writeForm" class="my_atag_none">
-                    <i
-                        class="fa-solid fa-pencil fa-2x"
-                        style="padding-top: 20px"
-                    ></i>
-                </a>
-            </div>
-        </c:if>
+
+         <!-- 게시글 작성 -->
+        <c:if test="${principal.userId == category.userId}">
+        <div class="d-flex justify-content-end my_mb_sm_1" style="padding-left: 800px;">
+        <a href="/write/postForm" class="my_atag_none">
+            
+                <i class="fa-solid fa-pencil fa-2x" style="padding-top: 20px;"></i>
+        </a>
     </div>
 
     <div class="my_post_list">
@@ -94,4 +86,5 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
 	</div>
     </div>
 </div>
+
 <%@ include file="../layout/footer.jsp"%>

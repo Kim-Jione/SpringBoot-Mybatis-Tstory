@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import site.metacoding.firstapp.web.dto.response.main.HeaderDto;
+
 public interface CategoryDao {
 
 	public Category findById(Integer categoryId);
@@ -16,13 +18,8 @@ public interface CategoryDao {
 
 	public void delete(Category category);
 
-	public List<Category> findByUserId(Integer userId);
-
-	public List<Category> findByPostId(Integer postId);
-
-	public List<Category> findByCategoryTitle(@Param("userId") Integer userId, @Param("categoryId") Integer categoryId); 
+	public List<HeaderDto> findByUserId(Integer userId);
 
 	public void insertCategoryTitle(@Param("categoryTitle") String categoryTitle, @Param("userId") Integer userId);
-
 
 }

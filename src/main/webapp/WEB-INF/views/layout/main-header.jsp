@@ -44,6 +44,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                 value="${principal.userId}"
             />
 
+           
             <nav class="navbar navbar-expand-sm my_navbar">
                 <!-- T모양 -->
                 <a href="/">
@@ -87,7 +88,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                     </svg>
                 </a>
                 <div class="my_navbar_title">
-                    <a class="drawer-brand" href="/">제이스토리</a>
+                    <a class="drawer-brand" href="/">제이스토리  </a>
                 </div>
                 <c:choose>
                     <c:when test="${principal == null}">

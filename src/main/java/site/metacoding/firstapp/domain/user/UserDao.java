@@ -21,13 +21,7 @@ public interface UserDao {
 
 	public User login(LoginDto loginDto);
 
-	public User findByUsernameAndEmail(@Param("username") String username, @Param("email") String email);
-
 	public void updateById(UserUpdateDto userUpdateDto);
-
-	public User findByUser(UserUpdateDto userUpdateDto);
-
-	public User findByUsernameAndPassword(UserUpdateDto userUpdateDto);
 
 	public User findByPassword(@Param("password") String password, @Param("userId") Integer userId);
 

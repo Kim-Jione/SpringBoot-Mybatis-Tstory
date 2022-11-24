@@ -32,7 +32,6 @@ public interface PostDao {
 	public PostUpdateDto findByIdUpdate(@Param("postId") Integer postId, @Param("categoryId") Integer categoryId,
 			@Param("userId") Integer userId); // 누구의 카테코리의 페이지를 수정
 
-	public List<Post> findByCategoryId(Integer categoryId);
 
 	public List<PostAllDto> findAllAndUsername();
 
@@ -47,5 +46,10 @@ public interface PostDao {
 	public Post countCategory(Integer categoryId);
 
 	public List<KeywordDto> findSearchAllPost(String keyword);
+
+	public PagingDto pagingByCategory(@Param("page") Integer page, @Param("userId") Integer userId, @Param("categoryId") Integer categoryId);
+
+	public List<PostAllDto> findPost(@Param("categoryId") Integer categoryId, 
+			@Param("userId") Integer userId, @Param("startNum")Integer startNum);
 
 }
