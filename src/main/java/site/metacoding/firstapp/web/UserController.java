@@ -20,7 +20,6 @@ import site.metacoding.firstapp.web.dto.request.user.UserUpdateDto;
 public class UserController {
     private final HttpSession session;
     private final UserDao userDao;
-    private final UserService userService;
 
     @GetMapping("/joinForm")
     public String joinForm() {

@@ -33,8 +33,12 @@
 	</delete>
 
 	<select id="findByUserId"
-		resultType="site.metacoding.firstapp.domain.category.Category">
-		SELECT * FROM category WHERE user_id=#{userId}
+		resultType="site.metacoding.firstapp.web.dto.response.main.HeaderDto">
+		SELECT c.category_id, c.category_title, u.username, u.user_id
+		FROM user u 
+		LEFT JOIN category c
+		ON u.user_id = c.user_id
+		WHERE u.user_id=#{userId}
 	</select>
 
 	<select id="findByPostId"
@@ -52,6 +56,7 @@
 		INTO category(category_title, user_id)
 		VALUES(#{categoryTitle}, #{userId})
     </insert>
+	
 </mapper>
 
 

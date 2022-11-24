@@ -18,6 +18,7 @@ import site.metacoding.firstapp.domain.post.PostDao;
 import site.metacoding.firstapp.domain.user.User;
 import site.metacoding.firstapp.domain.user.UserDao;
 import site.metacoding.firstapp.web.dto.request.post.PostSaveDto;
+import site.metacoding.firstapp.web.dto.response.main.HeaderDto;
 import site.metacoding.firstapp.web.dto.response.post.PagingDto;
 import site.metacoding.firstapp.web.dto.response.post.PostAllDto;
 import site.metacoding.firstapp.web.dto.response.post.PostDetailDto;
@@ -50,7 +51,7 @@ public class PostController {
 			return "redirect:/loginForm";
 		}
 		PostUpdateDto postUpdateDto = postDao.findByIdUpdate(postId, categoryId, principal.getUserId());
-		List<Category> titleDto = categoryDao.findByUserId(principal.getUserId());
+		List<HeaderDto> titleDto = categoryDao.findByUserId(principal.getUserId());
 		model.addAttribute("titleList", titleDto);
 		model.addAttribute("post", postUpdateDto);
 		return "/post/updateForm";
@@ -71,6 +72,25 @@ public class PostController {
 		return "redirect:/";
 	}
 
+	// 게시글 등록 페이지
+	@GetMapping("/write/postForm")
+	public String writeForm(Model model) {
+		User principal = (User) session.getAttribute("principal");
+		if (principal == null) {
+			return "redirect:/loginForm";
+		}
+		List<HeaderDto> titleDto = categoryDao.findByUserId(principal.getUserId());
+		model.addAttribute("titleList", titleDto);
+		return "/post/writeForm";
+	}
+
+	// 게시글 등록 응답
+	@PostMapping("/write/post/{userId}")
+	public String write(@PathVariable Integer userId, PostSaveDto postSaveDto) {
+		postDao.insertSave(postSaveDto);
+		return "redirect:/post/listForm/{userId}";
+	}
+
 	// 블로그 전체 게시글 목록 페이지
 	@GetMapping("/post/listForm/{userId}")
 	public String list(@PathVariable Integer userId, Integer page, Model model) {
@@ -81,34 +101,16 @@ public class PostController {
 		List<PostAllDto> postList = postDao.findAllPost(userId, startNum);
 		PagingDto paging = postDao.paging(userId, page);
 		paging.makeBlockInfo();
-
 		Post postPS = postDao.postCount(userId);
+		model.addAttribute("postCount", postPS); // 게시글 개수
+		model.addAttribute("paging", paging); // 페이징
 
-		model.addAttribute("postCount", postPS);
-		model.addAttribute("paging", paging);
-		model.addAttribute("user", userDao.findById(userId));
-		model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리
-		model.addAttribute("postList", postList); // 블로그 전체게시글
+
+		model.addAttribute("categoryList", categoryDao.findByUserId(userId)); //  사이드바 카테고리 이동 => 공통
+
+		model.addAttribute("postList2", postList); // 블로그 전체게시글
+
 		return "/post/listForm";
-	}
-
-	// 게시글 등록 페이지
-	@GetMapping("/write/postForm")
-	public String writeForm(Model model) {
-		User principal = (User) session.getAttribute("principal");
-		if (principal == null) {
-			return "redirect:/loginForm";
-		}
-		List<Category> titleDto = categoryDao.findByUserId(principal.getUserId());
-		model.addAttribute("titleList", titleDto);
-		return "/post/writeForm";
-	}
-
-	// 게시글 등록 응답
-	@PostMapping("/write/post/{userId}")
-	public String write(@PathVariable Integer userId, PostSaveDto postSaveDto) {
-		postDao.insertSave(postSaveDto);
-		return "redirect:/post/listForm/{userId}";
 	}
 
 }

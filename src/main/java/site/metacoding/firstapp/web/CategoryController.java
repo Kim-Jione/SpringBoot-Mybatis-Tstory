@@ -51,20 +51,25 @@ public class CategoryController {
 			page = 0;
 		}
 		Integer startNum = page * 5;
-		List<PostAllDto> postList = postDao.findAllPost(userId, startNum);
-		PagingDto paging = postDao.paging(userId, page);
+		PagingDto paging = postDao.pagingByCategory(page, userId, categoryId);
 		paging.makeBlockInfo();
 		Post postPS = postDao.postCount(userId);
-
-		Post postPS2 = postDao.countCategory( categoryId);
-
+		List<PostAllDto> postList = postDao.findPost(categoryId, userId, startNum);
+		Post postPS2 = postDao.countCategory(categoryId);
+		model.addAttribute("postList", postList);
 		model.addAttribute("categoryCount", postPS2);
 		model.addAttribute("postCount", postPS);
 		model.addAttribute("paging", paging);
 		model.addAttribute("user", userDao.findById(userId));
 		model.addAttribute("category", categoryDao.findById(categoryId)); // 카테고리 제목 표시
-		model.addAttribute("postList", postDao.findByCategoryId(categoryId)); // 카테고리 내부 게시글
-		model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 유저 카테고리 내용
+
+
+
+		model.addAttribute("postList", postDao.findByCategoryId(categoryId)); // 카테고리 내부 게시글 헤더용 
+
+
+
+		model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리 이동 => 공통
 		return "/category/listForm";
 	}
 }

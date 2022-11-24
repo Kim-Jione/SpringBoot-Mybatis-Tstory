@@ -48,4 +48,9 @@ public interface PostDao {
 
 	public List<KeywordDto> findSearchAllPost(String keyword);
 
+	public PagingDto pagingByCategory(@Param("page") Integer page, @Param("userId") Integer userId, @Param("categoryId") Integer categoryId);
+
+	public List<PostAllDto> findPost(@Param("categoryId") Integer categoryId, 
+			@Param("userId") Integer userId, @Param("startNum")Integer startNum);
+
 }
