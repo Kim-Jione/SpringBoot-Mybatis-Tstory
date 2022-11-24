@@ -104,7 +104,6 @@ public class PostController {
 		Integer startNum = page * 5;
 
 		if (keyword == null || keyword.isEmpty()) {
-			System.out.println("디버그: 나 if");
 			PagingDto paging = postDao.paging(page, userId, null);
 			paging.makeBlockInfo();
 
@@ -113,8 +112,7 @@ public class PostController {
 			model.addAttribute("postList", postDao.findAllPost(userId, null, startNum)); // 블로그 전체게시글
 			model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리 이동 => 공통
 		} else {
-			System.out.println("디버그: 나 else");
-
+			
 			List<PostAllDto> postList = postDao.findAllPost(userId, keyword, startNum);
 			PagingDto paging = postDao.paging(page, userId, keyword);
 			paging.makeBlockInfoByPostAll(keyword);
