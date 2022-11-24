@@ -15,7 +15,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
         >
             <div class="d-flex justify-content-end">
                 <div>
-                    <form style="display: inline-flex" method="get" action="">
+                    <form style="display: inline-flex" method="get" action="/category/listForm/${category.categoryId}/${category.userId}">
                         <input
                             style="width: 150px"
                             class="my_auth_form_box_input"
@@ -67,7 +67,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
                 </div>
             </div>
         </c:forEach>
-
+ 
         <!-- 페이지 -->
         <div class="d-flex justify-content-center">
 		<ul class="pagination">
