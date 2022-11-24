@@ -77,7 +77,7 @@ public class PostController {
 
 	// 블로그 전체 게시글 목록 페이지
 	@GetMapping("/post/listForm/{userId}")
-	public String list(@PathVariable Integer userId, Integer page, Model model) {
+	public String listForm(@PathVariable Integer userId, Integer page, Model model) {
 		if (page == null) {
 			page = 0;
 		}

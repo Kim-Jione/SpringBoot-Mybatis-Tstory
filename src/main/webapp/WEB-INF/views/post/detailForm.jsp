@@ -7,17 +7,18 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
     </div>
     <div style="display: flex;" >
 
-        <div>
+        <div style="display: inline-flex">
         <c:if test="${principal.userId==post.userId}">
             <a
                 class="btn btn-outline-success"
                 href="/post/updateForm/${post.categoryId}/${post.postId}"
+                style="height:38px;width: 58px;"
                 >수정</a
             >
             <form
                 action="/post/delete"
                 method="post"
-                style="display: inline"
+                style="width:150px"
             ><input type="hidden" value="${post.postId}" name="postId">
                 <button class="btn btn-outline-danger">
                     삭제
@@ -27,7 +28,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
         </div>
 
 
-        <div  style="padding-left: 760px;">
+        <div  style="padding-left: 550px;">
         작성자:<a href="/post/listForm/${post.userId}"> ${post.username}</a>&nbsp;&nbsp;
                 최근 수정일: ${post.updatedAt}
         </div>

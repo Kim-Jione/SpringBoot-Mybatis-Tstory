@@ -4,11 +4,11 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
 <div class="container">
     
     <div style="display: flex;">
-        <div style="flex:1;"><h5 style="line-height: 50px;">전체글(${postCount.postCount})</h5></div>
+        <div style="flex:1;"><h5 style="line-height: 60px;">전체글(${postCount.postCount})</h5></div>
 
         <!-- 검색바 -->
         <div
-            class="form-group row justify-content-left" style="flex:1;"
+            class="form-group row justify-content-left" style="flex:1; margin-right: 800px;"
         >
             <div class="d-flex justify-content-end">
                 <div>

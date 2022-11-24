@@ -133,7 +133,7 @@ public class UserController {
 
     // 계정 수정 응답
     @PostMapping("/user/update")
-    public String write(UserUpdateDto userUpdateDto) {
+    public String update(UserUpdateDto userUpdateDto) {
         userDao.updateById(userUpdateDto);
         return "redirect:/";
     }
