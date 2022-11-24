@@ -3,16 +3,6 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
 
 <div class="container">
    
-<div style="background-color: grey;">
-		<h3>blockCount : ${paging.blockCount}</h3>
-		<h3>currentBlock : ${paging.currentBlock}</h3>
-		<h3>startPageNum : ${paging.startPageNum}</h3>
-		<h3>lastPageNum : ${paging.lastPageNum}</h3>
-		<h3>totalCount : ${paging.totalCount}</h3>
-		<h3>totalPage : ${paging.totalPage}</h3>
-		<h3>currentPage : ${paging.currentPage}</h3>
-		<h3>isLast : ${paging.last}</h3>
-		<h3>isFirst : ${paging.first}</h3></div>
     <div style="display: inline-flex;">
 <div>
     <h5 style="line-height: 50px;">${category.categoryTitle}(${categoryCount.categoryCount})</h5></div>
@@ -41,7 +31,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
 
 
          <!-- 게시글 작성 -->
-        <c:if test="${principal.userId == user.userId}">
+        <c:if test="${principal.userId == category.userId}">
         <div class="d-flex justify-content-end my_mb_sm_1" style="padding-left: 800px;">
         <a href="/write/postForm" class="my_atag_none">
             

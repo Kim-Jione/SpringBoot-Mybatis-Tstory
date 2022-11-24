@@ -48,8 +48,13 @@
 
 
 
-    <select id="findByCategoryId" resultType="site.metacoding.firstapp.domain.post.Post">
-          SELECT * FROM post WHERE category_id=#{categoryId}
+    <select id="findByCategoryId" resultType="site.metacoding.firstapp.web.dto.response.category.PostAllDto">
+        SELECT DISTINCT  p.post_id, p.post_title, p.created_at, p.user_id, p.category_id
+ 		FROM post p
+ 		LEFT JOIN category c 
+ 		ON p.user_id = c.user_id
+ 		WHERE p.category_id=#{categoryId}
+ 		ORDER BY p.post_id DESC
     </select>
 
 

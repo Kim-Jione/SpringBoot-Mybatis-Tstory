@@ -24,7 +24,6 @@ import site.metacoding.firstapp.web.dto.response.post.PostAllDto;
 public class CategoryController {
 	private final CategoryDao categoryDao;
 	private final PostDao postDao;
-	private final UserDao userDao;
 	private final HttpSession session;
 
 	@GetMapping("/write/categoryForm")
@@ -53,22 +52,11 @@ public class CategoryController {
 		Integer startNum = page * 5;
 		PagingDto paging = postDao.pagingByCategory(page, userId, categoryId);
 		paging.makeBlockInfo();
-		Post postPS = postDao.postCount(userId);
-		List<PostAllDto> postList = postDao.findPost(categoryId, userId, startNum);
-		Post postPS2 = postDao.countCategory(categoryId);
-		model.addAttribute("postList", postList);
-		model.addAttribute("categoryCount", postPS2);
-		model.addAttribute("postCount", postPS);
-		model.addAttribute("paging", paging);
-		model.addAttribute("user", userDao.findById(userId));
+
+		model.addAttribute("postList", postDao.findPost(categoryId, userId, startNum));
+		model.addAttribute("categoryCount", postDao.countCategory(categoryId)); // 카테고리내 게시글 개수
+		model.addAttribute("paging", paging); // 페이징
 		model.addAttribute("category", categoryDao.findById(categoryId)); // 카테고리 제목 표시
-
-
-
-		model.addAttribute("postList", postDao.findByCategoryId(categoryId)); // 카테고리 내부 게시글 헤더용 
-
-
-
 		model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리 이동 => 공통
 		return "/category/listForm";
 	}

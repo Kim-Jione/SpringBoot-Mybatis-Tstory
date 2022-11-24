@@ -98,18 +98,13 @@ public class PostController {
 			page = 0;
 		}
 		Integer startNum = page * 5;
-		List<PostAllDto> postList = postDao.findAllPost(userId, startNum);
 		PagingDto paging = postDao.paging(userId, page);
 		paging.makeBlockInfo();
-		Post postPS = postDao.postCount(userId);
-		model.addAttribute("postCount", postPS); // 게시글 개수
+
+		model.addAttribute("postCount", postDao.postCount(userId)); // 전체게시글 개수
 		model.addAttribute("paging", paging); // 페이징
-
-
-		model.addAttribute("categoryList", categoryDao.findByUserId(userId)); //  사이드바 카테고리 이동 => 공통
-
-		model.addAttribute("postList2", postList); // 블로그 전체게시글
-
+		model.addAttribute("postList", postDao.findAllPost(userId, startNum)); // 블로그 전체게시글
+		model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리 이동 => 공통
 		return "/post/listForm";
 	}
 
