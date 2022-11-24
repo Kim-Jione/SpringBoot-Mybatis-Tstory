@@ -41,15 +41,9 @@
 		WHERE u.user_id=#{userId}
 	</select>
 
-	<select id="findByPostId"
-		resultType="site.metacoding.firstapp.domain.category.Category">
-		SELECT * FROM category WHERE post_id=#{postId}
-	</select>
+	
 
-	<select id="findByCategoryTitle"
-		resultType="site.metacoding.firstapp.domain.category.Category">
-		SELECT * FROM category WHERE user_id=#{userId} AND NOT category_id =#{categoryId}
-	</select>
+	
 
 	<insert id="insertCategoryTitle">
         INSERT

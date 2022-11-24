@@ -32,7 +32,6 @@ public interface PostDao {
 	public PostUpdateDto findByIdUpdate(@Param("postId") Integer postId, @Param("categoryId") Integer categoryId,
 			@Param("userId") Integer userId); // 누구의 카테코리의 페이지를 수정
 
-	public List<Post> findByCategoryId(Integer categoryId);
 
 	public List<PostAllDto> findAllAndUsername();
 

@@ -46,18 +46,6 @@
 		DELETE FROM post WHERE post_id = #{postId}
 	</delete>
 
-
-
-    <select id="findByCategoryId" resultType="site.metacoding.firstapp.web.dto.response.category.PostAllDto">
-        SELECT DISTINCT  p.post_id, p.post_title, p.created_at, p.user_id, p.category_id
- 		FROM post p
- 		LEFT JOIN category c 
- 		ON p.user_id = c.user_id
- 		WHERE p.category_id=#{categoryId}
- 		ORDER BY p.post_id DESC
-    </select>
-
-
     <select id="findByIdUpdate" resultType="site.metacoding.firstapp.web.dto.response.post.PostUpdateDto">
           SELECT c.category_id, c.category_title, p.post_id, p.post_title, p.post_content, p.post_thumnail, p.user_id
 		  FROM category c left JOIN post p ON c.user_id = p.user_id

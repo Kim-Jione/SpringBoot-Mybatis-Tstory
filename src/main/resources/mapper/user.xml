@@ -30,7 +30,6 @@
 		FROM user
 		WHERE username = #{username}
     </select>
-	
 
 	 <update id="updateById">
           UPDATE user
@@ -47,30 +46,10 @@
 		WHERE username=#{username} AND password = #{password}
     </select>
 
-	<select id="findByUsernameAndEmail" resultType="site.metacoding.firstapp.domain.user.User" >
-        SELECT *
-		FROM user
-		WHERE username = #{username} AND email = #{email}
-    </select>
-	
 	<select id="login"
 		resultType="site.metacoding.firstapp.domain.user.User">
 		SELECT * FROM user WHERE username=#{username} AND password = #{password}
 	</select>
-
-	<select id="findByUser"
-		resultType="site.metacoding.firstapp.domain.user.User">
-		SELECT * 
-		FROM user 
-		WHERE username=#{username} AND password = #{password} AND email=#{email} AND user_id = #{userId}
-	</select>
-
-
-    <select id="findByPassword" resultType="site.metacoding.firstapp.domain.user.User">
-        SELECT * 
-		FROM user 
-		WHERE password = #{password} AND user_id=#{userId}
-    </select>
 
 </mapper>
     
