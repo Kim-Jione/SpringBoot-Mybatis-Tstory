@@ -83,7 +83,7 @@ public class PostController {
 		if (principal == null) {
 			return "redirect:/user/loginForm";
 		}
-		List<Category> titleDto = categoryDao.findByUserId(principal.getUserId());
+		List<HeaderDto> titleDto = categoryDao.findByUserId(principal.getUserId());
 		model.addAttribute("titleList", titleDto);
 		return "/post/writeForm";
 	}
@@ -96,24 +96,6 @@ public class PostController {
 		return "redirect:/post/listForm/{userId}";
 	}
 
-	// 게시글 등록 페이지
-	@GetMapping("/write/postForm")
-	public String writeForm(Model model) {
-		User principal = (User) session.getAttribute("principal");
-		if (principal == null) {
-			return "redirect:/loginForm";
-		}
-		List<HeaderDto> titleDto = categoryDao.findByUserId(principal.getUserId());
-		model.addAttribute("titleList", titleDto);
-		return "/post/writeForm";
-	}
-
-	// 게시글 등록 응답
-	@PostMapping("/write/post/{userId}")
-	public String write(@PathVariable Integer userId, PostSaveDto postSaveDto) {
-		postDao.insertSave(postSaveDto);
-		return "redirect:/post/listForm/{userId}";
-	}
 
 	// 블로그 전체 게시글 목록 페이지
 	@GetMapping("/post/listForm/{userId}")

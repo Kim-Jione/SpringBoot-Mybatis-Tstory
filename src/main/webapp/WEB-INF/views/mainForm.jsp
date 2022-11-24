@@ -19,15 +19,6 @@
 </div>
     <div class="my_main_list">
 
-        <div style="background-color: grey">
-            <h3>postId : ${postList[0].postId}</h3>
-            <h3>postTitle : ${postList[0].postTitle}</h3>
-            <h3>username : ${postList[0].username}</h3>
-            <h3>userId : ${postList[0].userId}</h3>
-            <h3>categoryId : ${postList[0].categoryId}</h3>
-            <h3>updatedAt : ${postList[0].updatedAt}</h3>
-            <h3>createdAt : ${postList[0].createdAt}</h3>
-        </div>
 
         <!-- 아이템 시작 -->
         <c:forEach var="post" items="${postList}" varStatus = "status">
