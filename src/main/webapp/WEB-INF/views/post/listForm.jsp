@@ -14,7 +14,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
         >
             <div class="d-flex justify-content-end">
                 <div>
-                    <form style="display: inline-flex" method="get" action="">
+                    <form style="display: inline-flex" method="get" action="/post/listForm/${postList[0].userId}">
                         <input
                             style="width: 150px"
                             class="my_auth_form_box_input"

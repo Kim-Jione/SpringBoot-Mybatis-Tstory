@@ -19,6 +19,7 @@ import site.metacoding.firstapp.domain.user.UserDao;
 import site.metacoding.firstapp.web.dto.request.post.PostSaveDto;
 import site.metacoding.firstapp.web.dto.response.main.HeaderDto;
 import site.metacoding.firstapp.web.dto.response.post.PagingDto;
+import site.metacoding.firstapp.web.dto.response.post.PostAllDto;
 import site.metacoding.firstapp.web.dto.response.post.PostDetailDto;
 import site.metacoding.firstapp.web.dto.response.post.PostUpdateDto;
 
@@ -95,20 +96,35 @@ public class PostController {
 
 	// 블로그 전체 게시글 목록 페이지
 	@GetMapping("/post/listForm/{userId}")
-	public String list(@PathVariable Integer userId, Integer page, Model model) {
+	public String list(@PathVariable Integer userId, Integer page, Model model, String keyword) {
 
 		if (page == null) {
 			page = 0;
 		}
-
 		Integer startNum = page * 5;
-		PagingDto paging = postDao.paging(userId, page);
-		paging.makeBlockInfo();
 
-		model.addAttribute("postCount", postDao.postCount(userId)); // 전체게시글 개수
-		model.addAttribute("paging", paging); // 페이징
-		model.addAttribute("postList", postDao.findAllPost(userId, startNum)); // 블로그 전체게시글
-		model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리 이동 => 공통
+		if (keyword == null || keyword.isEmpty()) {
+			System.out.println("디버그: 나 if");
+			PagingDto paging = postDao.paging(page, userId, null);
+			paging.makeBlockInfo();
+
+			model.addAttribute("postCount", postDao.postCount(userId, null)); // 전체게시글 개수
+			model.addAttribute("paging", paging); // 페이징
+			model.addAttribute("postList", postDao.findAllPost(userId, null, startNum)); // 블로그 전체게시글
+			model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리 이동 => 공통
+		} else {
+			System.out.println("디버그: 나 else");
+
+			List<PostAllDto> postList = postDao.findAllPost(userId, keyword, startNum);
+			PagingDto paging = postDao.paging(page, userId, keyword);
+			paging.makeBlockInfoByPostAll(keyword);
+			model.addAttribute("postCount", postDao.postCount(userId, keyword)); // 전체게시글 개수
+			model.addAttribute("paging", paging); // 페이징
+			model.addAttribute("postList", postList); // 블로그 전체게시글
+			model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리 이동 => 공통
+
+		}
+
 		return "/post/listForm";
 	}
 

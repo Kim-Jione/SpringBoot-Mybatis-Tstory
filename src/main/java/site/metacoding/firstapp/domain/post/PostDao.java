@@ -38,11 +38,9 @@ public interface PostDao {
 
 	public PostDetailDto findByIdAndUser(Integer postId);
 
-	public PagingDto paging(@Param("userId") Integer userId, @Param("page") Integer page);
+	public List<PostAllDto> findAllPost(@Param("userId") Integer userId, @Param("keyword") String keyword, @Param("startNum") Integer startNum);
 
-	public List<PostAllDto> findAllPost(@Param("userId") Integer userId, @Param("startNum") Integer startNum);
-
-	public Post postCount(Integer userId);
+	public Post postCount(@Param("userId")Integer userId, @Param("keyword")String keyword);
 
 	public Post countCategory(Integer categoryId);
 
@@ -53,5 +51,8 @@ public interface PostDao {
 
 	public List<PostAllDto> findPost(@Param("categoryId") Integer categoryId,
 			@Param("userId") Integer userId, @Param("startNum") Integer startNum);
+
+	public PagingDto paging(@Param("page") Integer page, @Param("userId")Integer userId, 
+			@Param("keyword")String keyword);
 
 }
