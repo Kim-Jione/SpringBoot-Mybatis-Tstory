@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.RequiredArgsConstructor;
 import site.metacoding.firstapp.domain.category.Category;
@@ -44,11 +45,11 @@ public class PostController {
 	}
 
 	// 게시글 수정하기 페이지
-	@GetMapping("/{categoryId}/{postId}/updateForm")
+	@GetMapping("/post/updateForm/{categoryId}/{postId}")
 	public String updateForm(@PathVariable Integer categoryId, @PathVariable Integer postId, Model model) {
 		User principal = (User) session.getAttribute("principal");
 		if (principal == null) {
-			return "redirect:/loginForm";
+			return "redirect:/user/loginForm";
 		}
 		PostUpdateDto postUpdateDto = postDao.findByIdUpdate(postId, categoryId, principal.getUserId());
 		List<HeaderDto> titleDto = categoryDao.findByUserId(principal.getUserId());
@@ -58,18 +59,41 @@ public class PostController {
 	}
 
 	// 게시글 수정 응답
-	@PostMapping("/update/post/{userId}")
-	public String update(PostUpdateDto postUpdateDto) {
+	@PostMapping("/post/update")
+	public String update(PostUpdateDto postUpdateDto, RedirectAttributes redirect) {
 		postDao.insertUpdate(postUpdateDto);
+		User principal = (User) session.getAttribute("principal");
+		redirect.addAttribute("userId", principal.getUserId());
 		return "redirect:/post/listForm/{userId}";
 	}
 
-	// 게시글 삭제
-	@PostMapping("/delete/{postId}")
-	public String delete(@PathVariable Integer postId) {
+	// 게시글 삭제 응답
+	@PostMapping("/post/delete")
+	public String delete(Integer postId, RedirectAttributes redirect) {
 		postDao.delete(postId);
-		;
-		return "redirect:/";
+		User principal = (User) session.getAttribute("principal");
+		redirect.addAttribute("userId", principal.getUserId());
+		return "redirect:/post/listForm/{userId}";
+	}
+	
+	// 게시글 등록 페이지
+	@GetMapping("/post/writeForm")
+	public String writeForm(Model model) {
+		User principal = (User) session.getAttribute("principal");
+		if (principal == null) {
+			return "redirect:/user/loginForm";
+		}
+		List<Category> titleDto = categoryDao.findByUserId(principal.getUserId());
+		model.addAttribute("titleList", titleDto);
+		return "/post/writeForm";
+	}
+
+	// 게시글 등록 응답
+	@PostMapping("/post/write")
+	public String write(PostSaveDto postSaveDto, RedirectAttributes redirect) {
+		postDao.insertSave(postSaveDto);
+		redirect.addAttribute("userId", postSaveDto.getUserId());
+		return "redirect:/post/listForm/{userId}";
 	}
 
 	// 게시글 등록 페이지

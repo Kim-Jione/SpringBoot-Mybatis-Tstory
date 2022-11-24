@@ -15,7 +15,7 @@ public interface PostDao {
 
 	public Post findById(Integer postId);
 
-	public List<Post> findAll();
+	public List<PostAllDto> findAll();
 
 	public void insert(Post post);
 
