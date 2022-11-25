@@ -36,17 +36,6 @@ public class PostController {
 	private final UserDao userDao;
 	private final CategoryDao categoryDao;
 
-	// 게시글 상세보기 페이지
-	@GetMapping("/post/detailForm/{postId}/{userId}")
-	public String detailForm(@PathVariable Integer postId, @PathVariable Integer userId, Model model) {
-		PostDetailDto postDetail = postDao.findByIdAndUser(postId);
-		model.addAttribute("post", postDetail);
-		model.addAttribute("user", userDao.findById(userId));
-		model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리
-		model.addAttribute("postList", postDao.findByUserId(userId)); // 블로그 전체게시글
-		return "/post/detailForm";
-	}
-
 	// 게시글 수정하기 페이지
 	@GetMapping("/post/updateForm/{categoryId}/{postId}")
 	public String updateForm(@PathVariable Integer categoryId, @PathVariable Integer postId, Model model) {
@@ -140,4 +129,15 @@ public class PostController {
 		return new CMRespDto<>(1, "좋아요 성공", love);
 	}
 
+
+	// 게시글 상세보기 페이지
+	@GetMapping("/post/detailForm/{postId}/{userId}")
+	public String detailForm(@PathVariable Integer postId, @PathVariable Integer userId, Model model) {
+		PostDetailDto postDetail = postDao.findByIdAndUser(postId, userId);
+		model.addAttribute("post", postDetail);
+		model.addAttribute("user", userDao.findById(userId));
+		model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리
+		model.addAttribute("postList", postDao.findByUserId(userId)); // 블로그 전체게시글
+		return "/post/detailForm";
+	}
 }

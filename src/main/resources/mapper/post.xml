@@ -36,8 +36,14 @@
     </update>
 
     <select id="findByIdAndUser" resultType="site.metacoding.firstapp.web.dto.response.post.PostDetailDto">
-          SELECT p.post_id,p.post_title,p.post_content,p.post_thumnail,p.user_id,p.category_id,p.updated_at,p.created_at, u.username
-		  FROM post p LEFT JOIN  user u ON p.user_id = u.user_id
+          SELECT p.post_id,p.post_title,p.post_content,p.post_thumnail,p.user_id,p.category_id,p.updated_at,p.created_at, u.username,u.username, l.love_id loveId, if(l.love_id IS NULL, 0, 1) isLoved,
+		  (SELECT COUNT(*) FROM love WHERE post_id = #{postId} ) loveCount
+		  FROM post p 
+		  LEFT JOIN  user u 
+		  ON p.user_id = u.user_id
+		  LEFT JOIN 
+		  (SELECT * FROM love WHERE user_id = #{userId}) l
+		  ON p.user_id = l.user_id
 		  WHERE p.post_id = #{postId}
     </select>
 
