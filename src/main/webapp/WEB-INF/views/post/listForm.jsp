@@ -54,13 +54,13 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
                     <div class="my_text_title my_ellipsis">
                         ${post.postTitle}
                     </div>
-                    <div class="my_text_body_sm">${post.createdAt}</div>
+                    <div>${post.createdAt}</div>
                     <div class="my_mt_md_1" style="padding-top: 30px;" >
                        
                         <a
                             href="/post/detailForm/${post.postId}/${post.userId}"
                           
-                            > <button type="button" class="btn btn-light"   style="border:2px solid black">더보기</button></a
+                            > <button type="button" class="btn btn-light"   style="border:2px solid black";line-height: 20px;>더보기</button></a
                         >
                     </div>
                 </div>
@@ -70,15 +70,15 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
         <!-- 페이지 -->
         <div class="d-flex justify-content-center">
 		<ul class="pagination">
-			<li class='page-item ${paging.first ? "disabled" : ""}'><a class="page-link"
+			<li class='page-item ${paging.first ? "disabled" : ""}'><a style="color: black;" class="page-link"
 				href="?page=${paging.currentPage-1}&keyword=${paging.keyword}">이전</a></li>
 
 			<c:forEach var="num" begin="${paging.startPageNum}" end="${paging.lastPageNum}" step="1">
-				<li class='page-item ${paging.currentPage == num-1 ? "active" : ""}'><a class='page-link'
+				<li class='page-item ${paging.currentPage == num-1 ? "active" : ""}'><a style="color: black;" class="page-link"
 					href="?page=${num-1}&keyword=${paging.keyword}">${num}</a></li>
 			</c:forEach>
 
-			<li class='page-item ${paging.last ? "disabled" : ""}'><a class="page-link"
+			<li class='page-item ${paging.last ? "disabled" : ""}'><a style="color: black;" class="page-link"
 				href="?page=${paging.currentPage+1}&keyword=${paging.keyword}">다음</a></li>
 		</ul>
 	</div>
