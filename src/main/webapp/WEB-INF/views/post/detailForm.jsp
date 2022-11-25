@@ -47,10 +47,14 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
 
         <input id="postId" type="hidden" value="${post.postId}" />
         <input id="userId" type="hidden" value="${post.userId}" />
-
-        <div>
-        <i id="iconLove"
-				class='${post.loved ? "fa-solid" : "fa-regular"} fa-heart my_pointer my_red fa-lg'></i><span id="countLove">  ${post.loveCount}</span> </div>
+        <input id="loveId" type="hidden" value="${post.loveId}" />
+    
+<div class="d-flex justify-content-between">
+		<div>
+			공감 <i id="iconLove"
+				class='${post.loved ? "fa-solid" : "fa-regular"} fa-heart my_pointer my_red'></i> <span id="countLove">${post.loveCount}</span>
+		</div>
+	</div>
 
     </div>
     <hr>

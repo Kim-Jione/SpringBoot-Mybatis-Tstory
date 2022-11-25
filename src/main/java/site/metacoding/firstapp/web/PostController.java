@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -107,9 +106,7 @@ public class PostController {
 			model.addAttribute("paging", paging); // 페이징
 			model.addAttribute("postList", postList); // 블로그 전체게시글
 			model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리 이동 => 공통
-
 		}
-
 		return "/post/listForm";
 	}
 
@@ -124,21 +121,34 @@ public class PostController {
 		return "/post/detailForm";
 	}
 
-	// 게시글 좋아요 응답
-	@PostMapping("/post/love/{postId}")
-	public @ResponseBody CMRespDto<?> insertLoves(@PathVariable Integer postId) {
-		System.out.println("디버그: 게시글 응답");
-		User principal = (User) session.getAttribute("principal");
-		Love love = new Love(principal.getUserId(), postId);
-		postService.좋아요(love);
-		return new CMRespDto<>(1, "좋아요 성공", love);
-	}
-
 	// 게시글 삭제 응답
 	@DeleteMapping("/post/delete/{postId}")
 	public @ResponseBody CMRespDto<?> delete(@PathVariable Integer postId) {
-		System.out.println("디버그: 게시글 삭제 응답");
 		postDao.delete(postId);
 		return new CMRespDto<>(1, "게시글 삭제 성공", null);
 	}
+
+	// 게시글 좋아요 응답
+	@PostMapping("/s/api/post/love/{postId}")
+	public @ResponseBody CMRespDto<?> insertLove(@PathVariable Integer postId) {
+		System.out.println("디버그: 게시글 좋아요 응답");
+		User principal = (User) session.getAttribute("principal");
+		System.out.println("디버그: 게시글 좋아요 응답2");
+		Love love = new Love(principal.getUserId(), postId);
+		System.out.println("디버그: 게시글 좋아요 응답3");
+		postService.좋아요(love);
+		System.out.println("디버그: 게시글 좋아요 응답4");
+
+		return new CMRespDto<>(1, "좋아요 성공", love);
+	}
+
+	@DeleteMapping("/s/api/post/love/{postId}/{loveId}")
+	public @ResponseBody CMRespDto<?> deleteLove(@PathVariable Integer postId, @PathVariable Integer loveId) {
+		System.out.println("디버그: 게시글 좋아요 취소 응답1");
+		postService.좋아요취소(loveId);
+		System.out.println("디버그: 게시글 좋아요 취소 응답2");
+
+		return new CMRespDto<>(1, "좋아요 취소 성공", null);
+	}
+
 }

@@ -15,4 +15,8 @@ public class PostService {
 		loveDao.insert(love);
 		return love;
 	}
+
+	public void 좋아요취소(Integer lovesId) {
+		loveDao.delete(lovesId);
+	}
 }
