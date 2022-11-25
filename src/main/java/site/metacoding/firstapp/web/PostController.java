@@ -6,9 +6,11 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -54,15 +56,6 @@ public class PostController {
 	@PostMapping("/post/update")
 	public String update(PostUpdateDto postUpdateDto, RedirectAttributes redirect) {
 		postDao.insertUpdate(postUpdateDto);
-		User principal = (User) session.getAttribute("principal");
-		redirect.addAttribute("userId", principal.getUserId());
-		return "redirect:/post/listForm/{userId}";
-	}
-
-	// 게시글 삭제 응답
-	@PostMapping("/post/delete")
-	public String delete(Integer postId, RedirectAttributes redirect) {
-		postDao.delete(postId);
 		User principal = (User) session.getAttribute("principal");
 		redirect.addAttribute("userId", principal.getUserId());
 		return "redirect:/post/listForm/{userId}";
@@ -120,16 +113,6 @@ public class PostController {
 		return "/post/listForm";
 	}
 
-	// 게시글 좋아요 응답
-	@PostMapping("/post/{postId}/love")
-	public @ResponseBody CMRespDto<?> insertLoves(@PathVariable Integer postId) {
-		User principal = (User) session.getAttribute("principal");
-		Love love = new Love(principal.getUserId(), postId);
-		postService.좋아요(love);
-		return new CMRespDto<>(1, "좋아요 성공", love);
-	}
-
-
 	// 게시글 상세보기 페이지
 	@GetMapping("/post/detailForm/{postId}/{userId}")
 	public String detailForm(@PathVariable Integer postId, @PathVariable Integer userId, Model model) {
@@ -139,5 +122,23 @@ public class PostController {
 		model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리
 		model.addAttribute("postList", postDao.findByUserId(userId)); // 블로그 전체게시글
 		return "/post/detailForm";
+	}
+
+	// 게시글 좋아요 응답
+	@PostMapping("/post/love/{postId}")
+	public @ResponseBody CMRespDto<?> insertLoves(@PathVariable Integer postId) {
+		System.out.println("디버그: 게시글 응답");
+		User principal = (User) session.getAttribute("principal");
+		Love love = new Love(principal.getUserId(), postId);
+		postService.좋아요(love);
+		return new CMRespDto<>(1, "좋아요 성공", love);
+	}
+
+	// 게시글 삭제 응답
+	@DeleteMapping("/post/delete/{postId}")
+	public @ResponseBody CMRespDto<?> delete(@PathVariable Integer postId) {
+		System.out.println("디버그: 게시글 삭제 응답");
+		postDao.delete(postId);
+		return new CMRespDto<>(1, "게시글 삭제 성공", null);
 	}
 }

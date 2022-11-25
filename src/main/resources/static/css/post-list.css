@@ -28,3 +28,10 @@
     margin-bottom: 5px;
 }
 
+.my_pointer {
+	cursor: pointer;
+}
+
+.my_red {
+	color:red;
+}
