@@ -12,5 +12,5 @@ public interface LoveDao {
 
 	public void update(Love love);
 
-	public void delete(Love love);
+	public void delete(Integer loveId);
 }

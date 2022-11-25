@@ -16,7 +16,7 @@
 		WHERE love_id=#{loveId}
 	</select>
 
-	<insert id="insert">
+	<insert id="insert"  useGeneratedKeys="true" keyProperty="id">
 		INSERT
 		INTO love(post_id, user_id, updated_at, created_at)
 		VALUES(#{postId}, #{userId}, now(), now())

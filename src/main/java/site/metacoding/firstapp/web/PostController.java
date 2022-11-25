@@ -9,13 +9,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.RequiredArgsConstructor;
 import site.metacoding.firstapp.domain.category.CategoryDao;
+import site.metacoding.firstapp.domain.love.Love;
 import site.metacoding.firstapp.domain.post.PostDao;
 import site.metacoding.firstapp.domain.user.User;
 import site.metacoding.firstapp.domain.user.UserDao;
+import site.metacoding.firstapp.service.PostService;
+import site.metacoding.firstapp.web.dto.CMRespDto;
 import site.metacoding.firstapp.web.dto.request.post.PostSaveDto;
 import site.metacoding.firstapp.web.dto.response.main.HeaderDto;
 import site.metacoding.firstapp.web.dto.response.post.PagingDto;
@@ -27,6 +31,7 @@ import site.metacoding.firstapp.web.dto.response.post.PostUpdateDto;
 @Controller
 public class PostController {
 	private final HttpSession session;
+	private final PostService postService;
 	private final PostDao postDao;
 	private final UserDao userDao;
 	private final CategoryDao categoryDao;
@@ -124,6 +129,15 @@ public class PostController {
 		}
 
 		return "/post/listForm";
+	}
+
+	// 게시글 좋아요 응답
+	@PostMapping("/post/{postId}/love")
+	public @ResponseBody CMRespDto<?> insertLoves(@PathVariable Integer postId) {
+		User principal = (User) session.getAttribute("principal");
+		Love love = new Love(principal.getUserId(), postId);
+		postService.좋아요(love);
+		return new CMRespDto<>(1, "좋아요 성공", love);
 	}
 
 }
