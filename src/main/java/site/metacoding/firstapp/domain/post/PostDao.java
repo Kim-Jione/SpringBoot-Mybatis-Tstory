@@ -38,11 +38,12 @@ public interface PostDao {
 
 	public PostDetailDto findByIdAndUser(Integer postId);
 
-	public List<PostAllDto> findAllPost(@Param("userId") Integer userId, @Param("keyword") String keyword, @Param("startNum") Integer startNum);
+	public List<PostAllDto> findAllPost(@Param("userId") Integer userId, @Param("keyword") String keyword,
+			@Param("startNum") Integer startNum);
 
-	public Post postCount(@Param("userId")Integer userId, @Param("keyword")String keyword);
+	public Post postCount(@Param("userId") Integer userId, @Param("keyword") String keyword);
 
-	public Post categoryCount(@Param("categoryId")Integer categoryId, @Param("keyword")String keyword);
+	public Post categoryCount(@Param("categoryId") Integer categoryId, @Param("keyword") String keyword);
 
 	public List<KeywordDto> findSearchAllPost(String keyword);
 
@@ -50,9 +51,9 @@ public interface PostDao {
 			@Param("categoryId") Integer categoryId, @Param("keyword") String keyword);
 
 	public List<PostAllDto> findPost(@Param("categoryId") Integer categoryId,
-			@Param("userId") Integer userId, @Param("startNum") Integer startNum, @Param("keyword")String keyword);
+			@Param("userId") Integer userId, @Param("startNum") Integer startNum, @Param("keyword") String keyword);
 
-	public PagingDto paging(@Param("page") Integer page, @Param("userId")Integer userId, 
-			@Param("keyword")String keyword);
+	public PagingDto paging(@Param("page") Integer page, @Param("userId") Integer userId,
+			@Param("keyword") String keyword);
 
 }

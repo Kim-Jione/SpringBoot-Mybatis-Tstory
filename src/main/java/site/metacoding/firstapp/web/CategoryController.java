@@ -62,7 +62,7 @@ public class CategoryController {
 			model.addAttribute("category", categoryDao.findById(categoryId)); // 카테고리 제목 표시
 			model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리 이동 => 공통
 		} else {
-			
+
 			List<PostAllDto> postList = postDao.findPost(categoryId, userId, startNum, keyword);
 			PagingDto paging = postDao.pagingByCategory(page, userId, categoryId, keyword);
 			paging.makeBlockInfoByCategoryPostAll(keyword);
@@ -74,7 +74,6 @@ public class CategoryController {
 			model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리 이동 => 공통
 		}
 
-		
 		return "/category/listForm";
 	}
 }

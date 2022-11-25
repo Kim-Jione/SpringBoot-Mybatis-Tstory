@@ -5,12 +5,12 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
     
 
     <div style="display: inline-flex;">
-        <div style="width: 95px;"><h5 style="line-height: 50px;">전체글(${postCount.postCount})</h5></div>
+        <div style="width: 100px;"><h5 style="line-height: 50px;">전체글(${postCount.postCount})</h5></div>
 
         <!-- 검색바 -->
         <div
             class="form-group row justify-content-left"
-            style="margin-left: 10px"
+            style="padding-left: 15px"
         >
             <div class="d-flex justify-content-end">
                 <div>
@@ -68,18 +68,18 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
         </c:forEach>
 
         <!-- 페이지 -->
-        <div class="d-flex justify-content-center" style="color: blcck;">
+        <div class="d-flex justify-content-center">
 		<ul class="pagination">
 			<li class='page-item ${paging.first ? "disabled" : ""}'><a class="page-link"
-				href="?page=${paging.currentPage-1}">이전</a></li>
+				href="?page=${paging.currentPage-1}&keyword=${paging.keyword}">이전</a></li>
 
 			<c:forEach var="num" begin="${paging.startPageNum}" end="${paging.lastPageNum}" step="1">
 				<li class='page-item ${paging.currentPage == num-1 ? "active" : ""}'><a class='page-link'
-					href="?page=${num-1}">${num}</a></li>
+					href="?page=${num-1}&keyword=${paging.keyword}">${num}</a></li>
 			</c:forEach>
 
-			<li class='page-item ${paging.last ? "disabled" : ""}' ><a class="page-link"
-				href="?page=${paging.currentPage+1}">다음</a></li>
+			<li class='page-item ${paging.last ? "disabled" : ""}'><a class="page-link"
+				href="?page=${paging.currentPage+1}&keyword=${paging.keyword}">다음</a></li>
 		</ul>
 	</div>
     </div>

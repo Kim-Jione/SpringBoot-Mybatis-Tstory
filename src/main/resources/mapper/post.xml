@@ -160,6 +160,9 @@
 	first, 0 as last
 	FROM post 
 	WHERE user_id=#{userId} AND category_id=#{categoryId}
+	<if test="keyword != null">
+			AND post_title like '%${keyword}%'
+		</if>
 	) p 
     </select>
 	

@@ -112,7 +112,7 @@ public class PostController {
 			model.addAttribute("postList", postDao.findAllPost(userId, null, startNum)); // 블로그 전체게시글
 			model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리 이동 => 공통
 		} else {
-			
+
 			List<PostAllDto> postList = postDao.findAllPost(userId, keyword, startNum);
 			PagingDto paging = postDao.paging(page, userId, keyword);
 			paging.makeBlockInfoByPostAll(keyword);
