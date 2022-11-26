@@ -29,9 +29,17 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
             </div>
         </div>
 
+         <!-- 구독 -->
+         <c:if test="${ principal.userId !=postList[0].userId}">
+        <div  style="width: 80px; margin-left: 30px;">
+            <button id="subscribeBtn" class="${subscribeId !=null ?'blackBtn' : 'greyBtn'}">
+                                            ${subscribeId !=null ? '구독중': '구독'}
+                                        </button>
+        </div></c:if>
+
        <!-- 게시글 작성 -->
         <c:if test="${principal.userId == postList[0].userId}">
-        <div class="d-flex justify-content-end my_mb_sm_1" style="padding-left: 800px;">
+        <div class="d-flex justify-content-end my_mb_sm_1" style="padding-left: 680px;">
         <a href="/post/writeForm" class="my_atag_none">
                 <i class="fa-solid fa-pencil fa-2x" style="padding-top: 20px;"></i>
         </a>
@@ -42,6 +50,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
 
     <div class="my_post_list">
         <c:forEach var="post" items="${postList}">
+            <input id="usersId"  type="hidden" value="${post.userId}">
             <div class="my_post_list_item">
                 <div class="my_post_list_item_left">
                     <img
@@ -84,4 +93,31 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
 	</div>
     </div>
 </div>
+
+
+
+
+<script>
+
+    $("#subscribeBtn").click(() => {
+        $.ajax("/s/api/subscribe/" + $("#usersId").val(), {
+            type: "post",
+            dataType: "json",
+        }).done((res) => {
+            if (res.data == null) {
+                alert("구독취소성공");
+                $("#subscribeBtn").removeClass("blackBtn");
+                $("#subscribeBtn").addClass("greyBtn");
+                $("#subscribeBtn").text("구독");
+            } else {
+                alert("구독성공");
+                $("#subscribeBtn").removeClass("greyBtn");
+                $("#subscribeBtn").addClass("blackBtn");
+                $("#subscribeBtn").text("구독중");
+            }
+        });
+    });
+
+</script>
+
 <%@ include file="../layout/footer.jsp"%>

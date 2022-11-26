@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.metacoding.firstapp.domain.subscribe.SubscribeDao">
+
+	<select id="findById"
+		resultType="site.metacoding.firstapp.domain.subscribe.Subscribe">
+		SELECT * FROM subscribe WHERE subscribe_id=#{subscribeId}
+	</select>
+
+	<select id="findAll"
+		resultType="site.metacoding.firstapp.domain.subscribe.Subscribe">
+		SELECT *
+		FROM subscribe 
+		WHERE subscribe_id=#{subscribeId}
+	</select>
+
+	<insert id="insert">
+		INSERT
+		INTO subscribe(user_id, users_id)
+		VALUES(#{userId}, #{usersId})
+	</insert>
+
+    <update id="update">
+          UPDATE surbscribe
+		  SET 
+		  user_id = #{userId},
+		  users_id = #{usersId}
+    </update>
+
+	<delete id="delete">
+		DELETE FROM subscribe WHERE subscribe_id = #{subscribeId}
+	</delete>
+
+
+    <select id="findByUserIdAndUsersId" resultType="Integer">
+        SELECT subscribe_Id
+    	FROM subscribe
+    	WHERE user_id = #{userId} and users_id = #{usersId}
+    </select>
+
+
+</mapper>
+
+
+

@@ -17,7 +17,12 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                     name="password"
                     placeholder="비밀번호"
                 />
-                <button type="submit" class="my_secondary_btn">로그인</button>
+                <button
+                    type="submit"
+                    class="my_secondary_btn"
+                >
+                    로그인
+                </button>
             </form>
             <div class="my_auth_form_box_link">
                 <div><a href="/user/joinForm">회원가입</a></div>

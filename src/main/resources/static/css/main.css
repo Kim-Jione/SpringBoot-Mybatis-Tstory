@@ -19,7 +19,7 @@
 
 .my_main_list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px,1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     grid-gap: 15px;
     margin-bottom: 30px;
 }
@@ -41,4 +41,14 @@
 .my_main_item_thumnail {
     height: 200px;
     border-bottom: 1px solid rgb(25, 25, 25);
+}
+
+my_secondary_btn{
+    background-color: black;
+}
+
+.my_secondary_btn:hover {
+    background-color: rgb(255, 85, 68);
+    color: white;
+    text-decoration-line: none;
 }

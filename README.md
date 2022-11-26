@@ -64,7 +64,7 @@
 
 Security 활용하여 이메일로 비밀번호 변경 기능
 
-JWT + Security + Redis 로그인 기능
+Redis 로그인 기능
 
 Junit 테스트
 
@@ -102,7 +102,8 @@ create table love(
     post_id INT NOT NULL,
     user_id INT NOT NULL,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE current_timestamp,
-    created_at TIMESTAMP NOT NULL DEFAULT current_timestamp
+    created_at TIMESTAMP NOT NULL DEFAULT current_timestamp,
+     UNIQUE uk_loves (user_id,post_id)
 );
 
 
@@ -123,6 +124,14 @@ create table visit(
     total_count int NOT null,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE current_timestamp,
     created_at TIMESTAMP NOT NULL DEFAULT current_timestamp
+);
+
+create table subscribe(
+   subscribe_id INT primary KEY auto_increment,
+   user_id INT,
+   users_id INT,
+   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE current_timestamp,
+   created_at TIMESTAMP NOT NULL DEFAULT current_timestamp
 );
 ```
 .
