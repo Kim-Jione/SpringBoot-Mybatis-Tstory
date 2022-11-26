@@ -30,11 +30,12 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
         </div>
 
          <!-- 구독 -->
+         <c:if test="${ principal.userId !=postList[0].userId}">
         <div  style="width: 80px; margin-left: 30px; height: 40px;line-height: 45px;">
             <button id="subscribeBtn" class="${subscribeId !=null ?'blueBtn' : 'greyBtn'}">
                                             ${subscribeId !=null ? '구독중': '구독'}
                                         </button>
-        </div>
+        </div></c:if>
 
        <!-- 게시글 작성 -->
         <c:if test="${principal.userId == postList[0].userId}">
