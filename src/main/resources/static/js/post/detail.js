@@ -23,7 +23,7 @@ function insertLove() {
             renderLoves();
             let count = $("#countLove").text();
             $("#countLove").text(Number(count) + 1);
-            $("#loveId").val(res.data.loveId);
+            $("#loveId").val(res.data.loveId); // detailForm에 loveId 다시 심기
         } else {
             alert(res.msg);
             location.href = "/user/loginForm";

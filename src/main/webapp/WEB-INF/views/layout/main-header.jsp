@@ -115,6 +115,11 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                             <div class="dropdown-menu">
                                 <a
                                     class="dropdown-item"
+                                    href="/subscribe/listForm/1"
+                                    >구독관리</a
+                                >
+                                <a
+                                    class="dropdown-item"
                                     href="/post/listForm/${principal.userId}"
                                     >내블로그</a
                                 >
@@ -128,6 +133,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                                     href="/category/writeForm"
                                     >카테고리관리</a
                                 >
+
                                 <a class="dropdown-item" href="/user/logout"
                                     >로그아웃</a
                                 >

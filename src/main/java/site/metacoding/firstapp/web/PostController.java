@@ -87,6 +87,7 @@ public class PostController {
 		if (page == null) {
 			page = 0;
 		}
+
 		Integer startNum = page * 5;
 
 		if (keyword == null || keyword.isEmpty()) {
@@ -100,11 +101,11 @@ public class PostController {
 		} else {
 
 			List<PostAllDto> postList = postDao.findAllPost(userId, keyword, startNum);
+			model.addAttribute("postList", postList); // 블로그 전체게시글
 			PagingDto paging = postDao.paging(page, userId, keyword);
 			paging.makeBlockInfoByPostAll(keyword);
 			model.addAttribute("postCount", postDao.postCount(userId, keyword)); // 전체게시글 개수
 			model.addAttribute("paging", paging); // 페이징
-			model.addAttribute("postList", postList); // 블로그 전체게시글
 			model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리 이동 => 공통
 		}
 		return "/post/listForm";
@@ -127,7 +128,6 @@ public class PostController {
 			model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리
 			model.addAttribute("postList", postDao.findByUserId(userId)); // 블로그 전체게시글
 		}
-
 		return "/post/detailForm";
 	}
 

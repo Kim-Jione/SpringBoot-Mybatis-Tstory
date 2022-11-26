@@ -1,11 +1,17 @@
-<!DOCTYPE html><%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%><%@ taglib prefix="c"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%> <%@ taglib prefix="c"
 uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <html lang="ko">
     <head>
         <title>제이스토리</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link
+            rel="stylesheet"
+            href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"
+        />
         <link
             rel="stylesheet"
             href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
@@ -31,61 +37,110 @@ uri="http://java.sun.com/jsp/jstl/core"%>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/iScroll/5.2.0/iscroll.min.js"></script>
         <!-- drawer.js -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/drawer/3.2.2/js/drawer.min.js"></script>
+        <link
+            href="https://cdn.quilljs.com/1.3.6/quill.snow.css"
+            rel="stylesheet"
+        />
 
         <link rel="stylesheet" href="/css/styles.css" />
+
+        <style>
+            .bd-navbar {
+                z-index: 1071;
+                min-height: 4rem;
+                box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05),
+                    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+            }
+            .bd-sidebar {
+                z-index: 1000;
+                height: calc(100vh - 4rem);
+                background: #eee;
+                border-right: 1px solid rgba(0, 0, 0, 0.1);
+                max-width: 220px;
+                display: flex;
+                padding: 0;
+                overflow-y: hidden;
+                flex-direction: column;
+            }
+            .bd-sidebar-body {
+                height: 100%;
+                overflow-y: auto;
+                display: block;
+            }
+            .bd-sidebar-body .nav {
+                display: block;
+            }
+            .bd-sidebar-body .nav > li > a {
+                display: block;
+                padding: 0.25rem 1.5rem;
+                font-size: 90%;
+            }
+            .bd-sidebar-footer {
+                padding: 1rem;
+                background: #ddd;
+            }
+            .sidebar-full {
+                position: fixed;
+                top: 0;
+                height: 100vh;
+            }
+        </style>
     </head>
 
-    <body class="drawer drawer--left">
-        <div style="margin-bottom: 70px">
-            <nav class="drawer-nav my_nav_slider" role="navigation">
-                <ul class="drawer-menu">
-                    <li><a class="drawer-brand" href="/">Home</a></li>
-                    <li>
-                        <a
-                            class="drawer-menu-item"
-                            href="/post/listForm/${categoryList[0].userId}"
-                            >전체 게시글 보기</a
-                        >
-                    </li>
-                    <c:forEach var="category" items="${categoryList}">
-                        <li>
-                            <a
-                                class="drawer-menu-item"
-                                href="/category/listForm/${category.categoryId}/${category.userId}"
-                                >${category.categoryTitle}</a
-                            >
-                        </li>
-                    </c:forEach>
-                </ul>
-                <div class="my_nav_slider_visit">
-                    <div>블로그 방문자수 :</div>
-                    <i class="fa-solid fa-camera"></i>
-                </div>
-            </nav>
-
-            <nav class="navbar navbar-expand-sm my_navbar">
-                <!-- Links -->
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <div
-                            class="my_icon_btn drawer-toggle"
-                            style="border: none"
-                        >
-                            <i class="fa-solid fa-bars fa-2x"></i>
-                        </div>
-                    </li>
-                </ul>
-
-                <div class="my_navbar_title">
-                    <a
-                        href="/post/listForm/${categoryList[0].userId}"
-                        style="color: black"
-                        >${categoryList[0].username} 의 블로그</a
+    <body>
+        <div style="height: 120px">
+            <input
+                type="hidden"
+                id="principal-id"
+                value="${principal.userId}"
+            />
+            <nav id="navbar" class="navbar navbar-expand-sm my_navbar">
+                <!-- T모양 -->
+                <a href="/">
+                    <svg
+                        class="my_sm_1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 408.4 408.4"
                     >
+                        <g>
+                            <circle
+                                class="cls-1"
+                                cx="58.18"
+                                cy="58.18"
+                                r="58.18"
+                            />
+                            <circle
+                                class="cls-1"
+                                cx="204.2"
+                                cy="58.18"
+                                r="58.18"
+                            />
+                            <circle
+                                class="cls-1"
+                                cx="204.2"
+                                cy="204.2"
+                                r="58.18"
+                            />
+                            <circle
+                                class="cls-1"
+                                cx="204.2"
+                                cy="350.22"
+                                r="58.18"
+                            />
+                            <circle
+                                class="cls-1"
+                                cx="350.22"
+                                cy="58.18"
+                                r="58.18"
+                            />
+                        </g>
+                    </svg>
+                </a>
+                <div class="my_navbar_title">
+                    <a class="drawer-brand" href="/">제이스토리 </a>
                 </div>
-
                 <c:choose>
-                    <c:when test="${empty principal}">
+                    <c:when test="${principal == null}">
                         <div>
                             <a class="my_main_start_btn" href="/user/loginForm"
                                 >시작하기</a
@@ -104,11 +159,6 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                             </div>
 
                             <div class="dropdown-menu">
-                                <a
-                                    class="dropdown-item"
-                                    href="/subscribe/listForm/1"
-                                    >구독관리</a
-                                >
                                 <a
                                     class="dropdown-item"
                                     href="/post/listForm/${principal.userId}"
@@ -131,13 +181,87 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                         </div>
                     </c:otherwise>
                 </c:choose>
-
-                <!-- <ul class="navbar-nav">
-            <li class="nav-item">
-                프로필사진
-            </li>
-        </ul> -->
             </nav>
+            <br />
         </div>
+
+        <div class="container-fluid">
+            <div class="row flex-nowrap">
+                <div id="sidebar" class="col-3 bd-sidebar">
+                    <div class="bd-sidebar-body">
+                        <ul class="nav">
+                            <li>구독한 블로그 목록</li>
+                            <li><a>구독한 블로그</a></li>
+                            <li><a>구독한 블로그</a></li>
+                        </ul>
+                        <br />
+                    </div>
+                    <div class="bd-sidebar-footer">내블로그 바로가기</div>
+                </div>
+                <main
+                    id="main"
+                    class="col-9 py-md-3 pl-md-5 bd-content"
+                    role="main"
+                >
+                    <c:forEach var="post" items="${postList}">
+                        <div class="my_post_list_item">
+                            <div class="my_post_list_item_left">
+                                <img
+                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1Tpz1i_UtKvySpfcIh3r_AEgA_9JvqIs_9A&usqp=CAU"
+                                    width="100%"
+                                    height="100%"
+                                />
+                            </div>
+                            <div class="my_post_list_item_right my_ellipsis">
+                                <div class="my_text_title my_ellipsis">
+                                    ${post.postTitle}
+                                </div>
+                                <div>${post.createdAt}</div>
+                                <div
+                                    class="my_mt_md_1"
+                                    style="padding-top: 30px"
+                                >
+                                    <a
+                                        href="/post/detailForm/${post.postId}/${post.userId}"
+                                    >
+                                        <button
+                                            type="button"
+                                            class="btn btn-light"
+                                            style="border: 2px solid black"
+                                            ;line-height:
+                                            20px;
+                                        >
+                                            더보기
+                                        </button></a
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </main>
+            </div>
+        </div>
+
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+        <script>
+            const sidebar = document.getElementById("sidebar");
+            const sidebarWidth = sidebar.offsetWidth + "px";
+            const navbarHeight = document.getElementById("navbar").offsetHeight;
+            window.onscroll = function () {
+                const y = window.pageYOffset;
+                if (y < navbarHeight) {
+                    sidebar.classList.remove("sidebar-full");
+                    sidebar.style.height =
+                        "calc(100vh - " + (navbarHeight - y + "px)");
+                    main.style.marginLeft = "";
+                } else {
+                    main.style.marginLeft = sidebarWidth;
+                    sidebar.classList.add("sidebar-full");
+                    sidebar.style.height = "";
+                    sidebar.style.width = sidebarWidth;
+                }
+            };
+        </script>
     </body>
 </html>
