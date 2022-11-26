@@ -6,16 +6,21 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.RequiredArgsConstructor;
 import site.metacoding.firstapp.domain.category.CategoryDao;
+import site.metacoding.firstapp.domain.love.Love;
 import site.metacoding.firstapp.domain.post.PostDao;
 import site.metacoding.firstapp.domain.user.User;
 import site.metacoding.firstapp.domain.user.UserDao;
+import site.metacoding.firstapp.service.PostService;
+import site.metacoding.firstapp.web.dto.CMRespDto;
 import site.metacoding.firstapp.web.dto.request.post.PostSaveDto;
 import site.metacoding.firstapp.web.dto.response.main.HeaderDto;
 import site.metacoding.firstapp.web.dto.response.post.PagingDto;
@@ -27,20 +32,10 @@ import site.metacoding.firstapp.web.dto.response.post.PostUpdateDto;
 @Controller
 public class PostController {
 	private final HttpSession session;
+	private final PostService postService;
 	private final PostDao postDao;
 	private final UserDao userDao;
 	private final CategoryDao categoryDao;
-
-	// 게시글 상세보기 페이지
-	@GetMapping("/post/detailForm/{postId}/{userId}")
-	public String detailForm(@PathVariable Integer postId, @PathVariable Integer userId, Model model) {
-		PostDetailDto postDetail = postDao.findByIdAndUser(postId);
-		model.addAttribute("post", postDetail);
-		model.addAttribute("user", userDao.findById(userId));
-		model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리
-		model.addAttribute("postList", postDao.findByUserId(userId)); // 블로그 전체게시글
-		return "/post/detailForm";
-	}
 
 	// 게시글 수정하기 페이지
 	@GetMapping("/post/updateForm/{categoryId}/{postId}")
@@ -60,15 +55,6 @@ public class PostController {
 	@PostMapping("/post/update")
 	public String update(PostUpdateDto postUpdateDto, RedirectAttributes redirect) {
 		postDao.insertUpdate(postUpdateDto);
-		User principal = (User) session.getAttribute("principal");
-		redirect.addAttribute("userId", principal.getUserId());
-		return "redirect:/post/listForm/{userId}";
-	}
-
-	// 게시글 삭제 응답
-	@PostMapping("/post/delete")
-	public String delete(Integer postId, RedirectAttributes redirect) {
-		postDao.delete(postId);
 		User principal = (User) session.getAttribute("principal");
 		redirect.addAttribute("userId", principal.getUserId());
 		return "redirect:/post/listForm/{userId}";
@@ -120,10 +106,55 @@ public class PostController {
 			model.addAttribute("paging", paging); // 페이징
 			model.addAttribute("postList", postList); // 블로그 전체게시글
 			model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리 이동 => 공통
+		}
+		return "/post/listForm";
+	}
 
+	// 게시글 상세보기 페이지
+	@GetMapping("/post/detailForm/{postId}/{userId}")
+	public String detailForm(@PathVariable Integer postId, @PathVariable Integer userId, Model model) {
+		User principal = (User) session.getAttribute("principal");
+		if (principal == null) {
+			PostDetailDto postDetail = postDao.findByIdAndUser(postId, null);
+			model.addAttribute("post", postDetail);
+			model.addAttribute("user", userDao.findById(userId));
+			model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리
+			model.addAttribute("postList", postDao.findByUserId(userId)); // 블로그 전체게시글
+		} else {
+			PostDetailDto postDetail = postDao.findByIdAndUser(postId, principal.getUserId());
+			model.addAttribute("post", postDetail);
+			model.addAttribute("user", userDao.findById(userId));
+			model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리
+			model.addAttribute("postList", postDao.findByUserId(userId)); // 블로그 전체게시글
 		}
 
-		return "/post/listForm";
+		return "/post/detailForm";
+	}
+
+	// 게시글 삭제 응답
+	@DeleteMapping("/post/delete/{postId}")
+	public @ResponseBody CMRespDto<?> delete(@PathVariable Integer postId) {
+		postDao.delete(postId);
+		return new CMRespDto<>(1, "게시글 삭제 성공", null);
+	}
+
+	// 게시글 좋아요 응답
+	@PostMapping("/s/api/post/love/{postId}")
+	public @ResponseBody CMRespDto<?> insertLove(@PathVariable Integer postId) {
+		User principal = (User) session.getAttribute("principal");
+
+		Love love = new Love(principal.getUserId(), postId);
+
+		postService.좋아요(love);
+		return new CMRespDto<>(1, "좋아요 성공", love);
+	}
+
+	// 게시글 싫어요 응답
+	@DeleteMapping("/s/api/post/love/{postId}/{loveId}")
+	public @ResponseBody CMRespDto<?> deleteLove(@PathVariable Integer postId, @PathVariable Integer loveId) {
+		postService.좋아요취소(loveId);
+
+		return new CMRespDto<>(1, "좋아요 취소 성공", null);
 	}
 
 }

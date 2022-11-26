@@ -36,7 +36,7 @@ public interface PostDao {
 
 	public List<PostAllDto> findAllAndUsername();
 
-	public PostDetailDto findByIdAndUser(Integer postId);
+	public PostDetailDto findByIdAndUser(@Param("postId")Integer postId, @Param("userId")Integer userId);
 
 	public List<PostAllDto> findAllPost(@Param("userId") Integer userId, @Param("keyword") String keyword,
 			@Param("startNum") Integer startNum);

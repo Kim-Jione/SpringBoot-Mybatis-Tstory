@@ -15,12 +15,8 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
                 style="height:38px;width: 58px;"
                 >수정</a
             >
-            <form
-                action="/post/delete"
-                method="post"
-                style="width:150px"
-            ><input type="hidden" value="${post.postId}" name="postId">
-                <button class="btn btn-outline-danger">
+            <form>
+                <button id="btnDelete" class="btn btn-outline-danger">
                     삭제
                 </button>
             </form>
@@ -48,17 +44,18 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
     <div class="my_post_detail_content">${post.postContent}</div>
 
     <div class="my_post_info_box d-flex" style="margin-top: 50px;">
-        <div class="my_post_info">
-            <i
-                class="fa-solid fa-heart my_fake_like my_mr_sm_1"
-                onclick="postLikeClick()"
-            ></i>
-            <i
-                class="far fa-heart my_fake_un_like my_mr_sm_1"
-                id="my-heart"
-                onclick="postLikeClick()"
-            ></i>
-        </div>
+
+        <input id="postId" type="hidden" value="${post.postId}" />
+        <input id="userId" type="hidden" value="${post.userId}" />
+        <input id="loveId" type="hidden" value="${post.loveId}" />
+    
+<div class="d-flex justify-content-between">
+		<div>
+			공감 <i id="iconLove"
+				class='${post.loved ? "fa-solid" : "fa-regular"} fa-heart my_pointer my_red'></i> <span id="countLove">${post.loveCount}</span>
+		</div>
+	</div>
+
     </div>
     <hr>
     <!-- 라이브리 시티 설치 코드 -->
