@@ -122,8 +122,6 @@ public class PostController {
 			model.addAttribute("postList", postDao.findByUserId(userId)); // 블로그 전체게시글
 		} else {
 			PostDetailDto postDetail = postDao.findByIdAndUser(postId, principal.getUserId());
-			System.out.println("디버그: userId: " + userId);
-			System.out.println("디버그: postId: " + postId);
 			model.addAttribute("post", postDetail);
 			model.addAttribute("user", userDao.findById(userId));
 			model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리
@@ -143,27 +141,18 @@ public class PostController {
 	// 게시글 좋아요 응답
 	@PostMapping("/s/api/post/love/{postId}")
 	public @ResponseBody CMRespDto<?> insertLove(@PathVariable Integer postId) {
-		System.out.println("디버그: 게시글 좋아요 응답");
 		User principal = (User) session.getAttribute("principal");
-		System.out.println("디버그: 게시글 좋아요 응답2");
 
 		Love love = new Love(principal.getUserId(), postId);
 
-		System.out.println("디버그: userId: " + principal.getUserId());
-		System.out.println("디버그: postId: " + postId);
-		System.out.println("디버그: 게시글 좋아요 응답3");
 		postService.좋아요(love);
-		System.out.println("디버그: loveId: " + love.getLoveId());
 		return new CMRespDto<>(1, "좋아요 성공", love);
 	}
 
 	// 게시글 싫어요 응답
 	@DeleteMapping("/s/api/post/love/{postId}/{loveId}")
 	public @ResponseBody CMRespDto<?> deleteLove(@PathVariable Integer postId, @PathVariable Integer loveId) {
-		System.out.println("디버그: 게시글 좋아요 취소 응답1");
-		System.out.println("디버그: loveId: " + loveId);
 		postService.좋아요취소(loveId);
-		System.out.println("디버그: 게시글 좋아요 취소 응답2");
 
 		return new CMRespDto<>(1, "좋아요 취소 성공", null);
 	}

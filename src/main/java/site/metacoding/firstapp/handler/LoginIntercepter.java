@@ -18,9 +18,7 @@ public class LoginIntercepter implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
-        System.out.println("================");
-        System.out.println(request.getRequestURI());
-        System.out.println("================");
+        System.out.println("디버그: "+request.getRequestURI());
 
         String uri = request.getRequestURI();
 
@@ -28,8 +26,7 @@ public class LoginIntercepter implements HandlerInterceptor {
         User principal = (User) session.getAttribute("principal");
         if (principal == null) {
             if (uri.contains("api")) {
-                System.out.println("===========");
-                System.out.println("API 가 주소에 있음");
+                System.out.println("디버그: API 가 주소에 있음");
                 
                 response.setContentType("application/json; charset=utf-8");
                 PrintWriter out = response.getWriter();
@@ -38,9 +35,8 @@ public class LoginIntercepter implements HandlerInterceptor {
                 String json = om.writeValueAsString(cmRespDto);
                 out.println(json);
             } else {
-                System.out.println("===========");
-                System.out.println("API 가 주소에 없음");
-                response.sendRedirect("/loginForm");
+                System.out.println("디버그: API 가 주소에 없음");
+                response.sendRedirect("/user/loginForm");
             }
             return false;
         }
