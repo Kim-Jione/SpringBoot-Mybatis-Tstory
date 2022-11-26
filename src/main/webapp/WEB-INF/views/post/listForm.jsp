@@ -105,12 +105,17 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
             dataType: "json",
         }).done((res) => {
             if (res.data == null) {
-                alert("구독취소성공");
                 $("#subscribeBtn").removeClass("blackBtn");
                 $("#subscribeBtn").addClass("greyBtn");
                 $("#subscribeBtn").text("구독");
-            } else {
-                alert("구독성공");
+            } 
+            
+            if(res.code==-1){
+            alert(res.msg);
+            location.href = "/user/loginForm";
+
+            }
+            else {
                 $("#subscribeBtn").removeClass("greyBtn");
                 $("#subscribeBtn").addClass("blackBtn");
                 $("#subscribeBtn").text("구독중");

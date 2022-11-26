@@ -13,8 +13,6 @@ public class SubscribeService {
 
 	public void 구독하기(Integer userId, Integer usersId) {
 		Subscribe subscribe = new Subscribe(userId, usersId);
-		System.out.println("디버그: 서비스 userId: " + subscribe.getUserId());
-		System.out.println("디버그: 서비스 usersId: " + subscribe.getUsersId());
 		subscribeDao.insert(subscribe);
 	}
 
