@@ -32,7 +32,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
          <!-- 구독 -->
         <div  style="width: 80px; margin-left: 30px; height: 40px;line-height: 45px;">
             <button id="subscribeBtn" class="${subscribeId !=null ?'blueBtn' : 'greyBtn'}">
-                                            ${subscribeId !=null ? '구독취소': '구독'}
+                                            ${subscribeId !=null ? '구독중': '구독'}
                                         </button>
         </div>
 
@@ -104,15 +104,15 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
             dataType: "json",
         }).done((res) => {
             if (res.data == null) {
-                alert("구독성공");
+                alert("구독취소성공");
                 $("#subscribeBtn").removeClass("blueBtn");
                 $("#subscribeBtn").addClass("greyBtn");
-                $("#subscribeBtn").text("구독중");
+                $("#subscribeBtn").text("구독");
             } else {
-                alert("구독취소성공");
+                alert("구독성공");
                 $("#subscribeBtn").removeClass("greyBtn");
                 $("#subscribeBtn").addClass("blueBtn");
-                $("#subscribeBtn").text("구독");
+                $("#subscribeBtn").text("구독중");
             }
         });
     });

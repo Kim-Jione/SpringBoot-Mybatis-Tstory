@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,7 +40,7 @@ public class SubscribeController {
 	public @ResponseBody CMRespDto<Integer> companySubscribe(@PathVariable Integer usersId, Model model) {
 		System.out.println("디버그: 컨트롤러 도착");
 		User principal = (User) session.getAttribute("principal");
-		System.out.println("디버그: userId: "+principal.getUserId());
+		System.out.println("디버그: userId: " + principal.getUserId());
 		System.out.println("디버그: usersId: " + usersId);
 		Integer subscribeId = subscribeService.구독Id불러오기(principal.getUserId(), usersId);
 		System.out.println("디버그: subscribeId: " + subscribeId);

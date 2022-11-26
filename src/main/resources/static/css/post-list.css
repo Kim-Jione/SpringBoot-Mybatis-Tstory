@@ -20,7 +20,7 @@
 }
 
 .my_post_list_item_right {
-    flex:1;
+    flex: 1;
     padding: 15px;
 }
 
@@ -29,9 +29,17 @@
 }
 
 .my_pointer {
-	cursor: pointer;
+    cursor: pointer;
 }
 
 .my_red {
-	color:red;
+    color: red;
+}
+
+.blueBtn {
+    background-color: #0d6efd;
+}
+
+.greyBtn {
+    background-color: lightslategray;
 }

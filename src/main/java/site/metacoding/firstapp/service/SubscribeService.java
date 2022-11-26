@@ -19,6 +19,7 @@ public class SubscribeService {
 	}
 
 	public void 구독취소(Integer subscribeId) {
+		subscribeDao.delete(subscribeId);
 	}
 
 	public Integer 구독Id불러오기(Integer userId, Integer usersId) {
