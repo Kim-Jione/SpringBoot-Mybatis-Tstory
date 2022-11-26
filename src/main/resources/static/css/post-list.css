@@ -36,10 +36,17 @@
     color: red;
 }
 
-.blueBtn {
-    background-color: #0d6efd;
+.blackBtn {
+    background-color: #000000;
+    color: white;
+    height: 45px;
+    border-radius: 10px;line-height: 45px;
 }
 
 .greyBtn {
     background-color: lightslategray;
+    color: white;
+    height: 45px;
+line-height: 45px;
+    border-radius: 10px;
 }

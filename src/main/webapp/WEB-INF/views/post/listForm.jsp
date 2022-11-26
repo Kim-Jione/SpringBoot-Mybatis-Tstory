@@ -31,8 +31,8 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
 
          <!-- 구독 -->
          <c:if test="${ principal.userId !=postList[0].userId}">
-        <div  style="width: 80px; margin-left: 30px; height: 40px;line-height: 45px;">
-            <button id="subscribeBtn" class="${subscribeId !=null ?'blueBtn' : 'greyBtn'}">
+        <div  style="width: 80px; margin-left: 30px;">
+            <button id="subscribeBtn" class="${subscribeId !=null ?'blackBtn' : 'greyBtn'}">
                                             ${subscribeId !=null ? '구독중': '구독'}
                                         </button>
         </div></c:if>
@@ -106,13 +106,13 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
         }).done((res) => {
             if (res.data == null) {
                 alert("구독취소성공");
-                $("#subscribeBtn").removeClass("blueBtn");
+                $("#subscribeBtn").removeClass("blackBtn");
                 $("#subscribeBtn").addClass("greyBtn");
                 $("#subscribeBtn").text("구독");
             } else {
                 alert("구독성공");
                 $("#subscribeBtn").removeClass("greyBtn");
-                $("#subscribeBtn").addClass("blueBtn");
+                $("#subscribeBtn").addClass("blackBtn");
                 $("#subscribeBtn").text("구독중");
             }
         });
