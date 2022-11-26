@@ -29,6 +29,13 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
             </div>
         </div>
 
+         <!-- 구독 -->
+        <div  style="width: 80px; margin-left: 30px; height: 40px;line-height: 45px;">
+            <button id="subscribeBtn " class="btn btn-sm btn-dark" >
+               <h5 > 구독중 </h5>
+            </button>
+        </div>
+
        <!-- 게시글 작성 -->
         <c:if test="${principal.userId == postList[0].userId}">
         <div class="d-flex justify-content-end my_mb_sm_1" style="padding-left: 800px;">
