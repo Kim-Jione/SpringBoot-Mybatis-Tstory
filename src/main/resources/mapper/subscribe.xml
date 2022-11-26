@@ -18,19 +18,28 @@
 
 	<insert id="insert">
 		INSERT
-		INTO subscribe(subscribe_id, user_id, updated_at, created_at)
-		VALUES(#{subscribeId}, #{userId}, now(), now())
+		INTO subscribe(user_id, users_id)
+		VALUES(#{userId}, #{usersId})
 	</insert>
 
     <update id="update">
           UPDATE surbscribe
-		  SET subscribe_id = #{subscribeId},
-		  user_id = #{userId}
+		  SET 
+		  user_id = #{userId},
+		  users_id = #{usersId}
     </update>
 
 	<delete id="delete">
 		DELETE FROM subscribe WHERE subscribe_id = #{subscribeId}
 	</delete>
+
+
+    <select id="findByUserIdAndUsersId" resultType="Integer">
+        SELECT subscribe_Id
+    	FROM subscribe
+    	WHERE user_id = #{userId} and users_id = #{usersId}
+    </select>
+
 
 </mapper>
 

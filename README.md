@@ -129,6 +129,7 @@ create table visit(
 create table subscribe(
    subscribe_id INT primary KEY auto_increment,
    user_id INT,
+   users_id INT,
    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE current_timestamp,
    created_at TIMESTAMP NOT NULL DEFAULT current_timestamp
 );

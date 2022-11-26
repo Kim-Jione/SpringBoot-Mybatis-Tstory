@@ -245,6 +245,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
         <script>
+
             const sidebar = document.getElementById("sidebar");
             const sidebarWidth = sidebar.offsetWidth + "px";
             const navbarHeight = document.getElementById("navbar").offsetHeight;
@@ -262,6 +263,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                     sidebar.style.width = sidebarWidth;
                 }
             };
+
         </script>
     </body>
 </html>
