@@ -16,7 +16,7 @@ public class PostService {
 		return love;
 	}
 
-	public void 좋아요취소(Integer lovesId) {
-		loveDao.delete(lovesId);
+	public void 좋아요취소(Integer loveId) {
+		loveDao.delete(loveId);
 	}
 }

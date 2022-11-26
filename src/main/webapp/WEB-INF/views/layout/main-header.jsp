@@ -11,13 +11,17 @@ uri="http://java.sun.com/jsp/jstl/core"%>
             rel="stylesheet"
             href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
         />
-       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
         <script
             src="https://kit.fontawesome.com/6b3377d2bb.js"
             crossorigin="anonymous"
         ></script>
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+            rel="stylesheet"
+        />
 
         <!-- drawer.css -->
         <link
@@ -44,7 +48,6 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                 value="${principal.userId}"
             />
 
-           
             <nav class="navbar navbar-expand-sm my_navbar">
                 <!-- T모양 -->
                 <a href="/">
@@ -88,7 +91,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                     </svg>
                 </a>
                 <div class="my_navbar_title">
-                    <a class="drawer-brand" href="/">제이스토리  </a>
+                    <a class="drawer-brand" href="/">제이스토리 </a>
                 </div>
                 <c:choose>
                     <c:when test="${principal == null}">

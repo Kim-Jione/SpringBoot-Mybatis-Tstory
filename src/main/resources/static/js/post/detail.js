@@ -3,7 +3,7 @@ $("#btnDelete").click(() => {
 });
 
 $("#iconLove").click(() => {
-    let isLovedState = $("#iconLove").hasClass("fa-solid");
+    let isLovedState = $("#iconLove").hasClass("fa-solid"); // hasClass => fa-solid 갖고 있으면 true 없으면 false
     if (isLovedState) {
         deleteLove();
     } else {
@@ -20,7 +20,6 @@ function insertLove() {
         dataType: "json",
     }).done((res) => {
         if (res.code == 1) {
-            alert("컨트롤러 통과");
             renderLoves();
             let count = $("#countLove").text();
             $("#countLove").text(Number(count) + 1);
@@ -74,4 +73,16 @@ function deleteById() {
             alert("글삭제 실패");
         }
     });
+}
+
+// 빨간색 하트 그리기
+function renderLoves() {
+    $("#iconLove").removeClass("fa-regular");
+    $("#iconLove").addClass("fa-solid");
+}
+
+// 검정색 하트 그리기
+function renderCancelLoves() {
+    $("#iconLove").removeClass("fa-solid");
+    $("#iconLove").addClass("fa-regular");
 }
