@@ -77,7 +77,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
         </c:forEach>
 
         <!-- 페이지 -->
-        <div class="d-flex justify-content-center">
+<div class="d-flex justify-content-center">
 		<ul class="pagination">
 			<li class='page-item ${paging.first ? "disabled" : ""}'><a style="color: black;" class="page-link"
 				href="?page=${paging.currentPage-1}&keyword=${paging.keyword}">이전</a></li>
@@ -109,16 +109,15 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
                 $("#subscribeBtn").addClass("greyBtn");
                 $("#subscribeBtn").text("구독");
             } 
-            
-            if(res.code==-1){
-            alert(res.msg);
-            location.href = "/user/loginForm";
-
-            }
             else {
                 $("#subscribeBtn").removeClass("greyBtn");
                 $("#subscribeBtn").addClass("blackBtn");
                 $("#subscribeBtn").text("구독중");
+            }
+
+             if(res.code==-1){
+            alert(res.msg);
+            location.href = "/user/loginForm";
             }
         });
     });
