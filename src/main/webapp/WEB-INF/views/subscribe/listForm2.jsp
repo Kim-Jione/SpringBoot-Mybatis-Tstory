@@ -1,53 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
+pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
 
 <div class="container">
-    
-
-    <div style="display: inline-flex;">
-        <div style="width: 100px;"><h5 style="line-height: 50px;">전체글(${postCount.postCount})</h5></div>
-
-        <!-- 검색바 -->
-        <div
-            class="form-group row justify-content-left"
-            style="padding-left: 15px"
-        >
-            <div class="d-flex justify-content-end">
-                <div>
-                    <form style="display: inline-flex" method="get" action="/post/listForm/${postList[0].userId}">
-                        <input
-                            style="width: 150px"
-                            class="my_auth_form_box_input"
-                            type="text"
-                            name="keyword"
-                        />
-                        <button class="btn btn-sm btn-light" type="submit">
-                            <i class="fa fa-search -retro fa-2x"></i>
-                        </button>
-                    </form>
+    <div
+                    id="sidebar"
+                    class="col-3 bd-sidebar"
+                    style="background-color: white; color: black"
+                >
+                    <div class="bd-sidebar-body">
+                        <ul class="nav">
+                            <li style="padding-top: 30px">
+                                구독한 블로그 목록
+                            </li>
+                            <li><a>구독한 블로그</a></li>
+                            <li><a>구독한 블로그</a></li>
+                        </ul>
+                        <br />
+                    </div>
+                    <div class="bd-sidebar-footer"><a
+                                    href="/post/listForm/${principal.userId}"
+                                    >내블로그 바로가기${principal.userId}</a
+                                ></div>
                 </div>
-            </div>
-        </div>
-
-         <!-- 구독 -->
-         <c:if test="${ principal.userId !=postList[0].userId}">
-        <div  style="width: 80px; margin-left: 30px;">
-            <button id="subscribeBtn" class="${subscribeId !=null ?'blackBtn' : 'greyBtn'}">
-                                            ${subscribeId !=null ? '구독중': '구독'}
-                                        </button>
-        </div></c:if>
-
-       <!-- 게시글 작성 -->
-        <c:if test="${principal.userId == postList[0].userId}">
-        <div class="d-flex justify-content-end my_mb_sm_1" style="padding-left: 680px;">
-        <a href="/post/writeForm" class="my_atag_none">
-                <i class="fa-solid fa-pencil fa-2x" style="padding-top: 20px;"></i>
-        </a>
-    </div>
-    </c:if>
-
-    </div>
-
     <div class="my_post_list">
         <c:forEach var="post" items="${postList}">
             <input id="usersId"  type="hidden" value="${post.userId}">

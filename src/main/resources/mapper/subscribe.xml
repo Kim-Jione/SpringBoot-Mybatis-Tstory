@@ -40,6 +40,9 @@
     	WHERE user_id = #{userId} and users_id = #{usersId}
     </select>
 
+    <select id="findByUserId" resultType="site.metacoding.firstapp.domain.subscribe.Subscribe">
+          SELECT * FROM subscribe WHERE user_id=#{userId}
+    </select>
 
 </mapper>
 

@@ -102,21 +102,21 @@ public class PostController {
 			model.addAttribute("postList", postDao.findAllPost(userId, null, startNum)); // 블로그 전체게시글
 			model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리 이동 => 공통
 		}
-		
+
 		if (principal != null) {
 
 			Integer subscribeId = subscribeService.구독Id불러오기(principal.getUserId(), userId); // 구독 하는 사람, 구독 받는 사람
 			model.addAttribute("subscribeId", subscribeId);
 
 			List<PostAllDto> postList = postDao.findAllPost(userId, keyword, startNum);
-			model.addAttribute("postList", postList); // 블로그 전체게시글	
+			model.addAttribute("postList", postList); // 블로그 전체게시글
 			PagingDto paging = postDao.paging(page, userId, keyword);
 			paging.makeBlockInfoByPostAll(keyword);
 			model.addAttribute("postCount", postDao.postCount(userId, keyword)); // 전체게시글 개수
 			model.addAttribute("paging", paging); // 페이징
 			model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리 이동 => 공통
 		}
-		
+
 		else {
 			List<PostAllDto> postList = postDao.findAllPost(userId, keyword, startNum);
 			model.addAttribute("postList", postList); // 블로그 전체게시글
@@ -126,7 +126,6 @@ public class PostController {
 			model.addAttribute("paging", paging); // 페이징
 			model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리 이동 => 공통
 		}
-		
 
 		return "/post/listForm";
 	}

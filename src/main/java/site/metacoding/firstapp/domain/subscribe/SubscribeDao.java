@@ -16,4 +16,6 @@ public interface SubscribeDao {
 	public void delete(Integer subscribeId);
 
 	public Integer findByUserIdAndUsersId(@Param("userId") Integer userId, @Param("usersId") Integer usersId);
+
+	public List<Subscribe> findByUserId(Integer userId);
 }

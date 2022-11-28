@@ -7,6 +7,7 @@ import lombok.Setter;
 @Getter
 public class UserUpdateDto {
 	private Integer userId;
+	private String nickname;
 	private String username;
 	private String password;
 	private String passwordUpdate;
