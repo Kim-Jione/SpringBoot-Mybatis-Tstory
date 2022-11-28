@@ -22,12 +22,12 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                     />
                 </div>
                 <span
-                    class="isAlready"
+                    class="isAlreadyUsername"
                     style="padding-left: 120px; color: red; display: none"
                     >이미 사용중인 아이디입니다</span
                 >
                 <span
-                    class="isOk"
+                    class="isOkUsername"
                     style="padding-left: 120px; color: blue; display: none"
                     >사용 가능한 아이디입니다</span
                 >
@@ -64,6 +64,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                         닉네임
                     </div>
                     <input
+                        oninput="checkNickname()"
                         id="nickname"
                         class="my_auth_form_box_input"
                         type="text"
@@ -72,12 +73,22 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                         required
                     />
                 </div>
-
+                <span
+                    class="isAlreadyNickname"
+                    style="padding-left: 120px; color: red; display: none"
+                    >이미 사용중인 닉네임 입니다</span
+                >
+                <span
+                    class="isOkNickname"
+                    style="padding-left: 120px; color: blue; display: none"
+                    >사용 가능한 닉네임 입니다</span
+                >
                 <div style="display: flex">
                     <div class="my_auth_form_box_info_security_detail">
                         이메일
                     </div>
                     <input
+                        oninput="checkEmail()"
                         id="email"
                         class="my_auth_form_box_input"
                         type="email"
@@ -86,7 +97,16 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                         required
                     />
                 </div>
-
+                <span
+                    class="isAlreadyEmail"
+                    style="padding-left: 120px; color: red; display: none"
+                    >이미 사용중인 이메일 입니다</span
+                >
+                <span
+                    class="isOkEmail"
+                    style="padding-left: 120px; color: blue; display: none"
+                    >사용 가능한 이메일 입니다</span
+                >
                 <button id="joinBtn" type="submit" class="my_secondary_btn">
                     회원가입
                 </button>
@@ -145,12 +165,61 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
         }).done((res) => {
             if (res.code == 1) {
                 if (res.data == false) {
-
-                    $(".isOk").css("display", "inline-block");
-                    $(".isAlready").css("display", "none");
+                    $(".isOkUsername").css("display", "inline-block");
+                    $(".isAlreadyUsername").css("display", "none");
                 } else {
-                    $(".isAlready").css("display", "inline-block");
-                    $(".isOk").css("display", "none");
+                    $(".isAlreadyUsername").css("display", "inline-block");
+                    $(".isOkUsername").css("display", "none");
+                }
+            }
+        });
+    }
+
+    function checkNickname() {
+        let data = {
+            nickname: $("#nickname").val(),
+        };
+
+        $.ajax("/user/checkNickname", {
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json; charset=utf-8",
+            },
+        }).done((res) => {
+            if (res.code == 1) {
+                if (res.data == false) {
+                    $(".isOkNickname").css("display", "inline-block");
+                    $(".isAlreadyNickname").css("display", "none");
+                } else {
+                    $(".isAlreadyNickname").css("display", "inline-block");
+                    $(".isOkNickname").css("display", "none");
+                }
+            }
+        });
+    }
+
+    function checkEmail() {
+        let data = {
+            email: $("#email").val(),
+        };
+
+        $.ajax("/user/checkEmail", {
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json; charset=utf-8",
+            },
+        }).done((res) => {
+            if (res.code == 1) {
+                if (res.data == false) {
+                    $(".isOkEmail").css("display", "inline-block");
+                    $(".isAlreadyEmail").css("display", "none");
+                } else {
+                    $(".isAlreadyEmail").css("display", "inline-block");
+                    $(".isOkEmail").css("display", "none");
                 }
             }
         });

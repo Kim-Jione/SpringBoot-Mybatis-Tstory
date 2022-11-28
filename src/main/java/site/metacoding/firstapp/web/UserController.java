@@ -38,13 +38,6 @@ public class UserController {
         return new CMRespDto<>(1, "회원가입성공", null);
     }
 
-    // 아이디 중복체크
-    @PostMapping("/user/checkUsername")
-    public @ResponseBody CMRespDto<Boolean> checkUsername(@RequestBody CheckDto checkDto) {
-        boolean isSame = userService.유저네임중복확인(checkDto.getUsername());
-        return new CMRespDto<>(1, "성공", isSame);
-    }
-
     // 로그인 페이지
     @GetMapping("/user/loginForm")
     public String loginForm() {
@@ -90,7 +83,7 @@ public class UserController {
     @PostMapping("/user/passwordCheck")
     public String passwordCheck(String password) {
         User principal = (User) session.getAttribute("principal");
-        User userPS = userDao.findByPassword(password, principal.getUserId());
+        User userPS = userDao.findByPasswordAndUserId(password, principal.getUserId());
         if (userPS == null) {
             return "redirect:/user/passwordCheckForm";
         }

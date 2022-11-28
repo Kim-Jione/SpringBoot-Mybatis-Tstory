@@ -24,12 +24,6 @@
 	<delete id="delete">
 		DELETE FROM user WHERE user_id = #{userId}
 	</delete>
-	
-	<select id="findByUsername" resultType="site.metacoding.firstapp.domain.user.User">
-        SELECT *
-		FROM user
-		WHERE username = #{username}
-    </select>
 
 	 <update id="updateById">
           UPDATE user
@@ -53,10 +47,29 @@
 	</select>
 
 
-    <select id="findByPassword" resultType="site.metacoding.firstapp.domain.user.User" > 
+    <select id="findByPasswordAndUserId" resultType="site.metacoding.firstapp.domain.user.User" > 
         SELECT *
 		FROM user u
 		WHERE u.user_id=#{userId} AND u.password= #{password}     
+    </select>
+
+
+	<select id="findByUsername" resultType="site.metacoding.firstapp.web.dto.request.user.CheckDto">
+        SELECT username
+		FROM user
+		WHERE username = #{username}
+    </select>
+
+    <select id="findByNickname"  resultType="site.metacoding.firstapp.web.dto.request.user.CheckDto">
+        SELECT nickname
+		FROM user
+		WHERE nickname = #{nickname}
+    </select>
+
+    <select id="findByEmail"  resultType="site.metacoding.firstapp.web.dto.request.user.CheckDto">
+        SELECT email
+		FROM user
+		WHERE email = #{email}
     </select>
 
 </mapper>
