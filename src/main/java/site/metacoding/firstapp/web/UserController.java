@@ -104,7 +104,7 @@ public class UserController {
     public String emailCheckForm() {
         User principal = (User) session.getAttribute("principal");
         if (principal == null) {
-            return "redirect:/loginForm";
+            return "redirect:/user/loginForm";
         }
         return "/user/emailCheckForm";
     }
@@ -114,7 +114,7 @@ public class UserController {
     public String leaveCheckForm() {
         User principal = (User) session.getAttribute("principal");
         if (principal == null) {
-            return "redirect:/loginForm";
+            return "redirect:/user/loginForm";
         }
         return "/user/leaveCheckForm";
     }
@@ -135,6 +135,17 @@ public class UserController {
     public String update(UserUpdateDto userUpdateDto) {
         userDao.updateById(userUpdateDto);
         return "redirect:/";
+    }
+
+    // 프로필 수정 페이지
+    @GetMapping("/user/profileUpdateForm")
+    public String profileUpdateForm(Model model) {
+        User principal = (User) session.getAttribute("principal");
+        if (principal == null) {
+            return "redirect:/user/loginForm";
+        }
+        model.addAttribute("user", userDao.findById(principal.getUserId()));
+        return "/user/profileUpdateForm";
     }
 
 }
