@@ -115,7 +115,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                             <div class="dropdown-menu">
                                 <a
                                     class="dropdown-item"
-                                    href="/subscribe/listForm/1"
+                                    href="/subscribe/listForm"
                                     >구독관리</a
                                 >
                                 <a
@@ -144,5 +144,3 @@ uri="http://java.sun.com/jsp/jstl/core"%>
             </nav>
             <br />
         </div>
-    </body>
-</html>

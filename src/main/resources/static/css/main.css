@@ -43,7 +43,7 @@
     border-bottom: 1px solid rgb(25, 25, 25);
 }
 
-my_secondary_btn{
+my_secondary_btn {
     background-color: black;
 }
 
@@ -52,3 +52,43 @@ my_secondary_btn{
     color: white;
     text-decoration-line: none;
 }
+
+.bd-navbar {
+                z-index: 1071;
+                min-height: 4rem;
+                box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05),
+                    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+            }
+            .bd-sidebar {
+                z-index: 1000;
+                height: calc(100vh - 4rem);
+                background: #eee;
+                border-right: 1px solid rgba(0, 0, 0, 0.1);
+                max-width: 220px;
+                display: flex;
+                padding: 0;
+                overflow-y: hidden;
+                flex-direction: column;
+            }
+            .bd-sidebar-body {
+                height: 100%;
+                overflow-y: auto;
+                display: block;
+            }
+            .bd-sidebar-body .nav {
+                display: block;
+            }
+            .bd-sidebar-body .nav > li > a {
+                display: block;
+                padding: 0.25rem 1.5rem;
+                font-size: 90%;
+            }
+            .bd-sidebar-footer {
+                padding: 1rem;
+                background: #ddd;
+            }
+            .sidebar-full {
+                position: fixed;
+                top: 0;
+                height: 100vh;
+            }
