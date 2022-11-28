@@ -17,8 +17,8 @@
 
 	<insert id="insert">
 		INSERT
-		INTO user(username, password, email,profile_img, updated_at, created_at)
-		VALUES(#{username}, #{password}, #{email}, #{profileImg}, now(), now())
+		INTO user(username, nickname,password, email,profile_img, updated_at, created_at)
+		VALUES(#{username}, #{nickname},#{password}, #{email}, #{profileImg}, now(), now())
 	</insert>
 
 	<delete id="delete">
@@ -34,6 +34,7 @@
 	 <update id="updateById">
           UPDATE user
 		  SET username = #{username},
+		  nickname = #{nickname},
 		  password = #{passwordUpdate},
 		  email = #{email},
 		  profile_img = #{profileImg}

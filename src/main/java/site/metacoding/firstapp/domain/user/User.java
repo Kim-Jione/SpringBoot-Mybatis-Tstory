@@ -10,16 +10,18 @@ import lombok.NoArgsConstructor;
 public class User {
 	private Integer userId;
 	private String username;
+	private String nickname;
 	private String password;
 	private String email;
 	private String profileImg;
 	private Timestamp updatedAt;
 	private Timestamp createdAt;
 
-	public User(String username, String password, String email) {
+	public User(String username, String password, String email, String nickname) {
 		this.username = username;
 		this.password = password;
 		this.email = email;
+		this.nickname = nickname;
 	}
 
 }

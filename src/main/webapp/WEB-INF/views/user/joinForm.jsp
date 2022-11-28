@@ -17,6 +17,15 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                     required
                 />
                 <input
+                    id="username"
+                    class="my_auth_form_box_input"
+                    type="text"
+                    name="nickname"
+                    placeholder="닉네임"
+                    maxlength="20"
+                    required
+                />
+                <input
                     id="password"
                     class="my_auth_form_box_input"
                     type="password"
