@@ -22,15 +22,20 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                     />
                 </div>
                 <span
+                    class="isKorea"
+                    style="padding-left: 120px; color: red; display: none"
+                    >아이디에 한글이 있으면 안됩니다.</span
+                ><span
                     class="isAlreadyUsername"
                     style="padding-left: 120px; color: red; display: none"
-                    >이미 사용중인 아이디입니다</span
+                    >이미 사용중인 아이디입니다.</span
                 >
                 <span
                     class="isOkUsername"
                     style="padding-left: 120px; color: blue; display: none"
-                    >사용 가능한 아이디입니다</span
+                    >사용 가능한 아이디입니다.</span
                 >
+
                 <div style="display: flex">
                     <div class="my_auth_form_box_info_security_detail">
                         비밀번호
@@ -76,12 +81,12 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                 <span
                     class="isAlreadyNickname"
                     style="padding-left: 120px; color: red; display: none"
-                    >이미 사용중인 닉네임 입니다</span
+                    >이미 사용중인 닉네임 입니다.</span
                 >
                 <span
                     class="isOkNickname"
                     style="padding-left: 120px; color: blue; display: none"
-                    >사용 가능한 닉네임 입니다</span
+                    >사용 가능한 닉네임 입니다.</span
                 >
                 <div style="display: flex">
                     <div class="my_auth_form_box_info_security_detail">
@@ -100,12 +105,12 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                 <span
                     class="isAlreadyEmail"
                     style="padding-left: 120px; color: red; display: none"
-                    >이미 사용중인 이메일 입니다</span
+                    >이미 사용중인 이메일 입니다.</span
                 >
                 <span
                     class="isOkEmail"
                     style="padding-left: 120px; color: blue; display: none"
-                    >사용 가능한 이메일 입니다</span
+                    >사용 가능한 이메일 입니다.</span
                 >
                 <button id="joinBtn" type="submit" class="my_secondary_btn">
                     회원가입
@@ -150,6 +155,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
         });
     }
 
+    // 중복체크 =====================================
     function checkUsername() {
         let data = {
             username: $("#username").val(),
@@ -167,9 +173,11 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                 if (res.data == false) {
                     $(".isOkUsername").css("display", "inline-block");
                     $(".isAlreadyUsername").css("display", "none");
+                    return true;
                 } else {
                     $(".isAlreadyUsername").css("display", "inline-block");
                     $(".isOkUsername").css("display", "none");
+                    return false;
                 }
             }
         });
@@ -192,9 +200,11 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                 if (res.data == false) {
                     $(".isOkNickname").css("display", "inline-block");
                     $(".isAlreadyNickname").css("display", "none");
+                    return true;
                 } else {
                     $(".isAlreadyNickname").css("display", "inline-block");
                     $(".isOkNickname").css("display", "none");
+                    return false;
                 }
             }
         });
@@ -217,12 +227,30 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                 if (res.data == false) {
                     $(".isOkEmail").css("display", "inline-block");
                     $(".isAlreadyEmail").css("display", "none");
+                    return true;
                 } else {
                     $(".isAlreadyEmail").css("display", "inline-block");
                     $(".isOkEmail").css("display", "none");
+                    return false;
                 }
             }
         });
+    }
+    // 중복체크 =====================================
+
+    // 한글체크 =====================================
+
+    function koreanCheckUsername() {
+        let username = $("#username").val();
+
+        var korRule = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+        if (korRule.test(username)) {
+            $(".isKorea").css("display", "inline-block");
+            return true;
+        } else {
+            $(".isKorea").css("display", "none");
+            return false;
+        }
     }
 </script>
 <%@ include file="../layout/footer.jsp"%>
