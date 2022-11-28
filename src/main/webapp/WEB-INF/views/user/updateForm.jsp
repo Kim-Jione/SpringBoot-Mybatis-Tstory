@@ -53,6 +53,18 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                         maxlength="60"
                         required
                     />
+                    
+                </div> 
+                <div style="display: flex">
+                    <div class="my_auth_form_box_info_detail">닉네임</div>
+                    <input
+                        name="nickname"
+                        class="my_auth_form_box_input"
+                        type="text"
+                        value=""
+                        maxlength="60"
+                        required
+                    />
                 </div>
                 <div style="text-align: right">
                     <a href="/user/emailCheckForm"
