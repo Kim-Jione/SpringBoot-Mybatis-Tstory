@@ -17,10 +17,11 @@ public class User {
 	private Timestamp updatedAt;
 	private Timestamp createdAt;
 
-	public User(String username, String password, String email) {
+	public User(String username, String password, String email, String nickname) {
 		this.username = username;
 		this.password = password;
 		this.email = email;
+		this.nickname = nickname;
 	}
 
 }

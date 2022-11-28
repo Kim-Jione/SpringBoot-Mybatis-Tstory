@@ -8,11 +8,12 @@ import site.metacoding.firstapp.domain.user.User;
 @Setter
 public class JoinDto {
 	private String username;
+	private String nickname;
 	private String password;
 	private String email;
 
 	public User toEntity() {
-		User user = new User(this.username, this.password, this.email);
+		User user = new User(this.username, this.password, this.email, this.nickname);
 		return user;
 	}
 }
