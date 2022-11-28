@@ -5,18 +5,16 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.RequiredArgsConstructor;
-import site.metacoding.firstapp.domain.love.Love;
 import site.metacoding.firstapp.domain.user.User;
 import site.metacoding.firstapp.domain.user.UserDao;
 import site.metacoding.firstapp.service.UserService;
 import site.metacoding.firstapp.web.dto.CMRespDto;
+import site.metacoding.firstapp.web.dto.request.user.CheckDto;
 import site.metacoding.firstapp.web.dto.request.user.JoinDto;
 import site.metacoding.firstapp.web.dto.request.user.LoginDto;
 import site.metacoding.firstapp.web.dto.request.user.UserUpdateDto;
@@ -36,20 +34,15 @@ public class UserController {
 
     @PostMapping("/user/join")
     public @ResponseBody CMRespDto<?> join(@RequestBody JoinDto joinDto) {
-
         userService.회원가입(joinDto);
         return new CMRespDto<>(1, "회원가입성공", null);
     }
 
     // 아이디 중복체크
-    @PostMapping("/s/api/user/join")
-    public @ResponseBody CMRespDto<?> checkUsername(String username) {
-        System.out.println("디버그: " + username);
-        User userPS = userDao.findByUsername(username);
-        if (username.equals(userPS.getUsername())) {
-            return new CMRespDto<>(-1, "아이디 중복", null);
-        }
-        return new CMRespDto<>(1, "아이디 사용가능", null);
+    @PostMapping("/user/checkUsername")
+    public @ResponseBody CMRespDto<Boolean> checkUsername(@RequestBody CheckDto checkDto) {
+        boolean isSame = userService.유저네임중복확인(checkDto.getUsername());
+        return new CMRespDto<>(1, "성공", isSame);
     }
 
     // 로그인 페이지

@@ -101,44 +101,41 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
 </div>
 
 <script>
+    $("#joinBtn").click(() => {
+        join();
+    });
 
-$("#joinBtn").click(() => {
-	join();
-});
+    function join() {
+        let data = {
+            username: $("#username").val(),
+            nickname: $("#nickname").val(),
+            password: $("#password").val(),
+            email: $("#email").val(),
+        };
 
-function join() {
-
-	let data = {
-		username: $("#username").val(),
-		nickname: $("#nickname").val(),
-		password: $("#password").val(),
-		email: $("#email").val()
-	};
-
-	$.ajax("/user/join", {
-		type: "POST",
-		dataType: "json", 
-		data: JSON.stringify(data), 
-		headers: { 
-			"Content-Type": "application/json"
-		}
-	}).done((res) => {
-		if (res.code == 1) {
-			location.href = "/user/loginForm";
-		}else {
-			alert(res.msg);
-			history.back();
-		}
-	});
-}
-
+        $.ajax("/user/join", {
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }).done((res) => {
+            if (res.code == 1) {
+                location.href = "/user/loginForm";
+            } else {
+                alert(res.msg);
+                history.back();
+            }
+        });
+    }
 
     function checkUsername() {
         let data = {
             username: $("#username").val(),
         };
 
-        $.ajax("/s/api/user/join", {
+        $.ajax("/user/checkUsername", {
             type: "POST",
             dataType: "json",
             data: JSON.stringify(data),
@@ -147,12 +144,14 @@ function join() {
             },
         }).done((res) => {
             if (res.code == 1) {
-                alert("성공");
-                $(".isAlready").css("display", "inline-block");
-                $(".isOk").css("display", "none");
-            } else {
-                $(".isOk").css("display", "inline-block");
-                $(".isAlready").css("display", "none");
+                if (res.data == false) {
+
+                    $(".isOk").css("display", "inline-block");
+                    $(".isAlready").css("display", "none");
+                } else {
+                    $(".isAlready").css("display", "inline-block");
+                    $(".isOk").css("display", "none");
+                }
             }
         });
     }
