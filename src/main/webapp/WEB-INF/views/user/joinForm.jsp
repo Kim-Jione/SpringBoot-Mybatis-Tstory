@@ -12,7 +12,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                         아이디
                     </div>
                     <input
-                        oninput="checkUsername()"
+                        oninput="checkUsername();koreanCheckUsername();"
                         id="username"
                         class="my_auth_form_box_input"
                         type="text"
@@ -170,7 +170,9 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             },
         }).done((res) => {
             if (res.code == 1) {
+                // 통신성공
                 if (res.data == false) {
+                    // 중복안됨
                     $(".isOkUsername").css("display", "inline-block");
                     $(".isAlreadyUsername").css("display", "none");
                     return true;
@@ -248,7 +250,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             $(".isKorea").css("display", "inline-block");
             return true;
         } else {
-            $(".isKorea").css("display", "none");
+            $(".isKorea").text("");
             return false;
         }
     }
