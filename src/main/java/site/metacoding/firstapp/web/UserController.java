@@ -144,8 +144,13 @@ public class UserController {
         if (principal == null) {
             return "redirect:/user/loginForm";
         }
-        model.addAttribute("user", userDao.findById(principal.getUserId()));
+        User userPS = userDao.findById(principal.getUserId());
+        System.out.println("디버그: " + userPS.getNickname());
+        System.out.println("디버그: " + userPS.getNickname());
+        model.addAttribute("user", userPS);
         return "/user/profileUpdateForm";
     }
+    
+    
 
 }
