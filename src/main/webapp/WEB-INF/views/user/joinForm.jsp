@@ -12,7 +12,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                         아이디
                     </div>
                     <input
-                        oninput="checkUsername();duplicateCheckUsername();"
+                        oninput="checkUsername();validUsername();"
                         id="username"
                         class="my_auth_form_box_input"
                         type="text"
@@ -157,7 +157,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
     }
 
     // 중복체크 =====================================
-    function duplicateCheckUsername() {
+    function checkUsername() {
         let data = {
             username: $("#username").val(),
         };
@@ -243,7 +243,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
 
     // 한글체크 =====================================
 
-    function checkUsername() {
+    function validUsername() {
         let username = $("#username").val();
 
         var spaceRule = /\s/g;
@@ -255,11 +255,23 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                 "아이디는 영문소문자, 숫자, 특수기호(_)만 사용 가능합니다."
             );
             return true;
-        } 
+        }
 
         if (spaceRule.test(username)) {
             $(".usernameValid").css("display", "inline-block");
             $(".usernameValid").text("공백을 제거해주세요");
+            return true;
+        }
+
+        if (username.length < 1) {
+            $(".usernameValid").css("display", "inline-block");
+            $(".usernameValid").text("아이디는 필수 입력정보입니다.");
+            return true;
+        }
+
+        if (username.length < 5) {
+            $(".usernameValid").css("display", "inline-block");
+            $(".usernameValid").text("아이디는 5자~11자 내외로 입력해주세요.");
             return true;
         } else {
             $(".usernameValid").css("display", "none");
