@@ -22,14 +22,14 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                         required
                     />
                 </div>
-                <span
-                    class="usernameValid"
-                    style="padding-left: 120px; color: red; display: none"
-                ></span
-                ><span
+               <span
                     class="isAlreadyUsername"
                     style="padding-left: 120px; color: red; display: none"
                     >이미 사용중인 아이디입니다.</span
+                > <span
+                    class="usernameValid"
+                    style="padding-left: 120px; color: red; display: none"
+                ></span
                 >
 
                 <div style="display: flex">
@@ -43,7 +43,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                         placeholder="숫자, 영문, 특수문자 조합 최소 8자."
                         maxlength="20"
                         required
-                    />
+                    /><i class="fa fa-eye fa-lg"></i>
                 </div>
 
                 <div style="display: flex">
@@ -57,7 +57,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                         placeholder="비밀번호 재입력"
                         maxlength="20"
                         required
-                    />
+                    /><i class="fa fa-eye fa-lg"></i>
                 </div>
 
                 <div style="display: flex">
@@ -278,7 +278,19 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             return false;
         }
     }
+// 비밀번호 동일 체크 -----------------------------------
+function passwordSameCheck() {
+	let password = $("#password").val();
+	let passwordSame = $("#passwordSame").val();
+	if (password == passwordSame) {
+		return true;
 
+	} else {
+
+		return false;
+	}
+
+}
     function isEmail() {
         let email = $("#email").val();
         var emailRule = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
@@ -287,5 +299,19 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             return true;
         }
     }
+
+// 비밀번호 미리보기
+    $(document).ready(function(){
+    $('.my_auth_form_box i').on('click',function(){
+        $('input').toggleClass('active');
+        if($('input').hasClass('active')){
+            $(this).attr('class',"fa fa-eye-slash fa-lg")
+            .prev('input').attr('type',"text");
+        }else{
+            $(this).attr('class',"fa fa-eye fa-lg")
+            .prev('input').attr('type','password');
+        }
+    });
+});
 </script>
 <%@ include file="../layout/footer.jsp"%>
