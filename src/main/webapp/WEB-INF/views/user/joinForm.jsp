@@ -4,7 +4,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
 <div class="container">
     <div class="my_auth_box">
         <div class="my_auth_form_box" style="width: 700px">
-            <div class="my_auth_form_box_title">JSotry</div>
+            <div class="my_auth_form_box_title">JStory</div>
             <div class="my_error_box my_hidden"></div>
             <form>
                 <div style="display: flex">
@@ -22,11 +22,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                         required
                     />
                 </div>
-                <span
-                    class="isAlreadyUsername"
-                    style="padding-left: 120px; color: red; display: none"
-                    >이미 사용중인 아이디입니다.</span
-                >
+
                 <span
                     class="usernameValid"
                     style="padding-left: 120px; color: red; display: none"
@@ -38,27 +34,37 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                     </div>
                     <input
                         id="password"
-                        class="my_auth_form_box_input"
                         type="password"
+                        oninput="validPassword();"
+                        class="my_auth_form_box_input"
                         placeholder="숫자, 영문, 특수문자 조합 최소 8자."
-                        maxlength="20"
+                        maxlength="30"
                         required
                     /><i class="fa fa-eye fa-lg"></i>
                 </div>
+                <span
+                    class="passwordValid"
+                    style="padding-left: 120px; color: red; display: none"
+                ></span>
 
                 <div style="display: flex">
                     <div class="my_auth_form_box_info_security_detail">
                         비밀번호 확인
                     </div>
                     <input
-                        id=""
-                        class="my_auth_form_box_input"
+                        id="passwordSame"
                         type="password"
-                        placeholder="비밀번호 재입력"
-                        maxlength="20"
+                        oninput="validPasswordSame();"
+                        class="my_auth_form_box_input"
+                        placeholder="숫자, 영문, 특수문자 조합 최소 8자."
+                        maxlength="30"
                         required
                     /><i class="fa fa-eye fa-lg"></i>
                 </div>
+                <span
+                    class="passwordSameValid"
+                    style="padding-left: 120px; color: red; display: none"
+                ></span>
 
                 <div style="display: flex">
                     <div class="my_auth_form_box_info_security_detail">
@@ -89,30 +95,18 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                         이메일
                     </div>
                     <input
-                        oninput="checkEmail();isEmail();"
+                        oninput="checkEmail();validEmail()"
                         id="email"
                         class="my_auth_form_box_input"
-                        type="email"
                         placeholder="이메일을 입력해주세요."
                         maxlength="20"
                         required
                     />
                 </div>
                 <span
-                    class="isEmail"
+                    class="emailValid"
                     style="padding-left: 120px; color: red; display: none"
-                    >올바르지 않은 이메일 형식입니다.</span
-                >
-                <span
-                    class="isAlreadyEmail"
-                    style="padding-left: 120px; color: red; display: none"
-                    >이미 사용중인 이메일 입니다.</span
-                >
-                <span
-                    class="isOkEmail"
-                    style="padding-left: 120px; color: blue; display: none"
-                    >사용 가능한 이메일 입니다.</span
-                >
+                ></span>
                 <button id="joinBtn" type="submit" class="my_secondary_btn">
                     회원가입
                 </button>
@@ -127,11 +121,16 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
 </div>
 
 <script>
+    // 회원가입===========================
     $("#joinBtn").click(() => {
         join();
     });
 
     function join() {
+        if (checkUsername()) {
+            return;
+        }
+
         let data = {
             username: $("#username").val(),
             nickname: $("#nickname").val(),
@@ -225,21 +224,19 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             },
         }).done((res) => {
             if (res.code == 1) {
-                if (res.data == false) {
-                    $(".isOkEmail").css("display", "inline-block");
-                    $(".isAlreadyEmail").css("display", "none");
+                if (res.data == true) {
+                    // 중복
+                    $(".emailValid").css("display", "inline-block");
+                    $(".emailValid").text("이미 사용중인 이메일입니다.");
                     return true;
                 } else {
-                    $(".isAlreadyEmail").css("display", "inline-block");
-                    $(".isOkEmail").css("display", "none");
                     return false;
                 }
             }
         });
     }
-    // 중복체크 =====================================
 
-    // 한글체크 =====================================
+    // 아이디 유효성 체크 =====================================
 
     function validUsername() {
         let username = $("#username").val();
@@ -276,26 +273,95 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             return false;
         }
     }
-    // 비밀번호 동일 체크 -----------------------------------
-    function passwordSameCheck() {
-        let password = $("#password").val();
-        let passwordSame = $("#passwordSame").val();
-        if (password == passwordSame) {
+
+    // 이메일 유효성 체크 =====================================
+
+    function validEmail() {
+        let email = $("#email").val();
+
+        var spaceRule = /\s/g;
+        var korRule = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+
+        if (spaceRule.test(email)) {
+            $(".emailValid").css("display", "inline-block");
+            $(".emailValid").text("공백을 제거해주세요");
+            return true;
+        }
+        if (email.length < 1) {
+            $(".emailValid").css("display", "inline-block");
+            $(".emailValid").text("이메일은 필수 입력정보입니다.");
+            return true;
+        }
+        if (korRule.test(email)) {
+            $(".emailValid").css("display", "inline-block");
+            $(".emailValid").text("올바르지 않은 이메일 형식입니다.");
             return true;
         } else {
+            $(".emailValid").css("display", "none");
             return false;
         }
     }
-    function isEmail() {
-        let email = $("#email").val();
-        var emailRule = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-        if (emailRule.test(email)) {
-            $(".isEmail").css("display", "inline-block");
+
+    // 비밀번호 유효성 체크 =====================================
+
+    function validPassword() {
+        let password = $("#password").val();
+
+        var spaceRule = /\s/g;
+        var korRule = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+
+        if (korRule.test(password)) {
+            $(".passwordValid").css("display", "inline-block");
+            $(".passwordValid").text(
+                "숫자, 영문 대소문자, 특수문자 중 두가지 이상으로 조합해 주십시오."
+            );
             return true;
+        }
+
+        if (spaceRule.test(password)) {
+            $(".passwordValid").css("display", "inline-block");
+            $(".passwordValid").text("공백을 제거해주세요");
+            return true;
+        }
+
+        if (password.length < 1) {
+            $(".passwordValid").css("display", "inline-block");
+            $(".passwordValid").text("비밀번호는 필수 입력정보입니다.");
+            return true;
+        }
+
+        if (password.length < 8) {
+            $(".passwordValid").css("display", "inline-block");
+            $(".passwordValid").text(
+                "비밀번호는 8자~30자 내외로 입력해주세요."
+            );
+            return true;
+        } else {
+            $(".passwordValid").css("display", "none");
+            return false;
         }
     }
 
-    // 비밀번호 미리보기
+    function validPasswordSame() {
+        let password = $("#password").val();
+        let passwordSame = $("#passwordSame").val();
+
+        if (password != passwordSame) {
+            $(".passwordSameValid").css("display", "inline-block");
+            $(".passwordSameValid").text("비밀번호가 일치하지 않습니다.");
+            return true;
+        }
+        if (password.length < 1) {
+            $(".passwordSameValid").css("display", "inline-block");
+            $(".passwordSameValid").text("비밀번호 재확인은 필수정보입니다.");
+            return true;
+        } else {
+            $(".passwordSameValid").css("display", "none");
+            return false;
+        }
+    }
+
+    // 비밀번호 미리보기  =====================================
     $(document).ready(function () {
         $(".my_auth_form_box i").on("click", function () {
             $("input").toggleClass("active");
