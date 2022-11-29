@@ -19,7 +19,6 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                         placeholder="영문, 숫자 5~11자"
                         maxlength="11"
                         minlength="5"
-                        required
                     />
                 </div>
 
@@ -39,7 +38,6 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                         class="my_auth_form_box_input"
                         placeholder="숫자, 영문, 특수문자 조합 최소 8자."
                         maxlength="30"
-                        required
                     /><i class="fa fa-eye fa-lg"></i>
                 </div>
                 <span
@@ -58,7 +56,6 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                         class="my_auth_form_box_input"
                         placeholder="숫자, 영문, 특수문자 조합 최소 8자."
                         maxlength="30"
-                        required
                     /><i class="fa fa-eye fa-lg"></i>
                 </div>
                 <span
@@ -71,36 +68,28 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                         닉네임
                     </div>
                     <input
-                        oninput="checkNickname()"
+                        oninput="checkNickname();validNickname();"
                         id="nickname"
                         class="my_auth_form_box_input"
                         type="text"
                         placeholder="닉네임을 입력해주세요."
                         maxlength="20"
-                        required
                     />
                 </div>
                 <span
-                    class="isAlreadyNickname"
+                    class="nicknameValid"
                     style="padding-left: 120px; color: red; display: none"
-                    >이미 사용중인 닉네임 입니다.</span
-                >
-                <span
-                    class="isOkNickname"
-                    style="padding-left: 120px; color: blue; display: none"
-                    >사용 가능한 닉네임 입니다.</span
-                >
+                ></span>
                 <div style="display: flex">
                     <div class="my_auth_form_box_info_security_detail">
                         이메일
                     </div>
                     <input
-                        oninput="checkEmail();validEmail()"
+                        oninput="checkEmail();validEmail();"
                         id="email"
                         class="my_auth_form_box_input"
                         placeholder="이메일을 입력해주세요."
                         maxlength="20"
-                        required
                     />
                 </div>
                 <span
@@ -121,41 +110,8 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
 </div>
 
 <script>
-    // 회원가입===========================
-    $("#joinBtn").click(() => {
-        join();
-    });
+    // 아이디 유효성 체크 =====================================
 
-    function join() {
-        if (checkUsername()) {
-            return;
-        }
-
-        let data = {
-            username: $("#username").val(),
-            nickname: $("#nickname").val(),
-            password: $("#password").val(),
-            email: $("#email").val(),
-        };
-
-        $.ajax("/user/join", {
-            type: "POST",
-            dataType: "json",
-            data: JSON.stringify(data),
-            headers: {
-                "Content-Type": "application/json",
-            },
-        }).done((res) => {
-            if (res.code == 1) {
-                location.href = "/user/loginForm";
-            } else {
-                alert(res.msg);
-                history.back();
-            }
-        });
-    }
-
-    // 중복체크 =====================================
     function checkUsername() {
         let data = {
             username: $("#username").val(),
@@ -175,68 +131,13 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                     // 중복
                     $(".usernameValid").css("display", "inline-block");
                     $(".usernameValid").text("이미 사용중인 아이디입니다.");
-                    return true;
+                    isCheckUsername = true;
                 } else {
-                    return false;
+                    isCheckUsername = false;
                 }
             }
         });
     }
-
-    function checkNickname() {
-        let data = {
-            nickname: $("#nickname").val(),
-        };
-
-        $.ajax("/user/checkNickname", {
-            type: "POST",
-            dataType: "json",
-            data: JSON.stringify(data),
-            headers: {
-                "Content-Type": "application/json; charset=utf-8",
-            },
-        }).done((res) => {
-            if (res.code == 1) {
-                if (res.data == false) {
-                    $(".isOkNickname").css("display", "inline-block");
-                    $(".isAlreadyNickname").css("display", "none");
-                    return true;
-                } else {
-                    $(".isAlreadyNickname").css("display", "inline-block");
-                    $(".isOkNickname").css("display", "none");
-                    return false;
-                }
-            }
-        });
-    }
-
-    function checkEmail() {
-        let data = {
-            email: $("#email").val(),
-        };
-
-        $.ajax("/user/checkEmail", {
-            type: "POST",
-            dataType: "json",
-            data: JSON.stringify(data),
-            headers: {
-                "Content-Type": "application/json; charset=utf-8",
-            },
-        }).done((res) => {
-            if (res.code == 1) {
-                if (res.data == true) {
-                    // 중복
-                    $(".emailValid").css("display", "inline-block");
-                    $(".emailValid").text("이미 사용중인 이메일입니다.");
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        });
-    }
-
-    // 아이디 유효성 체크 =====================================
 
     function validUsername() {
         let username = $("#username").val();
@@ -276,11 +177,37 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
 
     // 이메일 유효성 체크 =====================================
 
+    function checkEmail() {
+        let data = {
+            email: $("#email").val(),
+        };
+
+        $.ajax("/user/checkEmail", {
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json; charset=utf-8",
+            },
+        }).done((res) => {
+            if (res.code == 1) {
+                if (res.data == true) {
+                    // 중복
+                    $(".emailValid").css("display", "inline-block");
+                    $(".emailValid").text("이미 사용중인 이메일입니다.");
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        });
+    }
+
     function validEmail() {
         let email = $("#email").val();
 
         var spaceRule = /\s/g;
-        var korRule = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+        var emailRule = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
 
         if (spaceRule.test(email)) {
             $(".emailValid").css("display", "inline-block");
@@ -289,10 +216,10 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
         }
         if (email.length < 1) {
             $(".emailValid").css("display", "inline-block");
-            $(".emailValid").text("이메일은 필수 입력정보입니다.");
+            $(".emailValid").text("이메일은 필수 정보입니다.");
             return true;
         }
-        if (korRule.test(email)) {
+        if (!emailRule.test(email)) {
             $(".emailValid").css("display", "inline-block");
             $(".emailValid").text("올바르지 않은 이메일 형식입니다.");
             return true;
@@ -326,11 +253,11 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
 
         if (password.length < 1) {
             $(".passwordValid").css("display", "inline-block");
-            $(".passwordValid").text("비밀번호는 필수 입력정보입니다.");
+            $(".passwordValid").text("비밀번호는 필수 정보입니다.");
             return true;
         }
 
-        if (password.length < 8) {
+        if (password.length < 8 || password.length > 30) {
             $(".passwordValid").css("display", "inline-block");
             $(".passwordValid").text(
                 "비밀번호는 8자~30자 내외로 입력해주세요."
@@ -356,7 +283,54 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             $(".passwordSameValid").text("비밀번호 재확인은 필수정보입니다.");
             return true;
         } else {
-            $(".passwordSameValid").css("display", "none");
+            return false;
+        }
+    }
+
+    // 닉네임 유효성 체크 =====================================
+
+    function checkNickname() {
+        let data = {
+            nickname: $("#nickname").val(),
+        };
+
+        $.ajax("/user/checkNickname", {
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json; charset=utf-8",
+            },
+        }).done((res) => {
+            if (res.code == 1) {
+                if (res.data == true) {
+                    $(".nicknameValid").css("display", "inline-block");
+                    $(".nicknameValid").text("이미 사용중인 닉네임입니다.");
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        });
+    }
+
+    function validNickname() {
+        let nickname = $("#nickname").val();
+
+        var spaceRule = /\s/g;
+
+        if (spaceRule.test(nickname)) {
+            $(".nicknameValid").css("display", "inline-block");
+            $(".nicknameValid").text("공백을 제거해주세요");
+            return true;
+        }
+
+        if (nickname.length < 1) {
+            $(".nicknameValid").css("display", "inline-block");
+            $(".nicknameValid").text("닉네임은 필수 정보입니다.");
+            return true;
+        } else {
+            $(".nicknameValid").css("display", "none");
             return false;
         }
     }
@@ -378,5 +352,75 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             }
         });
     });
+
+    if (checkUsername()) {
+        $("#joinBtn").attr("disabled", true);
+    } else {
+        $("#joinBtn").removeAttr("disabled");
+    }
+
+    // 회원가입===========================
+
+    $("#joinBtn").click(() => {
+        join();
+    });
+
+    function join() {
+        if (isCheckUsername()) {
+            alert("이미 사용중인 아이디입니다.");
+            return;
+        }
+        if (validUsername()) {
+            alert("올바르지 않은 아이디입니다.");
+            return;
+        }
+        if (checkEmail()) {
+            alert("이미 사용중인 이메일입니다.");
+            return;
+        }
+        if (validEmail()) {
+            alert("올바르지 않은 이메일입니다.");
+            return;
+        }
+        if (validPassword()) {
+            alert("올바르지 않은 비밀번호입니다.");
+            return;
+        }
+        if (validPasswordSame()) {
+            alert("비밀번호가 일치하지 않습니다");
+            return;
+        }
+        if (checkNickname()) {
+            alert("이미 사용중인 닉네임입니다.");
+            return;
+        }
+        if (validNickname()) {
+            alert("올바르지 않은 닉네임입니다.");
+            return;
+        }
+
+        let data = {
+            username: $("#username").val(),
+            nickname: $("#nickname").val(),
+            password: $("#password").val(),
+            email: $("#email").val(),
+        };
+
+        $.ajax("/user/join", {
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }).done((res) => {
+            if (res.code == 1) {
+                location.href = "/user/loginForm";
+            } else {
+                alert(res.msg);
+                history.back();
+            }
+        });
+    }
 </script>
 <%@ include file="../layout/footer.jsp"%>
