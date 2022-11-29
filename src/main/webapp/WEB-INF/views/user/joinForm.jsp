@@ -22,15 +22,15 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                         required
                     />
                 </div>
-               <span
+                <span
                     class="isAlreadyUsername"
                     style="padding-left: 120px; color: red; display: none"
                     >이미 사용중인 아이디입니다.</span
-                > <span
+                >
+                <span
                     class="usernameValid"
                     style="padding-left: 120px; color: red; display: none"
-                ></span
-                >
+                ></span>
 
                 <div style="display: flex">
                     <div class="my_auth_form_box_info_security_detail">
@@ -172,14 +172,12 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
         }).done((res) => {
             if (res.code == 1) {
                 // 통신성공
-                if (res.data == false) {
-                    // 중복안됨
-                    $(".isOkUsername").css("display", "none");
-                    $(".isAlreadyUsername").css("display", "none");
+                if (res.data == true) {
+                    // 중복
+                    $(".usernameValid").css("display", "inline-block");
+                    $(".usernameValid").text("이미 사용중인 아이디입니다.");
                     return true;
                 } else {
-                    $(".isAlreadyUsername").css("display", "inline-block");
-                    $(".isOkUsername").css("display", "none");
                     return false;
                 }
             }
@@ -278,19 +276,16 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             return false;
         }
     }
-// 비밀번호 동일 체크 -----------------------------------
-function passwordSameCheck() {
-	let password = $("#password").val();
-	let passwordSame = $("#passwordSame").val();
-	if (password == passwordSame) {
-		return true;
-
-	} else {
-
-		return false;
-	}
-
-}
+    // 비밀번호 동일 체크 -----------------------------------
+    function passwordSameCheck() {
+        let password = $("#password").val();
+        let passwordSame = $("#passwordSame").val();
+        if (password == passwordSame) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     function isEmail() {
         let email = $("#email").val();
         var emailRule = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
@@ -300,18 +295,22 @@ function passwordSameCheck() {
         }
     }
 
-// 비밀번호 미리보기
-    $(document).ready(function(){
-    $('.my_auth_form_box i').on('click',function(){
-        $('input').toggleClass('active');
-        if($('input').hasClass('active')){
-            $(this).attr('class',"fa fa-eye-slash fa-lg")
-            .prev('input').attr('type',"text");
-        }else{
-            $(this).attr('class',"fa fa-eye fa-lg")
-            .prev('input').attr('type','password');
-        }
+    // 비밀번호 미리보기
+    $(document).ready(function () {
+        $(".my_auth_form_box i").on("click", function () {
+            $("input").toggleClass("active");
+            if ($("input").hasClass("active")) {
+                $(this)
+                    .attr("class", "fa fa-eye-slash fa-lg")
+                    .prev("input")
+                    .attr("type", "text");
+            } else {
+                $(this)
+                    .attr("class", "fa fa-eye fa-lg")
+                    .prev("input")
+                    .attr("type", "password");
+            }
+        });
     });
-});
 </script>
 <%@ include file="../layout/footer.jsp"%>
