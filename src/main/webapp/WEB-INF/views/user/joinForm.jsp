@@ -12,28 +12,24 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                         아이디
                     </div>
                     <input
-                        oninput="checkUsername();koreanCheckUsername();"
+                        oninput="checkUsername();duplicateCheckUsername();"
                         id="username"
                         class="my_auth_form_box_input"
                         type="text"
-                        placeholder="아이디를 입력해주세요."
-                        maxlength="20"
+                        placeholder="영문, 숫자 5~11자"
+                        maxlength="11"
+                        minlength="5"
                         required
                     />
                 </div>
                 <span
-                    class="isKorea"
+                    class="usernameValid"
                     style="padding-left: 120px; color: red; display: none"
-                    >아이디에 한글이 있으면 안됩니다.</span
+                ></span
                 ><span
                     class="isAlreadyUsername"
                     style="padding-left: 120px; color: red; display: none"
                     >이미 사용중인 아이디입니다.</span
-                >
-                <span
-                    class="isOkUsername"
-                    style="padding-left: 120px; color: blue; display: none"
-                    >사용 가능한 아이디입니다.</span
                 >
 
                 <div style="display: flex">
@@ -44,7 +40,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                         id="password"
                         class="my_auth_form_box_input"
                         type="password"
-                        placeholder="비밀번호를 입력해주세요."
+                        placeholder="숫자, 영문, 특수문자 조합 최소 8자."
                         maxlength="20"
                         required
                     />
@@ -58,7 +54,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                         id=""
                         class="my_auth_form_box_input"
                         type="password"
-                        placeholder="비밀번호를 다시 입력해주세요."
+                        placeholder="비밀번호 재입력"
                         maxlength="20"
                         required
                     />
@@ -93,7 +89,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                         이메일
                     </div>
                     <input
-                        oninput="checkEmail()"
+                        oninput="checkEmail();isEmail();"
                         id="email"
                         class="my_auth_form_box_input"
                         type="email"
@@ -102,6 +98,11 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                         required
                     />
                 </div>
+                <span
+                    class="isEmail"
+                    style="padding-left: 120px; color: red; display: none"
+                    >올바르지 않은 이메일 형식입니다.</span
+                >
                 <span
                     class="isAlreadyEmail"
                     style="padding-left: 120px; color: red; display: none"
@@ -156,7 +157,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
     }
 
     // 중복체크 =====================================
-    function checkUsername() {
+    function duplicateCheckUsername() {
         let data = {
             username: $("#username").val(),
         };
@@ -173,7 +174,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                 // 통신성공
                 if (res.data == false) {
                     // 중복안됨
-                    $(".isOkUsername").css("display", "inline-block");
+                    $(".isOkUsername").css("display", "none");
                     $(".isAlreadyUsername").css("display", "none");
                     return true;
                 } else {
@@ -242,16 +243,36 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
 
     // 한글체크 =====================================
 
-    function koreanCheckUsername() {
+    function checkUsername() {
         let username = $("#username").val();
 
+        var spaceRule = /\s/g;
         var korRule = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+
         if (korRule.test(username)) {
-            $(".isKorea").css("display", "inline-block");
+            $(".usernameValid").css("display", "inline-block");
+            $(".usernameValid").text(
+                "아이디는 영문소문자, 숫자, 특수기호(_)만 사용 가능합니다."
+            );
+            return true;
+        } 
+
+        if (spaceRule.test(username)) {
+            $(".usernameValid").css("display", "inline-block");
+            $(".usernameValid").text("공백을 제거해주세요");
             return true;
         } else {
-            $(".isKorea").text("");
+            $(".usernameValid").css("display", "none");
             return false;
+        }
+    }
+
+    function isEmail() {
+        let email = $("#email").val();
+        var emailRule = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+        if (emailRule.test(email)) {
+            $(".isEmail").css("display", "inline-block");
+            return true;
         }
     }
 </script>
