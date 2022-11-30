@@ -160,6 +160,7 @@ public class PostController {
 	// 게시글 좋아요 응답
 	@PostMapping("/s/api/post/love/{postId}")
 	public @ResponseBody CMRespDto<?> insertLove(@PathVariable Integer postId) {
+
 		User principal = (User) session.getAttribute("principal");
 
 		Love love = new Love(principal.getUserId(), postId);

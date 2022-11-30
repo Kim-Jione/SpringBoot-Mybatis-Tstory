@@ -6,10 +6,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.RequiredArgsConstructor;
 import site.metacoding.firstapp.domain.user.User;
 import site.metacoding.firstapp.domain.user.UserDao;
+import site.metacoding.firstapp.service.UserService;
+import site.metacoding.firstapp.web.dto.CMRespDto;
 import site.metacoding.firstapp.web.dto.request.user.JoinDto;
 import site.metacoding.firstapp.web.dto.request.user.LoginDto;
 import site.metacoding.firstapp.web.dto.request.user.UserUpdateDto;
@@ -19,6 +23,7 @@ import site.metacoding.firstapp.web.dto.request.user.UserUpdateDto;
 public class UserController {
     private final HttpSession session;
     private final UserDao userDao;
+    private final UserService userService;
 
     // 회원가입 페이지
     @GetMapping("/user/joinForm")
@@ -26,15 +31,11 @@ public class UserController {
         return "/user/joinForm";
     }
 
-    // 회원가입 응답
+    
     @PostMapping("/user/join")
-    public String join(JoinDto joinDto) {
-        User userPS = userDao.findByUsername(joinDto.getUsername());
-        if (userPS == null) {
-            userDao.insert(joinDto.toEntity());
-            return "redirect:/user/loginForm";
-        }
-        return "redirect:/user/joinForm";
+    public @ResponseBody CMRespDto<?> join(@RequestBody JoinDto joinDto) {
+        userService.회원가입(joinDto);
+        return new CMRespDto<>(1, "회원가입성공", null);
     }
 
     // 로그인 페이지
@@ -82,7 +83,7 @@ public class UserController {
     @PostMapping("/user/passwordCheck")
     public String passwordCheck(String password) {
         User principal = (User) session.getAttribute("principal");
-        User userPS = userDao.findByPassword(password, principal.getUserId());
+        User userPS = userDao.findByPasswordAndUserId(password, principal.getUserId());
         if (userPS == null) {
             return "redirect:/user/passwordCheckForm";
         }
@@ -144,7 +145,8 @@ public class UserController {
         if (principal == null) {
             return "redirect:/user/loginForm";
         }
-        model.addAttribute("user", userDao.findById(principal.getUserId()));
+        User userPS = userDao.findById(principal.getUserId());
+        model.addAttribute("user", userPS);
         return "/user/profileUpdateForm";
     }
 

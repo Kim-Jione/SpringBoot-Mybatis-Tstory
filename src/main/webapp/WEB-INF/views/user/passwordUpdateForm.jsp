@@ -65,4 +65,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
     </div>
 
 </div>
+<script>
+    
+</script>
     <%@ include file="../layout/footer.jsp"%>
