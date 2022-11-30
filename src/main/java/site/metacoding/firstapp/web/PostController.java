@@ -137,12 +137,22 @@ public class PostController {
 	// 게시글 상세보기 페이지
 	@GetMapping("/post/detailForm/{postId}/{userId}")
 	public String detailForm(@PathVariable Integer postId, @PathVariable Integer userId, Model model) {
-		PostDetailDto postDetail = postDao.findByIdAndUser(postId, userId);
-		System.out.println("디버그: "+postDetail.getNickname());
-		model.addAttribute("post", postDetail);
-		model.addAttribute("user", userDao.findById(userId));
-		model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리
-		model.addAttribute("postList", postDao.findByUserId(userId)); // 블로그 전체게시글
+		User principal = (User) session.getAttribute("principal");
+
+		// 좋아요 화면에 넣는용도
+		if (principal == null) { 
+			PostDetailDto postDetail = postDao.findByIdAndUser(postId, null);
+			model.addAttribute("post", postDetail);
+			model.addAttribute("user", userDao.findById(userId));
+			model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리
+			model.addAttribute("postList", postDao.findByUserId(userId)); // 블로그 전체게시글
+		} else {
+			PostDetailDto postDetail = postDao.findByIdAndUser(postId, principal.getUserId());
+			model.addAttribute("post", postDetail);
+			model.addAttribute("user", userDao.findById(userId));
+			model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리
+			model.addAttribute("postList", postDao.findByUserId(userId)); // 블로그 전체게시글
+		}
 		return "/post/detailForm";
 	}
 

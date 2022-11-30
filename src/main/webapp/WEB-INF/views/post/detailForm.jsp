@@ -25,13 +25,13 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
 <c:choose>
 <c:when test="${principal.userId==post.userId}">
         <div  style="padding-left: 550px; ">
-        작성자:<a href="/post/listForm/${post.userId}"> ${user.nickname}</a>&nbsp;&nbsp;
+        작성자:<a href="/post/listForm/${post.userId}"> ${post.username}</a>&nbsp;&nbsp;
                 최근 수정일: ${post.updatedAt}
         </div>
         </c:when>
         <c:otherwise>
  <div  style="padding-left: 750px; ">
-        작성자:<a href="/post/listForm/${post.userId}"> ${user.nickname}</a>&nbsp;&nbsp;
+        작성자:<a href="/post/listForm/${post.userId}"> ${post.username}</a>&nbsp;&nbsp;
                 최근 수정일: ${post.updatedAt}
         </div>
 
