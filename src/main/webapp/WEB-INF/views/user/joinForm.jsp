@@ -110,9 +110,98 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
 </div>
 
 <script>
-     let isCheckUsername = false;
+    let isCheckUsername = false;
     let isCheckNickname = false;
     let isCheckEmail = false;
+
+    // 회원가입===========================
+
+    $("#joinBtn").click(() => {
+        join();
+    });
+
+    function valid() {
+        let username = $("#username").val();
+        let password = $("#password").val();
+        let passwordSame = $("#passwordSame").val();
+        let email = $("#email").val();
+        let nickname = $("#nickname").val();
+
+        if (username == null) {
+            return true;
+        }
+        if (password == null) {
+            return true;
+        }
+        if (passwordSame == null) {
+            return true;
+        }
+        if (email == null) {
+            return true;
+        }
+        if (nickname == null) {
+            return true;
+        }
+        if (validUsername()) {
+            return true;
+        }
+        if (isCheckUsername == false) {
+            return true;
+        }
+        if (isCheckEmail == false) {
+            return true;
+        }
+        if (validEmail()) {
+            return true;
+        }
+        if (validPassword()) {
+            return true;
+        }
+        if (validPasswordSame()) {
+            return true;
+        }
+        if (isCheckNickname == false) {
+            return true;
+        }
+        if (validNickname()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function join() {
+        if (valid()) {
+            alert("회원정보를 다시 확인해주세요.");
+            return;
+        }
+
+        let data = {
+            username: $("#username").val(),
+            nickname: $("#nickname").val(),
+            password: $("#password").val(),
+            email: $("#email").val(),
+        };
+
+        $.ajax("/user/join", {
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }).done((res) => {
+            if (res.code == 1) {
+                alert("성공");
+                location.href = "/user/loginForm";
+            } else {
+                alert("성공");
+                alert(res.msg);
+                history.back();
+            }
+        });
+    }
+
     // 아이디 유효성 체크 =====================================
 
     function checkUsername() {
@@ -134,9 +223,9 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                     // 중복
                     $(".usernameValid").css("display", "inline-block");
                     $(".usernameValid").text("이미 사용중인 아이디입니다.");
-                    isCheckUsername = true;
-                } else {
                     isCheckUsername = false;
+                } else {
+                    isCheckUsername = true;
                 }
             }
         });
@@ -198,9 +287,9 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                     // 중복
                     $(".emailValid").css("display", "inline-block");
                     $(".emailValid").text("이미 사용중인 이메일입니다.");
-                    isCheckEmail = true;
-                } else {
                     isCheckEmail = false;
+                } else {
+                    isCheckEmail = true;
                 }
             }
         });
@@ -233,7 +322,6 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
     }
 
     // 비밀번호 유효성 체크 =====================================
-   
 
     function validPassword() {
         let password = $("#password").val();
@@ -311,9 +399,9 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                 if (res.data == true) {
                     $(".nicknameValid").css("display", "inline-block");
                     $(".nicknameValid").text("이미 사용중인 닉네임입니다.");
-                    isCheckNickname = true;
-                } else {
                     isCheckNickname = false;
+                } else {
+                    isCheckNickname = true;
                 }
             }
         });
@@ -357,78 +445,5 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             }
         });
     });
-
-    if (checkUsername()) {
-        $("#joinBtn").attr("disabled", true);
-    } else {
-        $("#joinBtn").removeAttr("disabled");
-    }
-
-    // 회원가입===========================
-
-    $("#joinBtn").click(() => {
-        join();
-    });
-
-
-    function valid() {
-        if (validUsername()) {
-            return true;
-        }
-        if (isCheckUsername()) {
-            return true;
-        }
-        if (isCheckEmail()) {
-            return true;
-        }
-        if (validEmail()) {
-            return true;
-        }
-        if (validPassword()) {
-            return true;
-        }
-        if (validPasswordSame()) {
-            return true;
-        }
-        if (isCheckNickname()) {
-            return true;
-        }
-        if (validNickname()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    function join() {
-        if (valid()) {
-            alert("회원정보를 다시 확인해주세요.");
-            return;
-        }
-
-
-        let data = {
-            username: $("#username").val(),
-            nickname: $("#nickname").val(),
-            password: $("#password").val(),
-            email: $("#email").val(),
-        };
-
-        $.ajax("/user/join", {
-            type: "POST",
-            dataType: "json",
-            data: JSON.stringify(data),
-            headers: {
-                "Content-Type": "application/json",
-            },
-        }).done((res) => {
-            if (res.code == 1) {
-                location.href = "/user/loginForm";
-            } else {
-                alert(res.msg);
-                history.back();
-            }
-        });
-    }
 </script>
 <%@ include file="../layout/footer.jsp"%>
