@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +16,7 @@ import site.metacoding.firstapp.domain.user.UserDao;
 import site.metacoding.firstapp.service.UserService;
 import site.metacoding.firstapp.web.dto.CMRespDto;
 import site.metacoding.firstapp.web.dto.request.user.JoinDto;
+import site.metacoding.firstapp.web.dto.request.user.LeaveDto;
 import site.metacoding.firstapp.web.dto.request.user.LoginDto;
 import site.metacoding.firstapp.web.dto.request.user.UserUpdateDto;
 
@@ -31,7 +33,7 @@ public class UserController {
         return "/user/joinForm";
     }
 
-    
+    // 회원가입 응답
     @PostMapping("/user/join")
     public @ResponseBody CMRespDto<?> join(@RequestBody JoinDto joinDto) {
         userService.회원가입(joinDto);
@@ -110,16 +112,6 @@ public class UserController {
         return "/user/emailCheckForm";
     }
 
-    // 회원 탈퇴 페이지
-    @GetMapping("/user/leaveCheckForm")
-    public String leaveCheckForm() {
-        User principal = (User) session.getAttribute("principal");
-        if (principal == null) {
-            return "redirect:/user/loginForm";
-        }
-        return "/user/leaveCheckForm";
-    }
-
     // 계정 수정 페이지
     @GetMapping("/user/updateForm")
     public String updateForm(Model model) {
@@ -148,6 +140,30 @@ public class UserController {
         User userPS = userDao.findById(principal.getUserId());
         model.addAttribute("user", userPS);
         return "/user/profileUpdateForm";
+    }
+
+    // 회원 탈퇴 페이지
+    @GetMapping("/user/leaveCheckForm")
+    public String leaveCheckForm() {
+        User principal = (User) session.getAttribute("principal");
+        if (principal == null) {
+            return "redirect:/user/loginForm";
+        }
+        return "/user/leaveCheckForm";
+    }
+
+    // 회원 탈퇴 응답
+    @DeleteMapping("/user/leave")
+    public @ResponseBody CMRespDto<?> leave(@RequestBody LeaveDto leaveDto) {
+        User principal = (User) session.getAttribute("principal");
+        System.out.println("디버그: password: "+leaveDto.getPassword());
+        System.out.println("디버그: userId: " + leaveDto.getUserId());
+        User userPS = userDao.findByPasswordAndUserId(leaveDto.getPassword(), principal.getUserId());
+        if (userPS != null) {
+            userDao.leave(principal.getUserId());
+            return new CMRespDto<>(1, "회원탈퇴성공", null);
+        }
+        return new CMRespDto<>(-1, "비밀번호가 맞지 않습니다.", null);
     }
 
 }

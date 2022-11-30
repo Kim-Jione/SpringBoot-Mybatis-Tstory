@@ -32,4 +32,6 @@ public interface UserDao {
 
 	public CheckDto findByNickname(String nickname);
 
+	public void leave(Integer userId);
+
 }

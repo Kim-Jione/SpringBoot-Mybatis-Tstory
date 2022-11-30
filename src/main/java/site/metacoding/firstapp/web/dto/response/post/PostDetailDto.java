@@ -21,6 +21,7 @@ public class PostDetailDto {
 	private Timestamp updatedAt;
 	private Timestamp createdAt;
 	private String username;
+	private String nickname;
 	private Integer loveCount;
 	private boolean isLoved;
 	private Integer loveId;
