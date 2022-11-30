@@ -4,7 +4,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
 <div class="container">
     <div class="my_auth_box">
         <div class="my_auth_form_box">
-            <div class="my_auth_form_box_title">JSotry</div>
+            <div class="my_auth_form_box_title">JStory</div>
             <div class="my_error_box my_hidden"></div>
             <form action="" method="">
                 <input

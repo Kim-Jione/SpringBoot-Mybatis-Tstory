@@ -34,6 +34,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                 <div style="display: flex">
                     <div class="my_auth_form_box_info_detail">닉네임</div>
                     <input
+                        id="nickname"
                         name="nickname"
                         class="my_auth_form_box_input"
                         type="text"
@@ -44,8 +45,12 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                 </div>
                 <div style="text-align: right">
                     <a href="/user/emailCheckForm"
-                        ><button type="submit" class="btn btn-outline-primary">
-                            닉네임 변경
+                        ><button
+                            id="saveBtn"
+                            type="submit"
+                            class="btn btn-outline-primary"
+                        >
+                            저장
                         </button></a
                     >
                 </div>
@@ -53,5 +58,5 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
         </div>
     </div>
 </div>
-
+<script></script>
 <%@ include file="../layout/footer.jsp"%>

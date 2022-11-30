@@ -18,7 +18,6 @@ public class LoginIntercepter implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
-        System.out.println("디버그: "+request.getRequestURI());
 
         String uri = request.getRequestURI();
 
@@ -26,7 +25,6 @@ public class LoginIntercepter implements HandlerInterceptor {
         User principal = (User) session.getAttribute("principal");
         if (principal == null) {
             if (uri.contains("api")) {
-                System.out.println("디버그: API 가 주소에 있음");
                 
                 response.setContentType("application/json; charset=utf-8");
                 PrintWriter out = response.getWriter();
