@@ -110,6 +110,9 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
 </div>
 
 <script>
+     let isCheckUsername = false;
+    let isCheckNickname = false;
+    let isCheckEmail = false;
     // 아이디 유효성 체크 =====================================
 
     function checkUsername() {
@@ -195,9 +198,9 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                     // 중복
                     $(".emailValid").css("display", "inline-block");
                     $(".emailValid").text("이미 사용중인 이메일입니다.");
-                    return true;
+                    isCheckEmail = true;
                 } else {
-                    return false;
+                    isCheckEmail = false;
                 }
             }
         });
@@ -230,6 +233,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
     }
 
     // 비밀번호 유효성 체크 =====================================
+   
 
     function validPassword() {
         let password = $("#password").val();
@@ -283,6 +287,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             $(".passwordSameValid").text("비밀번호 재확인은 필수정보입니다.");
             return true;
         } else {
+            $(".passwordSameValid").css("display", "none");
             return false;
         }
     }
@@ -306,9 +311,9 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                 if (res.data == true) {
                     $(".nicknameValid").css("display", "inline-block");
                     $(".nicknameValid").text("이미 사용중인 닉네임입니다.");
-                    return true;
+                    isCheckNickname = true;
                 } else {
-                    return false;
+                    isCheckNickname = false;
                 }
             }
         });
@@ -365,39 +370,42 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
         join();
     });
 
-    function join() {
-        if (isCheckUsername()) {
-            alert("이미 사용중인 아이디입니다.");
-            return;
-        }
+
+    function valid() {
         if (validUsername()) {
-            alert("올바르지 않은 아이디입니다.");
-            return;
+            return true;
         }
-        if (checkEmail()) {
-            alert("이미 사용중인 이메일입니다.");
-            return;
+        if (isCheckUsername()) {
+            return true;
+        }
+        if (isCheckEmail()) {
+            return true;
         }
         if (validEmail()) {
-            alert("올바르지 않은 이메일입니다.");
-            return;
+            return true;
         }
         if (validPassword()) {
-            alert("올바르지 않은 비밀번호입니다.");
-            return;
+            return true;
         }
         if (validPasswordSame()) {
-            alert("비밀번호가 일치하지 않습니다");
-            return;
+            return true;
         }
-        if (checkNickname()) {
-            alert("이미 사용중인 닉네임입니다.");
-            return;
+        if (isCheckNickname()) {
+            return true;
         }
         if (validNickname()) {
-            alert("올바르지 않은 닉네임입니다.");
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function join() {
+        if (valid()) {
+            alert("회원정보를 다시 확인해주세요.");
             return;
         }
+
 
         let data = {
             username: $("#username").val(),
