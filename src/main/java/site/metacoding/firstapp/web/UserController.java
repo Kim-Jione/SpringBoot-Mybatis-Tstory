@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,7 +16,11 @@ import site.metacoding.firstapp.domain.user.UserDao;
 import site.metacoding.firstapp.service.UserService;
 import site.metacoding.firstapp.web.dto.CMRespDto;
 import site.metacoding.firstapp.web.dto.request.user.JoinDto;
+import site.metacoding.firstapp.web.dto.request.user.LeaveDto;
 import site.metacoding.firstapp.web.dto.request.user.LoginDto;
+import site.metacoding.firstapp.web.dto.request.user.PasswordCheckDto;
+import site.metacoding.firstapp.web.dto.request.user.UpdateNicknameDto;
+import site.metacoding.firstapp.web.dto.request.user.UpdatePasswordDto;
 import site.metacoding.firstapp.web.dto.request.user.UserUpdateDto;
 
 @RequiredArgsConstructor
@@ -31,7 +36,7 @@ public class UserController {
         return "/user/joinForm";
     }
 
-    
+    // 회원가입 응답
     @PostMapping("/user/join")
     public @ResponseBody CMRespDto<?> join(@RequestBody JoinDto joinDto) {
         userService.회원가입(joinDto);
@@ -63,13 +68,13 @@ public class UserController {
         return "redirect:/";
     }
 
-    // 패스워드 초기화 페이지
+    // 비밀번호 초기화 페이지
     @GetMapping("/user/passwordResetForm")
     public String passwordResetForm() {
         return "/user/passwordResetForm";
     }
 
-    // 패스워드 확인 페이지
+    // 비밀번호 확인 페이지
     @GetMapping("/user/passwordCheckForm")
     public String passwordCheckForm() {
         User principal = (User) session.getAttribute("principal");
@@ -79,18 +84,21 @@ public class UserController {
         return "/user/passwordCheckForm";
     }
 
-    // 패스워드 확인 응답
-    @PostMapping("/user/passwordCheck")
-    public String passwordCheck(String password) {
+    // 비밀번호 확인 응답
+    @PostMapping("/user/checkPassword")
+    public @ResponseBody CMRespDto<?> passwordCheck(@RequestBody PasswordCheckDto passwordCheckDto) {
+        System.out.println("디버그: password: " + passwordCheckDto.getPassword());
+        System.out.println("디버그: userId: " + passwordCheckDto.getUserId());
         User principal = (User) session.getAttribute("principal");
-        User userPS = userDao.findByPasswordAndUserId(password, principal.getUserId());
+        User userPS = userDao.findByPasswordAndUserId(passwordCheckDto.getPassword(), principal.getUserId());
         if (userPS == null) {
-            return "redirect:/user/passwordCheckForm";
+
+            return new CMRespDto<>(-1, "실패", null);
         }
-        return "redirect:/user/updateForm";
+        return new CMRespDto<>(1, "성공", null);
     }
 
-    // 패스워드 수정 페이지
+    // 비밀번호 수정 페이지
     @GetMapping("/user/passwordUpdateForm")
     public String passwordUpdateForm() {
         User principal = (User) session.getAttribute("principal");
@@ -110,22 +118,12 @@ public class UserController {
         return "/user/emailCheckForm";
     }
 
-    // 회원 탈퇴 페이지
-    @GetMapping("/user/leaveCheckForm")
-    public String leaveCheckForm() {
-        User principal = (User) session.getAttribute("principal");
-        if (principal == null) {
-            return "redirect:/user/loginForm";
-        }
-        return "/user/leaveCheckForm";
-    }
-
     // 계정 수정 페이지
     @GetMapping("/user/updateForm")
     public String updateForm(Model model) {
         User principal = (User) session.getAttribute("principal");
         if (principal == null) {
-            return "redirect:/loginForm";
+            return "redirect:/user/loginForm";
         }
         model.addAttribute("user", userDao.findById(principal.getUserId()));
         return "/user/updateForm";
@@ -148,6 +146,52 @@ public class UserController {
         User userPS = userDao.findById(principal.getUserId());
         model.addAttribute("user", userPS);
         return "/user/profileUpdateForm";
+    }
+
+    // 회원 탈퇴 페이지
+    @GetMapping("/user/leaveCheckForm")
+    public String leaveCheckForm() {
+        User principal = (User) session.getAttribute("principal");
+        if (principal == null) {
+            return "redirect:/user/loginForm";
+        }
+        return "/user/leaveCheckForm";
+    }
+
+    // 회원 탈퇴 응답
+    @DeleteMapping("/user/leave")
+    public @ResponseBody CMRespDto<?> leave(@RequestBody LeaveDto leaveDto) {
+        User principal = (User) session.getAttribute("principal");
+        System.out.println("디버그: password: " + leaveDto.getPassword());
+        System.out.println("디버그: userId: " + leaveDto.getUserId());
+        User userPS = userDao.findByPasswordAndUserId(leaveDto.getPassword(), principal.getUserId());
+        if (userPS != null) {
+            session.invalidate();
+            userDao.leave(principal.getUserId());
+            return new CMRespDto<>(1, "성공", null);
+        }
+        return new CMRespDto<>(-1, "실패", null);
+    }
+
+    // 비밀번호 수정 응답
+    @PostMapping("/user/updatePassword")
+    public @ResponseBody CMRespDto<?> updatePassword(@RequestBody UpdatePasswordDto updatePasswordDto) {
+        User principal = (User) session.getAttribute("principal");
+        User userPS = userDao.findByPasswordAndUserId(updatePasswordDto.getPassword(), principal.getUserId());
+        if (userPS == null) {
+            return new CMRespDto<>(-1, "실패", null);
+        }
+        userDao.updateByPassword(updatePasswordDto.getPasswordUpdate(), principal.getUserId());
+
+        return new CMRespDto<>(1, "성공", null);
+    }
+
+    // 닉네임 수정 응답
+    @PostMapping("/user/updateNickname")
+    public @ResponseBody CMRespDto<?> updateNickname(@RequestBody UpdateNicknameDto updateNicknameDto) {
+        User principal = (User) session.getAttribute("principal");
+        userDao.updateByNickname(updateNicknameDto.getNicknameUpdate(), principal.getUserId());
+        return new CMRespDto<>(1, "성공", null);
     }
 
 }

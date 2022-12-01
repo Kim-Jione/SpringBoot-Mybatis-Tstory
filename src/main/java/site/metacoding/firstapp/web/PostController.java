@@ -101,6 +101,7 @@ public class PostController {
 			model.addAttribute("paging", paging); // 페이징
 			model.addAttribute("postList", postDao.findAllPost(userId, null, startNum)); // 블로그 전체게시글
 			model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리 이동 => 공통
+			model.addAttribute("user", userDao.findById(userId));
 		}
 
 		if (principal != null) {
@@ -115,6 +116,8 @@ public class PostController {
 			model.addAttribute("postCount", postDao.postCount(userId, keyword)); // 전체게시글 개수
 			model.addAttribute("paging", paging); // 페이징
 			model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리 이동 => 공통
+			model.addAttribute("user", userDao.findById(userId));
+
 		}
 
 		else {
@@ -125,6 +128,7 @@ public class PostController {
 			model.addAttribute("postCount", postDao.postCount(userId, keyword)); // 전체게시글 개수
 			model.addAttribute("paging", paging); // 페이징
 			model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리 이동 => 공통
+
 		}
 
 		return "/post/listForm";
@@ -134,7 +138,9 @@ public class PostController {
 	@GetMapping("/post/detailForm/{postId}/{userId}")
 	public String detailForm(@PathVariable Integer postId, @PathVariable Integer userId, Model model) {
 		User principal = (User) session.getAttribute("principal");
-		if (principal == null) {
+
+		// 좋아요 화면에 넣는용도
+		if (principal == null) { 
 			PostDetailDto postDetail = postDao.findByIdAndUser(postId, null);
 			model.addAttribute("post", postDetail);
 			model.addAttribute("user", userDao.findById(userId));

@@ -8,17 +8,18 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                 <div >중요한 정보에 접근하려고 합니다.</div>
                 <div >비밀번호를 다시 입력하세요</div>
             </div>
-            <form action="/user/passwordCheck" method="POST">
+            <form>
+                <input type="hidden" value="${principal.userId}" id="userId">
                 <input
+                    id="password"
                     class="my_auth_form_box_input"
                     type="password"
-                    name="password"
                     placeholder="비밀번호"
                 />
                 <input type="hidden" name="userId", value="${principal.userId}">
-                <button type="submit" class="my_secondary_btn">확인</button>
+                <button class="my_secondary_btn" onclick="checkPassword()">확인</button>
                  <div>
-                    <a href="/user/passwordResetForm">비밀번호 찾기</a>
+                   비밀번호 찾기
                 </div>
             </form>
             
@@ -26,4 +27,33 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
     </div>
 </div>
 </div>
+
+<script>
+
+
+ function checkPassword() {
+        let data = {
+            userId : $("#userId").val(),
+            password: $("#password").val()
+        };
+
+        $.ajax("/user/checkPassword", {
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify(data),
+             headers: {
+                "Content-Type": "application/json; charset=utf-8",
+            },
+        }).done((res) => {
+            if (res.code == 1)  {
+                   location.href = "/user/updateForm";
+                } else {
+                    alert("비밀번호가 맞지 않습니다");
+                    return;
+                }
+        });
+    }
+
+
+</script>
 <%@ include file="../layout/footer.jsp"%>

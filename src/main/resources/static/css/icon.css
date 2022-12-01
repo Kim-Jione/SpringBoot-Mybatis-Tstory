@@ -1,0 +1,9 @@
+.password_icon i {
+    color: rgb(100, 98, 98);
+    line-height: 60px;
+}
+
+.write_icon i {
+    position: absolute;
+    left: 81%;
+}
