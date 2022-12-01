@@ -160,6 +160,7 @@ public class UserController {
         System.out.println("디버그: userId: " + leaveDto.getUserId());
         User userPS = userDao.findByPasswordAndUserId(leaveDto.getPassword(), principal.getUserId());
         if (userPS != null) {
+            session.invalidate();
             userDao.leave(principal.getUserId());
             return new CMRespDto<>(1, "회원탈퇴성공", null);
         }

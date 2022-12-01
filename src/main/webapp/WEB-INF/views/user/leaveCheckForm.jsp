@@ -37,6 +37,7 @@ $("#btnDelete").click(() => {
 });
 
 function leave() {
+
 	let data = {
 		userId: $("#userId").val(),
 		password: $("#password").val()
@@ -51,10 +52,10 @@ function leave() {
 		}
 	}).done((res) => {
 		if (res.code == 1) {
-			location.href = "/";
+            alert("회원탈퇴가 완료되었습니다.");
 		} else {
-			alert("비밀번호를 다시 확인해주세요.");
-		}
+            alert(res.msg);
+        }
 	});
 }
 </script>

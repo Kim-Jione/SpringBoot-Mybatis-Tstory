@@ -72,7 +72,6 @@
 		WHERE email = #{email}
     </select>
 
-
     <delete id="leave">
 		DELETE FROM love WHERE user_id = #{userId};
 		DELETE FROM post WHERE user_id = #{userId};
