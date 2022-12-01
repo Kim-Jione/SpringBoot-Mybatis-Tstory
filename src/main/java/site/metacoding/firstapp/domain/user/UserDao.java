@@ -39,4 +39,5 @@ public interface UserDao {
 	public void updateByNickname(@Param("nicknameUpdate") String nicknameUpdate, @Param("userId") Integer userId);
 
 
+
 }

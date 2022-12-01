@@ -2,12 +2,22 @@
 pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
 
 <div class="container">
-   
-
+    <c:if test="${principal.userId==category.userId}">
+   <span class="btn_form">
+    <a href="/category/updateForm/${category.categoryId}">
+    <span class="btn_form_update"><button id="btnUpdate" class="btn btn-outline-warning">수정</button></a></span>
+    
+    <span class="btn_form_delete">
+            <button onclick="removeCheck()"  type="submit" class=" btn btn-outline-danger">
+                삭제</button>
+    </span>
+    </span>
+</c:if>
     <div style="display: inline-flex;">
-<div>
+<div class="category_form">
     <h5 style="line-height: 50px;">${category.categoryTitle}(${categoryCount.categoryCount})</h5></div>
 
+    <input type="hidden" value="${category.categoryId}" id="categoryId">
      <!-- 검색바 -->
         <div
             class="form-group row justify-content-left"
@@ -33,7 +43,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
 
          <!-- 게시글 작성 -->
         <c:if test="${principal.userId == user.userId}">
-        <div class="d-flex justify-content-end my_mb_sm_1" style="padding-left: 800px;">
+        <div class="d-flex justify-content-end my_mb_sm_1" style="padding-left: 600px;">
         <a href="/post/writeForm" class="my_atag_none">
                 <i class="fa-solid fa-pencil fa-2x" style="padding-top: 20px;"></i>
         </a>
@@ -85,4 +95,43 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
 	</div>
     </div>
 </div>
+
+<script>
+
+function removeCheck() {
+    if(confirm("카테고리 삭제시 게시글도 같이 삭제됩니다. 정말 삭제하시겠습니까?")==true){ 
+    
+    let categoryId = $("#categoryId").val();
+    
+    let data = {
+        categoryId: $("#categoryId").val()
+    };
+
+    $.ajax("/category/" + categoryId, {
+        type: "DELETE",
+        dataType: "json",
+        data: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json; charset=utf-8",
+        },
+    }).done((res) => {
+        if (res.code == 1) {
+            alert("삭제되었습니다");
+            location.href="/post/listForm/${principal.userId}"
+        } else {
+            alert("글삭제 실패");
+        }
+    });
+    
+    
+    }
+        else{
+            return false;
+        }
+    }
+
+
+
+    
+</script>
 <%@ include file="../layout/footer.jsp"%>

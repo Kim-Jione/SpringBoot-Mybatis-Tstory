@@ -53,7 +53,7 @@
     </select>
 	
 	<select id="findAllSubscribePost" resultType="site.metacoding.firstapp.web.dto.response.subscribe.PostListDto">
-    	SELECT p.post_title,s.users_id,s.subscribe_id, p.post_content, p.post_thumnail, p.created_at, p.updated_at, u.nickname 
+    	SELECT p.post_title,s.users_id,s.subscribe_id, p.post_content, p.post_thumnail, p.created_at, p.updated_at, u.nickname,u.user_id, p.post_id
 		FROM (SELECT * FROM subscribe WHERE user_id=#{userId}) s
 		INNER JOIN post p
 		on p.user_id = s.users_id

@@ -28,10 +28,6 @@
 		  user_id = #{userId}
     </update>
 
-	<delete id="delete">
-		DELETE FROM category WHERE category_id = #{categoryId}
-	</delete>
-
 	<select id="findByUserId"
 		resultType="site.metacoding.firstapp.web.dto.response.main.HeaderDto">
 		SELECT c.category_id, c.category_title, u.username, u.user_id
@@ -52,7 +48,39 @@
 		INTO category(category_title, user_id)
 		VALUES(#{categoryTitle}, #{userId})
     </insert>
+
+    <delete id="deleteById">
+		DELETE FROM category WHERE category_id = #{categoryId}
+    </delete>
+
+    <select id="findByCategoryTitle"  resultType="site.metacoding.firstapp.web.dto.request.user.CheckDto">
+        SELECT category_title
+		FROM category
+		WHERE category_title = #{categoryTitle} AND user_id = #{userId}
+    </select>
+
+    <update id="updateCategoryTitle">
+        UPDATE category
+		SET category_title = #{categoryTitle}
+		WHERE user_id = #{userId} AND category_id=#{categoryId}
+    </update>
+
+
+    <delete id="deleteAll">
+		DELETE FROM post WHERE category_id = #{categoryId};
+		DELETE FROM category WHERE category_id = #{categoryId};
+    </delete>
+
+    <select id="findByCategoryTitleId" resultType="site.metacoding.firstapp.domain.category.Category">
+        SELECT *
+		FROM category
+		WHERE user_id = #{userId} AND category_id = #{categoryId}
+    </select>
+
 </mapper>
+
+    
+
 
 
 

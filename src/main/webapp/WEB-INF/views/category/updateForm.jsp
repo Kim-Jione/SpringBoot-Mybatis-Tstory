@@ -2,19 +2,36 @@
 pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
 <div class="container">
     <div class="my_auth_box">
-        <div class="my_auth_form_box">
+        <div class="my_auth_form_box" style="width: 700px">
             <div class="my_auth_form_box_title">JSotry</div>
+            <div style="display: flex">
+                <input type="hidden" value="${category.categoryId}" id="categoryId">
+                <input type="hidden" value="${category.userId}" id="userId">
+                <div
+                    class="my_auth_form_box_info_security_detail"
+                    style="width: 200px"
+                >
+                    현재 카테고리명
+                </div>
+                <input
+                    class="my_auth_form_box_input"
+                    type="text"
+                    maxlength="20"
+                    value="${category.categoryTitle}"
+                    required
+                    readonly
+                />
+            </div>
             <div style="display: flex">
                 <div
                     class="my_auth_form_box_info_security_detail"
                     style="width: 200px"
                 >
-                    등록할 카테고리명
+                    변경할 카테고리명
                 </div>
                 <input
-                    oninput="checkCategoryTitle();validCategoryTitle();"
-                    style="padding-left: 20px"
                     id="categoryTitle"
+                    oninput="checkCategoryTitle();validCategoryTitle();"
                     class="my_auth_form_box_input"
                     type="text"
                     maxlength="20"
@@ -25,8 +42,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                 class="categoryTitleValid"
                 style="padding-left: 140px; color: red; display: none"
             ></span>
-            <input type="hidden" id="userId" value="${principal.userId}" />
-            <button class="my_secondary_btn" id="saveBtn">등록</button>
+            <button id="updateBtn" class="my_secondary_btn">등록</button>
         </div>
     </div>
     <br />
@@ -34,12 +50,11 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
 <script>
     let isCheckCategoryTitle = false;
 
-    $("#saveBtn").click(() => {
-        write();
+    $("#updateBtn").click(() => {
+        update();
     });
 
-
-    function write() {
+    function update() {
         if (isCheckCategoryTitle == false) {
             alert("이미 존재하는 카테고리명입니다.");
             return;
@@ -52,11 +67,12 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
 
         let data = {
             userId: $("#userId").val(),
+            categoryId: $("#categoryId").val(),
             categoryTitle: $("#categoryTitle").val(),
         };
 
         $.ajax("/user/categoryTitle", {
-            type: "POST",
+            type: "PUT",
             dataType: "json",
             data: JSON.stringify(data),
             headers: {
@@ -64,10 +80,10 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             },
         }).done((res) => {
             if (res.code == 1) {
-                alert("카테고리 등록에 성공했습니다.");
+                alert("카테고리명 변경에 성공했습니다.");
                 location.href = "/";
             } else {
-                alert("카테고리 등록에 실패했습니다.");
+                alert("카테고리명 변경에 실패했습니다.");
                 location.href = "/";
             }
         });
@@ -92,12 +108,11 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                     // 중복
                     $(".categoryTitleValid").css("display", "inline-block");
                     $(".categoryTitleValid").text(
-                        "이미 등록한 카테고리입니다."
+                        "이미 등록되어 있는 카테고리입니다."
                     );
                     isCheckCategoryTitle = false;
                 } else {
                     isCheckCategoryTitle = true;
-                    return false;
                 }
             }
         });

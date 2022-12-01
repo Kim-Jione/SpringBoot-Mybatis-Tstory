@@ -157,7 +157,7 @@ public class PostController {
 	}
 
 	// 게시글 삭제 응답
-	@DeleteMapping("/post/delete/{postId}")
+	@DeleteMapping("/post/{postId}")
 	public @ResponseBody CMRespDto<?> delete(@PathVariable Integer postId) {
 		postDao.delete(postId);
 		return new CMRespDto<>(1, "게시글 삭제 성공", null);

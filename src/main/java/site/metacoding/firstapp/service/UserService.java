@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
+import site.metacoding.firstapp.domain.category.CategoryDao;
 import site.metacoding.firstapp.domain.user.User;
 import site.metacoding.firstapp.domain.user.UserDao;
 import site.metacoding.firstapp.web.dto.request.user.CheckDto;
@@ -13,6 +14,7 @@ import site.metacoding.firstapp.web.dto.request.user.JoinDto;
 @Service
 public class UserService {
 	private final UserDao userDao;
+	private final CategoryDao categoryDao;
 
 	@Transactional
 	public void 회원가입(JoinDto joinDto) {
@@ -25,7 +27,7 @@ public class UserService {
 
 		if (usersPS == null) { // 중복 안됨
 			return false;
-		} else { //  중복됨
+		} else { // 중복됨
 			return true;
 		}
 	}
@@ -50,5 +52,13 @@ public class UserService {
 		}
 	}
 
+	public boolean 카테고리명중복확인(String categoryTitle, Integer userId) {
+		CheckDto categoryPS = categoryDao.findByCategoryTitle(categoryTitle, userId);
+		if (categoryPS == null) { // 중복 안됨
+			return false;
+		} else { // 중복됨
+			return true;
+		}
+	}
 
 }

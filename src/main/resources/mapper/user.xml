@@ -72,7 +72,6 @@
 		WHERE email = #{email}
     </select>
 
-
     <update id="updateByNickname">
           UPDATE user
 		  SET nickname = #{nicknameUpdate}

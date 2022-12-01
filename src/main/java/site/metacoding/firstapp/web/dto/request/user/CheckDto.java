@@ -6,8 +6,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CheckDto {
+	private Integer userId;
 	private String username;
 	private String password;
 	private String email;
 	private String nickname;
+	private String categoryTitle;
 }
