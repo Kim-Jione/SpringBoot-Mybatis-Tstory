@@ -26,5 +26,5 @@ public interface SubscribeDao {
 
 	public List<UserListDto> findByUserList(Integer userId);
 
-	// public List<PostListDto> findAllSubscribePost(Integer userId);
+	public List<PostListDto> findAllSubscribePost(Integer userId);
 }

@@ -52,18 +52,15 @@
 		WHERE s.user_id=#{userId}
     </select>
 	
-	<!-- <select id="findAllSubscribePost" resultType="site.metacoding.firstapp.web.dto.response.subscribe.PostListDto">
-       SELECT *
-		FROM user u
+	<select id="findAllSubscribePost" resultType="site.metacoding.firstapp.web.dto.response.subscribe.PostListDto">
+    	SELECT p.post_title,s.users_id,s.subscribe_id, p.post_content, p.post_thumnail, p.created_at, p.updated_at, u.nickname 
+		FROM (SELECT * FROM subscribe WHERE user_id=#{userId}) s
 		INNER JOIN post p
-		ON u.user_id = p.user_id
-		WHERE u.user_id=
-		<c:foreach  item="findByUserId" collection="list">
-		#{item.usersId}
-		</c:foreach>
-		ORDER BY RAND()
-
-    </select> -->
+		on p.user_id = s.users_id
+		INNER JOIN user u
+		ON p.user_id = u.user_id
+		ORDER BY p.post_id DESC
+    </select>
 
 	
 </mapper>

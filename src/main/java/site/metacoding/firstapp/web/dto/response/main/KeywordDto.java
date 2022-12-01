@@ -11,6 +11,7 @@ public class KeywordDto {
 	private Integer postId;
 	private String postTitle;
 	private String username;
+	private String nickname;
 	private Integer userId;
 	private String postThumnail;
 	private Integer categoryId;

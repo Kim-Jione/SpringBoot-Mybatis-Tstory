@@ -180,9 +180,14 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                                     ${post.postTitle}
                                 </div>
                                 <div>${post.createdAt}</div>
+                                <a href="/post/listForm/${post.userId}" class="my_atag_none">
+                            <div>
+                              <span>by ${post.nickname}</span>
+                            </div>
+                                 </a>
                                 <div
                                     class="my_mt_md_1"
-                                    style="padding-top: 30px"
+                                    style="padding-top: 10px"
                                 >
                                     <a
                                         href="/post/detailForm/${post.postId}/${post.userId}"
