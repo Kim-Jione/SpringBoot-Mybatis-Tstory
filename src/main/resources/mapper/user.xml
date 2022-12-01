@@ -72,6 +72,13 @@
 		WHERE email = #{email}
     </select>
 
+
+    <update id="updateByPassword">
+          UPDATE user
+		  SET PASSWORD = #{passwordUpdate}
+		  WHERE user_id = #{userId}
+    </update>
+
     <delete id="leave">
 		DELETE FROM love WHERE user_id = #{userId};
 		DELETE FROM post WHERE user_id = #{userId};

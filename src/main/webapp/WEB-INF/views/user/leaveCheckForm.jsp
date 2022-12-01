@@ -54,7 +54,7 @@ function leave() {
 		if (res.code == 1) {
             alert("회원탈퇴가 완료되었습니다.");
 		} else {
-            alert(res.msg);
+            alert("비밀번호가 맞지 않습니다.");
         }
 	});
 }

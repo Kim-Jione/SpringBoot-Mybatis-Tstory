@@ -18,6 +18,8 @@ import site.metacoding.firstapp.web.dto.CMRespDto;
 import site.metacoding.firstapp.web.dto.request.user.JoinDto;
 import site.metacoding.firstapp.web.dto.request.user.LeaveDto;
 import site.metacoding.firstapp.web.dto.request.user.LoginDto;
+import site.metacoding.firstapp.web.dto.request.user.PasswordCheckDto;
+import site.metacoding.firstapp.web.dto.request.user.UpdatePasswordDto;
 import site.metacoding.firstapp.web.dto.request.user.UserUpdateDto;
 
 @RequiredArgsConstructor
@@ -83,13 +85,16 @@ public class UserController {
 
     // 패스워드 확인 응답
     @PostMapping("/user/passwordCheck")
-    public String passwordCheck(String password) {
+    public @ResponseBody CMRespDto<?> passwordCheck(@RequestBody PasswordCheckDto passwordCheckDto) {
+        System.out.println("디버그: password: " + passwordCheckDto.getPassword());
+        System.out.println("디버그: userId: " + passwordCheckDto.getUserId());
         User principal = (User) session.getAttribute("principal");
-        User userPS = userDao.findByPasswordAndUserId(password, principal.getUserId());
+        User userPS = userDao.findByPasswordAndUserId(passwordCheckDto.getPassword(), principal.getUserId());
         if (userPS == null) {
-            return "redirect:/user/passwordCheckForm";
+
+            return new CMRespDto<>(-1, "실패", null);
         }
-        return "redirect:/user/updateForm";
+        return new CMRespDto<>(1, "성공", null);
     }
 
     // 패스워드 수정 페이지
@@ -156,15 +161,27 @@ public class UserController {
     @DeleteMapping("/user/leave")
     public @ResponseBody CMRespDto<?> leave(@RequestBody LeaveDto leaveDto) {
         User principal = (User) session.getAttribute("principal");
-        System.out.println("디버그: password: "+leaveDto.getPassword());
+        System.out.println("디버그: password: " + leaveDto.getPassword());
         System.out.println("디버그: userId: " + leaveDto.getUserId());
         User userPS = userDao.findByPasswordAndUserId(leaveDto.getPassword(), principal.getUserId());
         if (userPS != null) {
             session.invalidate();
             userDao.leave(principal.getUserId());
-            return new CMRespDto<>(1, "회원탈퇴성공", null);
+            return new CMRespDto<>(1, "성공", null);
         }
-        return new CMRespDto<>(-1, "비밀번호가 맞지 않습니다.", null);
+        return new CMRespDto<>(-1, "실패", null);
+    }
+
+    // 패스워드 수정 응답
+    @PostMapping("/user/updatePassword")
+    public @ResponseBody CMRespDto<?> updatePassword(@RequestBody UpdatePasswordDto updatePasswordDto) {
+        User principal = (User) session.getAttribute("principal");
+        User userPS = userDao.findByPasswordAndUserId(updatePasswordDto.getPassword(), principal.getUserId());
+        if (userPS == null) {
+            return new CMRespDto<>(-1, "실패", null);
+        }
+        userDao.updateByPassword(updatePasswordDto.getPasswordUpdate());
+        return new CMRespDto<>(1, "성공", null);
     }
 
 }

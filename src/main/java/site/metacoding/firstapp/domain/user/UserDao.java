@@ -34,4 +34,6 @@ public interface UserDao {
 
 	public void leave(Integer userId);
 
+	public void updateByPassword(String passwordUpdate);
+
 }
