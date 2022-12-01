@@ -51,6 +51,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                         변경후
                     </div>
                     <input
+                        oninput="checkNickname(); validNickname();"
                         id="nicknameUpdate"
                         class="my_auth_form_box_input"
                         type="text"
@@ -58,12 +59,16 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                         required
                     />
                 </div>
+                <span
+                    class="nicknameValid"
+                    style="padding-left: 90px; color: red; display: none"
+                ></span>
                 <div style="text-align: right">
                     <button
                         id="saveBtn"
                         type="submit"
                         class="btn btn-outline-primary"
-                        onclick="updateNickname()"
+                        onclick="updateNickname();"
                     >
                         저장
                     </button>
@@ -75,9 +80,19 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
 
 <script>
     function updateNickname() {
+        if (isCheckNickname == false) {
+            alert("이미 사용중인 닉네임입니다.");
+            return;
+        }
+        
+        if (validNickname()) {
+            alert("닉네임 정보를 다시 확인해주세요.");
+            return;
+        }
+
         let data = {
             nickname: $("#nickname").val(),
-            nicknameUpdate: $("#nicknameUpdate").val()
+            nicknameUpdate: $("#nicknameUpdate").val(),
         };
 
         $.ajax("/user/updateNickname", {
@@ -90,12 +105,57 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
         }).done((res) => {
             if (res.code == 1) {
                 alert("닉네임이 변경되었습니다.");
-                location.href="/user/updateForm";
+                location.href = "/user/updateForm";
             } else {
                 alert("닉네임 정보를 다시 확인해주세요.");
-                return false;
             }
         });
+    }
+
+    function checkNickname() {
+        let data = {
+            nickname: $("#nicknameUpdate").val(),
+        };
+
+        $.ajax("/check/nickname", {
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json; charset=utf-8",
+            },
+        }).done((res) => {
+            if (res.code == 1) {
+                if (res.data == true) {
+                    $(".nicknameValid").css("display", "inline-block");
+                    $(".nicknameValid").text("이미 사용중인 닉네임입니다.");
+                    isCheckNickname = false;
+                } else {
+                    isCheckNickname = true;
+                }
+            }
+        });
+    }
+
+    function validNickname() {
+        let nickname = $("#nicknameUpdate").val();
+
+        var spaceRule = /\s/g;
+
+        if (spaceRule.test(nickname)) {
+            $(".nicknameValid").css("display", "inline-block");
+            $(".nicknameValid").text("공백을 제거해주세요");
+            return true;
+        }
+
+        if (nickname.length < 1) {
+            $(".nicknameValid").css("display", "inline-block");
+            $(".nicknameValid").text("닉네임은 필수 정보입니다.");
+            return true;
+        } else {
+            $(".nicknameValid").css("display", "none");
+            return false;
+        }
     }
 </script>
 <%@ include file="../layout/footer.jsp"%>
