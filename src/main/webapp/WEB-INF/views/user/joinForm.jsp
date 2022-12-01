@@ -96,7 +96,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                     class="emailValid"
                     style="padding-left: 120px; color: red; display: none"
                 ></span>
-                <button id="joinBtn" type="submit" class="my_secondary_btn">
+                <button onclick="join()" type="submit" class="my_secondary_btn">
                     회원가입
                 </button>
             </form>
@@ -116,9 +116,6 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
 
     // 회원가입===========================
 
-    $("#joinBtn").click(() => {
-        join();
-    });
 
     function valid() {
         let username = $("#username").val();
@@ -208,7 +205,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             username: $("#username").val(),
         };
 
-        $.ajax("/user/checkUsername", {
+        $.ajax("/check/username", {
             type: "POST",
             dataType: "json",
             data: JSON.stringify(data),
@@ -273,7 +270,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             email: $("#email").val(),
         };
 
-        $.ajax("/user/checkEmail", {
+        $.ajax("/check/email", {
             type: "POST",
             dataType: "json",
             data: JSON.stringify(data),
@@ -386,7 +383,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             nickname: $("#nickname").val(),
         };
 
-        $.ajax("/user/checkNickname", {
+        $.ajax("/check/nickname", {
             type: "POST",
             dataType: "json",
             data: JSON.stringify(data),

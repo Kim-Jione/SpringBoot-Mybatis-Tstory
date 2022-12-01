@@ -72,10 +72,9 @@
 		WHERE email = #{email}
     </select>
 
-
     <update id="updateByPassword">
           UPDATE user
-		  SET PASSWORD = #{passwordUpdate}
+		  SET password = #{passwordUpdate}
 		  WHERE user_id = #{userId}
     </update>
 

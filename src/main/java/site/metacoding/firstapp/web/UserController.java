@@ -67,13 +67,13 @@ public class UserController {
         return "redirect:/";
     }
 
-    // 패스워드 초기화 페이지
+    // 비밀번호 초기화 페이지
     @GetMapping("/user/passwordResetForm")
     public String passwordResetForm() {
         return "/user/passwordResetForm";
     }
 
-    // 패스워드 확인 페이지
+    // 비밀번호 확인 페이지
     @GetMapping("/user/passwordCheckForm")
     public String passwordCheckForm() {
         User principal = (User) session.getAttribute("principal");
@@ -83,8 +83,8 @@ public class UserController {
         return "/user/passwordCheckForm";
     }
 
-    // 패스워드 확인 응답
-    @PostMapping("/user/passwordCheck")
+    // 비밀번호 확인 응답
+    @PostMapping("/user/checkPassword")
     public @ResponseBody CMRespDto<?> passwordCheck(@RequestBody PasswordCheckDto passwordCheckDto) {
         System.out.println("디버그: password: " + passwordCheckDto.getPassword());
         System.out.println("디버그: userId: " + passwordCheckDto.getUserId());
@@ -97,7 +97,7 @@ public class UserController {
         return new CMRespDto<>(1, "성공", null);
     }
 
-    // 패스워드 수정 페이지
+    // 비밀번호 수정 페이지
     @GetMapping("/user/passwordUpdateForm")
     public String passwordUpdateForm() {
         User principal = (User) session.getAttribute("principal");
@@ -122,7 +122,7 @@ public class UserController {
     public String updateForm(Model model) {
         User principal = (User) session.getAttribute("principal");
         if (principal == null) {
-            return "redirect:/loginForm";
+            return "redirect:/user/loginForm";
         }
         model.addAttribute("user", userDao.findById(principal.getUserId()));
         return "/user/updateForm";
@@ -172,7 +172,7 @@ public class UserController {
         return new CMRespDto<>(-1, "실패", null);
     }
 
-    // 패스워드 수정 응답
+    // 비밀번호 수정 응답
     @PostMapping("/user/updatePassword")
     public @ResponseBody CMRespDto<?> updatePassword(@RequestBody UpdatePasswordDto updatePasswordDto) {
         User principal = (User) session.getAttribute("principal");
@@ -180,7 +180,8 @@ public class UserController {
         if (userPS == null) {
             return new CMRespDto<>(-1, "실패", null);
         }
-        userDao.updateByPassword(updatePasswordDto.getPasswordUpdate());
+        userDao.updateByPassword(updatePasswordDto.getPasswordUpdate(), principal.getUserId());
+
         return new CMRespDto<>(1, "성공", null);
     }
 
