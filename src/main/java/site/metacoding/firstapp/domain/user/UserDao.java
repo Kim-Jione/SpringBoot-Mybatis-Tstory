@@ -36,5 +36,7 @@ public interface UserDao {
 
 	public void updateByPassword(@Param("passwordUpdate")String passwordUpdate, @Param("userId")Integer userId);
 
+	public void updateByNickname(@Param("nicknameUpdate") String nicknameUpdate, @Param("userId") Integer userId);
+
 
 }

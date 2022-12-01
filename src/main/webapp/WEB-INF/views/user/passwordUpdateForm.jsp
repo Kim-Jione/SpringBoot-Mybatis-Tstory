@@ -90,7 +90,6 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
         }
 
         let data = {
-            userId: $("#userId").val(),
             passwordUpdate: $("#passwordUpdate").val(),
             password: $("#password").val(),
         };
@@ -140,7 +139,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             return true;
         }
 
-         if (password.length < 1) {
+        if (password.length < 1) {
             $(".passwordValid").css("display", "inline-block");
             $(".passwordValid").text("현재 비밀번호는 필수 정보입니다.");
             return true;
@@ -164,12 +163,16 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
 
         if (passwordUpdate != passwordUpdateSame) {
             $(".passwordSameValid").css("display", "inline-block");
-            $(".passwordSameValid").text("변경할 비밀번호가 일치하지 않습니다.");
+            $(".passwordSameValid").text(
+                "변경할 비밀번호가 일치하지 않습니다."
+            );
             return true;
         }
         if (passwordUpdateSame.length < 1) {
             $(".passwordSameValid").css("display", "inline-block");
-            $(".passwordSameValid").text("변경할 비밀번호 재확인은 필수정보입니다.");
+            $(".passwordSameValid").text(
+                "변경할 비밀번호 재확인은 필수정보입니다."
+            );
             return true;
         } else {
             $(".passwordSameValid").css("display", "none");

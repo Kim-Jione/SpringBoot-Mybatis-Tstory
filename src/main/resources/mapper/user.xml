@@ -72,6 +72,13 @@
 		WHERE email = #{email}
     </select>
 
+
+    <update id="updateByNickname">
+          UPDATE user
+		  SET nickname = #{nicknameUpdate}
+		  WHERE user_id = #{userId}
+    </update>
+
     <update id="updateByPassword">
           UPDATE user
 		  SET password = #{passwordUpdate}

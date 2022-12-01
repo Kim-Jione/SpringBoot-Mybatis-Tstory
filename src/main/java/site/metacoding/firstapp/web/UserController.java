@@ -19,6 +19,7 @@ import site.metacoding.firstapp.web.dto.request.user.JoinDto;
 import site.metacoding.firstapp.web.dto.request.user.LeaveDto;
 import site.metacoding.firstapp.web.dto.request.user.LoginDto;
 import site.metacoding.firstapp.web.dto.request.user.PasswordCheckDto;
+import site.metacoding.firstapp.web.dto.request.user.UpdateNicknameDto;
 import site.metacoding.firstapp.web.dto.request.user.UpdatePasswordDto;
 import site.metacoding.firstapp.web.dto.request.user.UserUpdateDto;
 
@@ -182,6 +183,14 @@ public class UserController {
         }
         userDao.updateByPassword(updatePasswordDto.getPasswordUpdate(), principal.getUserId());
 
+        return new CMRespDto<>(1, "성공", null);
+    }
+
+    // 닉네임 수정 응답
+    @PostMapping("/user/updateNickname")
+    public @ResponseBody CMRespDto<?> updateNickname(@RequestBody UpdateNicknameDto updateNicknameDto) {
+        User principal = (User) session.getAttribute("principal");
+        userDao.updateByNickname(updateNicknameDto.getNicknameUpdate(), principal.getUserId());
         return new CMRespDto<>(1, "성공", null);
     }
 
