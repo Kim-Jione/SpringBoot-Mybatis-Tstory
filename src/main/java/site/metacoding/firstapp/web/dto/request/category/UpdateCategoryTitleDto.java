@@ -6,5 +6,6 @@ import lombok.Setter;
 @Setter
 @Getter
 public class UpdateCategoryTitleDto {
+	private Integer userId;
 	private String categoryTitle;
 }

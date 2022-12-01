@@ -25,16 +25,51 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                 class="categoryTitleValid"
                 style="padding-left: 140px; color: red; display: none"
             ></span>
-            <input type="hidden" name="userId" value="${principal.userId}" />
-            <button class="my_secondary_btn" onclick="write()">등록</button>
+            <input type="hidden" id="userId" value="${principal.userId}" />
+            <button class="my_secondary_btn" id="saveBtn">등록</button>
         </div>
     </div>
     <br />
 </div>
 <script>
+    $("#saveBtn").click(() => {
+        write();
+    });
 
-    function wriet(){
-        
+    let isCheckCategoryTitle = false;
+
+    function write() {
+        if (isCheckCategoryTitle == false) {
+            alert("이미 존재하는 카테고리명입니다.");
+            return;
+        }
+
+        if (validCategoryTitle()) {
+            alert("카테고리 입력정보를 다시 확인해주세요.");
+            return;
+        }
+
+        let data = {
+            userId: $("#userId").val(),
+            categoryTitle: $("#categoryTitle").val(),
+        };
+
+        $.ajax("/user/categoryTitle", {
+            type: "PUT",
+            dataType: "json",
+            data: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }).done((res) => {
+            if (res.code == 1) {
+                alert("카테고리 등록에 성공했습니다.");
+                location.href = "/";
+            } else {
+                alert("카테고리 등록에 실패했습니다.");
+                location.href = "/";
+            }
+        });
     }
 
     function checkCategoryTitle() {
@@ -81,7 +116,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             $(".categoryTitleValid").css("display", "inline-block");
             $(".categoryTitleValid").text("카테고리명은 필수 입력정보입니다.");
             return true;
-        }else {
+        } else {
             $(".categoryTitleValid").css("display", "none");
             return false;
         }

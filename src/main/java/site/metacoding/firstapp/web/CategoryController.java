@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -31,12 +31,15 @@ public class CategoryController {
 	private final UserDao userDao;
 	private final HttpSession session;
 
-	// 카테고리 등록 응답
-	@PostMapping("/category/write")
-	public String write(String categoryTitle) {
+	// 카테고리 등록 페이지
+	@GetMapping("/category/writeForm")
+	public String writeForm(Model model) {
 		User principal = (User) session.getAttribute("principal");
-		categoryDao.insertCategoryTitle(categoryTitle, principal.getUserId());
-		return "redirect:/";
+		if (principal == null) {
+			return "redirect:/user/loginForm";
+		}
+		model.addAttribute("principal", principal);
+		return "/category/writeForm";
 	}
 
 	// 블로그 카테고리별 게시글 목록 페이지
@@ -94,9 +97,11 @@ public class CategoryController {
 	}
 
 	// 카테고리명 등록 응답
-	@PostMapping("/user/updateCategoryTitle")
-	public @ResponseBody CMRespDto<?>  write(@RequestBody UpdateCategoryTitleDto updateCategoryTitleDto) {
-		User principal = (User) session.getAttribute("principal");
+	@PutMapping("/user/categoryTitle")
+	public @ResponseBody CMRespDto<?> write(@RequestBody UpdateCategoryTitleDto updateCategoryTitleDto) {
+		categoryDao.insertCategoryTitle(updateCategoryTitleDto.getCategoryTitle(), updateCategoryTitleDto.getUserId());
+
 		return new CMRespDto<>(1, "성공", null);
 	}
+
 }
