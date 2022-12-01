@@ -10,6 +10,7 @@ import site.metacoding.firstapp.web.dto.response.post.PagingDto;
 import site.metacoding.firstapp.web.dto.response.post.PostAllDto;
 import site.metacoding.firstapp.web.dto.response.post.PostDetailDto;
 import site.metacoding.firstapp.web.dto.response.post.PostUpdateDto;
+import site.metacoding.firstapp.web.dto.response.subscribe.PostListDto;
 
 public interface PostDao {
 
@@ -55,5 +56,6 @@ public interface PostDao {
 
 	public PagingDto paging(@Param("page") Integer page, @Param("userId") Integer userId,
 			@Param("keyword") String keyword);
+
 
 }

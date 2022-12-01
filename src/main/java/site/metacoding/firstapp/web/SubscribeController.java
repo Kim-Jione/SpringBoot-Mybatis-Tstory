@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import lombok.RequiredArgsConstructor;
 import site.metacoding.firstapp.domain.post.Post;
 import site.metacoding.firstapp.domain.post.PostDao;
-import site.metacoding.firstapp.domain.subscribe.Subscribe;
 import site.metacoding.firstapp.domain.subscribe.SubscribeDao;
 import site.metacoding.firstapp.domain.user.User;
 import site.metacoding.firstapp.service.SubscribeService;
 import site.metacoding.firstapp.web.dto.CMRespDto;
+import site.metacoding.firstapp.web.dto.response.subscribe.UserListDto;
 
 @RequiredArgsConstructor
 @Controller
@@ -37,7 +37,8 @@ public class SubscribeController {
 		}
 		List<Post> postList = postDao.findByUserId(principal.getUserId());
 		model.addAttribute("postList", postList);
-		List<Subscribe> subscribeList = subscribeDao.findByUserId(principal.getUserId());
+		
+		List<UserListDto> subscribeList = subscribeDao.findByUserList(principal.getUserId());
 		model.addAttribute("subscribeList", subscribeList);
 		return "subscribe/listForm";
 	}
