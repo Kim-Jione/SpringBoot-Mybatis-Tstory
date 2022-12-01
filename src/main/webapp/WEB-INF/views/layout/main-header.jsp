@@ -131,7 +131,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                                 <a
                                     class="dropdown-item"
                                     href="/category/writeForm"
-                                    >카테고리관리</a
+                                    >카테고리등록</a
                                 >
 
                                 <a class="dropdown-item" href="/user/logout"
