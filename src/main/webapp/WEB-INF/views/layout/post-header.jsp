@@ -58,7 +58,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                     </c:forEach>
                 </ul>
                 <div class="my_nav_slider_visit">
-                    <div>블로그 방문자수 : 325</div>
+                    <div>블로그 방문자수 : ${visit.totalCount}</div>
                     <i class="fa-solid fa-camera"></i>
                 </div>
             </nav>

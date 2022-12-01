@@ -32,4 +32,19 @@
 		DELETE FROM visit WHERE visit_id = #{visitId}
 	</delete>
 
+
+    <insert id="countByVisit">
+        INSERT 
+		INTO visit(user_id, total_count)
+		VALUES (#{userId},1)
+    </insert>
+
+
+    <select id="findByVisitCount" resultType="site.metacoding.firstapp.web.dto.response.visit.CountDto">
+		SELECT user_id, COUNT(total_count) total_count 
+		FROM visit
+		WHERE user_id=#{userId};
+    </select>
+
+
 </mapper>

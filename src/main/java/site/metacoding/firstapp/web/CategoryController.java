@@ -19,6 +19,7 @@ import site.metacoding.firstapp.domain.category.CategoryDao;
 import site.metacoding.firstapp.domain.post.PostDao;
 import site.metacoding.firstapp.domain.user.User;
 import site.metacoding.firstapp.domain.user.UserDao;
+import site.metacoding.firstapp.domain.visit.VisitDao;
 import site.metacoding.firstapp.web.dto.CMRespDto;
 import site.metacoding.firstapp.web.dto.request.category.UpdateCategoryTitleDto;
 import site.metacoding.firstapp.web.dto.response.post.PagingDto;
@@ -30,6 +31,7 @@ public class CategoryController {
 	private final CategoryDao categoryDao;
 	private final PostDao postDao;
 	private final UserDao userDao;
+	private final VisitDao visitDao;
 	private final HttpSession session;
 
 	// 카테고리 등록 페이지
@@ -65,11 +67,12 @@ public class CategoryController {
 			paging.makeBlockInfo();
 
 			model.addAttribute("postList", postDao.findPost(categoryId, userId, startNum, null));
-			model.addAttribute("categoryCount", postDao.categoryCount(categoryId, null)); // 카테고리내 게시글 개수
+			model.addAttribute("categoryCount", postDao.categoryCount(categoryId, null,userId)); // 카테고리내 게시글 개수
 			model.addAttribute("paging", paging); // 페이징
 			model.addAttribute("category", categoryDao.findById(categoryId)); // 카테고리 제목 표시
 			model.addAttribute("categoryList", categoryDao.findByUserId(userId));
 			model.addAttribute("user", userDao.findById(userId)); // 사이드바 카테고리 이동 => 공통
+			model.addAttribute("visit", visitDao.findByVisitCount(userId));
 		} else {
 
 			List<PostAllDto> postList = postDao.findPost(categoryId, userId, startNum, keyword);
@@ -77,11 +80,12 @@ public class CategoryController {
 			paging.makeBlockInfoByCategoryPostAll(keyword);
 
 			model.addAttribute("postList", postList);
-			model.addAttribute("categoryCount", postDao.categoryCount(categoryId, keyword)); // 카테고리내 게시글 개수
+			model.addAttribute("categoryCount", postDao.categoryCount(categoryId, keyword, userId)); // 카테고리내 게시글 개수
 			model.addAttribute("paging", paging); // 페이징
 			model.addAttribute("category", categoryDao.findById(categoryId)); // 카테고리 제목 표시
 			model.addAttribute("categoryList", categoryDao.findByUserId(userId));
 			model.addAttribute("user", userDao.findById(userId)); // 사이드바 카테고리 이동 => 공통
+			model.addAttribute("visit", visitDao.findByVisitCount(userId));
 		}
 
 		return "/category/listForm";

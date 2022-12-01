@@ -19,6 +19,7 @@ import site.metacoding.firstapp.domain.love.Love;
 import site.metacoding.firstapp.domain.post.PostDao;
 import site.metacoding.firstapp.domain.user.User;
 import site.metacoding.firstapp.domain.user.UserDao;
+import site.metacoding.firstapp.domain.visit.VisitDao;
 import site.metacoding.firstapp.service.PostService;
 import site.metacoding.firstapp.service.SubscribeService;
 import site.metacoding.firstapp.web.dto.CMRespDto;
@@ -35,6 +36,7 @@ public class PostController {
 	private final HttpSession session;
 	private final PostService postService;
 	private final PostDao postDao;
+	private final VisitDao visitDao;
 	private final UserDao userDao;
 	private final CategoryDao categoryDao;
 	private final SubscribeService subscribeService;
@@ -94,6 +96,7 @@ public class PostController {
 		Integer startNum = page * 5;
 
 		if (keyword == null || keyword.isEmpty()) {
+			visitDao.countByVisit(userId);
 			PagingDto paging = postDao.paging(page, userId, null);
 			paging.makeBlockInfo();
 
@@ -102,10 +105,11 @@ public class PostController {
 			model.addAttribute("postList", postDao.findAllPost(userId, null, startNum)); // 블로그 전체게시글
 			model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리 이동 => 공통
 			model.addAttribute("user", userDao.findById(userId));
+			model.addAttribute("visit", visitDao.findByVisitCount(userId));
 		}
 
 		if (principal != null) {
-
+			visitDao.countByVisit(userId);
 			Integer subscribeId = subscribeService.구독Id불러오기(principal.getUserId(), userId); // 구독 하는 사람, 구독 받는 사람
 			model.addAttribute("subscribeId", subscribeId);
 
@@ -117,7 +121,7 @@ public class PostController {
 			model.addAttribute("paging", paging); // 페이징
 			model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리 이동 => 공통
 			model.addAttribute("user", userDao.findById(userId));
-
+			model.addAttribute("visit", visitDao.findByVisitCount(userId));
 		}
 
 		else {
@@ -128,6 +132,7 @@ public class PostController {
 			model.addAttribute("postCount", postDao.postCount(userId, keyword)); // 전체게시글 개수
 			model.addAttribute("paging", paging); // 페이징
 			model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리 이동 => 공통
+			model.addAttribute("visit", visitDao.findByVisitCount(userId));
 
 		}
 
@@ -140,18 +145,22 @@ public class PostController {
 		User principal = (User) session.getAttribute("principal");
 
 		// 좋아요 화면에 넣는용도
-		if (principal == null) { 
+		if (principal == null) {
+			visitDao.countByVisit(userId);
 			PostDetailDto postDetail = postDao.findByIdAndUser(postId, null);
 			model.addAttribute("post", postDetail);
 			model.addAttribute("user", userDao.findById(userId));
 			model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리
 			model.addAttribute("postList", postDao.findByUserId(userId)); // 블로그 전체게시글
+			model.addAttribute("visit", visitDao.findByVisitCount(userId));
 		} else {
+			visitDao.countByVisit(userId);
 			PostDetailDto postDetail = postDao.findByIdAndUser(postId, principal.getUserId());
 			model.addAttribute("post", postDetail);
 			model.addAttribute("user", userDao.findById(userId));
 			model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리
 			model.addAttribute("postList", postDao.findByUserId(userId)); // 블로그 전체게시글
+			model.addAttribute("visit", visitDao.findByVisitCount(userId));
 		}
 		return "/post/detailForm";
 	}
