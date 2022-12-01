@@ -104,10 +104,10 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             },
         }).done((res) => {
             if (res.code == 1) {
-                alert("비밀번호가 변경되었습니다.");
+                alert("현재 비밀번호가 변경되었습니다.");
                 location.href = "/user/updateForm";
             } else {
-                alert("비밀번호를 다시 확인해주세요.");
+                alert("현재 비밀번호를 다시 확인해주세요.");
                 return false;
             }
         });
@@ -115,6 +115,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
 
     function validPassword() {
         let passwordUpdate = $("#passwordUpdate").val();
+        let password = $("#password").val();
 
         var spaceRule = /\s/g;
         var korRule = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
@@ -135,14 +136,20 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
 
         if (passwordUpdate.length < 1) {
             $(".passwordValid").css("display", "inline-block");
-            $(".passwordValid").text("비밀번호는 필수 정보입니다.");
+            $(".passwordValid").text("변경할 비밀번호는 필수 정보입니다.");
+            return true;
+        }
+
+         if (password.length < 1) {
+            $(".passwordValid").css("display", "inline-block");
+            $(".passwordValid").text("현재 비밀번호는 필수 정보입니다.");
             return true;
         }
 
         if (passwordUpdate.length < 8 || passwordUpdate.length > 30) {
             $(".passwordValid").css("display", "inline-block");
             $(".passwordValid").text(
-                "비밀번호는 8자~30자 내외로 입력해주세요."
+                "변경할 비밀번호는 8자~30자 내외로 입력해주세요."
             );
             return true;
         } else {
@@ -157,12 +164,12 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
 
         if (passwordUpdate != passwordUpdateSame) {
             $(".passwordSameValid").css("display", "inline-block");
-            $(".passwordSameValid").text("비밀번호가 일치하지 않습니다.");
+            $(".passwordSameValid").text("변경할 비밀번호가 일치하지 않습니다.");
             return true;
         }
-        if (passwordUpdate.length < 1) {
+        if (passwordUpdateSame.length < 1) {
             $(".passwordSameValid").css("display", "inline-block");
-            $(".passwordSameValid").text("비밀번호 재확인은 필수정보입니다.");
+            $(".passwordSameValid").text("변경할 비밀번호 재확인은 필수정보입니다.");
             return true;
         } else {
             $(".passwordSameValid").css("display", "none");
