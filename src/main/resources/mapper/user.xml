@@ -72,6 +72,27 @@
 		WHERE email = #{email}
     </select>
 
+
+    <update id="updateByNickname">
+          UPDATE user
+		  SET nickname = #{nicknameUpdate}
+		  WHERE user_id = #{userId}
+    </update>
+
+    <update id="updateByPassword">
+          UPDATE user
+		  SET password = #{passwordUpdate}
+		  WHERE user_id = #{userId}
+    </update>
+
+    <delete id="leave">
+		DELETE FROM love WHERE user_id = #{userId};
+		DELETE FROM post WHERE user_id = #{userId};
+		DELETE FROM category WHERE user_id = #{userId};
+		DELETE FROM subscribe WHERE user_id = #{userId} AND users_id=#{userId};
+		DELETE FROM user WHERE user_id = #{userId};
+    </delete>
+
 </mapper>
     
 

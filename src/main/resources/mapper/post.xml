@@ -18,6 +18,7 @@
     <select id="findAllAndUsername" resultType="site.metacoding.firstapp.web.dto.response.post.PostAllDto">
         SELECT u.user_id, p.post_id, u.username, p.post_title, p.post_thumnail, p.created_at
 		FROM post p LEFT JOIN  user u ON p.user_id = u.user_id
+		ORDER BY p.post_id DESC
     </select>
 
 	<insert id="insert">

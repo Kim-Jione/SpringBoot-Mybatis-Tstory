@@ -32,31 +32,70 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                 <input type="hidden" name="userId" value="${user.userId}" />
 
                 <div style="display: flex">
-                    <div class="my_auth_form_box_info_detail">닉네임</div>
+                    <div class="my_auth_form_box_info_detail">변경전</div>
                     <input
                         id="nickname"
-                        name="nickname"
                         class="my_auth_form_box_input"
                         type="text"
                         value="${user.nickname}"
-                        maxlength="60"
+                        maxlength="20"
+                        required
+                        readonly
+                    />
+                </div>
+                <div style="display: flex">
+                    <div
+                        class="my_auth_form_box_info_detail"
+                        style="padding-right: 30px"
+                    >
+                        변경후
+                    </div>
+                    <input
+                        id="nicknameUpdate"
+                        class="my_auth_form_box_input"
+                        type="text"
+                        maxlength="20"
                         required
                     />
                 </div>
                 <div style="text-align: right">
-                    <a href="/user/emailCheckForm"
-                        ><button
-                            id="saveBtn"
-                            type="submit"
-                            class="btn btn-outline-primary"
-                        >
-                            저장
-                        </button></a
+                    <button
+                        id="saveBtn"
+                        type="submit"
+                        class="btn btn-outline-primary"
+                        onclick="updateNickname()"
                     >
+                        저장
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<script></script>
+
+<script>
+    function updateNickname() {
+        let data = {
+            nickname: $("#nickname").val(),
+            nicknameUpdate: $("#nicknameUpdate").val()
+        };
+
+        $.ajax("/user/updateNickname", {
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json; charset=utf-8",
+            },
+        }).done((res) => {
+            if (res.code == 1) {
+                alert("닉네임이 변경되었습니다.");
+                location.href="/user/updateForm";
+            } else {
+                alert("닉네임 정보를 다시 확인해주세요.");
+                return false;
+            }
+        });
+    }
+</script>
 <%@ include file="../layout/footer.jsp"%>

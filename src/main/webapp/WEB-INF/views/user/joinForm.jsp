@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
 
 <div class="container">
@@ -26,7 +26,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                     class="usernameValid"
                     style="padding-left: 120px; color: red; display: none"
                 ></span>
-
+                <div class="password_icon">
                 <div style="display: flex">
                     <div class="my_auth_form_box_info_security_detail">
                         비밀번호
@@ -61,7 +61,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                 <span
                     class="passwordSameValid"
                     style="padding-left: 120px; color: red; display: none"
-                ></span>
+                ></span></div>
 
                 <div style="display: flex">
                     <div class="my_auth_form_box_info_security_detail">
@@ -96,7 +96,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                     class="emailValid"
                     style="padding-left: 120px; color: red; display: none"
                 ></span>
-                <button id="joinBtn" type="submit" class="my_secondary_btn">
+                <button onclick="join()" type="submit" class="my_secondary_btn">
                     회원가입
                 </button>
             </form>
@@ -116,9 +116,6 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
 
     // 회원가입===========================
 
-    $("#joinBtn").click(() => {
-        join();
-    });
 
     function valid() {
         let username = $("#username").val();
@@ -166,11 +163,12 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
         if (validNickname()) {
             return true;
         } else {
-            return false;
+            return;
         }
     }
 
     function join() {
+
         if (valid()) {
             alert("회원정보를 다시 확인해주세요.");
             return;
@@ -192,10 +190,8 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             },
         }).done((res) => {
             if (res.code == 1) {
-                alert("성공");
                 location.href = "/user/loginForm";
             } else {
-                alert("성공");
                 alert(res.msg);
                 history.back();
             }
@@ -209,7 +205,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             username: $("#username").val(),
         };
 
-        $.ajax("/user/checkUsername", {
+        $.ajax("/check/username", {
             type: "POST",
             dataType: "json",
             data: JSON.stringify(data),
@@ -274,7 +270,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             email: $("#email").val(),
         };
 
-        $.ajax("/user/checkEmail", {
+        $.ajax("/check/email", {
             type: "POST",
             dataType: "json",
             data: JSON.stringify(data),
@@ -387,7 +383,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             nickname: $("#nickname").val(),
         };
 
-        $.ajax("/user/checkNickname", {
+        $.ajax("/check/nickname", {
             type: "POST",
             dataType: "json",
             data: JSON.stringify(data),
