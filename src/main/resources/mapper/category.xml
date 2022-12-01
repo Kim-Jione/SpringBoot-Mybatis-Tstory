@@ -53,6 +53,13 @@
 		DELETE FROM category WHERE category_id = #{categoryId}
     </delete>
 
+    <select id="findByCategoryTitle"  resultType="site.metacoding.firstapp.web.dto.request.user.CheckDto">
+        SELECT category_title
+		FROM category
+		WHERE category_title = #{categoryTitle} AND user_id = #{userId}
+    </select>
+
+
 </mapper>
 
 

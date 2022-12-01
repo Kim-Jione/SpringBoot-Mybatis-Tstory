@@ -10,4 +10,5 @@ public class CheckDto {
 	private String password;
 	private String email;
 	private String nickname;
+	private String categoryTitle;
 }

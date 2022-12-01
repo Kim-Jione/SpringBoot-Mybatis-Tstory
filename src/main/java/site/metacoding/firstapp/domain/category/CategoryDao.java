@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import site.metacoding.firstapp.web.dto.request.user.CheckDto;
 import site.metacoding.firstapp.web.dto.response.main.HeaderDto;
 
 public interface CategoryDao {
@@ -23,5 +24,8 @@ public interface CategoryDao {
 	public void insertCategoryTitle(@Param("categoryTitle") String categoryTitle, @Param("userId") Integer userId);
 
 	public void deleteById(Integer categoryId);
+
+	public CheckDto findByCategoryTitle(@Param("categoryTitle") String categoryTitle, 
+			@Param("userId") Integer userId);
 
 }

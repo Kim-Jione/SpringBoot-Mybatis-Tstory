@@ -3,7 +3,8 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
 
 <div class="container">
    <span class="btn_form">
-    <span class="btn_form_update"><button id="btnUpdate" class="btn btn-outline-warning">수정</button></span>
+    <a href="/category/updateForm">
+    <span class="btn_form_update"><button id="btnUpdate" class="btn btn-outline-warning">수정</button></a></span>
     
     <span class="btn_form_delete">
         

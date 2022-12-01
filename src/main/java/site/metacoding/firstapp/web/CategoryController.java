@@ -90,5 +90,15 @@ public class CategoryController {
 		categoryDao.deleteById(categoryId);
 		return new CMRespDto<>(1, "게시글 삭제 성공", null);
 	}
-}
 
+	// 카테고리 수정 페이지
+	@GetMapping("/category/updateForm")
+	public String updateForm(Model model) {
+		User principal = (User) session.getAttribute("principal");
+		if (principal == null) {
+			return "redirect:/user/loginForm";
+		}
+		model.addAttribute("principal", principal);
+		return "/category/updateForm";
+	}
+}
