@@ -16,7 +16,7 @@
 	</select>
 
     <select id="findAllAndUsername" resultType="site.metacoding.firstapp.web.dto.response.post.PostAllDto">
-        SELECT u.user_id, p.post_id, u.username, p.post_title, p.post_thumnail, p.created_at
+        SELECT u.user_id, p.post_id, u.username, p.post_title, p.post_thumnail, p.created_at, u.nickname
 		FROM post p LEFT JOIN  user u ON p.user_id = u.user_id
 		ORDER BY p.post_id DESC
     </select>
@@ -101,7 +101,7 @@
     </select>
 
     <select id="findSearchAllPost" resultType="site.metacoding.firstapp.web.dto.response.main.KeywordDto">
-	SELECT p.post_title, p.user_id, u.username, p.post_id, p.post_content
+	SELECT p.post_title, p.user_id, u.username, p.post_id, p.post_content, u.nickname
 	FROM user u 
 	LEFT JOIN post p
 	ON u.user_id = p.user_id

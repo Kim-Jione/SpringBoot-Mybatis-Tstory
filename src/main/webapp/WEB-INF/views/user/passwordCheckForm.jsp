@@ -19,7 +19,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                 <input type="hidden" name="userId", value="${principal.userId}">
                 <button class="my_secondary_btn" onclick="checkPassword()">확인</button>
                  <div>
-                   비밀번호 찾기
+                   <a href="/user/passwordResetForm">비밀번호 찾기</a>
                 </div>
             </form>
             

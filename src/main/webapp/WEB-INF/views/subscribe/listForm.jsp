@@ -141,15 +141,17 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                 >
                     <div class="bd-sidebar-body">
                         <ul class="nav">
-                            <li style="padding-top: 30px">
+                            <li style="padding-top: 30px;padding-left: 30px;">
                                 구독한 블로그 목록
                             </li>
-                    <c:forEach var="subscribe" items="${subscribeList}">
-                                <li>
-                                    <a href="/post/listForm/${subscribe.usersId}"
-                                        >${subscribe.usersId} 의 블로그</a
+                            <c:forEach var="subscribe" items="${subscribeList}">
+                                <li style="padding-left: 30px;padding-top: 10px;">
+                                    <a
+                                        href="/post/listForm/${subscribe.usersId}"
+                                        >${subscribe.nickname} 의 블로그</a
                                     >
-                                </li></c:forEach>
+                                </li></c:forEach
+                            >
                         </ul>
                         <br />
                     </div>
@@ -178,9 +180,14 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                                     ${post.postTitle}
                                 </div>
                                 <div>${post.createdAt}</div>
+                                <a href="/post/listForm/${post.userId}" class="my_atag_none">
+                            <div>
+                              <span>by ${post.nickname}</span>
+                            </div>
+                                 </a>
                                 <div
                                     class="my_mt_md_1"
-                                    style="padding-top: 30px"
+                                    style="padding-top: 10px"
                                 >
                                     <a
                                         href="/post/detailForm/${post.postId}/${post.userId}"
@@ -203,8 +210,6 @@ uri="http://java.sun.com/jsp/jstl/core"%>
             </div>
         </div>
 
-        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
         <script>
             const sidebar = document.getElementById("sidebar");
             const sidebarWidth = sidebar.offsetWidth + "px";
