@@ -6,15 +6,18 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.RequiredArgsConstructor;
 import site.metacoding.firstapp.domain.category.CategoryDao;
 import site.metacoding.firstapp.domain.post.PostDao;
 import site.metacoding.firstapp.domain.user.User;
 import site.metacoding.firstapp.domain.user.UserDao;
+import site.metacoding.firstapp.web.dto.CMRespDto;
 import site.metacoding.firstapp.web.dto.response.post.PagingDto;
 import site.metacoding.firstapp.web.dto.response.post.PostAllDto;
 
@@ -79,5 +82,12 @@ public class CategoryController {
 		}
 
 		return "/category/listForm";
+	}
+
+	// 게시글 삭제 응답
+	@DeleteMapping("/category/{categoryId}")
+	public @ResponseBody CMRespDto<?> delete(@PathVariable Integer postId) {
+		postDao.delete(postId);
+		return new CMRespDto<>(1, "게시글 삭제 성공", null);
 	}
 }

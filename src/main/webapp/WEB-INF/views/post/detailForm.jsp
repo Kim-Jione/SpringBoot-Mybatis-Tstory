@@ -10,7 +10,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
         <div style="display: inline-flex;">
         <c:if test="${principal.userId==post.userId}">
             <a
-                class="btn btn-outline-success"
+                class="btn btn-outline-warning"
                 href="/post/updateForm/${post.categoryId}/${post.postId}"
                 style="height:38px;width: 58px;"
                 >수정</a

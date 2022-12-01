@@ -59,7 +59,7 @@ function deleteById() {
         userId: $("#userId").val(),
     };
 
-    $.ajax("/post/delete/" + postId, {
+    $.ajax("/post/" + postId, {
         type: "DELETE",
         dataType: "json",
         data: JSON.stringify(data),

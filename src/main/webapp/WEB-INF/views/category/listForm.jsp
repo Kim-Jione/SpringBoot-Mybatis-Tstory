@@ -2,10 +2,14 @@
 pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
 
 <div class="container">
-   
+   <div class="btn_form">
+    <div class="btn_form_update"><button id="btnUpdate" class="btn btn-outline-warning">수정</button></div>
+    
+    <div class="btn_form_delete"><form><button id="btnDelete" class=" btn btn-outline-danger">삭제</button></form></div>
+</div>
 
     <div style="display: inline-flex;">
-<div>
+<div class="category_form">
     <h5 style="line-height: 50px;">${category.categoryTitle}(${categoryCount.categoryCount})</h5></div>
 
      <!-- 검색바 -->
@@ -33,7 +37,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
 
          <!-- 게시글 작성 -->
         <c:if test="${principal.userId == user.userId}">
-        <div class="d-flex justify-content-end my_mb_sm_1" style="padding-left: 800px;">
+        <div class="d-flex justify-content-end my_mb_sm_1" style="padding-left: 600px;">
         <a href="/post/writeForm" class="my_atag_none">
                 <i class="fa-solid fa-pencil fa-2x" style="padding-top: 20px;"></i>
         </a>
@@ -85,4 +89,9 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
 	</div>
     </div>
 </div>
+
+<script>
+
+    
+</script>
 <%@ include file="../layout/footer.jsp"%>
