@@ -60,7 +60,15 @@
     </select>
 
 
+	<update id="updateByCategoryTitle">
+        UPDATE category
+		SET category_title = #{categoryTitleUpdate}
+		WHERE user_id = #{userId}
+    </update>
 </mapper>
+
+    
+
 
 
 

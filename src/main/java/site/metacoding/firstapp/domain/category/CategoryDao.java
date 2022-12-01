@@ -28,4 +28,7 @@ public interface CategoryDao {
 	public CheckDto findByCategoryTitle(@Param("categoryTitle") String categoryTitle, 
 			@Param("userId") Integer userId);
 
+	public void updateByCategoryTitle(@Param("categoryTitleUpdate") String categoryTitleUpdate, 
+			@Param("userId") Integer userId);
+
 }

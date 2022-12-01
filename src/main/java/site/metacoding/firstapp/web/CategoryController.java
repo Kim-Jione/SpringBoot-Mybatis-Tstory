@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ import site.metacoding.firstapp.domain.post.PostDao;
 import site.metacoding.firstapp.domain.user.User;
 import site.metacoding.firstapp.domain.user.UserDao;
 import site.metacoding.firstapp.web.dto.CMRespDto;
+import site.metacoding.firstapp.web.dto.request.category.UpdateCategoryTitleDto;
 import site.metacoding.firstapp.web.dto.response.post.PagingDto;
 import site.metacoding.firstapp.web.dto.response.post.PostAllDto;
 
@@ -28,17 +30,6 @@ public class CategoryController {
 	private final PostDao postDao;
 	private final UserDao userDao;
 	private final HttpSession session;
-
-	// 카테고리 등록 페이지
-	@GetMapping("/category/writeForm")
-	public String writeForm(Model model) {
-		User principal = (User) session.getAttribute("principal");
-		if (principal == null) {
-			return "redirect:/user/loginForm";
-		}
-		model.addAttribute("principal", principal);
-		return "/category/writeForm";
-	}
 
 	// 카테고리 등록 응답
 	@PostMapping("/category/write")
@@ -100,5 +91,12 @@ public class CategoryController {
 		}
 		model.addAttribute("principal", principal);
 		return "/category/updateForm";
+	}
+
+	// 카테고리명 등록 응답
+	@PostMapping("/user/updateCategoryTitle")
+	public @ResponseBody CMRespDto<?>  write(@RequestBody UpdateCategoryTitleDto updateCategoryTitleDto) {
+		User principal = (User) session.getAttribute("principal");
+		return new CMRespDto<>(1, "성공", null);
 	}
 }

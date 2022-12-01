@@ -26,12 +26,17 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                 style="padding-left: 140px; color: red; display: none"
             ></span>
             <input type="hidden" name="userId" value="${principal.userId}" />
-            <button class="my_secondary_btn">등록</button>
+            <button class="my_secondary_btn" onclick="write()">등록</button>
         </div>
     </div>
     <br />
 </div>
 <script>
+
+    function wriet(){
+        
+    }
+
     function checkCategoryTitle() {
         let data = {
             categoryTitle: $("#categoryTitle").val(),
