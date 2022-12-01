@@ -7,5 +7,6 @@ import lombok.Setter;
 @Getter
 public class UpdateCategoryTitleDto {
 	private Integer userId;
+	private Integer categoryId;
 	private String categoryTitle;
 }

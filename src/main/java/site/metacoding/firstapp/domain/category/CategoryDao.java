@@ -25,13 +25,13 @@ public interface CategoryDao {
 
 	public void deleteById(Integer categoryId);
 
-	public CheckDto findByCategoryTitle(@Param("categoryTitle") String categoryTitle, 
+	public CheckDto findByCategoryTitle(@Param("categoryTitle") String categoryTitle,
 			@Param("userId") Integer userId);
 
-	public void updateByCategoryTitle(@Param("categoryTitleUpdate") String categoryTitleUpdate, 
+	public Category findByCategoryTitleId(@Param("categoryId") Integer categoryId,
 			@Param("userId") Integer userId);
 
-	public Category findByCategoryTitleId(@Param("categoryId") Integer categoryId, 
-			@Param("userId") Integer userId);
+	public void updateCategoryTitle(@Param("categoryTitle") String categoryTitle, @Param("userId") Integer userId,
+			@Param("categoryId") Integer categoryId);
 
 }

@@ -7,7 +7,6 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
     <span class="btn_form_update"><button id="btnUpdate" class="btn btn-outline-warning">수정</button></a></span>
     
     <span class="btn_form_delete">
-        
             <button onclick="removeCheck()"  type="submit" class=" btn btn-outline-danger">
                 삭제</button>
     </span>

@@ -32,11 +32,12 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
     <br />
 </div>
 <script>
+    let isCheckCategoryTitle = false;
+
     $("#saveBtn").click(() => {
         write();
     });
 
-    let isCheckCategoryTitle = false;
 
     function write() {
         if (isCheckCategoryTitle == false) {
@@ -55,7 +56,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
         };
 
         $.ajax("/user/categoryTitle", {
-            type: "PUT",
+            type: "POST",
             dataType: "json",
             data: JSON.stringify(data),
             headers: {

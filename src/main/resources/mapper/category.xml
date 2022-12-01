@@ -59,11 +59,10 @@
 		WHERE category_title = #{categoryTitle} AND user_id = #{userId}
     </select>
 
-
-	<update id="updateByCategoryTitle">
+    <update id="updateCategoryTitle">
         UPDATE category
-		SET category_title = #{categoryTitleUpdate}
-		WHERE user_id = #{userId}
+		SET category_title = #{categoryTitle}
+		WHERE user_id = #{userId} AND category_id=#{categoryId}
     </update>
 
     <select id="findByCategoryTitleId" resultType="site.metacoding.firstapp.domain.category.Category">
