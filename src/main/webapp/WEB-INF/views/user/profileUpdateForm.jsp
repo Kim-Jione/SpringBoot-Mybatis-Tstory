@@ -77,7 +77,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
     function updateNickname() {
         let data = {
             nickname: $("#nickname").val(),
-            nicknameUpdate: $("#nicknameUpdate").val()
+            nicknameUpdate: $("#nicknameUpdate").val(),
         };
 
         $.ajax("/user/updateNickname", {
@@ -90,10 +90,9 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
         }).done((res) => {
             if (res.code == 1) {
                 alert("닉네임이 변경되었습니다.");
-                location.href="/user/updateForm";
+                location.href = "/user/updateForm";
             } else {
                 alert("닉네임 정보를 다시 확인해주세요.");
-                return false;
             }
         });
     }
