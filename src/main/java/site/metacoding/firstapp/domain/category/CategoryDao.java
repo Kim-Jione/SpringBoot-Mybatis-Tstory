@@ -16,12 +16,12 @@ public interface CategoryDao {
 
 	public void update(Category category);
 
-	public void delete(Category category);
-
 	public List<HeaderDto> findByUserId(Integer userId);
 
 	public List<Category> findByPostId(Integer postId);
 
 	public void insertCategoryTitle(@Param("categoryTitle") String categoryTitle, @Param("userId") Integer userId);
+
+	public void deleteById(Integer categoryId);
 
 }

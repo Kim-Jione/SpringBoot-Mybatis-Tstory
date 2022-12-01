@@ -2,16 +2,21 @@
 pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
 
 <div class="container">
-   <div class="btn_form">
-    <div class="btn_form_update"><button id="btnUpdate" class="btn btn-outline-warning">수정</button></div>
+   <span class="btn_form">
+    <span class="btn_form_update"><button id="btnUpdate" class="btn btn-outline-warning">수정</button></span>
     
-    <div class="btn_form_delete"><form><button id="btnDelete" class=" btn btn-outline-danger">삭제</button></form></div>
-</div>
+    <span class="btn_form_delete">
+        
+            <button onclick="removeCheck()"  type="submit" class=" btn btn-outline-danger">
+                삭제</button>
+    </span>
+</span>
 
     <div style="display: inline-flex;">
 <div class="category_form">
     <h5 style="line-height: 50px;">${category.categoryTitle}(${categoryCount.categoryCount})</h5></div>
 
+    <input type="hidden" value="${category.categoryId}" id="categoryId">
      <!-- 검색바 -->
         <div
             class="form-group row justify-content-left"
@@ -91,6 +96,40 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
 </div>
 
 <script>
+
+function removeCheck() {
+    if(confirm("카테고리 삭제시 게시글도 같이 삭제됩니다. 정말 삭제하시겠습니까?")==true){ 
+        alert("확인을 눌렀습니다.");
+     let categoryId = $("#categoryId").val();
+
+    let data = {
+        categoryId: $("#categoryId").val()
+    };
+
+    $.ajax("/category/" + categoryId, {
+        type: "DELETE",
+        dataType: "json",
+        data: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json; charset=utf-8",
+        },
+    }).done((res) => {
+        if (res.code == 1) {
+            location.href="/post/listForm/${principal.userId}"
+        } else {
+            alert("글삭제 실패");
+        }
+    });
+    
+    
+    }
+        else{
+            alert("취소를 눌렀습니다.");
+            return false;
+        }
+    }
+
+
 
     
 </script>

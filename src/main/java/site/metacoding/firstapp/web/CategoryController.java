@@ -86,8 +86,9 @@ public class CategoryController {
 
 	// 게시글 삭제 응답
 	@DeleteMapping("/category/{categoryId}")
-	public @ResponseBody CMRespDto<?> delete(@PathVariable Integer postId) {
-		postDao.delete(postId);
+	public @ResponseBody CMRespDto<?> delete(@PathVariable Integer categoryId) {
+		categoryDao.deleteById(categoryId);
 		return new CMRespDto<>(1, "게시글 삭제 성공", null);
 	}
 }
+

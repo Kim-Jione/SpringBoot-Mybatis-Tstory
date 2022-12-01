@@ -28,10 +28,6 @@
 		  user_id = #{userId}
     </update>
 
-	<delete id="delete">
-		DELETE FROM category WHERE category_id = #{categoryId}
-	</delete>
-
 	<select id="findByUserId"
 		resultType="site.metacoding.firstapp.web.dto.response.main.HeaderDto">
 		SELECT c.category_id, c.category_title, u.username, u.user_id
@@ -52,6 +48,11 @@
 		INTO category(category_title, user_id)
 		VALUES(#{categoryTitle}, #{userId})
     </insert>
+
+    <delete id="deleteById">
+		DELETE FROM category WHERE category_id = #{categoryId}
+    </delete>
+
 </mapper>
 
 
