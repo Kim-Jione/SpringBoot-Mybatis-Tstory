@@ -3,7 +3,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
 
 <div class="container">
    <span class="btn_form">
-    <a href="/category/updateForm">
+    <a href="/category/updateForm/${category.categoryId}">
     <span class="btn_form_update"><button id="btnUpdate" class="btn btn-outline-warning">수정</button></a></span>
     
     <span class="btn_form_delete">
@@ -100,7 +100,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
 
 function removeCheck() {
     if(confirm("카테고리 삭제시 게시글도 같이 삭제됩니다. 정말 삭제하시겠습니까?")==true){ 
-        alert("확인을 눌렀습니다.");
+        alert("삭제되었습니다");
      let categoryId = $("#categoryId").val();
 
     let data = {
@@ -125,7 +125,6 @@ function removeCheck() {
     
     }
         else{
-            alert("취소를 눌렀습니다.");
             return false;
         }
     }

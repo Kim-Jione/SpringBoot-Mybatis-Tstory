@@ -86,13 +86,13 @@ public class CategoryController {
 	}
 
 	// 카테고리 수정 페이지
-	@GetMapping("/category/updateForm")
-	public String updateForm(Model model) {
+	@GetMapping("/category/updateForm/{categoryId}")
+	public String updateForm(Model model, @PathVariable Integer categoryId) {
 		User principal = (User) session.getAttribute("principal");
 		if (principal == null) {
 			return "redirect:/user/loginForm";
 		}
-		model.addAttribute("principal", principal);
+		model.addAttribute("category", categoryDao.findByCategoryTitleId(categoryId, principal.getUserId()));
 		return "/category/updateForm";
 	}
 

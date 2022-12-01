@@ -15,6 +15,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                     class="my_auth_form_box_input"
                     type="text"
                     maxlength="20"
+                    value="${category.categoryTitle}"
                     required
                     readonly
                 />

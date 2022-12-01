@@ -31,4 +31,7 @@ public interface CategoryDao {
 	public void updateByCategoryTitle(@Param("categoryTitleUpdate") String categoryTitleUpdate, 
 			@Param("userId") Integer userId);
 
+	public Category findByCategoryTitleId(@Param("categoryId") Integer categoryId, 
+			@Param("userId") Integer userId);
+
 }
