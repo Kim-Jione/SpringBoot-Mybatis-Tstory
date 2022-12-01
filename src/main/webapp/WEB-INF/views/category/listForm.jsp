@@ -2,6 +2,7 @@
 pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
 
 <div class="container">
+    <c:if test="${principal.userId==category.userId}">
    <span class="btn_form">
     <a href="/category/updateForm/${category.categoryId}">
     <span class="btn_form_update"><button id="btnUpdate" class="btn btn-outline-warning">수정</button></a></span>
@@ -10,8 +11,8 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
             <button onclick="removeCheck()"  type="submit" class=" btn btn-outline-danger">
                 삭제</button>
     </span>
-</span>
-
+    </span>
+</c:if>
     <div style="display: inline-flex;">
 <div class="category_form">
     <h5 style="line-height: 50px;">${category.categoryTitle}(${categoryCount.categoryCount})</h5></div>
@@ -99,9 +100,9 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
 
 function removeCheck() {
     if(confirm("카테고리 삭제시 게시글도 같이 삭제됩니다. 정말 삭제하시겠습니까?")==true){ 
-        alert("삭제되었습니다");
-     let categoryId = $("#categoryId").val();
-
+    
+    let categoryId = $("#categoryId").val();
+    
     let data = {
         categoryId: $("#categoryId").val()
     };
@@ -115,6 +116,7 @@ function removeCheck() {
         },
     }).done((res) => {
         if (res.code == 1) {
+            alert("삭제되었습니다");
             location.href="/post/listForm/${principal.userId}"
         } else {
             alert("글삭제 실패");

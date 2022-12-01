@@ -43,6 +43,14 @@ public class CategoryController {
 		return "/category/writeForm";
 	}
 
+	// 카테고리명 등록 응답
+	@PostMapping("/user/categoryTitle")
+	public @ResponseBody CMRespDto<?> write(@RequestBody UpdateCategoryTitleDto updateCategoryTitleDto) {
+		categoryDao.insertCategoryTitle(updateCategoryTitleDto.getCategoryTitle(), updateCategoryTitleDto.getUserId());
+
+		return new CMRespDto<>(1, "성공", null);
+	}
+
 	// 블로그 카테고리별 게시글 목록 페이지
 	@GetMapping("/category/listForm/{categoryId}/{userId}")
 	public String listForm(@PathVariable Integer categoryId, @PathVariable Integer userId, Model model, Integer page,
@@ -82,7 +90,8 @@ public class CategoryController {
 	// 게시글 삭제 응답
 	@DeleteMapping("/category/{categoryId}")
 	public @ResponseBody CMRespDto<?> delete(@PathVariable Integer categoryId) {
-		categoryDao.deleteById(categoryId);
+		System.out.println("디버그: categoryId "+categoryId);
+		categoryDao.deleteAll(categoryId);
 		return new CMRespDto<>(1, "게시글 삭제 성공", null);
 	}
 
@@ -97,24 +106,15 @@ public class CategoryController {
 		return "/category/updateForm";
 	}
 
-	// 카테고리명 등록 응답
+	// 카테고리명 수정 응답
 	@PutMapping("/user/categoryTitle")
 	public @ResponseBody CMRespDto<?> update(@RequestBody UpdateCategoryTitleDto updateCategoryTitleDto) {
-		System.out.println("디버그: "+ updateCategoryTitleDto.getCategoryTitle());
-		System.out.println("디버그: "+ updateCategoryTitleDto.getUserId());
-		System.out.println("디버그: " + updateCategoryTitleDto.getCategoryId());
 		categoryDao.updateCategoryTitle(updateCategoryTitleDto.getCategoryTitle(), updateCategoryTitleDto.getUserId(),
 				updateCategoryTitleDto.getCategoryId());
 
 		return new CMRespDto<>(1, "성공", null);
 	}
 
-	// 카테고리명 등록 응답
-	@PostMapping("/user/categoryTitle")
-	public @ResponseBody CMRespDto<?> write(@RequestBody UpdateCategoryTitleDto updateCategoryTitleDto) {
-		categoryDao.insertCategoryTitle(updateCategoryTitleDto.getCategoryTitle(), updateCategoryTitleDto.getUserId());
-
-		return new CMRespDto<>(1, "성공", null);
-	}
+	
 
 }

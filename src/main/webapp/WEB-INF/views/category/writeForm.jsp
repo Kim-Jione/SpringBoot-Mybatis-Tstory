@@ -97,6 +97,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                     isCheckCategoryTitle = false;
                 } else {
                     isCheckCategoryTitle = true;
+                    return false;
                 }
             }
         });

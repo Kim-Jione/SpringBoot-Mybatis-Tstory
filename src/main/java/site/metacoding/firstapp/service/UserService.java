@@ -27,7 +27,7 @@ public class UserService {
 
 		if (usersPS == null) { // 중복 안됨
 			return false;
-		} else { //  중복됨
+		} else { // 중복됨
 			return true;
 		}
 	}
@@ -60,6 +60,5 @@ public class UserService {
 			return true;
 		}
 	}
-
 
 }

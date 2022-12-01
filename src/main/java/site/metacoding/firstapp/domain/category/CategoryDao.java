@@ -34,4 +34,6 @@ public interface CategoryDao {
 	public void updateCategoryTitle(@Param("categoryTitle") String categoryTitle, @Param("userId") Integer userId,
 			@Param("categoryId") Integer categoryId);
 
+	public void deleteAll(Integer categoryId);
+
 }

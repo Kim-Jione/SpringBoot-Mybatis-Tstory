@@ -65,6 +65,12 @@
 		WHERE user_id = #{userId} AND category_id=#{categoryId}
     </update>
 
+
+    <delete id="deleteAll">
+		DELETE FROM post WHERE category_id = #{categoryId};
+		DELETE FROM category WHERE category_id = #{categoryId};
+    </delete>
+
     <select id="findByCategoryTitleId" resultType="site.metacoding.firstapp.domain.category.Category">
         SELECT *
 		FROM category
