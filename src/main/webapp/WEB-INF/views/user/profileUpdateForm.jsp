@@ -11,6 +11,8 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                 <i class="fa fa-info-circle" aria-hidden="true"></i> 프로필
             </div>
             <div class="d-flex justify-content-center">
+                <div id="imageContainer"></div>
+            </div>
                 <input
                     type="file"
                     id="file"
@@ -18,8 +20,6 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                     onchange="setThumbnail(event)
                 "
                 />
-                <div id="imageContainer"></div>
-            </div>
             <br /><br />
 
             <!-- 계정정보 -->
