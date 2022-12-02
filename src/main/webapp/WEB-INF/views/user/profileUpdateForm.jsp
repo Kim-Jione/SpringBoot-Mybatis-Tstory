@@ -93,11 +93,23 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
     }
 
     function profileUpdate() {
+        let nicknameUpdate = $("#nicknameUpdate").val();
+
+
+        if (isCheckNickname == false) {
+            alert("이미 사용중인 닉네임입니다.");
+            return;
+        }
+
+        if (validNickname()) {
+            alert("닉네임 정보를 다시 확인해주세요.");
+            return;
+        }
         let formData = new FormData();
 
         let data = {
             nickname: $("#nickname").val(),
-            nicknameUpdate: $("#nicknameUpdate").val()
+            nicknameUpdate: $("#nicknameUpdate").val(),
         };
 
         formData.append("file", $("#file")[0].files[0]);
@@ -121,6 +133,47 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                 return false;
             }
         });
+    }
+
+    function checkNickname() {
+        let data = {
+            nickname: $("#nicknameUpdate").val(),
+        };
+        $.ajax("/check/nickname", {
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json; charset=utf-8",
+            },
+        }).done((res) => {
+            if (res.code == 1) {
+                if (res.data == true) {
+                    $(".nicknameValid").css("display", "inline-block");
+                    $(".nicknameValid").text("이미 사용중인 닉네임입니다.");
+                    isCheckNickname = false;
+                } else {
+                    isCheckNickname = true;
+                }
+            }
+        });
+    }
+    function validNickname() {
+        let nickname = $("#nicknameUpdate").val();
+        var spaceRule = /\s/g;
+        if (spaceRule.test(nickname)) {
+            $(".nicknameValid").css("display", "inline-block");
+            $(".nicknameValid").text("공백을 제거해주세요");
+            return true;
+        }
+        if (nickname.length < 1) {
+            $(".nicknameValid").css("display", "inline-block");
+            $(".nicknameValid").text("닉네임은 필수 정보입니다.");
+            return true;
+        } else {
+            $(".nicknameValid").css("display", "none");
+            return false;
+        }
     }
 </script>
 <%@ include file="../layout/footer.jsp"%>
