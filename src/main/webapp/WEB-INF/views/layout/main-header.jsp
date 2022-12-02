@@ -105,6 +105,9 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                         <!-- 페이지 이동 -->
                         <div class="dropdown dropleft">
                             <div data-toggle="dropdown">
+                                <c:if test="${user.profileImg}==null">
+                                <img id="profileImg"  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-SxBue2x-1gdO2ciD9WGBAUgt9xQVzVkUaA&usqp=CAU" style="width: 80px;height:80px;border-radius: 70%;"> <!-- 사진 사이즈 조절 -->
+                                </c:if>
                                  <img id="profileImg"  src="/img/${user.profileImg}" style="width: 80px;height:80px;border-radius: 70%;"> <!-- 사진 사이즈 조절 -->
                             </div>
 

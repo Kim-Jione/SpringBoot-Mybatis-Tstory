@@ -53,7 +53,7 @@ public class UserController {
     // 로그인 페이지
     @GetMapping("/user/loginForm")
     public String loginForm() {
-		User principal = (User) session.getAttribute("principal");
+        User principal = (User) session.getAttribute("principal");
         if (principal != null) {
             return "redirect:/";
         }
@@ -83,7 +83,7 @@ public class UserController {
     @GetMapping("/user/passwordResetForm")
     public String passwordResetForm(Model model) {
         User principal = (User) session.getAttribute("principal");
-		if (principal != null) {
+        if (principal != null) {
             model.addAttribute("user", userDao.findById(principal.getUserId()));
         }
         return "/user/passwordResetForm";
@@ -96,7 +96,7 @@ public class UserController {
         if (principal == null) {
             return "redirect:/user/loginForm";
         }
-		model.addAttribute("user", userDao.findById(principal.getUserId()));
+        model.addAttribute("user", userDao.findById(principal.getUserId()));
         return "/user/passwordCheckForm";
     }
 
@@ -106,7 +106,6 @@ public class UserController {
         User principal = (User) session.getAttribute("principal");
         User userPS = userDao.findByPasswordAndUserId(passwordCheckDto.getPassword(), principal.getUserId());
         if (userPS == null) {
-
             return new CMRespDto<>(-1, "실패", null);
         }
         return new CMRespDto<>(1, "성공", null);
@@ -119,7 +118,7 @@ public class UserController {
         if (principal == null) {
             return "redirect:/user/loginForm";
         }
-		model.addAttribute("user", userDao.findById(principal.getUserId()));
+        model.addAttribute("user", userDao.findById(principal.getUserId()));
         return "/user/passwordUpdateForm";
     }
 
@@ -130,7 +129,7 @@ public class UserController {
         if (principal == null) {
             return "redirect:/user/loginForm";
         }
-		model.addAttribute("user", userDao.findById(principal.getUserId()));
+        model.addAttribute("user", userDao.findById(principal.getUserId()));
         return "/user/emailCheckForm";
     }
 
@@ -171,7 +170,7 @@ public class UserController {
         if (principal == null) {
             return "redirect:/user/loginForm";
         }
-		model.addAttribute("user", userDao.findById(principal.getUserId()));
+        model.addAttribute("user", userDao.findById(principal.getUserId()));
         return "/user/leaveCheckForm";
     }
 

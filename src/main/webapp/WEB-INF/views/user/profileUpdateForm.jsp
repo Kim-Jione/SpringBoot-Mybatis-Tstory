@@ -66,7 +66,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                         class="btn btn-outline-primary"
                         onclick="profileUpdate();"
                     >
-                        저장
+                        프로필 변경
                     </button>
                 </div>
             </div>

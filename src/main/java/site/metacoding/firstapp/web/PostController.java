@@ -86,8 +86,9 @@ public class PostController {
 
 	// 게시글 등록 응답
 	@PostMapping("/post/write")
-	public @ResponseBody CMRespDto<?> write(@RequestPart("file") MultipartFile file,
+	public @ResponseBody CMRespDto<?> write(@RequestPart(value = "file", required = false) MultipartFile file,
 			@RequestPart("postSaveDto") PostSaveDto postSaveDto, RedirectAttributes redirect) throws Exception {
+
 				int pos = file.getOriginalFilename().lastIndexOf(".");
 		String extension = file.getOriginalFilename().substring(pos + 1);
 		String filePath = "C:\\temp\\img\\";
@@ -108,7 +109,8 @@ public class PostController {
 		}
 		postSaveDto.setPostThumnail(imgName);
 		postService.게시글등록하기(postSaveDto);
-  		return new CMRespDto<>(1, "업로드 성공", imgName);
+		System.out.println("디버그: 나오나");
+  		return new CMRespDto<>(1, "업로드 성공", null);
 	}
 
 	// 블로그 전체 게시글 목록 페이지
