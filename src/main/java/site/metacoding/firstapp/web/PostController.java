@@ -1,6 +1,10 @@
 package site.metacoding.firstapp.web;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -10,7 +14,9 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.RequiredArgsConstructor;
@@ -80,10 +86,29 @@ public class PostController {
 
 	// 게시글 등록 응답
 	@PostMapping("/post/write")
-	public String write(PostSaveDto postSaveDto, RedirectAttributes redirect) {
-		postDao.insertSave(postSaveDto);
-		redirect.addAttribute("userId", postSaveDto.getUserId());
-		return "redirect:/post/listForm/{userId}";
+	public @ResponseBody CMRespDto<?> write(@RequestPart("file") MultipartFile file,
+			@RequestPart("postSaveDto") PostSaveDto postSaveDto, RedirectAttributes redirect) throws Exception {
+				int pos = file.getOriginalFilename().lastIndexOf(".");
+		String extension = file.getOriginalFilename().substring(pos + 1);
+		String filePath = "C:\\temp\\img\\";
+		String imgSaveName = UUID.randomUUID().toString();
+		String imgName = imgSaveName + "." + extension;
+		File makeFileFolder = new File(filePath);
+		if (!makeFileFolder.exists()) {
+			if (!makeFileFolder.mkdir()) {
+				throw new Exception("File.mkdir():Fail.");
+			}
+		}
+		File dest = new File(filePath, imgName);
+		try {
+			Files.copy(file.getInputStream(), dest.toPath());
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.out.println("사진저장");
+		}
+		postSaveDto.setPostThumnail(imgName);
+		postService.게시글등록하기(postSaveDto);
+  		return new CMRespDto<>(1, "업로드 성공", imgName);
 	}
 
 	// 블로그 전체 게시글 목록 페이지
