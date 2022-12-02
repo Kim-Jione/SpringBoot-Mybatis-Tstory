@@ -10,7 +10,6 @@ import site.metacoding.firstapp.web.dto.response.post.PagingDto;
 import site.metacoding.firstapp.web.dto.response.post.PostAllDto;
 import site.metacoding.firstapp.web.dto.response.post.PostDetailDto;
 import site.metacoding.firstapp.web.dto.response.post.PostUpdateDto;
-import site.metacoding.firstapp.web.dto.response.subscribe.PostListDto;
 
 public interface PostDao {
 
@@ -44,7 +43,7 @@ public interface PostDao {
 
 	public Post postCount(@Param("userId") Integer userId, @Param("keyword") String keyword);
 
-	public Post categoryCount(@Param("categoryId") Integer categoryId, @Param("keyword") String keyword);
+	public Post categoryCount(@Param("categoryId") Integer categoryId, @Param("keyword") String keyword, @Param("userId") Integer userId);
 
 	public List<KeywordDto> findSearchAllPost(String keyword);
 

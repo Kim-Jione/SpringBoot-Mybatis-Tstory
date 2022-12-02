@@ -38,6 +38,6 @@ public interface UserDao {
 
 	public void updateByNickname(@Param("nicknameUpdate") String nicknameUpdate, @Param("userId") Integer userId);
 
-
+	public void updateByProfileImage(@Param("profileImg") String profileImg, @Param("userId") Integer userId);
 
 }

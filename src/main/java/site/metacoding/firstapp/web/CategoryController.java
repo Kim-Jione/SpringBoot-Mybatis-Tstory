@@ -19,6 +19,7 @@ import site.metacoding.firstapp.domain.category.CategoryDao;
 import site.metacoding.firstapp.domain.post.PostDao;
 import site.metacoding.firstapp.domain.user.User;
 import site.metacoding.firstapp.domain.user.UserDao;
+import site.metacoding.firstapp.domain.visit.VisitDao;
 import site.metacoding.firstapp.web.dto.CMRespDto;
 import site.metacoding.firstapp.web.dto.request.category.UpdateCategoryTitleDto;
 import site.metacoding.firstapp.web.dto.response.post.PagingDto;
@@ -30,6 +31,7 @@ public class CategoryController {
 	private final CategoryDao categoryDao;
 	private final PostDao postDao;
 	private final UserDao userDao;
+	private final VisitDao visitDao;
 	private final HttpSession session;
 
 	// 카테고리 등록 페이지
@@ -39,6 +41,7 @@ public class CategoryController {
 		if (principal == null) {
 			return "redirect:/user/loginForm";
 		}
+		model.addAttribute("user", userDao.findById(principal.getUserId()));
 		model.addAttribute("principal", principal);
 		return "/category/writeForm";
 	}
@@ -55,6 +58,10 @@ public class CategoryController {
 	@GetMapping("/category/listForm/{categoryId}/{userId}")
 	public String listForm(@PathVariable Integer categoryId, @PathVariable Integer userId, Model model, Integer page,
 			String keyword) {
+				User principal = (User) session.getAttribute("principal");
+		if (principal != null) {
+			model.addAttribute("user", userDao.findById(principal.getUserId()));
+		}
 		if (page == null) {
 			page = 0;
 		}
@@ -65,11 +72,12 @@ public class CategoryController {
 			paging.makeBlockInfo();
 
 			model.addAttribute("postList", postDao.findPost(categoryId, userId, startNum, null));
-			model.addAttribute("categoryCount", postDao.categoryCount(categoryId, null)); // 카테고리내 게시글 개수
+			model.addAttribute("categoryCount", postDao.categoryCount(categoryId, null, userId)); // 카테고리내 게시글 개수
 			model.addAttribute("paging", paging); // 페이징
 			model.addAttribute("category", categoryDao.findById(categoryId)); // 카테고리 제목 표시
 			model.addAttribute("categoryList", categoryDao.findByUserId(userId));
 			model.addAttribute("user", userDao.findById(userId)); // 사이드바 카테고리 이동 => 공통
+			model.addAttribute("visit", visitDao.findByVisitCount(userId));
 		} else {
 
 			List<PostAllDto> postList = postDao.findPost(categoryId, userId, startNum, keyword);
@@ -77,11 +85,12 @@ public class CategoryController {
 			paging.makeBlockInfoByCategoryPostAll(keyword);
 
 			model.addAttribute("postList", postList);
-			model.addAttribute("categoryCount", postDao.categoryCount(categoryId, keyword)); // 카테고리내 게시글 개수
+			model.addAttribute("categoryCount", postDao.categoryCount(categoryId, keyword, userId)); // 카테고리내 게시글 개수
 			model.addAttribute("paging", paging); // 페이징
 			model.addAttribute("category", categoryDao.findById(categoryId)); // 카테고리 제목 표시
 			model.addAttribute("categoryList", categoryDao.findByUserId(userId));
 			model.addAttribute("user", userDao.findById(userId)); // 사이드바 카테고리 이동 => 공통
+			model.addAttribute("visit", visitDao.findByVisitCount(userId));
 		}
 
 		return "/category/listForm";
@@ -90,7 +99,7 @@ public class CategoryController {
 	// 게시글 삭제 응답
 	@DeleteMapping("/category/{categoryId}")
 	public @ResponseBody CMRespDto<?> delete(@PathVariable Integer categoryId) {
-		System.out.println("디버그: categoryId "+categoryId);
+		System.out.println("디버그: categoryId " + categoryId);
 		categoryDao.deleteAll(categoryId);
 		return new CMRespDto<>(1, "게시글 삭제 성공", null);
 	}
@@ -102,6 +111,7 @@ public class CategoryController {
 		if (principal == null) {
 			return "redirect:/user/loginForm";
 		}
+		model.addAttribute("user", userDao.findById(principal.getUserId()));
 		model.addAttribute("category", categoryDao.findByCategoryTitleId(categoryId, principal.getUserId()));
 		return "/category/updateForm";
 	}
@@ -114,7 +124,5 @@ public class CategoryController {
 
 		return new CMRespDto<>(1, "성공", null);
 	}
-
-	
 
 }

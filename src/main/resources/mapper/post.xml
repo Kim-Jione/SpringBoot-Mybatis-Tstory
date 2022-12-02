@@ -112,7 +112,7 @@
     <select id="categoryCount" resultType="site.metacoding.firstapp.domain.post.Post">
         SELECT COUNT(post_title) as categoryCount
 		FROM post
-		WHERE category_id= #{categoryId}
+		WHERE category_id= #{categoryId} AND user_id = #{userId}
 		<if test="keyword != null">
 			AND post_title like '%${keyword}%'
 		</if>
