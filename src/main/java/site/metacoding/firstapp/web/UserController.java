@@ -228,6 +228,16 @@ public class UserController {
         }
         updateProfileDto.setProfileImg(imgName);
         userService.프로필이미지변경하기(updateProfileDto.getProfileImg());
+
+        return new CMRespDto<>(1, "업로드 성공", imgName);
+    }
+
+    // 닉네임 수정 응답
+    @PostMapping("/user/updateNickname")
+    public @ResponseBody CMRespDto<?> updateNickname(@RequestBody UpdateNicknameDto updateNicknameDto) {
+        User principal = (User) session.getAttribute("principal");
+        userDao.updateByNickname(updateNicknameDto.getNicknameUpdate(), principal.getUserId());
+        return new CMRespDto<>(1, "성공", null);
         userService.닉네임변경하기(updateProfileDto);
 
         return new CMRespDto<>(1, "업로드 성공", imgName);

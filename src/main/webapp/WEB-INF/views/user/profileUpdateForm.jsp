@@ -21,7 +21,16 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                 onchange="setThumbnail(event)
                 "
             />
-            <br /><br />
+            <br /><br /><div style="text-align: right">
+                    <button
+                        id="imgSaveBtn"
+                        type="submit"
+                        class="btn btn-outline-primary"
+                        onclick="profileUpdate()"
+                    >
+                        이미지 변경
+                    </button>
+                </div>
 
             <!-- 계정정보 -->
             <div>
@@ -61,12 +70,12 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                 ></span>
                 <div style="text-align: right">
                     <button
-                        id="saveBtn"
+                        id="nicknameUpdateBtn"
                         type="submit"
                         class="btn btn-outline-primary"
                         onclick="profileUpdate();"
                     >
-                        프로필 변경
+                        닉네임 변경
                     </button>
                 </div>
             </div>
@@ -94,23 +103,11 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
     }
 
     function profileUpdate() {
-        let nicknameUpdate = $("#nicknameUpdate").val();
 
-
-        if (isCheckNickname == false) {
-            alert("이미 사용중인 닉네임입니다.");
-            return;
-        }
-
-        if (validNickname()) {
-            alert("닉네임 정보를 다시 확인해주세요.");
-            return;
-        }
         let formData = new FormData();
 
         let data = {
-            nickname: $("#nickname").val(),
-            nicknameUpdate: $("#nicknameUpdate").val(),
+            userId: $("#userId").val(),
         };
 
         formData.append("file", $("#file")[0].files[0]);
@@ -120,6 +117,37 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
         );
 
         $.ajax("/user/profileUpdate", {
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            enctype: "multipart/form-data",
+        }).done((res) => {
+            if (res.code == 1) {
+                alert("이미지가 변경되었습니다.");
+                location.href = "/user/updateForm";
+            } else {
+                alert("이미지 파일을 다시 확인해주세요.");
+                return false;
+            }
+        });
+    }
+
+     function updateNickname() {
+        if (isCheckNickname == false) {
+            alert("이미 사용중인 닉네임입니다.");
+            return;
+        }
+
+        if (validNickname()) {
+            alert("닉네임 정보를 다시 확인해주세요.");
+            return;
+        }
+        let data = {
+            nickname: $("#nickname").val(),
+            nicknameUpdate: $("#nicknameUpdate").val(),
+        };
+        $.ajax("/user/updateNickname", {
             type: "POST",
             data: formData,
             processData: false,
