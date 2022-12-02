@@ -12,6 +12,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             </div>
             <div class="d-flex justify-content-center">
                 <div id="imageContainer"></div>
+                
             </div>
             <input
                 type="file"

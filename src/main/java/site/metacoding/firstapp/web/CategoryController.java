@@ -41,6 +41,7 @@ public class CategoryController {
 		if (principal == null) {
 			return "redirect:/user/loginForm";
 		}
+		model.addAttribute("user", userDao.findById(principal.getUserId()));
 		model.addAttribute("principal", principal);
 		return "/category/writeForm";
 	}
@@ -57,6 +58,10 @@ public class CategoryController {
 	@GetMapping("/category/listForm/{categoryId}/{userId}")
 	public String listForm(@PathVariable Integer categoryId, @PathVariable Integer userId, Model model, Integer page,
 			String keyword) {
+				User principal = (User) session.getAttribute("principal");
+		if (principal != null) {
+			model.addAttribute("user", userDao.findById(principal.getUserId()));
+		}
 		if (page == null) {
 			page = 0;
 		}
@@ -67,7 +72,7 @@ public class CategoryController {
 			paging.makeBlockInfo();
 
 			model.addAttribute("postList", postDao.findPost(categoryId, userId, startNum, null));
-			model.addAttribute("categoryCount", postDao.categoryCount(categoryId, null,userId)); // 카테고리내 게시글 개수
+			model.addAttribute("categoryCount", postDao.categoryCount(categoryId, null, userId)); // 카테고리내 게시글 개수
 			model.addAttribute("paging", paging); // 페이징
 			model.addAttribute("category", categoryDao.findById(categoryId)); // 카테고리 제목 표시
 			model.addAttribute("categoryList", categoryDao.findByUserId(userId));
@@ -94,7 +99,7 @@ public class CategoryController {
 	// 게시글 삭제 응답
 	@DeleteMapping("/category/{categoryId}")
 	public @ResponseBody CMRespDto<?> delete(@PathVariable Integer categoryId) {
-		System.out.println("디버그: categoryId "+categoryId);
+		System.out.println("디버그: categoryId " + categoryId);
 		categoryDao.deleteAll(categoryId);
 		return new CMRespDto<>(1, "게시글 삭제 성공", null);
 	}
@@ -106,6 +111,7 @@ public class CategoryController {
 		if (principal == null) {
 			return "redirect:/user/loginForm";
 		}
+		model.addAttribute("user", userDao.findById(principal.getUserId()));
 		model.addAttribute("category", categoryDao.findByCategoryTitleId(categoryId, principal.getUserId()));
 		return "/category/updateForm";
 	}
@@ -118,7 +124,5 @@ public class CategoryController {
 
 		return new CMRespDto<>(1, "성공", null);
 	}
-
-	
 
 }

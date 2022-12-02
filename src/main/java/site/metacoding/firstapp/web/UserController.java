@@ -53,6 +53,10 @@ public class UserController {
     // 로그인 페이지
     @GetMapping("/user/loginForm")
     public String loginForm() {
+		User principal = (User) session.getAttribute("principal");
+        if (principal != null) {
+            return "redirect:/";
+        }
         return "/user/loginForm";
     }
 
@@ -77,17 +81,22 @@ public class UserController {
 
     // 비밀번호 초기화 페이지
     @GetMapping("/user/passwordResetForm")
-    public String passwordResetForm() {
+    public String passwordResetForm(Model model) {
+        User principal = (User) session.getAttribute("principal");
+		if (principal != null) {
+            model.addAttribute("user", userDao.findById(principal.getUserId()));
+        }
         return "/user/passwordResetForm";
     }
 
     // 비밀번호 확인 페이지
     @GetMapping("/user/passwordCheckForm")
-    public String passwordCheckForm() {
+    public String passwordCheckForm(Model model) {
         User principal = (User) session.getAttribute("principal");
         if (principal == null) {
             return "redirect:/user/loginForm";
         }
+		model.addAttribute("user", userDao.findById(principal.getUserId()));
         return "/user/passwordCheckForm";
     }
 
@@ -105,21 +114,23 @@ public class UserController {
 
     // 비밀번호 수정 페이지
     @GetMapping("/user/passwordUpdateForm")
-    public String passwordUpdateForm() {
+    public String passwordUpdateForm(Model model) {
         User principal = (User) session.getAttribute("principal");
         if (principal == null) {
             return "redirect:/user/loginForm";
         }
+		model.addAttribute("user", userDao.findById(principal.getUserId()));
         return "/user/passwordUpdateForm";
     }
 
     // 이메일 응답 페이지
     @GetMapping("/user/emailCheckForm")
-    public String emailCheckForm() {
+    public String emailCheckForm(Model model) {
         User principal = (User) session.getAttribute("principal");
         if (principal == null) {
             return "redirect:/user/loginForm";
         }
+		model.addAttribute("user", userDao.findById(principal.getUserId()));
         return "/user/emailCheckForm";
     }
 
@@ -155,11 +166,12 @@ public class UserController {
 
     // 회원 탈퇴 페이지
     @GetMapping("/user/leaveCheckForm")
-    public String leaveCheckForm() {
+    public String leaveCheckForm(Model model) {
         User principal = (User) session.getAttribute("principal");
         if (principal == null) {
             return "redirect:/user/loginForm";
         }
+		model.addAttribute("user", userDao.findById(principal.getUserId()));
         return "/user/leaveCheckForm";
     }
 

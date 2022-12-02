@@ -12,10 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.RequiredArgsConstructor;
-import site.metacoding.firstapp.domain.post.Post;
-import site.metacoding.firstapp.domain.post.PostDao;
 import site.metacoding.firstapp.domain.subscribe.SubscribeDao;
 import site.metacoding.firstapp.domain.user.User;
+import site.metacoding.firstapp.domain.user.UserDao;
 import site.metacoding.firstapp.service.SubscribeService;
 import site.metacoding.firstapp.web.dto.CMRespDto;
 import site.metacoding.firstapp.web.dto.response.subscribe.PostListDto;
@@ -24,7 +23,7 @@ import site.metacoding.firstapp.web.dto.response.subscribe.UserListDto;
 @RequiredArgsConstructor
 @Controller
 public class SubscribeController {
-	private final PostDao postDao;
+	private final UserDao userDao;
 	private final SubscribeDao subscribeDao;
 	private final SubscribeService subscribeService;
 	private final HttpSession session;
@@ -40,6 +39,7 @@ public class SubscribeController {
 		model.addAttribute("postList", postList);
 		
 		List<UserListDto> subscribeList = subscribeDao.findByUserList(principal.getUserId());
+		model.addAttribute("user", userDao.findById(principal.getUserId()));
 		model.addAttribute("subscribeList", subscribeList);
 		return "subscribe/listForm";
 	}

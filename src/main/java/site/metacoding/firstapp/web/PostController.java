@@ -50,6 +50,7 @@ public class PostController {
 		}
 		PostUpdateDto postUpdateDto = postDao.findByIdUpdate(postId, categoryId, principal.getUserId());
 		List<HeaderDto> titleDto = categoryDao.findByUserId(principal.getUserId());
+		model.addAttribute("user", userDao.findById(principal.getUserId()));
 		model.addAttribute("titleList", titleDto);
 		model.addAttribute("post", postUpdateDto);
 		return "/post/updateForm";
@@ -72,6 +73,7 @@ public class PostController {
 			return "redirect:/user/loginForm";
 		}
 		List<HeaderDto> titleDto = categoryDao.findByUserId(principal.getUserId());
+		model.addAttribute("user", userDao.findById(principal.getUserId()));
 		model.addAttribute("titleList", titleDto);
 		return "/post/writeForm";
 	}
