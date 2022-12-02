@@ -7,7 +7,5 @@ import lombok.Setter;
 @Setter
 public class UpdateProfileDto {
 	private Integer userId;
-	private String nickname;
-	private String nicknameUpdate;
 	private String profileImg;
 }

@@ -229,7 +229,6 @@ public class UserController {
         }
         updateProfileDto.setProfileImg(imgName);
         userService.프로필이미지변경하기(updateProfileDto.getProfileImg());
-        userService.닉네임변경하기(updateProfileDto);
 
         return new CMRespDto<>(1, "업로드 성공", imgName);
     }

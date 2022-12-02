@@ -26,7 +26,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                         id="imgSaveBtn"
                         type="submit"
                         class="btn btn-outline-primary"
-                        onclick=""
+                        onclick="profileUpdate()"
                     >
                         이미지 변경
                     </button>
@@ -103,12 +103,11 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
     }
 
     function profileUpdate() {
-        
+
         let formData = new FormData();
 
         let data = {
-            nickname: $("#nickname").val(),
-            nicknameUpdate: $("#nicknameUpdate").val(),
+            userId: $("#userId").val(),
         };
 
         formData.append("file", $("#file")[0].files[0]);
@@ -125,10 +124,10 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             enctype: "multipart/form-data",
         }).done((res) => {
             if (res.code == 1) {
-                alert("프로필 정보가 변경되었습니다.");
+                alert("이미지가 변경되었습니다.");
                 location.href = "/user/updateForm";
             } else {
-                alert("프로필 정보를 다시 확인해주세요.");
+                alert("이미지 파일을 다시 확인해주세요.");
                 return false;
             }
         });
