@@ -13,13 +13,13 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             <div class="d-flex justify-content-center">
                 <div id="imageContainer"></div>
             </div>
-                <input
-                    type="file"
-                    id="file"
-                    accept="image/*"
-                    onchange="setThumbnail(event)
+            <input
+                type="file"
+                id="file"
+                accept="image/*"
+                onchange="setThumbnail(event)
                 "
-                />
+            />
             <br /><br />
 
             <!-- 계정정보 -->
@@ -63,7 +63,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                         id="saveBtn"
                         type="submit"
                         class="btn btn-outline-primary"
-                        onclick="updateNickname();"
+                        onclick="profileUpdate();"
                     >
                         저장
                     </button>
@@ -74,85 +74,6 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
 </div>
 
 <script>
-    function updateNickname() {
-        if (isCheckNickname == false) {
-            alert("이미 사용중인 닉네임입니다.");
-            return;
-        }
-
-        if (validNickname()) {
-            alert("닉네임 정보를 다시 확인해주세요.");
-            return;
-        }
-
-        let data = {
-            nickname: $("#nickname").val(),
-            nicknameUpdate: $("#nicknameUpdate").val(),
-        };
-
-        $.ajax("/user/updateNickname", {
-            type: "POST",
-            dataType: "json",
-            data: JSON.stringify(data),
-            headers: {
-                "Content-Type": "application/json; charset=utf-8",
-            },
-        }).done((res) => {
-            if (res.code == 1) {
-                alert("닉네임이 변경되었습니다.");
-                location.href = "/user/updateForm";
-            } else {
-                alert("닉네임 정보를 다시 확인해주세요.");
-            }
-        });
-    }
-
-    function checkNickname() {
-        let data = {
-            nickname: $("#nicknameUpdate").val(),
-        };
-
-        $.ajax("/check/nickname", {
-            type: "POST",
-            dataType: "json",
-            data: JSON.stringify(data),
-            headers: {
-                "Content-Type": "application/json; charset=utf-8",
-            },
-        }).done((res) => {
-            if (res.code == 1) {
-                if (res.data == true) {
-                    $(".nicknameValid").css("display", "inline-block");
-                    $(".nicknameValid").text("이미 사용중인 닉네임입니다.");
-                    isCheckNickname = false;
-                } else {
-                    isCheckNickname = true;
-                }
-            }
-        });
-    }
-
-    function validNickname() {
-        let nickname = $("#nicknameUpdate").val();
-
-        var spaceRule = /\s/g;
-
-        if (spaceRule.test(nickname)) {
-            $(".nicknameValid").css("display", "inline-block");
-            $(".nicknameValid").text("공백을 제거해주세요");
-            return true;
-        }
-
-        if (nickname.length < 1) {
-            $(".nicknameValid").css("display", "inline-block");
-            $(".nicknameValid").text("닉네임은 필수 정보입니다.");
-            return true;
-        } else {
-            $(".nicknameValid").css("display", "none");
-            return false;
-        }
-    }
-
     function setThumbnail(event) {
         let reader = new FileReader();
 
@@ -169,6 +90,37 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             document.querySelector("#imageContainer").appendChild(img);
         };
         reader.readAsDataURL(event.target.files[0]);
+    }
+
+    function profileUpdate() {
+        let formData = new FormData();
+
+        let data = {
+            nickname: $("#nickname").val(),
+            nicknameUpdate: $("#nicknameUpdate").val()
+        };
+
+        formData.append("file", $("#file")[0].files[0]);
+        formData.append(
+            "updateProfileDto",
+            new Blob([JSON.stringify(data)], { type: "application/json" })
+        );
+
+        $.ajax("/user/profileUpdate", {
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            enctype: "multipart/form-data",
+        }).done((res) => {
+            if (res.code == 1) {
+                alert("프로필 정보가 변경되었습니다.");
+                location.href = "/user/updateForm";
+            } else {
+                alert("프로필 정보를 다시 확인해주세요.");
+                return false;
+            }
+        });
     }
 </script>
 <%@ include file="../layout/footer.jsp"%>
