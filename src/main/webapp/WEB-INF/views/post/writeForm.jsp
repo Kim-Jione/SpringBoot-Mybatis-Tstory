@@ -29,13 +29,12 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
         />
         <div class="mb-3">
             <textarea
-                id="content"
-                class="form-control"
+               id="content" class="form-control"
                 rows="8"
                 name="postContent"
             ></textarea>
         </div>
-        <div class="form-control d-flex justify-content-end">
+        <div class="form-control d-flex justify-content-left">
             <div>
                 섬네일 사진 등록 :
                 <input type="file" name="postThumnail" />
