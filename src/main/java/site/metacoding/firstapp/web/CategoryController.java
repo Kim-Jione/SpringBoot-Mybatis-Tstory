@@ -58,7 +58,7 @@ public class CategoryController {
 	@GetMapping("/category/listForm/{categoryId}/{userId}")
 	public String listForm(@PathVariable Integer categoryId, @PathVariable Integer userId, Model model, Integer page,
 			String keyword) {
-				User principal = (User) session.getAttribute("principal");
+		User principal = (User) session.getAttribute("principal");
 		if (principal != null) {
 			model.addAttribute("user", userDao.findById(principal.getUserId()));
 		}

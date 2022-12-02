@@ -26,7 +26,7 @@
         <div class="my_main_item">
             <a href="/post/detailForm/${post.postId}/${post.userId}" class="my_atag_none">
                 <div class="my_main_item_thumnail">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1Tpz1i_UtKvySpfcIh3r_AEgA_9JvqIs_9A&usqp=CAU" height="100%">
+                    <img id="profileImg"  src="/img/${post.postThumnail}" style="width: 100%;height:100%;"> <!-- 사진 사이즈 조절 -->
                    
                 </div>
                 <div class="my_main_content my_p_sm_1">
