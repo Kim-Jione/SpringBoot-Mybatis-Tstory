@@ -1,5 +1,7 @@
 package site.metacoding.firstapp.service;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -9,11 +11,13 @@ import site.metacoding.firstapp.domain.user.User;
 import site.metacoding.firstapp.domain.user.UserDao;
 import site.metacoding.firstapp.web.dto.request.user.CheckDto;
 import site.metacoding.firstapp.web.dto.request.user.JoinDto;
+import site.metacoding.firstapp.web.dto.request.user.UpdateProfileDto;
 
 @RequiredArgsConstructor
 @Service
 public class UserService {
 	private final UserDao userDao;
+    private final HttpSession session;
 	private final CategoryDao categoryDao;
 
 	@Transactional
@@ -61,4 +65,15 @@ public class UserService {
 		}
 	}
 
+	public void 닉네임변경하기(UpdateProfileDto updateProfileDto) {
+		User principal = (User) session.getAttribute("principal"); 
+		userDao.updateByNickname(updateProfileDto.getNicknameUpdate(), principal.getUserId());
+	}
+
+	public void 프로필이미지변경하기(String profileImg) {
+		User principal = (User) session.getAttribute("principal");
+		userDao.updateByProfileImage(profileImg, principal.getUserId());
+	}
+
+	
 }

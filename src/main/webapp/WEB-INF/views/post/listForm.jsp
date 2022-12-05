@@ -54,11 +54,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
             <input id="usersId"  type="hidden" value="${post.userId}">
             <div class="my_post_list_item">
                 <div class="my_post_list_item_left">
-                    <img
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1Tpz1i_UtKvySpfcIh3r_AEgA_9JvqIs_9A&usqp=CAU"
-                        width="100%"
-                        height="100%"
-                    />
+                    <img id="profileImg"  src="/img/${post.postThumnail}" style="width: 100%;height:100%;"> <!-- 사진 사이즈 조절 -->
                 </div>
                 <div class="my_post_list_item_right my_ellipsis">
                     <div class="my_text_title my_ellipsis">

@@ -92,6 +92,13 @@
 		DELETE FROM user WHERE user_id = #{userId};
     </delete>
 
+
+    <update id="updateByProfileImage">
+          UPDATE user
+		  SET profile_img = #{profileImg}
+		  WHERE user_id = #{userId}
+    </update>
+
 </mapper>
     
 
