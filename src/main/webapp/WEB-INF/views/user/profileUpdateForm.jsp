@@ -73,7 +73,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                         id="nicknameUpdateBtn"
                         type="submit"
                         class="btn btn-outline-primary"
-                        onclick="profileUpdate();"
+                        onclick="updateNickname();"
                     >
                         닉네임 변경
                     </button>
@@ -138,7 +138,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             alert("이미 사용중인 닉네임입니다.");
             return;
         }
-
+        
         if (validNickname()) {
             alert("닉네임 정보를 다시 확인해주세요.");
             return;
@@ -149,17 +149,17 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
         };
         $.ajax("/user/updateNickname", {
             type: "POST",
-            data: formData,
-            processData: false,
-            contentType: false,
-            enctype: "multipart/form-data",
+            dataType: "json",
+            data: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json; charset=utf-8",
+            },
         }).done((res) => {
             if (res.code == 1) {
-                alert("프로필 정보가 변경되었습니다.");
+                alert("닉네임이 변경되었습니다.");
                 location.href = "/user/updateForm";
             } else {
-                alert("프로필 정보를 다시 확인해주세요.");
-                return false;
+                alert("닉네임 정보를 다시 확인해주세요.");
             }
         });
     }
