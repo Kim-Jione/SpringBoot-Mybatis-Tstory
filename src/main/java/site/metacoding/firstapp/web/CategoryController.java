@@ -22,6 +22,7 @@ import site.metacoding.firstapp.domain.user.UserDao;
 import site.metacoding.firstapp.domain.visit.VisitDao;
 import site.metacoding.firstapp.web.dto.CMRespDto;
 import site.metacoding.firstapp.web.dto.request.category.UpdateCategoryTitleDto;
+import site.metacoding.firstapp.web.dto.request.user.CheckDto;
 import site.metacoding.firstapp.web.dto.response.post.PagingDto;
 import site.metacoding.firstapp.web.dto.response.post.PostAllDto;
 
@@ -47,10 +48,19 @@ public class CategoryController {
 	}
 
 	// 카테고리명 등록 응답
-	@PostMapping("/user/categoryTitle")
-	public @ResponseBody CMRespDto<?> write(@RequestBody UpdateCategoryTitleDto updateCategoryTitleDto) {
-		categoryDao.insertCategoryTitle(updateCategoryTitleDto.getCategoryTitle(), updateCategoryTitleDto.getUserId());
+	@PostMapping("/category/categoryTitle")
+	public @ResponseBody CMRespDto<?> write(@RequestBody UpdateCategoryTitleDto updateCategoryTitleDto, Model model) {
+		User principal = (User) session.getAttribute("principal");
+		if (principal != null) {
+			model.addAttribute("user", userDao.findById(principal.getUserId()));
+		}
+		CheckDto categoryPS = categoryDao.findByCategoryTitle(updateCategoryTitleDto.getCategoryTitle(),
+				principal.getUserId());
+		if(categoryPS!=null){
+		return new CMRespDto<>(-1, "실패", null);
 
+		}
+		categoryDao.insertCategoryTitle(updateCategoryTitleDto.getCategoryTitle(), updateCategoryTitleDto.getUserId());
 		return new CMRespDto<>(1, "성공", null);
 	}
 
