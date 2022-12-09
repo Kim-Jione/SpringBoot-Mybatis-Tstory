@@ -7,50 +7,47 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
     }
 </style>
 <div class="container">
-    <form>
-        <!-- 카테고리 목록 -->
-        <div class="form-group">
-            <select class="form-control" id="categoryId">
-                <c:forEach var="category" items="${titleList}">
-                    <option value="${category.categoryId}">
-                        ${category.categoryTitle}
-                    </option>
-                </c:forEach>
-            </select>
+    <!-- 카테고리 목록 -->
+    <div class="form-group">
+        <select class="form-control" id="categoryId">
+            <c:forEach var="category" items="${titleList}">
+                <option value="${category.categoryId}">
+                    ${category.categoryTitle}
+                </option>
+            </c:forEach>
+        </select>
 
-            <input type="hidden" id="userId" value="${principal.userId}" />
-        </div>
+        <input type="hidden" id="userId" value="${principal.userId}" />
+    </div>
 
-        <input
-            type="text"
-            placeholder="제목을 입력하세요"
-            id="postTitle"
-            class="form-control"
-        />
-        <div class="mb-3">
-            <textarea class="form-control" rows="8" id="postContent"></textarea>
+    <input
+        type="text"
+        placeholder="제목을 입력하세요"
+        id="postTitle"
+        class="form-control"
+    />
+    <div class="mb-3">
+        <textarea class="form-control" rows="8" id="postContent"></textarea>
+    </div>
+    <div class="form-control d-flex justify-content-left">
+        <div>
+            섬네일 사진 등록 :
+            <input type="file" id="file" accept="image/*" />
         </div>
-        <div class="form-control d-flex justify-content-left">
-            <div>
-                섬네일 사진 등록 :
-                <input type="file" id="file" accept="image/*" />
-            </div>
-        </div>
-        <button class="my_active_btn" id="writeBtn">
-            글쓰기 등록
-        </button>
-    </form>
+    </div>
+    <button type="button" class="my_active_btn" id="writeBtn">
+        글쓰기 등록
+    </button>
     <br />
 </div>
 
 <script>
     $("#writeBtn").click(() => {
-    write();
-});
+        write();
+    });
 
     function write() {
         let formData = new FormData();
-
         let data = {
             categoryId: $("#categoryId").val(),
             userId: $("#userId").val(),
@@ -73,9 +70,9 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
         }).done((res) => {
             if (res.code == 1) {
                 console.log("asdasd");
-               alert("게시글이 등록되었습니다.");
+                alert("게시글이 등록되었습니다.");
                 location.href = "/";
-            } else {    
+            } else {
                 alert("게시글 입력 정보를 다시 확인해주세요.");
                 return false;
             }
