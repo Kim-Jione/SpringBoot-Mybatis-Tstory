@@ -38,7 +38,6 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
         write();
     });
 
-
     function write() {
         if (isCheckCategoryTitle == false) {
             alert("이미 존재하는 카테고리명입니다.");
@@ -55,7 +54,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             categoryTitle: $("#categoryTitle").val(),
         };
 
-        $.ajax("/user/categoryTitle", {
+        $.ajax("/category/categoryTitle", {
             type: "POST",
             dataType: "json",
             data: JSON.stringify(data),

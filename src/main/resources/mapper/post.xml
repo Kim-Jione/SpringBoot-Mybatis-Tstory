@@ -101,7 +101,7 @@
     </select>
 
     <select id="findSearchAllPost" resultType="site.metacoding.firstapp.web.dto.response.main.KeywordDto">
-	SELECT p.post_title, p.user_id, u.username, p.post_id, p.post_content, u.nickname
+	SELECT p.post_title, p.user_id, u.username, p.post_id, p.post_content, p.post_thumnail,u.nickname
 	FROM user u 
 	LEFT JOIN post p
 	ON u.user_id = p.user_id
