@@ -7,48 +7,39 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
     }
 </style>
 <div class="container">
-        <!-- 카테고리 목록 -->
-        <div class="form-group">
-            <select class="form-control" id="categoryId">
-                <option value="${post.categoryId}">
-                    ${post.categoryTitle}
+    <!-- 카테고리 목록 -->
+    <div class="form-group">
+        <select class="form-control" id="categoryId">
+            <option value="${post.categoryId}">${post.categoryTitle}</option>
+            <c:forEach var="category" items="${titleList}"
+                ><option value="${category.categoryId}">
+                    ${category.categoryTitle}
                 </option>
-                <c:forEach var="category" items="${titleList}"
-                    ><option value="${category.categoryId}">
-                        ${category.categoryTitle}
-                    </option>
-                </c:forEach>
-            </select>
+            </c:forEach>
+        </select>
 
-            <input type="hidden" id="userId" value="${principal.userId}" />
-            <input type="hidden" id="postId" value="${post.postId}" />
-        </div>
+        <input type="hidden" id="userId" value="${principal.userId}" />
+        <input type="hidden" id="postId" value="${post.postId}" />
+    </div>
 
-        <input
-            type="text"
-            value="${post.postTitle}"
-            id="postTitle"
-            class="form-control"
-        />
-        <div class="mb-3">
-            <textarea
-                id="postContent"
-                type="text"
-                class="form-control"
-                rows="8"
-            >
+    <input
+        type="text"
+        value="${post.postTitle}"
+        id="postTitle"
+        class="form-control"
+    />
+    <div class="mb-3">
+        <textarea id="postContent" type="text" class="form-control" rows="8">
 ${post.postContent}</textarea
-            >
+        >
+    </div>
+    <div class="form-control d-flex justify-content-end">
+        <div>
+            섬네일 사진 등록 :
+            <input type="file" id="file" />
         </div>
-        <div class="form-control d-flex justify-content-end">
-            <div>
-                섬네일 사진 등록 :
-                <input type="file" id="file" />
-            </div>
-        </div>
-        <button type="submit" class="my_active_btn" id="updateBtn">
-            수정완료
-        </button>
+    </div>
+    <button type="submit" class="my_active_btn" id="updateBtn">수정완료</button>
     <br />
 </div>
 
@@ -58,6 +49,11 @@ ${post.postContent}</textarea
     });
 
     function update() {
+        if ($("#file")[0].files[0] == null) {
+            alert("수정할 썸네일을 등록해주셔야 합니다.");
+            return;
+        }
+
         let formData = new FormData();
         let data = {
             categoryId: $("#categoryId").val(),

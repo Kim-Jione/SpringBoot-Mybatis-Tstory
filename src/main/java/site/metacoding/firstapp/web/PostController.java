@@ -122,6 +122,13 @@ public class PostController {
 	@PostMapping("/post/write")
 	public @ResponseBody CMRespDto<?> write(@RequestPart("file") MultipartFile file,
 			@RequestPart("postSaveDto") PostSaveDto postSaveDto) throws Exception {
+
+		if (file == null) {
+			postService.게시글등록하기(postSaveDto);
+			return new CMRespDto<>(1, "게시글 등록 성공", null);
+
+		}
+
 		int pos = file.getOriginalFilename().lastIndexOf(".");
 		String extension = file.getOriginalFilename().substring(pos + 1);
 		String filePath = "C:\\temp\\img\\";
@@ -173,7 +180,7 @@ public class PostController {
 			model.addAttribute("paging", paging); // 페이징
 			model.addAttribute("postList", postDao.findAllPost(userId, null, startNum)); // 블로그 전체게시글
 			model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리 이동 => 공통
-			model.addAttribute("user", userDao.findById(userId));
+			model.addAttribute("user", userDao.findById(principal.getUserId()));
 			model.addAttribute("visit", visitDao.findByVisitCount(userId));
 		}
 
@@ -189,7 +196,7 @@ public class PostController {
 			model.addAttribute("postCount", postDao.postCount(userId, keyword)); // 전체게시글 개수
 			model.addAttribute("paging", paging); // 페이징
 			model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리 이동 => 공통
-			model.addAttribute("user", userDao.findById(userId));
+			model.addAttribute("user", userDao.findById(principal.getUserId()));
 			model.addAttribute("visit", visitDao.findByVisitCount(userId));
 		}
 

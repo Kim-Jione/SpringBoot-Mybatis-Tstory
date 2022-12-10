@@ -47,6 +47,11 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
     });
 
     function write() {
+        if ($("#file")[0].files[0] == null) {
+            alert("썸네일을 등록해주셔야 합니다.");
+            return;
+        }
+
         let formData = new FormData();
         let data = {
             categoryId: $("#categoryId").val(),
