@@ -123,40 +123,11 @@ public class PostController {
 	public @ResponseBody CMRespDto<?> write(@RequestPart("file") MultipartFile file,
 			@RequestPart("postSaveDto") PostSaveDto postSaveDto) throws Exception {
 
-		if (file == null) {
-			postService.게시글등록하기(postSaveDto);
-			return new CMRespDto<>(1, "게시글 등록 성공", null);
-
+		User principal = (User) session.getAttribute("principal");
+		if (principal == null) {
+			return new CMRespDto<>(-1, "게시글 등록 실패", null);
 		}
-
-		int pos = file.getOriginalFilename().lastIndexOf(".");
-		String extension = file.getOriginalFilename().substring(pos + 1);
-		String filePath = "C:\\temp\\img\\";
-
-		// 랜덤 키 생성
-		String imgSaveName = UUID.randomUUID().toString();
-
-		// 랜덤 키와 파일명을 합쳐 파일명 중복을 피함
-		String imgName = imgSaveName + "." + extension;
-
-		// 파일이 저장되는 폴더가 없으면 폴더를 생성
-		File makeFileFolder = new File(filePath);
-		if (!makeFileFolder.exists()) {
-			if (!makeFileFolder.mkdir()) {
-				throw new Exception("File.mkdir():Fail.");
-			}
-		}
-
-		// 이미지 저장
-		File dest = new File(filePath, imgName);
-		try {
-			Files.copy(file.getInputStream(), dest.toPath());
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.out.println("사진저장 실패");
-		}
-		postSaveDto.setPostThumnail(imgName);
-		postService.게시글등록하기(postSaveDto);
+		postService.게시글등록하기(postSaveDto, principal.getUserId(), file);
 		return new CMRespDto<>(1, "게시글 등록 성공", null);
 	}
 
