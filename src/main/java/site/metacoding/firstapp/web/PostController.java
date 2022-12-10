@@ -124,8 +124,11 @@ public class PostController {
 			model.addAttribute("paging", paging); // 페이징
 			model.addAttribute("postList", postDao.findAllPost(userId, null, startNum)); // 블로그 전체게시글
 			model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리 이동 => 공통
-			model.addAttribute("user", userDao.findById(principal.getUserId()));
 			model.addAttribute("visit", visitDao.findByVisitCount(userId));
+
+			if (principal != null) {
+				model.addAttribute("user", userDao.findById(principal.getUserId()));
+			}
 		}
 
 		if (principal != null) {
@@ -177,7 +180,7 @@ public class PostController {
 			visitDao.countByVisit(userId);
 			PostDetailDto postDetail = postDao.findByIdAndUser(postId, principal.getUserId());
 			model.addAttribute("post", postDetail);
-			model.addAttribute("user", userDao.findById(userId));
+			model.addAttribute("user", userDao.findById(principal.getUserId()));
 			model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리
 			model.addAttribute("postList", postDao.findByUserId(userId)); // 블로그 전체게시글
 			model.addAttribute("visit", visitDao.findByVisitCount(userId));
