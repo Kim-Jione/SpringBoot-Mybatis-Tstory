@@ -1,7 +1,3 @@
-$("#btnDelete").click(() => {
-    deleteById();
-});
-
 $("#iconLove").click(() => {
     let isLovedState = $("#iconLove").hasClass("fa-solid"); // hasClass => fa-solid 갖고 있으면 true 없으면 false
     if (isLovedState) {
@@ -50,29 +46,31 @@ function deleteLove() {
     });
 }
 
-function deleteById() {
-    let postId = $("#postId").val();
-    let userId = $("#userId").val();
+function removeCheck() {
+    if (confirm("게시글을 삭제하시겠습니까?") == true) {
+        let postId = $("#postId").val();
+        let userId = $("#userId").val();
 
-    let data = {
-        postId: $("#postId").val(),
-        userId: $("#userId").val(),
-    };
+        let data = {
+            postId: $("#postId").val(),
+            userId: $("#userId").val(),
+        };
 
-    $.ajax("/post/" + postId, {
-        type: "DELETE",
-        dataType: "json",
-        data: JSON.stringify(data),
-        headers: {
-            "Content-Type": "application/json; charset=utf-8",
-        },
-    }).done((res) => {
-        if (res.code == 1) {
-            location.href = "/post/listForm/" + userId;
-        } else {
-            alert("글삭제 실패");
-        }
-    });
+        $.ajax("/post/" + postId, {
+            type: "DELETE",
+            dataType: "json",
+            data: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json; charset=utf-8",
+            },
+        }).done((res) => {
+            if (res.code == 1) {
+                location.href = "/post/listForm/" + userId;
+            } else {
+                return false;
+            }
+        });
+    }
 }
 
 // 빨간색 하트 그리기

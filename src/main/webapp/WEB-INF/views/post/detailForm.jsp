@@ -16,7 +16,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
                 >수정</a
             >
             <form>
-                <button id="btnDelete" class="btn btn-outline-danger">
+                <button id="btnDelete" onclick="removeCheck()" class="btn btn-outline-danger">
                     삭제
                 </button>
             </form>
