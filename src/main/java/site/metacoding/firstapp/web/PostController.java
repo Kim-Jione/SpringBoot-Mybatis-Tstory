@@ -69,39 +69,12 @@ public class PostController {
 			@RequestPart("file") MultipartFile file,
 			@RequestPart("postUpdateDto") PostUpdateDto postUpdateDto) throws Exception {
 
-		int pos = file.getOriginalFilename().lastIndexOf(".");
-		String extension = file.getOriginalFilename().substring(pos + 1);
-		String filePath = "C:\\temp\\img\\";
+		User principal = (User) session.getAttribute("principal");
+		if (principal == null) {
+			return new CMRespDto<>(-1, "게시글 수정 실패", null);
 
-		// 랜덤 키 생성
-		String imgSaveName = UUID.randomUUID().toString();
-
-		// 랜덤 키와 파일명을 합쳐 파일명 중복을 피함
-		String imgName = imgSaveName + "." + extension;
-
-		// 파일이 저장되는 폴더가 없으면 폴더를 생성
-		File makeFileFolder = new File(filePath);
-		if (!makeFileFolder.exists()) {
-			if (!makeFileFolder.mkdir()) {
-				throw new Exception("File.mkdir():Fail.");
-			}
 		}
-
-		// 이미지 저장
-		File dest = new File(filePath, imgName);
-		try {
-			Files.copy(file.getInputStream(), dest.toPath());
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.out.println("사진저장 실패");
-		}
-
-		System.out.println("디버그 getPostTitle : " + postUpdateDto.getPostTitle());
-		System.out.println("디버그 getPostId : " + postUpdateDto.getPostId());
-		System.out.println("디버그 getPostContent : " + postUpdateDto.getPostContent());
-
-		postUpdateDto.setPostThumnail(imgName);
-		postDao.insertUpdate(postUpdateDto);
+		postService.게시글수정하기(postUpdateDto, principal.getUserId(), file);
 		return new CMRespDto<>(1, "게시글 수정 성공", null);
 	}
 
