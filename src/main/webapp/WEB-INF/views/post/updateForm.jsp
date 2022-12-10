@@ -39,7 +39,8 @@ ${post.postContent}</textarea
             <input type="file" id="file" />
         </div>
     </div>
-    <button type="submit" class="my_active_btn" id="updateBtn">수정완료</button>
+    <div  style="display: flex;justify-content: right;">
+    <button type="submit" class="my_active_btn" id="updateBtn">수정완료</button></div>
     <br />
 </div>
 
