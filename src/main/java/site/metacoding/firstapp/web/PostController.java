@@ -14,14 +14,15 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.RequiredArgsConstructor;
 import site.metacoding.firstapp.domain.category.CategoryDao;
 import site.metacoding.firstapp.domain.love.Love;
+import site.metacoding.firstapp.domain.post.Post;
 import site.metacoding.firstapp.domain.post.PostDao;
 import site.metacoding.firstapp.domain.user.User;
 import site.metacoding.firstapp.domain.user.UserDao;
@@ -63,12 +64,45 @@ public class PostController {
 	}
 
 	// 게시글 수정 응답
-	@PostMapping("/post/update")
-	public String update(PostUpdateDto postUpdateDto, RedirectAttributes redirect) {
+	@PutMapping("/post/update")
+	public @ResponseBody CMRespDto<?> update(
+			@RequestPart("file") MultipartFile file,
+			@RequestPart("postUpdateDto") PostUpdateDto postUpdateDto) throws Exception {
+
+		int pos = file.getOriginalFilename().lastIndexOf(".");
+		String extension = file.getOriginalFilename().substring(pos + 1);
+		String filePath = "C:\\temp\\img\\";
+
+		// 랜덤 키 생성
+		String imgSaveName = UUID.randomUUID().toString();
+
+		// 랜덤 키와 파일명을 합쳐 파일명 중복을 피함
+		String imgName = imgSaveName + "." + extension;
+
+		// 파일이 저장되는 폴더가 없으면 폴더를 생성
+		File makeFileFolder = new File(filePath);
+		if (!makeFileFolder.exists()) {
+			if (!makeFileFolder.mkdir()) {
+				throw new Exception("File.mkdir():Fail.");
+			}
+		}
+
+		// 이미지 저장
+		File dest = new File(filePath, imgName);
+		try {
+			Files.copy(file.getInputStream(), dest.toPath());
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.out.println("사진저장 실패");
+		}
+
+		System.out.println("디버그 getPostTitle : " + postUpdateDto.getPostTitle());
+		System.out.println("디버그 getPostId : " + postUpdateDto.getPostId());
+		System.out.println("디버그 getPostContent : " + postUpdateDto.getPostContent());
+
+		postUpdateDto.setPostThumnail(imgName);
 		postDao.insertUpdate(postUpdateDto);
-		User principal = (User) session.getAttribute("principal");
-		redirect.addAttribute("userId", principal.getUserId());
-		return "redirect:/post/listForm/{userId}";
+		return new CMRespDto<>(1, "게시글 수정 성공", null);
 	}
 
 	// 게시글 등록 페이지
@@ -88,7 +122,6 @@ public class PostController {
 	@PostMapping("/post/write")
 	public @ResponseBody CMRespDto<?> write(@RequestPart("file") MultipartFile file,
 			@RequestPart("postSaveDto") PostSaveDto postSaveDto) throws Exception {
-		System.out.println("디버그 : 컨트롤러 도착");
 		int pos = file.getOriginalFilename().lastIndexOf(".");
 		String extension = file.getOriginalFilename().substring(pos + 1);
 		String filePath = "C:\\temp\\img\\";
@@ -117,7 +150,7 @@ public class PostController {
 		}
 		postSaveDto.setPostThumnail(imgName);
 		postService.게시글등록하기(postSaveDto);
-		return new CMRespDto<>(1, "업로드 성공", null);
+		return new CMRespDto<>(1, "게시글 등록 성공", null);
 	}
 
 	// 블로그 전체 게시글 목록 페이지

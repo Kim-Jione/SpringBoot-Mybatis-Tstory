@@ -6,9 +6,9 @@ import lombok.Setter;
 @Setter
 @Getter
 public class PostUpdateDto {
-	private Integer categoryId;
-	private String categoryTitle;
 	private Integer postId;
+	private Integer categoryId;
+	private String categoryTitle; 
 	private String postTitle;
 	private String postContent;
 	private String postThumnail;
