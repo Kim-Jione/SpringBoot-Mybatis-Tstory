@@ -17,7 +17,7 @@ import site.metacoding.firstapp.web.dto.request.user.UpdateProfileDto;
 @Service
 public class UserService {
 	private final UserDao userDao;
-	private final HttpSession session;
+    private final HttpSession session;
 	private final CategoryDao categoryDao;
 
 	@Transactional
@@ -66,7 +66,7 @@ public class UserService {
 	}
 
 	public void 닉네임변경하기(UpdateProfileDto updateProfileDto) {
-		User principal = (User) session.getAttribute("principal");
+		User principal = (User) session.getAttribute("principal"); 
 		userDao.updateByNickname(updateProfileDto.getNicknameUpdate(), principal.getUserId());
 	}
 
@@ -75,4 +75,5 @@ public class UserService {
 		userDao.updateByProfileImage(profileImg, principal.getUserId());
 	}
 
+	
 }

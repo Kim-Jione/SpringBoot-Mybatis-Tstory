@@ -35,9 +35,10 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             <input type="file" id="file" accept="image/*" />
         </div>
     </div>
+    <div  style="display: flex;justify-content: right;">
     <button type="button" class="my_active_btn" id="writeBtn">
         글쓰기 등록
-    </button>
+    </button></div>
     <br />
 </div>
 
@@ -47,6 +48,11 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
     });
 
     function write() {
+        if ($("#file")[0].files[0] == null) {
+            alert("썸네일을 등록해주셔야 합니다.");
+            return;
+        }
+
         let formData = new FormData();
         let data = {
             categoryId: $("#categoryId").val(),
