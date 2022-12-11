@@ -1,10 +1,6 @@
 package site.metacoding.firstapp.web;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.util.List;
-import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -22,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 import lombok.RequiredArgsConstructor;
 import site.metacoding.firstapp.domain.category.CategoryDao;
 import site.metacoding.firstapp.domain.love.Love;
-import site.metacoding.firstapp.domain.post.Post;
 import site.metacoding.firstapp.domain.post.PostDao;
 import site.metacoding.firstapp.domain.user.User;
 import site.metacoding.firstapp.domain.user.UserDao;
@@ -69,39 +64,12 @@ public class PostController {
 			@RequestPart("file") MultipartFile file,
 			@RequestPart("postUpdateDto") PostUpdateDto postUpdateDto) throws Exception {
 
-		int pos = file.getOriginalFilename().lastIndexOf(".");
-		String extension = file.getOriginalFilename().substring(pos + 1);
-		String filePath = "C:\\temp\\img\\";
+		User principal = (User) session.getAttribute("principal");
+		if (principal == null) {
+			return new CMRespDto<>(-1, "게시글 수정 실패", null);
 
-		// 랜덤 키 생성
-		String imgSaveName = UUID.randomUUID().toString();
-
-		// 랜덤 키와 파일명을 합쳐 파일명 중복을 피함
-		String imgName = imgSaveName + "." + extension;
-
-		// 파일이 저장되는 폴더가 없으면 폴더를 생성
-		File makeFileFolder = new File(filePath);
-		if (!makeFileFolder.exists()) {
-			if (!makeFileFolder.mkdir()) {
-				throw new Exception("File.mkdir():Fail.");
-			}
 		}
-
-		// 이미지 저장
-		File dest = new File(filePath, imgName);
-		try {
-			Files.copy(file.getInputStream(), dest.toPath());
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.out.println("사진저장 실패");
-		}
-
-		System.out.println("디버그 getPostTitle : " + postUpdateDto.getPostTitle());
-		System.out.println("디버그 getPostId : " + postUpdateDto.getPostId());
-		System.out.println("디버그 getPostContent : " + postUpdateDto.getPostContent());
-
-		postUpdateDto.setPostThumnail(imgName);
-		postDao.insertUpdate(postUpdateDto);
+		postService.게시글수정하기(postUpdateDto, principal.getUserId(), file);
 		return new CMRespDto<>(1, "게시글 수정 성공", null);
 	}
 
@@ -123,40 +91,11 @@ public class PostController {
 	public @ResponseBody CMRespDto<?> write(@RequestPart("file") MultipartFile file,
 			@RequestPart("postSaveDto") PostSaveDto postSaveDto) throws Exception {
 
-		if (file == null) {
-			postService.게시글등록하기(postSaveDto);
-			return new CMRespDto<>(1, "게시글 등록 성공", null);
-
+		User principal = (User) session.getAttribute("principal");
+		if (principal == null) {
+			return new CMRespDto<>(-1, "게시글 등록 실패", null);
 		}
-
-		int pos = file.getOriginalFilename().lastIndexOf(".");
-		String extension = file.getOriginalFilename().substring(pos + 1);
-		String filePath = "C:\\temp\\img\\";
-
-		// 랜덤 키 생성
-		String imgSaveName = UUID.randomUUID().toString();
-
-		// 랜덤 키와 파일명을 합쳐 파일명 중복을 피함
-		String imgName = imgSaveName + "." + extension;
-
-		// 파일이 저장되는 폴더가 없으면 폴더를 생성
-		File makeFileFolder = new File(filePath);
-		if (!makeFileFolder.exists()) {
-			if (!makeFileFolder.mkdir()) {
-				throw new Exception("File.mkdir():Fail.");
-			}
-		}
-
-		// 이미지 저장
-		File dest = new File(filePath, imgName);
-		try {
-			Files.copy(file.getInputStream(), dest.toPath());
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.out.println("사진저장 실패");
-		}
-		postSaveDto.setPostThumnail(imgName);
-		postService.게시글등록하기(postSaveDto);
+		postService.게시글등록하기(postSaveDto, principal.getUserId(), file);
 		return new CMRespDto<>(1, "게시글 등록 성공", null);
 	}
 
@@ -172,7 +111,7 @@ public class PostController {
 		Integer startNum = page * 5;
 
 		if (keyword == null || keyword.isEmpty()) {
-			visitDao.countByVisit(userId);
+
 			PagingDto paging = postDao.paging(page, userId, null);
 			paging.makeBlockInfo();
 
@@ -180,12 +119,15 @@ public class PostController {
 			model.addAttribute("paging", paging); // 페이징
 			model.addAttribute("postList", postDao.findAllPost(userId, null, startNum)); // 블로그 전체게시글
 			model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리 이동 => 공통
-			model.addAttribute("user", userDao.findById(principal.getUserId()));
 			model.addAttribute("visit", visitDao.findByVisitCount(userId));
+
+			model.addAttribute("user", userDao.findById(userId));
+			if (principal != null) {
+				model.addAttribute("userImg", userDao.findById(principal.getUserId()));
+			}
 		}
 
 		if (principal != null) {
-			visitDao.countByVisit(userId);
 			Integer subscribeId = subscribeService.구독Id불러오기(principal.getUserId(), userId); // 구독 하는 사람, 구독 받는 사람
 			model.addAttribute("subscribeId", subscribeId);
 
@@ -197,6 +139,7 @@ public class PostController {
 			model.addAttribute("paging", paging); // 페이징
 			model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리 이동 => 공통
 			model.addAttribute("user", userDao.findById(principal.getUserId()));
+			model.addAttribute("userImg", userDao.findById(principal.getUserId()));
 			model.addAttribute("visit", visitDao.findByVisitCount(userId));
 		}
 
@@ -233,8 +176,11 @@ public class PostController {
 			visitDao.countByVisit(userId);
 			PostDetailDto postDetail = postDao.findByIdAndUser(postId, principal.getUserId());
 			model.addAttribute("post", postDetail);
-			model.addAttribute("user", userDao.findById(userId));
+			if (principal != null) {
+				model.addAttribute("userImg", userDao.findById(principal.getUserId()));
+			}
 			model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리
+			model.addAttribute("user", userDao.findById(userId));
 			model.addAttribute("postList", postDao.findByUserId(userId)); // 블로그 전체게시글
 			model.addAttribute("visit", visitDao.findByVisitCount(userId));
 		}

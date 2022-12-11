@@ -128,7 +128,7 @@
     </select>
 
 	<select id="findAllPost" resultType="site.metacoding.firstapp.web.dto.response.post.PostAllDto">
-          SELECT p.post_id, p.post_title, u.username, u.user_id, p.post_thumnail, p.category_id, p.created_at
+          SELECT p.post_id, p.post_title, u.username, u.user_id, p.post_thumnail, p.category_id, p.created_at, u.nickname
 		  FROM post p
 		  INNER JOIN user u
 		  ON p.user_id = u.user_id

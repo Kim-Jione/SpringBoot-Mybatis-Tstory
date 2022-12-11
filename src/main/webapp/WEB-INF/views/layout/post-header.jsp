@@ -96,7 +96,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                         <!-- 페이지 이동 -->
                         <div class="dropdown dropleft">
                             <div data-toggle="dropdown">
-                                <img id="profileImg"  src="/img/${user.profileImg}" style="width: 80px;height:80px;border-radius: 70%;"> <!-- 사진 사이즈 조절 -->
+                                <img id="profileImg"  src="/img/${userImg.profileImg}" style="width: 80px;height:80px;border-radius: 70%;"> <!-- 사진 사이즈 조절 -->
                             </div>
 
                             <div class="dropdown-menu">
