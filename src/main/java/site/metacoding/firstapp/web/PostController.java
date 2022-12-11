@@ -1,10 +1,6 @@
 package site.metacoding.firstapp.web;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.util.List;
-import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -22,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 import lombok.RequiredArgsConstructor;
 import site.metacoding.firstapp.domain.category.CategoryDao;
 import site.metacoding.firstapp.domain.love.Love;
-import site.metacoding.firstapp.domain.post.Post;
 import site.metacoding.firstapp.domain.post.PostDao;
 import site.metacoding.firstapp.domain.user.User;
 import site.metacoding.firstapp.domain.user.UserDao;
@@ -116,7 +111,7 @@ public class PostController {
 		Integer startNum = page * 5;
 
 		if (keyword == null || keyword.isEmpty()) {
-			visitDao.countByVisit(userId);
+
 			PagingDto paging = postDao.paging(page, userId, null);
 			paging.makeBlockInfo();
 
@@ -126,13 +121,13 @@ public class PostController {
 			model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리 이동 => 공통
 			model.addAttribute("visit", visitDao.findByVisitCount(userId));
 
+			model.addAttribute("user", userDao.findById(userId));
 			if (principal != null) {
-				model.addAttribute("user", userDao.findById(principal.getUserId()));
+				model.addAttribute("userImg", userDao.findById(principal.getUserId()));
 			}
 		}
 
 		if (principal != null) {
-			visitDao.countByVisit(userId);
 			Integer subscribeId = subscribeService.구독Id불러오기(principal.getUserId(), userId); // 구독 하는 사람, 구독 받는 사람
 			model.addAttribute("subscribeId", subscribeId);
 
@@ -144,6 +139,7 @@ public class PostController {
 			model.addAttribute("paging", paging); // 페이징
 			model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리 이동 => 공통
 			model.addAttribute("user", userDao.findById(principal.getUserId()));
+			model.addAttribute("userImg", userDao.findById(principal.getUserId()));
 			model.addAttribute("visit", visitDao.findByVisitCount(userId));
 		}
 
@@ -180,8 +176,11 @@ public class PostController {
 			visitDao.countByVisit(userId);
 			PostDetailDto postDetail = postDao.findByIdAndUser(postId, principal.getUserId());
 			model.addAttribute("post", postDetail);
-			model.addAttribute("user", userDao.findById(principal.getUserId()));
+			if (principal != null) {
+				model.addAttribute("userImg", userDao.findById(principal.getUserId()));
+			}
 			model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리
+			model.addAttribute("user", userDao.findById(userId));
 			model.addAttribute("postList", postDao.findByUserId(userId)); // 블로그 전체게시글
 			model.addAttribute("visit", visitDao.findByVisitCount(userId));
 		}

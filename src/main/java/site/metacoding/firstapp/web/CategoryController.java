@@ -88,6 +88,9 @@ public class CategoryController {
 			model.addAttribute("categoryList", categoryDao.findByUserId(userId));
 			model.addAttribute("user", userDao.findById(userId)); // 사이드바 카테고리 이동 => 공통
 			model.addAttribute("visit", visitDao.findByVisitCount(userId));
+			if (principal != null) {
+				model.addAttribute("userImg", userDao.findById(principal.getUserId()));
+			}
 		} else {
 
 			List<PostAllDto> postList = postDao.findPost(categoryId, userId, startNum, keyword);
@@ -101,6 +104,9 @@ public class CategoryController {
 			model.addAttribute("categoryList", categoryDao.findByUserId(userId));
 			model.addAttribute("user", userDao.findById(userId)); // 사이드바 카테고리 이동 => 공통
 			model.addAttribute("visit", visitDao.findByVisitCount(userId));
+			if (principal != null) {
+				model.addAttribute("userImg", userDao.findById(principal.getUserId()));
+			}
 		}
 
 		return "/category/listForm";
