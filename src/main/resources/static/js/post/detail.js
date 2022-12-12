@@ -56,7 +56,7 @@ function removeCheck() {
             userId: $("#userId").val(),
         };
 
-        $.ajax("/post/" + postId, {
+        $.ajax("/s/api/post/" + postId, {
             type: "DELETE",
             dataType: "json",
             data: JSON.stringify(data),

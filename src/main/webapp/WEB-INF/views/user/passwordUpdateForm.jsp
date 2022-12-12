@@ -94,7 +94,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             password: $("#password").val(),
         };
 
-        $.ajax("/user/updatePassword", {
+        $.ajax("/s/api/user/updatePassword", {
             type: "POST",
             dataType: "json",
             data: JSON.stringify(data),
@@ -104,7 +104,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
         }).done((res) => {
             if (res.code == 1) {
                 alert("현재 비밀번호가 변경되었습니다.");
-                location.href = "/user/updateForm";
+                location.href = "/s/api/user/updateForm";
             } else {
                 alert("현재 비밀번호를 다시 확인해주세요.");
                 return false;

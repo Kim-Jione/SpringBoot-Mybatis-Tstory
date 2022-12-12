@@ -70,7 +70,7 @@ ${post.postContent}</textarea
             new Blob([JSON.stringify(data)], { type: "application/json" })
         );
 
-        $.ajax("/post/update", {
+        $.ajax("/s/api/post/update", {
             type: "PUT",
             data: formData,
             processData: false, // 쿼리스트링 방지

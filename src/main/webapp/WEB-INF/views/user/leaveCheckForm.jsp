@@ -37,13 +37,13 @@ $("#btnDelete").click(() => {
 });
 
 function leave() {
-
+  if(confirm("작성하신 게시글들이 모두 삭제됩니다. 정말 탈퇴하시겠습니까?")==true){ 
 	let data = {
 		userId: $("#userId").val(),
 		password: $("#password").val()
 	};
 
-	$.ajax("/user/leave", {
+	$.ajax("/s/api/user/leave", {
 		type: "DELETE",
 		dataType: "json", // 응답 데이터
 		data: JSON.stringify(data), // http body에 들고갈 요청 데이터
@@ -56,7 +56,7 @@ function leave() {
 		} else {
             alert("비밀번호가 맞지 않습니다.");
         }
-	});
+	});}
 }
 </script>
 <%@ include file="../layout/footer.jsp"%>

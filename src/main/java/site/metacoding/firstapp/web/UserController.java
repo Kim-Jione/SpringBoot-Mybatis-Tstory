@@ -91,18 +91,15 @@ public class UserController {
     }
 
     // 비밀번호 확인 페이지
-    @GetMapping("/user/passwordCheckForm")
+    @GetMapping("/s/api/user/passwordCheckForm")
     public String passwordCheckForm(Model model) {
         User principal = (User) session.getAttribute("principal");
-        if (principal == null) {
-            return "redirect:/user/loginForm";
-        }
         model.addAttribute("user", userDao.findById(principal.getUserId()));
         return "/user/passwordCheckForm";
     }
 
     // 비밀번호 확인 응답
-    @PostMapping("/user/checkPassword")
+    @PostMapping("/s/api/user/checkPassword")
     public @ResponseBody CMRespDto<?> passwordCheck(@RequestBody PasswordCheckDto passwordCheckDto) {
         User principal = (User) session.getAttribute("principal");
         User userPS = userDao.findByPasswordAndUserId(passwordCheckDto.getPassword(), principal.getUserId());
@@ -113,47 +110,38 @@ public class UserController {
     }
 
     // 비밀번호 수정 페이지
-    @GetMapping("/user/passwordUpdateForm")
+    @GetMapping("/s/api/user/passwordUpdateForm")
     public String passwordUpdateForm(Model model) {
         User principal = (User) session.getAttribute("principal");
-        if (principal == null) {
-            return "redirect:/user/loginForm";
-        }
         model.addAttribute("user", userDao.findById(principal.getUserId()));
         return "/user/passwordUpdateForm";
     }
 
     // 이메일 응답 페이지
-    @GetMapping("/user/emailCheckForm")
+    @GetMapping("/s/api/user/emailCheckForm")
     public String emailCheckForm(Model model) {
         User principal = (User) session.getAttribute("principal");
-        if (principal == null) {
-            return "redirect:/user/loginForm";
-        }
         model.addAttribute("user", userDao.findById(principal.getUserId()));
         return "/user/emailCheckForm";
     }
 
     // 계정 수정 페이지
-    @GetMapping("/user/updateForm")
+    @GetMapping("/s/api/user/updateForm")
     public String updateForm(Model model) {
         User principal = (User) session.getAttribute("principal");
-        if (principal == null) {
-            return "redirect:/user/loginForm";
-        }
         model.addAttribute("user", userDao.findById(principal.getUserId()));
         return "/user/updateForm";
     }
 
     // 계정 수정 응답
-    @PostMapping("/user/update")
+    @PostMapping("/s/api/user/update")
     public String update(UserUpdateDto userUpdateDto) {
         userDao.updateById(userUpdateDto);
         return "redirect:/";
     }
 
     // 프로필 수정 페이지
-    @GetMapping("/user/profileUpdateForm")
+    @GetMapping("/s/api/user/profileUpdateForm")
     public String profileUpdateForm(Model model) {
         User principal = (User) session.getAttribute("principal");
         if (principal == null) {
@@ -165,22 +153,17 @@ public class UserController {
     }
 
     // 회원 탈퇴 페이지
-    @GetMapping("/user/leaveCheckForm")
+    @GetMapping("/s/api/user/leaveCheckForm")
     public String leaveCheckForm(Model model) {
         User principal = (User) session.getAttribute("principal");
-        if (principal == null) {
-            return "redirect:/user/loginForm";
-        }
         model.addAttribute("user", userDao.findById(principal.getUserId()));
         return "/user/leaveCheckForm";
     }
 
     // 회원 탈퇴 응답
-    @DeleteMapping("/user/leave")
+    @DeleteMapping("/s/api/user/leave")
     public @ResponseBody CMRespDto<?> leave(@RequestBody LeaveDto leaveDto) {
         User principal = (User) session.getAttribute("principal");
-        System.out.println("디버그: password: " + leaveDto.getPassword());
-        System.out.println("디버그: userId: " + leaveDto.getUserId());
         User userPS = userDao.findByPasswordAndUserId(leaveDto.getPassword(), principal.getUserId());
         if (userPS != null) {
             session.invalidate();
@@ -191,7 +174,7 @@ public class UserController {
     }
 
     // 비밀번호 수정 응답
-    @PostMapping("/user/updatePassword")
+    @PostMapping("/s/api/user/updatePassword")
     public @ResponseBody CMRespDto<?> updatePassword(@RequestBody UpdatePasswordDto updatePasswordDto) {
         User principal = (User) session.getAttribute("principal");
         User userPS = userDao.findByPasswordAndUserId(updatePasswordDto.getPassword(), principal.getUserId());
@@ -204,7 +187,7 @@ public class UserController {
     }
 
     // 프로필 수정 응답
-    @PostMapping("/user/profileUpdate")
+    @PostMapping("/s/api/user/profileUpdate")
     public @ResponseBody CMRespDto<?> updateProfile(@RequestPart("file") MultipartFile file,
             @RequestPart("updateProfileDto") UpdateProfileDto updateProfileDto) throws Exception {
         int pos = file.getOriginalFilename().lastIndexOf(".");
@@ -234,7 +217,7 @@ public class UserController {
     }
 
     // 닉네임 수정 응답
-    @PostMapping("/user/updateNickname")
+    @PostMapping("/s/api/user/updateNickname")
     public @ResponseBody CMRespDto<?> updateNickname(@RequestBody UpdateNicknameDto updateNicknameDto) {
         User principal = (User) session.getAttribute("principal");
         userDao.updateByNickname(updateNicknameDto.getNicknameUpdate(), principal.getUserId());

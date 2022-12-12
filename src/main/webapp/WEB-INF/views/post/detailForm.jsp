@@ -11,7 +11,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
         <c:if test="${principal.userId==post.userId}">
             <a
                 class="btn btn-outline-warning"
-                href="/post/updateForm/${post.categoryId}/${post.postId}"
+                href="/s/api/post/updateForm/${post.categoryId}/${post.postId}"
                 style="height:38px;width: 58px;"
                 >수정</a
             >

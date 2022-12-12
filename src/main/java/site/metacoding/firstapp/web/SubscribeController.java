@@ -29,12 +29,9 @@ public class SubscribeController {
 	private final HttpSession session;
 
 	// 구독목록 페이지
-	@GetMapping("/subscribe/listForm")
+	@GetMapping("/s/api/subscribe/listForm")
 	public String ListForm(Model model) {
 		User principal = (User) session.getAttribute("principal");
-		if (principal == null) {
-			return "redirect:/user/loginForm";
-		}
 		List<PostListDto> postList = subscribeDao.findAllSubscribePost(principal.getUserId());
 		model.addAttribute("postList", postList);
 		

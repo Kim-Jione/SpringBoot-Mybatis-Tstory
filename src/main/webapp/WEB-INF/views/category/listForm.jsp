@@ -4,7 +4,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
 <div class="container">
     <c:if test="${principal.userId==category.userId}">
    <span class="btn_form">
-    <a href="/category/updateForm/${category.categoryId}">
+    <a href="/s/api/category/updateForm/${category.categoryId}">
     <span class="btn_form_update"><button id="btnUpdate" class="btn btn-outline-warning">수정</button></a></span>
     
     <span class="btn_form_delete">
@@ -103,7 +103,7 @@ function removeCheck() {
         categoryId: $("#categoryId").val()
     };
 
-    $.ajax("/category/" + categoryId, {
+    $.ajax("/s/api/category/" + categoryId, {
         type: "DELETE",
         dataType: "json",
         data: JSON.stringify(data),

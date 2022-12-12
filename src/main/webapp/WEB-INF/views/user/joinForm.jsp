@@ -1,4 +1,4 @@
- <%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
 
 <div class="container">
@@ -27,41 +27,42 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                     style="padding-left: 120px; color: red; display: none"
                 ></span>
                 <div class="password_icon">
-                <div style="display: flex">
-                    <div class="my_auth_form_box_info_security_detail">
-                        비밀번호
+                    <div style="display: flex">
+                        <div class="my_auth_form_box_info_security_detail">
+                            비밀번호
+                        </div>
+                        <input
+                            id="password"
+                            type="password"
+                            oninput="validPassword();"
+                            class="my_auth_form_box_input"
+                            placeholder="숫자, 영문, 특수문자 조합 최소 8자."
+                            maxlength="30"
+                        /><i class="fa fa-eye fa-lg"></i>
                     </div>
-                    <input
-                        id="password"
-                        type="password"
-                        oninput="validPassword();"
-                        class="my_auth_form_box_input"
-                        placeholder="숫자, 영문, 특수문자 조합 최소 8자."
-                        maxlength="30"
-                    /><i class="fa fa-eye fa-lg"></i>
-                </div>
-                <span
-                    class="passwordValid"
-                    style="padding-left: 120px; color: red; display: none"
-                ></span>
+                    <span
+                        class="passwordValid"
+                        style="padding-left: 120px; color: red; display: none"
+                    ></span>
 
-                <div style="display: flex">
-                    <div class="my_auth_form_box_info_security_detail">
-                        비밀번호 확인
+                    <div style="display: flex">
+                        <div class="my_auth_form_box_info_security_detail">
+                            비밀번호 확인
+                        </div>
+                        <input
+                            id="passwordSame"
+                            type="password"
+                            oninput="validPasswordSame();"
+                            class="my_auth_form_box_input"
+                            placeholder="숫자, 영문, 특수문자 조합 최소 8자."
+                            maxlength="30"
+                        /><i class="fa fa-eye fa-lg"></i>
                     </div>
-                    <input
-                        id="passwordSame"
-                        type="password"
-                        oninput="validPasswordSame();"
-                        class="my_auth_form_box_input"
-                        placeholder="숫자, 영문, 특수문자 조합 최소 8자."
-                        maxlength="30"
-                    /><i class="fa fa-eye fa-lg"></i>
+                    <span
+                        class="passwordSameValid"
+                        style="padding-left: 120px; color: red; display: none"
+                    ></span>
                 </div>
-                <span
-                    class="passwordSameValid"
-                    style="padding-left: 120px; color: red; display: none"
-                ></span></div>
 
                 <div style="display: flex">
                     <div class="my_auth_form_box_info_security_detail">
@@ -116,7 +117,6 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
 
     // 회원가입===========================
 
-
     function valid() {
         let username = $("#username").val();
         let password = $("#password").val();
@@ -168,7 +168,6 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
     }
 
     function join() {
-
         if (valid()) {
             alert("회원정보를 다시 확인해주세요.");
             return;

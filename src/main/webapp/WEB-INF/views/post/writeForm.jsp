@@ -67,7 +67,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             new Blob([JSON.stringify(data)], { type: "application/json" })
         );
 
-        $.ajax("/post/write", {
+        $.ajax("/s/api/post/write", {
             type: "POST",
             data: formData,
             processData: false, // 쿼리스트링 방지
