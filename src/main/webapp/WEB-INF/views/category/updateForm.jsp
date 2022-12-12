@@ -71,7 +71,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             categoryTitle: $("#categoryTitle").val(),
         };
 
-        $.ajax("/user/categoryTitle", {
+        $.ajax("/s/api/user/categoryTitle", {
             type: "PUT",
             dataType: "json",
             data: JSON.stringify(data),

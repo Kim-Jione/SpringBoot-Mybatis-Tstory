@@ -6,16 +6,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import site.metacoding.firstapp.handler.LoginIntercepter;
 
-
 @Configuration
-public class WebMvcConfig implements WebMvcConfigurer{
-	
+public class WebMvcConfig implements WebMvcConfigurer {
+
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 
 		registry.addInterceptor(new LoginIntercepter())
-		.addPathPatterns("/s/**");
-		//.addPathPatterns("/admin/**")
-		//.excludePathPatterns("/s/boards/**"); // /s/* => /s/boards, s/users     XXXX /s/boards/1
+				.addPathPatterns("/s/**"); // 주소에 s 있으면 인터셉터 발동
 	}
 }

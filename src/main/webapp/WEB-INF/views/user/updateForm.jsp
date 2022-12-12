@@ -41,7 +41,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                 </div>
                 
                 <div style="text-align: right">
-                    <a href="/user/emailCheckForm"
+                    <a href="/s/api/user/emailCheckForm"
                         ><button type="submit" class="btn btn-outline-primary">
                             이메일 변경
                         </button></a
@@ -59,7 +59,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
 
                 <div>
                     <div style="text-align: right">
-                        <a href="/user/profileUpdateForm">
+                        <a href="/s/api/user/profileUpdateForm">
                             <button
                                 type="submit"
                                 class="btn btn-outline-primary"
@@ -80,7 +80,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
 
                 <div>
                     <div style="text-align: right">
-                        <a href="/user/passwordUpdateForm">
+                        <a href="/s/api/user/passwordUpdateForm">
                             <button
                                 type="submit"
                                 class="btn btn-outline-primary"
@@ -102,7 +102,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                         위험</i
                     >
                 </div>
-                <a href="/user/leaveCheckForm">
+                <a href="/s/api/user/leaveCheckForm">
                     <div style="text-align: right">
                         <button type="submit" class="btn btn-outline-danger">
                             회원탈퇴

@@ -36,19 +36,16 @@ public class CategoryController {
 	private final HttpSession session;
 
 	// 카테고리 등록 페이지
-	@GetMapping("/category/writeForm")
+	@GetMapping("/s/api/category/writeForm")
 	public String writeForm(Model model) {
 		User principal = (User) session.getAttribute("principal");
-		if (principal == null) {
-			return "redirect:/user/loginForm";
-		}
 		model.addAttribute("user", userDao.findById(principal.getUserId()));
 		model.addAttribute("principal", principal);
 		return "/category/writeForm";
 	}
 
 	// 카테고리명 등록 응답
-	@PostMapping("/category/categoryTitle")
+	@PostMapping("/s/api/category/categoryTitle")
 	public @ResponseBody CMRespDto<?> write(@RequestBody UpdateCategoryTitleDto updateCategoryTitleDto, Model model) {
 		User principal = (User) session.getAttribute("principal");
 		if (principal != null) {
@@ -56,8 +53,8 @@ public class CategoryController {
 		}
 		CheckDto categoryPS = categoryDao.findByCategoryTitle(updateCategoryTitleDto.getCategoryTitle(),
 				principal.getUserId());
-		if(categoryPS!=null){
-		return new CMRespDto<>(-1, "실패", null);
+		if (categoryPS != null) {
+			return new CMRespDto<>(-1, "실패", null);
 
 		}
 		categoryDao.insertCategoryTitle(updateCategoryTitleDto.getCategoryTitle(), updateCategoryTitleDto.getUserId());
@@ -113,27 +110,23 @@ public class CategoryController {
 	}
 
 	// 게시글 삭제 응답
-	@DeleteMapping("/category/{categoryId}")
+	@DeleteMapping("/s/api/category/{categoryId}")
 	public @ResponseBody CMRespDto<?> delete(@PathVariable Integer categoryId) {
-		System.out.println("디버그: categoryId " + categoryId);
 		categoryDao.deleteAll(categoryId);
 		return new CMRespDto<>(1, "게시글 삭제 성공", null);
 	}
 
 	// 카테고리 수정 페이지
-	@GetMapping("/category/updateForm/{categoryId}")
+	@GetMapping("/s/api/category/updateForm/{categoryId}")
 	public String updateForm(Model model, @PathVariable Integer categoryId) {
 		User principal = (User) session.getAttribute("principal");
-		if (principal == null) {
-			return "redirect:/user/loginForm";
-		}
 		model.addAttribute("user", userDao.findById(principal.getUserId()));
 		model.addAttribute("category", categoryDao.findByCategoryTitleId(categoryId, principal.getUserId()));
 		return "/category/updateForm";
 	}
 
 	// 카테고리명 수정 응답
-	@PutMapping("/user/categoryTitle")
+	@PutMapping("/s/api/user/categoryTitle")
 	public @ResponseBody CMRespDto<?> update(@RequestBody UpdateCategoryTitleDto updateCategoryTitleDto) {
 		categoryDao.updateCategoryTitle(updateCategoryTitleDto.getCategoryTitle(), updateCategoryTitleDto.getUserId(),
 				updateCategoryTitleDto.getCategoryId());

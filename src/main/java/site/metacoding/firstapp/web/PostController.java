@@ -44,12 +44,9 @@ public class PostController {
 	private final SubscribeService subscribeService;
 
 	// 게시글 수정하기 페이지
-	@GetMapping("/post/updateForm/{categoryId}/{postId}")
+	@GetMapping("/s/api/post/updateForm/{categoryId}/{postId}")
 	public String updateForm(@PathVariable Integer categoryId, @PathVariable Integer postId, Model model) {
 		User principal = (User) session.getAttribute("principal");
-		if (principal == null) {
-			return "redirect:/user/loginForm";
-		}
 		PostUpdateDto postUpdateDto = postDao.findByIdUpdate(postId, categoryId, principal.getUserId());
 		List<HeaderDto> titleDto = categoryDao.findByUserId(principal.getUserId());
 		model.addAttribute("user", userDao.findById(principal.getUserId()));
@@ -59,27 +56,20 @@ public class PostController {
 	}
 
 	// 게시글 수정 응답
-	@PutMapping("/post/update")
+	@PutMapping("/s/api/post/update")
 	public @ResponseBody CMRespDto<?> update(
 			@RequestPart("file") MultipartFile file,
 			@RequestPart("postUpdateDto") PostUpdateDto postUpdateDto) throws Exception {
 
 		User principal = (User) session.getAttribute("principal");
-		if (principal == null) {
-			return new CMRespDto<>(-1, "게시글 수정 실패", null);
-
-		}
 		postService.게시글수정하기(postUpdateDto, principal.getUserId(), file);
 		return new CMRespDto<>(1, "게시글 수정 성공", null);
 	}
 
 	// 게시글 등록 페이지
-	@GetMapping("/post/writeForm")
+	@GetMapping("/s/api/post/writeForm")
 	public String writeForm(Model model) {
 		User principal = (User) session.getAttribute("principal");
-		if (principal == null) {
-			return "redirect:/user/loginForm";
-		}
 		List<HeaderDto> titleDto = categoryDao.findByUserId(principal.getUserId());
 		model.addAttribute("user", userDao.findById(principal.getUserId()));
 		model.addAttribute("titleList", titleDto);
@@ -87,14 +77,11 @@ public class PostController {
 	}
 
 	// 게시글 등록 응답
-	@PostMapping("/post/write")
+	@PostMapping("/s/api/post/write")
 	public @ResponseBody CMRespDto<?> write(@RequestPart("file") MultipartFile file,
 			@RequestPart("postSaveDto") PostSaveDto postSaveDto) throws Exception {
 
 		User principal = (User) session.getAttribute("principal");
-		if (principal == null) {
-			return new CMRespDto<>(-1, "게시글 등록 실패", null);
-		}
 		postService.게시글등록하기(postSaveDto, principal.getUserId(), file);
 		return new CMRespDto<>(1, "게시글 등록 성공", null);
 	}
@@ -138,7 +125,7 @@ public class PostController {
 			model.addAttribute("postCount", postDao.postCount(userId, keyword)); // 전체게시글 개수
 			model.addAttribute("paging", paging); // 페이징
 			model.addAttribute("categoryList", categoryDao.findByUserId(userId)); // 사이드바 카테고리 이동 => 공통
-			model.addAttribute("user", userDao.findById(principal.getUserId()));
+			model.addAttribute("user", userDao.findById(userId));
 			model.addAttribute("userImg", userDao.findById(principal.getUserId()));
 			model.addAttribute("visit", visitDao.findByVisitCount(userId));
 		}
@@ -188,7 +175,7 @@ public class PostController {
 	}
 
 	// 게시글 삭제 응답
-	@DeleteMapping("/post/{postId}")
+	@DeleteMapping("/s/api/post/{postId}")
 	public @ResponseBody CMRespDto<?> delete(@PathVariable Integer postId) {
 		postDao.delete(postId);
 		return new CMRespDto<>(1, "게시글 삭제 성공", null);

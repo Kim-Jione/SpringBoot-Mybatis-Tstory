@@ -25,13 +25,13 @@ public class LoginIntercepter implements HandlerInterceptor {
         User principal = (User) session.getAttribute("principal");
         if (principal == null) {
             if (uri.contains("api")) {
-                
                 response.setContentType("application/json; charset=utf-8");
                 PrintWriter out = response.getWriter();
                 CMRespDto<?> cmRespDto = new CMRespDto<>(-1, "로그인을 진행해주세요", null);
                 ObjectMapper om = new ObjectMapper();
                 String json = om.writeValueAsString(cmRespDto);
                 out.println(json);
+                response.sendRedirect("/user/loginForm");
             } else {
                 System.out.println("디버그: API 가 주소에 없음");
                 response.sendRedirect("/user/loginForm");

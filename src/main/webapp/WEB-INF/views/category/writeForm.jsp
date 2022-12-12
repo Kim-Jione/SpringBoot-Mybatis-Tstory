@@ -39,13 +39,13 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
     });
 
     function write() {
-        if (isCheckCategoryTitle == false) {
-            alert("이미 존재하는 카테고리명입니다.");
+        if (validCategoryTitle()) {
+            alert("카테고리 입력정보를 다시 확인해주세요.");
             return;
         }
 
-        if (validCategoryTitle()) {
-            alert("카테고리 입력정보를 다시 확인해주세요.");
+        if (isCheckCategoryTitle == false) {
+            alert("이미 존재하는 카테고리명입니다.");
             return;
         }
 
@@ -54,7 +54,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             categoryTitle: $("#categoryTitle").val(),
         };
 
-        $.ajax("/category/categoryTitle", {
+        $.ajax("/s/api/category/categoryTitle", {
             type: "POST",
             dataType: "json",
             data: JSON.stringify(data),

@@ -105,7 +105,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                         <img id="profileImg"  src="/img/${user.profileImg}" style="width: 80px;height:80px;border-radius: 70%;"> <!-- 사진 사이즈 조절 -->
                     </div>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="/subscribe/listForm"
+                        <a class="dropdown-item" href="/s/api/subscribe/listForm"
                             >구독관리</a
                         >
                         <a
@@ -113,10 +113,10 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                             href="/post/listForm/${principal.userId}"
                             >내블로그</a
                         >
-                        <a class="dropdown-item" href="/user/passwordCheckForm"
+                        <a class="dropdown-item" href="/s/api/user/passwordCheckForm"
                             >계정관리</a
                         >
-                        <a class="dropdown-item" href="/category/writeForm"
+                        <a class="dropdown-item" href="/s/api/category/writeForm"
                             >카테고리등록</a
                         >
                         <a class="dropdown-item" href="/user/logout"

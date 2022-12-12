@@ -116,7 +116,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             new Blob([JSON.stringify(data)], { type: "application/json" })
         );
 
-        $.ajax("/user/profileUpdate", {
+        $.ajax("/s/api/user/profileUpdate", {
             type: "POST",
             data: formData,
             processData: false,
@@ -125,7 +125,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
         }).done((res) => {
             if (res.code == 1) {
                 alert("이미지가 변경되었습니다.");
-                location.href = "/user/updateForm";
+                location.href = "/s/api/user/profileUpdateForm";
             } else {
                 alert("이미지 파일을 다시 확인해주세요.");
                 return false;
@@ -147,7 +147,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             nickname: $("#nickname").val(),
             nicknameUpdate: $("#nicknameUpdate").val(),
         };
-        $.ajax("/user/updateNickname", {
+        $.ajax("/s/api/user/updateNickname", {
             type: "POST",
             dataType: "json",
             data: JSON.stringify(data),
@@ -157,7 +157,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
         }).done((res) => {
             if (res.code == 1) {
                 alert("닉네임이 변경되었습니다.");
-                location.href = "/user/updateForm";
+                location.href = "/s/api/user/profileUpdateForm";
             } else {
                 alert("닉네임 정보를 다시 확인해주세요.");
             }

@@ -43,7 +43,7 @@ function leave() {
 		password: $("#password").val()
 	};
 
-	$.ajax("/user/leave", {
+	$.ajax("/s/api/user/leave", {
 		type: "DELETE",
 		dataType: "json", // 응답 데이터
 		data: JSON.stringify(data), // http body에 들고갈 요청 데이터
