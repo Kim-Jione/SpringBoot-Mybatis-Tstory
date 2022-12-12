@@ -14,7 +14,7 @@ import site.metacoding.firstapp.domain.user.UserDao;
 @RequiredArgsConstructor
 @Controller
 public class MainController {
-    private final HttpSession session;
+	private final HttpSession session;
 	private final PostDao postDao;
 	private final UserDao userDao;
 
@@ -23,8 +23,9 @@ public class MainController {
 	public String mainForm(Model model, String keyword) {
 		User principal = (User) session.getAttribute("principal");
 		if (principal != null) {
-		model.addAttribute("user", userDao.findById(principal.getUserId()));
-	}
+			model.addAttribute("userImg", userDao.findById(principal.getUserId()));
+			model.addAttribute("user", userDao.findById(principal.getUserId()));
+		}
 
 		if (keyword == null || keyword.isEmpty()) {
 			model.addAttribute("postList", postDao.findAllAndUsername());
