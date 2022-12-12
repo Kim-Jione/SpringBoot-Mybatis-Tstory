@@ -12,7 +12,6 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             </div>
             <div class="d-flex justify-content-center">
                 <div id="imageContainer"></div>
-                
             </div>
             <input
                 type="file"
@@ -21,16 +20,17 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                 onchange="setThumbnail(event)
                 "
             />
-            <br /><br /><div style="text-align: right">
-                    <button
-                        id="imgSaveBtn"
-                        type="submit"
-                        class="btn btn-outline-primary"
-                        onclick="profileUpdate()"
-                    >
-                        이미지 변경
-                    </button>
-                </div>
+            <br /><br />
+            <div style="text-align: right">
+                <button
+                    id="imgSaveBtn"
+                    type="submit"
+                    class="btn btn-outline-primary"
+                    onclick="profileUpdate()"
+                >
+                    이미지 변경
+                </button>
+            </div>
 
             <!-- 계정정보 -->
             <div>
@@ -103,6 +103,10 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
     }
 
     function profileUpdate() {
+        if ($("#file")[0].files[0] == null) {
+            alert("변경할 이미지를 선택 해주셔야 합니다.");
+            return;
+        }
 
         let formData = new FormData();
 
@@ -133,41 +137,44 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
         });
     }
 
-     function updateNickname() {
+    function updateNickname() {
         if (isCheckNickname == false) {
             alert("이미 사용중인 닉네임입니다.");
             return;
         }
-        
+
         if (validNickname()) {
             alert("닉네임 정보를 다시 확인해주세요.");
             return;
         }
-        let data = {
-            nickname: $("#nickname").val(),
-            nicknameUpdate: $("#nicknameUpdate").val(),
-        };
-        $.ajax("/s/api/user/updateNickname", {
-            type: "POST",
-            dataType: "json",
-            data: JSON.stringify(data),
-            headers: {
-                "Content-Type": "application/json; charset=utf-8",
-            },
-        }).done((res) => {
-            if (res.code == 1) {
-                alert("닉네임이 변경되었습니다.");
-                location.href = "/s/api/user/profileUpdateForm";
-            } else {
-                alert("닉네임 정보를 다시 확인해주세요.");
-            }
-        });
+        if (confirm("닉네임을 변경하시겠습니까?") == true) {
+            let data = {
+                nickname: $("#nickname").val(),
+                nicknameUpdate: $("#nicknameUpdate").val(),
+            };
+            $.ajax("/s/api/user/updateNickname", {
+                type: "POST",
+                dataType: "json",
+                data: JSON.stringify(data),
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8",
+                },
+            }).done((res) => {
+                if (res.code == 1) {
+                    alert("닉네임이 변경되었습니다.");
+                    location.href = "/s/api/user/profileUpdateForm";
+                } else {
+                    alert("닉네임 정보를 다시 확인해주세요.");
+                }
+            });
+        }
     }
 
     function checkNickname() {
         let data = {
             nickname: $("#nicknameUpdate").val(),
         };
+
         $.ajax("/check/nickname", {
             type: "POST",
             dataType: "json",
