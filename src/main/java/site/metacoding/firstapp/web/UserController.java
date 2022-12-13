@@ -21,7 +21,9 @@ import lombok.RequiredArgsConstructor;
 import site.metacoding.firstapp.domain.user.User;
 import site.metacoding.firstapp.domain.user.UserDao;
 import site.metacoding.firstapp.service.UserService;
+import site.metacoding.firstapp.utill.SHA256;
 import site.metacoding.firstapp.web.dto.CMRespDto;
+import site.metacoding.firstapp.web.dto.request.MailReqDto;
 import site.metacoding.firstapp.web.dto.request.user.JoinDto;
 import site.metacoding.firstapp.web.dto.request.user.LeaveDto;
 import site.metacoding.firstapp.web.dto.request.user.LoginDto;
@@ -30,7 +32,6 @@ import site.metacoding.firstapp.web.dto.request.user.UpdateNicknameDto;
 import site.metacoding.firstapp.web.dto.request.user.UpdatePasswordDto;
 import site.metacoding.firstapp.web.dto.request.user.UpdateProfileDto;
 import site.metacoding.firstapp.web.dto.request.user.UserUpdateDto;
-import site.metacoding.firstapp.web.dto.request.MailReqDto;
 import site.metacoding.firstapp.web.dto.response.MailRespDto;
 
 @RequiredArgsConstructor
@@ -49,6 +50,7 @@ public class UserController {
     // 회원가입 응답
     @PostMapping("/user/join")
     public @ResponseBody CMRespDto<?> join(@RequestBody JoinDto joinDto) {
+        System.out.println("디버그 : 컨트롤러 도착");
         userService.회원가입(joinDto);
         return new CMRespDto<>(1, "회원가입성공", null);
     }
@@ -155,8 +157,8 @@ public class UserController {
             return "redirect:/user/loginForm";
         }
         User userPS = userDao.findById(principal.getUserId());
-            model.addAttribute("userImg", userDao.findById(principal.getUserId()));
-            model.addAttribute("user", userPS);
+        model.addAttribute("userImg", userDao.findById(principal.getUserId()));
+        model.addAttribute("user", userPS);
         return "/user/profileUpdateForm";
     }
 

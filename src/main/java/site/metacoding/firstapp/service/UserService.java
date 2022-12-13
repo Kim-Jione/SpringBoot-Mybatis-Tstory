@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import site.metacoding.firstapp.domain.category.CategoryDao;
 import site.metacoding.firstapp.domain.user.User;
 import site.metacoding.firstapp.domain.user.UserDao;
+import site.metacoding.firstapp.utill.SHA256;
 import site.metacoding.firstapp.web.dto.request.user.CheckDto;
 import site.metacoding.firstapp.web.dto.request.user.JoinDto;
 import site.metacoding.firstapp.web.dto.request.user.UpdateProfileDto;
@@ -26,11 +27,16 @@ public class UserService {
 	private final HttpSession session;
 	private final JavaMailSender mailSender;
 	private final CategoryDao categoryDao;
+	private final SHA256 sha256;
 
 	@Transactional
 	public void 회원가입(JoinDto joinDto) {
-		User user = joinDto.toEntity();
-		userDao.insert(user);
+		String encPassword = sha256.encrypt(joinDto.getPassword());
+		System.out.println("디버그 암호화된 비밀번호 : " + encPassword);
+		joinDto.setPassword(encPassword); // 회원가입으로 받은 비밀번호 암호화
+		System.out.println("디버그 암호화 됐니? : " + joinDto.getPassword());
+		userDao.insert(joinDto.toEntity());
+		System.out.println("디버그 DB 추가완료");
 	}
 
 	public boolean 유저네임중복확인(String username) {
@@ -150,7 +156,7 @@ public class UserService {
 	}
 
 	public void 게시글수정하기(UserUpdateDto userUpdateDto) {
-        userDao.updateById(userUpdateDto);
+		userDao.updateById(userUpdateDto);
 	}
 
 }
