@@ -8,9 +8,10 @@ import lombok.Setter;
 public class PostUpdateDto {
 	private Integer postId;
 	private Integer categoryId;
-	private String categoryTitle; 
+	private String categoryTitle;
 	private String postTitle;
 	private String postContent;
 	private String postThumnail;
 	private Integer userId;
+	private String noFile; // 썸네일 수정 안할때!
 }

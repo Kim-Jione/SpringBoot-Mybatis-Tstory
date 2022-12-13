@@ -37,6 +37,7 @@ ${post.postContent}</textarea
         <div>
             섬네일 사진 등록 :
             <input type="file" id="file"/>
+            <input type="hidden" id="noFile" value="${post.postThumnail}">
         </div>
     </div>
     <div  style="display: flex;justify-content: right;">
@@ -65,7 +66,7 @@ ${post.postContent}</textarea
         }
 
 
-        if ($("#file")[0].files[0] == null) {
+        if ($("#file")[0].files[0] == null) { // 썸네일 수정 안할때
        
             let data = {
             categoryId: $("#categoryId").val(),
@@ -73,6 +74,7 @@ ${post.postContent}</textarea
             userId: $("#userId").val(),
             postTitle: $("#postTitle").val(),
             postContent: $("#postContent").val(),
+            noFile: $("#noFile").val()
         };
 
          $.ajax("/s/api/post/update/noImg", {

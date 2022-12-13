@@ -71,7 +71,7 @@ public class PostController {
 	// 썸네일 없는 게시글 수정 응답
 	@PutMapping("/s/api/post/update/noImg")
 	public @ResponseBody CMRespDto<?> updateNoImg(@RequestBody PostUpdateDto postUpdateDto) {
-
+		System.out.println("디버그 getNoFile : " + postUpdateDto.getNoFile());
 		User principal = (User) session.getAttribute("principal");
 		postService.썸네일없는게시글로수정하기(postUpdateDto, principal.getUserId());
 		return new CMRespDto<>(1, "썸네일없는게시글 수정 성공", null);

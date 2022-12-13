@@ -70,6 +70,15 @@
 		  WHERE post_id = #{postId} AND user_id = #{userId}
     </update>
 
+	<update id="insertNoUpdate">
+         UPDATE post
+		  SET post_title =#{postTitle},
+		  post_content = #{postContent},
+		  post_thumnail = #{noFile},
+		  category_id = #{categoryId}
+		  WHERE post_id = #{postId} AND user_id = #{userId}
+    </update>
+
 
     <insert id="insertSave">
           INSERT

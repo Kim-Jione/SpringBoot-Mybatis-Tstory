@@ -100,6 +100,6 @@ public class PostService {
 	}
 
 	public void 썸네일없는게시글로수정하기(PostUpdateDto postUpdateDto, Integer userId) {
-		postDao.insertUpdate(postUpdateDto);
+		postDao.insertNoUpdate(postUpdateDto);
 	}
 }

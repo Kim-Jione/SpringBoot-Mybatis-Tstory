@@ -29,6 +29,8 @@ public interface PostDao {
 
 	public void insertUpdate(PostUpdateDto postUpdateDto);
 
+	public void insertNoUpdate(PostUpdateDto postUpdateDto);
+
 	public PostUpdateDto findByIdUpdate(@Param("postId") Integer postId, @Param("categoryId") Integer categoryId,
 			@Param("userId") Integer userId); // 누구의 카테코리의 페이지를 수정
 
@@ -36,14 +38,15 @@ public interface PostDao {
 
 	public List<PostAllDto> findAllAndUsername();
 
-	public PostDetailDto findByIdAndUser(@Param("postId")Integer postId, @Param("userId")Integer userId);
+	public PostDetailDto findByIdAndUser(@Param("postId") Integer postId, @Param("userId") Integer userId);
 
 	public List<PostAllDto> findAllPost(@Param("userId") Integer userId, @Param("keyword") String keyword,
 			@Param("startNum") Integer startNum);
 
 	public Post postCount(@Param("userId") Integer userId, @Param("keyword") String keyword);
 
-	public Post categoryCount(@Param("categoryId") Integer categoryId, @Param("keyword") String keyword, @Param("userId") Integer userId);
+	public Post categoryCount(@Param("categoryId") Integer categoryId, @Param("keyword") String keyword,
+			@Param("userId") Integer userId);
 
 	public List<KeywordDto> findSearchAllPost(String keyword);
 
@@ -55,6 +58,5 @@ public interface PostDao {
 
 	public PagingDto paging(@Param("page") Integer page, @Param("userId") Integer userId,
 			@Param("keyword") String keyword);
-
 
 }
