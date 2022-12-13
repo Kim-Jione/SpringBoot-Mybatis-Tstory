@@ -27,7 +27,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             <div class="my_auth_form_box_link">
                 <div><a href="/user/joinForm">회원가입</a></div>
                 <div>
-                    <a href="/user/passwordResetForm">비밀번호 찾기</a>
+                    <a href="/user/passwordResetForm">아이디/비밀번호 찾기</a>
                 </div>
             </div>
         </div>
