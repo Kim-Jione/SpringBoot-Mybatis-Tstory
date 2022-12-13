@@ -16,6 +16,7 @@ import site.metacoding.firstapp.domain.user.UserDao;
 import site.metacoding.firstapp.web.dto.request.user.CheckDto;
 import site.metacoding.firstapp.web.dto.request.user.JoinDto;
 import site.metacoding.firstapp.web.dto.request.user.UpdateProfileDto;
+import site.metacoding.firstapp.web.dto.request.user.UserUpdateDto;
 import site.metacoding.firstapp.web.dto.response.MailRespDto;
 
 @RequiredArgsConstructor
@@ -146,6 +147,10 @@ public class UserService {
 		message.setText("인증 번호 : " + key);
 		mailSender.send(message);
 
+	}
+
+	public void 게시글수정하기(UserUpdateDto userUpdateDto) {
+        userDao.updateById(userUpdateDto);
 	}
 
 }

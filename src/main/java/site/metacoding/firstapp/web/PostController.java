@@ -51,6 +51,7 @@ public class PostController {
 		List<HeaderDto> titleDto = categoryDao.findByUserId(principal.getUserId());
 		model.addAttribute("user", userDao.findById(principal.getUserId()));
 		model.addAttribute("titleList", titleDto);
+		model.addAttribute("userImg", userDao.findById(principal.getUserId()));
 		model.addAttribute("post", postUpdateDto);
 		return "/post/updateForm";
 	}
@@ -72,6 +73,7 @@ public class PostController {
 		User principal = (User) session.getAttribute("principal");
 		List<HeaderDto> titleDto = categoryDao.findByUserId(principal.getUserId());
 		model.addAttribute("user", userDao.findById(principal.getUserId()));
+		model.addAttribute("userImg", userDao.findById(principal.getUserId()));
 		model.addAttribute("titleList", titleDto);
 		return "/post/writeForm";
 	}
