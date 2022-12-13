@@ -13,6 +13,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	public void addInterceptors(InterceptorRegistry registry) {
 
 		registry.addInterceptor(new LoginIntercepter())
-				.addPathPatterns("/s/*"); // 주소에 s 있으면 인터셉터 발동
+				.addPathPatterns("/s/**"); // 주소에 s 있으면 인터셉터 발동
 	}
 }
