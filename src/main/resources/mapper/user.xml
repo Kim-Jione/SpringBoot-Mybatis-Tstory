@@ -54,10 +54,10 @@
     </select>
 
 
-	<select id="findByUsername" resultType="site.metacoding.firstapp.web.dto.request.user.CheckDto">
+	<select id="findByUsername" resultType="site.metacoding.firstapp.domain.user.User">
         SELECT username
 		FROM user
-		WHERE username = #{username}
+		WHERE email = #{email}
     </select>
 
     <select id="findByNickname"  resultType="site.metacoding.firstapp.web.dto.request.user.CheckDto">
@@ -97,6 +97,19 @@
           UPDATE user
 		  SET profile_img = #{profileImg}
 		  WHERE user_id = #{userId}
+    </update>
+
+	<select id="findByUserEmail"  resultType="Integer">
+        SELECT user_id
+		FROM user
+		WHERE email = #{email}
+    </select>
+
+	<update id="passwordUpdate">
+        UPDATE user
+		SET 
+		password = #{passwordUpdate}
+		WHERE user_id=#{userId}
     </update>
 
 </mapper>
