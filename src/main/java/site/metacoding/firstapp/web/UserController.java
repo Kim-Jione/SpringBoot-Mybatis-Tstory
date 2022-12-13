@@ -30,6 +30,8 @@ import site.metacoding.firstapp.web.dto.request.user.UpdateNicknameDto;
 import site.metacoding.firstapp.web.dto.request.user.UpdatePasswordDto;
 import site.metacoding.firstapp.web.dto.request.user.UpdateProfileDto;
 import site.metacoding.firstapp.web.dto.request.user.UserUpdateDto;
+import site.metacoding.firstapp.web.dto.request.MailReqDto;
+import site.metacoding.firstapp.web.dto.response.MailRespDto;
 
 @RequiredArgsConstructor
 @Controller
@@ -95,6 +97,7 @@ public class UserController {
     public String passwordCheckForm(Model model) {
         User principal = (User) session.getAttribute("principal");
         model.addAttribute("user", userDao.findById(principal.getUserId()));
+        model.addAttribute("userImg", userDao.findById(principal.getUserId()));
         return "/user/passwordCheckForm";
     }
 
@@ -224,4 +227,16 @@ public class UserController {
         return new CMRespDto<>(1, "성공", null);
     }
 
+    // 아이디/임시비밀번호 보내기
+    @PostMapping("/user/sendPassword")
+    public @ResponseBody CMRespDto<?> sendPassword(@RequestBody MailReqDto mailReqDto) {
+        Integer userPS = userDao.findByUserEmail(mailReqDto.getEmail()); // DB에 unique 걸기
+        if (userPS == null) {
+            return new CMRespDto<>(-1, "해당 이메일이 존재하지 않습니다.", null);
+        }
+        MailRespDto mailDto = userService.임시비밀번호만들기(mailReqDto.getEmail());
+        // System.out.println("디버그 getAddress : " + mailDto.getAddress());
+        userService.이메일보내기(mailDto);
+        return new CMRespDto<>(1, "아이디/임시 비밀번호 보내기 성공", null);
+    }
 }

@@ -18,15 +18,13 @@ public interface UserDao {
 
 	public void delete(User user);
 
-
 	public User login(LoginDto loginDto);
 
 	public void updateById(UserUpdateDto userUpdateDto);
 
 	public User findByPasswordAndUserId(@Param("password") String password, @Param("userId") Integer userId);
 
-	public CheckDto findByUsername(String username);
-
+	public User findByUsername(String username);
 
 	public CheckDto findByEmail(String email);
 
@@ -34,10 +32,14 @@ public interface UserDao {
 
 	public void leave(Integer userId);
 
-	public void updateByPassword(@Param("passwordUpdate")String passwordUpdate, @Param("userId")Integer userId);
+	public void updateByPassword(@Param("passwordUpdate") String passwordUpdate, @Param("userId") Integer userId);
 
 	public void updateByNickname(@Param("nicknameUpdate") String nicknameUpdate, @Param("userId") Integer userId);
 
 	public void updateByProfileImage(@Param("profileImg") String profileImg, @Param("userId") Integer userId);
+
+	public Integer findByUserEmail(String email);
+
+	public void passwordUpdate(@Param("passwordUpdate") String passwordUpdate, @Param("userId") Integer userId);
 
 }

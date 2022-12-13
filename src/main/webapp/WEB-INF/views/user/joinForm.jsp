@@ -77,6 +77,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                         maxlength="20"
                     />
                 </div>
+                <div style="padding-left: 120px;">*계정 분실 시 본인인증 정보로 활용됩니다.</div>
                 <span
                     class="nicknameValid"
                     style="padding-left: 120px; color: red; display: none"
@@ -103,7 +104,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             </form>
             <div class="my_auth_form_box_link">
                 <div><a href="/user/loginForm">로그인</a></div>
-                <div><a href="/user/passwordResetForm">비밀번호 찾기</a></div>
+                <div><a href="/user/passwordResetForm">아이디/비밀번호 찾기</a></div>
             </div>
         </div>
     </div>
