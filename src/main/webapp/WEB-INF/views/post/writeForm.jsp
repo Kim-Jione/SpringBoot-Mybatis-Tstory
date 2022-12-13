@@ -48,10 +48,25 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
     });
 
     function write() {
+
+        let postTitle = $("#postTitle").val();
+
+          if (postTitle.length<1) {
+            alert("제목을 입력해주셔야 합니다.");
+            return;
+        }
+
+        if (postContent.length<1) {
+            alert("내용을 입력해주셔야 합니다.");
+            return;
+        }
+
         if ($("#file")[0].files[0] == null) {
             alert("썸네일을 등록해주셔야 합니다.");
             return;
         }
+
+    
 
         let formData = new FormData();
         let data = {
