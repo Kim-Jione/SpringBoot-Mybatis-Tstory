@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -86,6 +87,15 @@ public class PostController {
 		User principal = (User) session.getAttribute("principal");
 		postService.게시글등록하기(postSaveDto, principal.getUserId(), file);
 		return new CMRespDto<>(1, "게시글 등록 성공", null);
+	}
+
+	// 이미지 없는 게시글 등록 응답
+	@PostMapping("/s/api/post/write/noImg")
+	public @ResponseBody CMRespDto<?> writeNoImg(@RequestBody PostSaveDto postSaveDto) {
+
+		User principal = (User) session.getAttribute("principal");
+		postService.이미지없는게시글등록하기(postSaveDto, principal.getUserId());
+		return new CMRespDto<>(1, "이미지없는 게시글 등록 성공", null);
 	}
 
 	// 블로그 전체 게시글 목록 페이지

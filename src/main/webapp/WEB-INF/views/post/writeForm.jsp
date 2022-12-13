@@ -50,6 +50,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
     function write() {
 
         let postTitle = $("#postTitle").val();
+        let postContent = $("#postContent").val();
 
           if (postTitle.length<1) {
             alert("제목을 입력해주셔야 합니다.");
@@ -62,8 +63,30 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
         }
 
         if ($("#file")[0].files[0] == null) {
-            alert("썸네일을 등록해주셔야 합니다.");
-            return;
+             let data = {
+            categoryId: $("#categoryId").val(),
+            userId: $("#userId").val(),
+            postTitle: $("#postTitle").val(),
+            postContent: $("#postContent").val(),
+        };
+
+        $.ajax("/s/api/post/write/noImg", {
+             type: "POST",
+            dataType: "json",
+            data: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }).done((res) => {
+            if (res.code == 1) {
+                console.log("asdasd");
+                alert("게시글이 등록되었습니다.");
+                location.href = "/";
+            } else {
+                alert("게시글 입력 정보를 다시 확인해주세요.");
+                return false;
+            }
+        });
         }
 
     

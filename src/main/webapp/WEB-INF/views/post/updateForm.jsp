@@ -50,6 +50,21 @@ ${post.postContent}</textarea
     });
 
     function update() {
+
+        let postTitle = $("#postTitle").val();
+        let postContent = $("#postContent").val();
+
+          if (postTitle.length<1) {
+            alert("제목을 입력해주셔야 합니다.");
+            return;
+        }
+
+        if (postContent.length<1) {
+            alert("내용을 입력해주셔야 합니다.");
+            return;
+        }
+
+
         if ($("#file")[0].files[0] == null) {
             alert("수정할 썸네일을 등록해주셔야 합니다.");
             return;

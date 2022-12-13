@@ -94,4 +94,8 @@ public class PostService {
 		postUpdateDto.setPostThumnail(imgName);
 		postDao.insertUpdate(postUpdateDto);
 	}
+
+	public void 이미지없는게시글등록하기(PostSaveDto postSaveDto, Integer userId) {
+		postDao.insertSave(postSaveDto);
+	}
 }
