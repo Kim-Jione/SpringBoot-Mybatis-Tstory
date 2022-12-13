@@ -40,6 +40,7 @@ public class CategoryController {
 	public String writeForm(Model model) {
 		User principal = (User) session.getAttribute("principal");
 		model.addAttribute("user", userDao.findById(principal.getUserId()));
+		model.addAttribute("userImg", userDao.findById(principal.getUserId()));
 		model.addAttribute("principal", principal);
 		return "/category/writeForm";
 	}
