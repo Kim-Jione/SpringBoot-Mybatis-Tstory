@@ -168,7 +168,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                     <div class="bd-sidebar-body">
                         <ul class="nav">
                             <li style="padding-top: 30px;padding-left: 30px;">
-                                구독한 블로그 목록
+                                구독
                             </li>
                             <c:forEach var="subscribe" items="${subscribeList}">
                                 <li style="padding-left: 30px;padding-top: 10px;">

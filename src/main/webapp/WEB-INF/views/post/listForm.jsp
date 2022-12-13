@@ -112,16 +112,17 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
                 $("#subscribeBtn").addClass("greyBtn");
                 $("#subscribeBtn").text("구독");
             } 
+             if(res.code==-1){
+            alert(res.msg);
+            location.href = "/user/loginForm";
+            }
             else {
                 $("#subscribeBtn").removeClass("greyBtn");
                 $("#subscribeBtn").addClass("blackBtn");
                 $("#subscribeBtn").text("구독중");
             }
 
-             if(res.code==-1){
-            alert(res.msg);
-            location.href = "/user/loginForm";
-            }
+            
         });
     });
 

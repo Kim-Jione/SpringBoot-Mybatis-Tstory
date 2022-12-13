@@ -36,7 +36,7 @@ ${post.postContent}</textarea
     <div class="form-control d-flex justify-content-end">
         <div>
             섬네일 사진 등록 :
-            <input type="file" id="file" value="${post.postThumnail}"/>
+            <input type="file" id="file"/>
         </div>
     </div>
     <div  style="display: flex;justify-content: right;">
