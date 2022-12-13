@@ -94,4 +94,12 @@ public class PostService {
 		postUpdateDto.setPostThumnail(imgName);
 		postDao.insertUpdate(postUpdateDto);
 	}
+
+	public void 썸네일없는게시글등록하기(PostSaveDto postSaveDto, Integer userId) {
+		postDao.insertSave(postSaveDto);
+	}
+
+	public void 썸네일없는게시글로수정하기(PostUpdateDto postUpdateDto, Integer userId) {
+		postDao.insertNoUpdate(postUpdateDto);
+	}
 }

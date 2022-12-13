@@ -34,7 +34,7 @@ public class SubscribeController {
 		User principal = (User) session.getAttribute("principal");
 		List<PostListDto> postList = subscribeDao.findAllSubscribePost(principal.getUserId());
 		model.addAttribute("postList", postList);
-		
+
 		List<UserListDto> subscribeList = subscribeDao.findByUserList(principal.getUserId());
 		model.addAttribute("user", userDao.findById(principal.getUserId()));
 		model.addAttribute("subscribeList", subscribeList);
@@ -45,6 +45,7 @@ public class SubscribeController {
 	@PostMapping("/s/api/subscribe/{usersId}")
 	public @ResponseBody CMRespDto<Integer> companySubscribe(@PathVariable Integer usersId, Model model) {
 		User principal = (User) session.getAttribute("principal");
+
 		Integer subscribeId = subscribeService.구독Id불러오기(principal.getUserId(), usersId);
 
 		if (subscribeId == null) {

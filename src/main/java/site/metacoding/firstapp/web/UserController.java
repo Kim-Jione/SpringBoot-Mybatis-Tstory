@@ -88,6 +88,7 @@ public class UserController {
         User principal = (User) session.getAttribute("principal");
         if (principal != null) {
             model.addAttribute("user", userDao.findById(principal.getUserId()));
+            model.addAttribute("userImg", userDao.findById(principal.getUserId()));
         }
         return "/user/passwordResetForm";
     }
@@ -116,15 +117,17 @@ public class UserController {
     @GetMapping("/s/api/user/passwordUpdateForm")
     public String passwordUpdateForm(Model model) {
         User principal = (User) session.getAttribute("principal");
+        model.addAttribute("userImg", userDao.findById(principal.getUserId()));
         model.addAttribute("user", userDao.findById(principal.getUserId()));
         return "/user/passwordUpdateForm";
     }
 
-    // 이메일 응답 페이지
+    // 이메일 변경 페이지
     @GetMapping("/s/api/user/emailCheckForm")
     public String emailCheckForm(Model model) {
         User principal = (User) session.getAttribute("principal");
         model.addAttribute("user", userDao.findById(principal.getUserId()));
+        model.addAttribute("userImg", userDao.findById(principal.getUserId()));
         return "/user/emailCheckForm";
     }
 
@@ -133,13 +136,14 @@ public class UserController {
     public String updateForm(Model model) {
         User principal = (User) session.getAttribute("principal");
         model.addAttribute("user", userDao.findById(principal.getUserId()));
+        model.addAttribute("userImg", userDao.findById(principal.getUserId()));
         return "/user/updateForm";
     }
 
     // 계정 수정 응답
     @PostMapping("/s/api/user/update")
     public String update(UserUpdateDto userUpdateDto) {
-        userDao.updateById(userUpdateDto);
+        userService.게시글수정하기(userUpdateDto);
         return "redirect:/";
     }
 
@@ -151,7 +155,8 @@ public class UserController {
             return "redirect:/user/loginForm";
         }
         User userPS = userDao.findById(principal.getUserId());
-        model.addAttribute("user", userPS);
+            model.addAttribute("userImg", userDao.findById(principal.getUserId()));
+            model.addAttribute("user", userPS);
         return "/user/profileUpdateForm";
     }
 
@@ -159,6 +164,7 @@ public class UserController {
     @GetMapping("/s/api/user/leaveCheckForm")
     public String leaveCheckForm(Model model) {
         User principal = (User) session.getAttribute("principal");
+        model.addAttribute("userImg", userDao.findById(principal.getUserId()));
         model.addAttribute("user", userDao.findById(principal.getUserId()));
         return "/user/leaveCheckForm";
     }

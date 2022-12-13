@@ -36,7 +36,8 @@ ${post.postContent}</textarea
     <div class="form-control d-flex justify-content-end">
         <div>
             섬네일 사진 등록 :
-            <input type="file" id="file" />
+            <input type="file" id="file"/>
+            <input type="hidden" id="noFile" value="${post.postThumnail}">
         </div>
     </div>
     <div  style="display: flex;justify-content: right;">
@@ -50,9 +51,49 @@ ${post.postContent}</textarea
     });
 
     function update() {
-        if ($("#file")[0].files[0] == null) {
-            alert("수정할 썸네일을 등록해주셔야 합니다.");
+
+        let postTitle = $("#postTitle").val();
+        let postContent = $("#postContent").val();
+
+          if (postTitle.length<1) {
+            alert("제목을 입력해주셔야 합니다.");
             return;
+        }
+
+        if (postContent.length<1) {
+            alert("내용을 입력해주셔야 합니다.");
+            return;
+        }
+
+
+        if ($("#file")[0].files[0] == null) { // 썸네일 수정 안할때
+       
+            let data = {
+            categoryId: $("#categoryId").val(),
+            postId: $("#postId").val(),
+            userId: $("#userId").val(),
+            postTitle: $("#postTitle").val(),
+            postContent: $("#postContent").val(),
+            noFile: $("#noFile").val()
+        };
+
+         $.ajax("/s/api/post/update/noImg", {
+             type: "PUT",
+            dataType: "json",
+            data: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }).done((res) => {
+            if (res.code == 1) {
+                console.log("asdasd");
+                alert("게시글이 수정되었습니다.");
+                location.href = "/";
+            } else {
+                alert("게시글 입력 정보를 다시 확인해주세요.");
+                return false;
+            }
+        });
         }
 
         let formData = new FormData();
