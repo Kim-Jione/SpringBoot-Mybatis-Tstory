@@ -68,6 +68,15 @@ public class PostController {
 		return new CMRespDto<>(1, "게시글 수정 성공", null);
 	}
 
+	// 썸네일 없는 게시글 수정 응답
+	@PutMapping("/s/api/post/update/noImg")
+	public @ResponseBody CMRespDto<?> updateNoImg(@RequestBody PostUpdateDto postUpdateDto) {
+
+		User principal = (User) session.getAttribute("principal");
+		postService.썸네일없는게시글로수정하기(postUpdateDto, principal.getUserId());
+		return new CMRespDto<>(1, "썸네일없는게시글 수정 성공", null);
+	}
+
 	// 게시글 등록 페이지
 	@GetMapping("/s/api/post/writeForm")
 	public String writeForm(Model model) {
@@ -89,12 +98,12 @@ public class PostController {
 		return new CMRespDto<>(1, "게시글 등록 성공", null);
 	}
 
-	// 이미지 없는 게시글 등록 응답
+	// 썸네일 없는 게시글 등록 응답
 	@PostMapping("/s/api/post/write/noImg")
 	public @ResponseBody CMRespDto<?> writeNoImg(@RequestBody PostSaveDto postSaveDto) {
 
 		User principal = (User) session.getAttribute("principal");
-		postService.이미지없는게시글등록하기(postSaveDto, principal.getUserId());
+		postService.썸네일없는게시글등록하기(postSaveDto, principal.getUserId());
 		return new CMRespDto<>(1, "이미지없는 게시글 등록 성공", null);
 	}
 

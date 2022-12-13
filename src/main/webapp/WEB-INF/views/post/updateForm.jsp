@@ -66,8 +66,32 @@ ${post.postContent}</textarea
 
 
         if ($("#file")[0].files[0] == null) {
-            alert("수정할 썸네일을 등록해주셔야 합니다.");
-            return;
+       
+            let data = {
+            categoryId: $("#categoryId").val(),
+            postId: $("#postId").val(),
+            userId: $("#userId").val(),
+            postTitle: $("#postTitle").val(),
+            postContent: $("#postContent").val(),
+        };
+
+         $.ajax("/s/api/post/update/noImg", {
+             type: "PUT",
+            dataType: "json",
+            data: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }).done((res) => {
+            if (res.code == 1) {
+                console.log("asdasd");
+                alert("게시글이 수정되었습니다.");
+                location.href = "/";
+            } else {
+                alert("게시글 입력 정보를 다시 확인해주세요.");
+                return false;
+            }
+        });
         }
 
         let formData = new FormData();
