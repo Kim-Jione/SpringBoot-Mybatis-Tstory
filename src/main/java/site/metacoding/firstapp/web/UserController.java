@@ -115,7 +115,8 @@ public class UserController {
     @PostMapping("/s/api/user/checkPassword")
     public @ResponseBody CMRespDto<?> passwordCheck(@RequestBody PasswordCheckDto passwordCheckDto) {
         User principal = (User) session.getAttribute("principal");
-        User userPS = userDao.findByPasswordAndUserId(passwordCheckDto.getPassword(), principal.getUserId());
+        String encPassword = sha256.encrypt(passwordCheckDto.getPassword());
+        User userPS = userDao.findByUserIdAndenPassword(encPassword, principal.getUserId());
         if (userPS == null) {
             return new CMRespDto<>(-1, "실패", null);
         }

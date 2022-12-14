@@ -117,6 +117,12 @@
 		FROM user
 		WHERE username=#{username} AND password = #{encPassword}
     </select>
+
+	<select id="findByUserIdAndenPassword" resultType="site.metacoding.firstapp.domain.user.User" >
+        SELECT *
+		FROM user
+		WHERE user_id=#{userId} AND password = #{encPassword}
+    </select>
 </mapper>
     
 
