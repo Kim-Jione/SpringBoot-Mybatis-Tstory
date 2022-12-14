@@ -241,7 +241,7 @@ public class UserController {
     @PostMapping("/s/api/user/updateNickname")
     public @ResponseBody CMRespDto<?> updateNickname(@RequestBody UpdateNicknameDto updateNicknameDto) {
         User principal = (User) session.getAttribute("principal");
-        userDao.updateByNickname(updateNicknameDto.getNicknameUpdate(), principal.getUserId());
+        userService.닉네임수정하기(updateNicknameDto.getNicknameUpdate(), principal.getUserId());
         return new CMRespDto<>(1, "성공", null);
     }
 
@@ -262,11 +262,7 @@ public class UserController {
     @PostMapping("/s/api/user/updateEmail")
     public @ResponseBody CMRespDto<?> updateEmail(@RequestBody UpdateEmailDto updateEmailDto) {
         User principal = (User) session.getAttribute("principal");
-        if (updateEmailDto.getEmailUpdate() == null) {
-            return new CMRespDto<>(-1, "실패", null);
-        }
-
-        userDao.updateByEmail(updateEmailDto.getEmailUpdate(), principal.getUserId());
+        userService.이메일수정하기(updateEmailDto.getEmailUpdate(), principal.getUserId());
         return new CMRespDto<>(1, "성공", null);
     }
 }

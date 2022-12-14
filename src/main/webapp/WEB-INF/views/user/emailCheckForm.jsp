@@ -61,15 +61,17 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
 
 <script>
 function updateEmail() {
+         if (validEmail()) {
+            alert("이메일 정보를 다시 확인해주세요.");
+            return;
+        }
+
         if (isCheckEmail == false) {
             alert("이미 사용중인 이메일입니다.");
             return;
         }
 
-        if (validEmail()) {
-            alert("이메일 정보를 다시 확인해주세요.");
-            return;
-        }
+       
 
         if (confirm("이메일을 변경하시겠습니까?") == true) {
             let data = {
@@ -121,7 +123,7 @@ function checkEmail() {
    
     
     function validEmail() {
-        let email = $("#email").val();
+        let email = $("#emailUpdate").val();
 
         var spaceRule = /\s/g;
         var emailRule = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
