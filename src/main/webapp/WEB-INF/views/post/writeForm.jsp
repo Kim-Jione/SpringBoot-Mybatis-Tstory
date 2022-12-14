@@ -81,7 +81,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             if (res.code == 1) {
                 console.log("asdasd");
                 alert("게시글이 등록되었습니다.");
-                location.href = "/";
+                location.href = "/post/listForm/"+userId;
             } else {
                 alert("게시글 입력 정보를 다시 확인해주세요.");
                 return false;
@@ -90,6 +90,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
         }
 
     
+        let userId = $("#userId").val();
 
         let formData = new FormData();
         let data = {
@@ -115,7 +116,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             if (res.code == 1) {
                 console.log("asdasd");
                 alert("게시글이 등록되었습니다.");
-                location.href = "/";
+                location.href = "/post/listForm/"+userId;
             } else {
                 alert("게시글 입력 정보를 다시 확인해주세요.");
                 return false;

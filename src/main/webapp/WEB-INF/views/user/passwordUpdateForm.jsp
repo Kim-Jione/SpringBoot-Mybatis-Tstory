@@ -42,7 +42,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             </div>
             <span
                 class="passwordValid"
-                style="padding-left: 120px; color: red; display: none"
+                style="padding-left: 130px; color: red; display: none"
             ></span>
 
             <div style="display: flex">
@@ -62,7 +62,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             </div>
             <span
                 class="passwordSameValid"
-                style="padding-left: 120px; color: red; display: none"
+                style="padding-left: 130px; color: red; display: none"
             ></span>
             <div style="text-align: right">
                 <button
@@ -114,6 +114,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
 
     function validPassword() {
         let passwordUpdate = $("#passwordUpdate").val();
+        let passwordUpdateSame = $("#passwordUpdateSame").val();
         let password = $("#password").val();
 
         var spaceRule = /\s/g;

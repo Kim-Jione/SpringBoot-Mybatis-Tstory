@@ -76,11 +76,6 @@ public class UserService {
 		}
 	}
 
-	public void 닉네임변경하기(UpdateProfileDto updateProfileDto) {
-		User principal = (User) session.getAttribute("principal");
-		userDao.updateByNickname(updateProfileDto.getNicknameUpdate(), principal.getUserId());
-	}
-
 	public void 프로필이미지변경하기(String profileImg) {
 		User principal = (User) session.getAttribute("principal");
 		userDao.updateByProfileImage(profileImg, principal.getUserId());
@@ -165,6 +160,18 @@ public class UserService {
 		String encPassword = sha256.encrypt(loginDto.getPassword());
 		User userPS = userDao.findByUsernameAndenPassword(encPassword, loginDto.getUsername());
 		session.setAttribute("principal", userPS);
+	}
+
+	public void 이메일수정하기(String emailUpdate, Integer userId) {
+		userDao.updateByEmail(emailUpdate, userId);
+	}
+
+	public void 닉네임수정하기(String nicknameUpdate, Integer userId) {
+		userDao.updateByNickname(nicknameUpdate, userId);
+	}
+
+	public void 비밀번호수정하기(String passwordUpdate, Integer userId) {
+		userDao.updateByPassword(passwordUpdate, userId);
 	}
 
 }
