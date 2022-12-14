@@ -24,10 +24,12 @@ import site.metacoding.firstapp.service.UserService;
 import site.metacoding.firstapp.utill.SHA256;
 import site.metacoding.firstapp.web.dto.CMRespDto;
 import site.metacoding.firstapp.web.dto.request.MailReqDto;
+import site.metacoding.firstapp.web.dto.request.user.CheckDto;
 import site.metacoding.firstapp.web.dto.request.user.JoinDto;
 import site.metacoding.firstapp.web.dto.request.user.LeaveDto;
 import site.metacoding.firstapp.web.dto.request.user.LoginDto;
 import site.metacoding.firstapp.web.dto.request.user.PasswordCheckDto;
+import site.metacoding.firstapp.web.dto.request.user.UpdateEmailDto;
 import site.metacoding.firstapp.web.dto.request.user.UpdateNicknameDto;
 import site.metacoding.firstapp.web.dto.request.user.UpdatePasswordDto;
 import site.metacoding.firstapp.web.dto.request.user.UpdateProfileDto;
@@ -254,5 +256,17 @@ public class UserController {
         // System.out.println("디버그 getAddress : " + mailDto.getAddress());
         userService.이메일보내기(mailDto);
         return new CMRespDto<>(1, "아이디/임시 비밀번호 보내기 성공", null);
+    }
+
+    // 이메일 수정 응답
+    @PostMapping("/s/api/user/updateEmail")
+    public @ResponseBody CMRespDto<?> updateEmail(@RequestBody UpdateEmailDto updateEmailDto) {
+        User principal = (User) session.getAttribute("principal");
+        if (updateEmailDto.getEmailUpdate() == null) {
+            return new CMRespDto<>(-1, "실패", null);
+        }
+
+        userDao.updateByEmail(updateEmailDto.getEmailUpdate(), principal.getUserId());
+        return new CMRespDto<>(1, "성공", null);
     }
 }
