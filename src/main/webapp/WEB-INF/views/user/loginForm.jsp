@@ -4,26 +4,24 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
     <div class="my_auth_box">
         <div class="my_auth_form_box">
             <div class="my_auth_form_box_title">JStory</div>
-            <form action="/user/login" method="POST">
                 <input
                     class="my_auth_form_box_input"
                     type="text"
-                    name="username"
+                    id="username"
                     placeholder="아이디"
                 />
                 <input
                     class="my_auth_form_box_input"
                     type="password"
-                    name="password"
+                    id="password"
                     placeholder="비밀번호"
                 />
                 <button
-                    type="submit"
                     class="my_secondary_btn"
+                    onclick="login()" 
                 >
                     로그인
                 </button>
-            </form>
             <div class="my_auth_form_box_link">
                 <div><a href="/user/joinForm">회원가입</a></div>
                 <div>
@@ -34,4 +32,32 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
     </div>
     <br />
 </div>
+
+<script>
+function login() {
+        let data = {
+            username: $("#username").val(),
+            password: $("#password").val()
+        };
+
+        $.ajax("/user/login", {
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json; charset=utf-8",
+            },
+        }).done((res) => {
+            if (res.code == 1) {
+                alert(res.msg);
+                location.href = "/";
+            } else {
+                alert(res.msg);
+                location.href = "/user/loginForm";
+
+            }
+        });
+    }
+
+</script>
 <%@ include file="../layout/footer.jsp"%>
