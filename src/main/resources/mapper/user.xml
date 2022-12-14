@@ -123,6 +123,12 @@
 		FROM user
 		WHERE user_id=#{userId} AND password = #{encPassword}
     </select>
+
+	<update id="updateByEmail">
+          UPDATE user
+		  SET email = #{emailUpdate}
+		  WHERE user_id = #{userId}
+    </update>
 </mapper>
     
 
