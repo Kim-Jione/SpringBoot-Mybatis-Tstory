@@ -16,6 +16,7 @@ import site.metacoding.firstapp.domain.user.UserDao;
 import site.metacoding.firstapp.utill.SHA256;
 import site.metacoding.firstapp.web.dto.request.user.CheckDto;
 import site.metacoding.firstapp.web.dto.request.user.JoinDto;
+import site.metacoding.firstapp.web.dto.request.user.LoginDto;
 import site.metacoding.firstapp.web.dto.request.user.UpdateProfileDto;
 import site.metacoding.firstapp.web.dto.request.user.UserUpdateDto;
 import site.metacoding.firstapp.web.dto.response.MailRespDto;
@@ -88,6 +89,7 @@ public class UserService {
 		userDao.updateByProfileImage(profileImg, principal.getUserId());
 	}
 
+	@Transactional
 	public MailRespDto 임시비밀번호만들기(String email) {
 		User userPS = userDao.findByUsername(email);
 		// System.out.println("디버그 getUsername : " + userPS.getUsername());
@@ -126,6 +128,7 @@ public class UserService {
 	}
 
 	// 메일보내기
+	@Transactional
 	public void 이메일보내기(MailRespDto mailDto) {
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setTo(mailDto.getAddress());
@@ -136,6 +139,7 @@ public class UserService {
 		mailSender.send(message);
 	}
 
+	@Transactional
 	public void 인증코드보내기(String email) {
 		Random random = new Random(); // 난수 생성을 위한 랜덤 클래스
 		String key = ""; // 인증번호
@@ -157,6 +161,17 @@ public class UserService {
 
 	public void 게시글수정하기(UserUpdateDto userUpdateDto) {
 		userDao.updateById(userUpdateDto);
+	}
+
+	@Transactional
+	public User 로그인(LoginDto loginDto) {
+		String encPassword = sha256.encrypt(loginDto.getPassword());
+		User userPS = userDao.findByUsernameAndenPassword(encPassword, loginDto.getUsername());
+
+		if (!userPS.getPassword().equals(encPassword)) {
+			throw new RuntimeException("아이디 혹은 패스워드가 잘못 입력되었습니다.");
+		}
+		return new User(userPS);
 	}
 
 }

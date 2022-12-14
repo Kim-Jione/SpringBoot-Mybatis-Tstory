@@ -24,4 +24,9 @@ public class User {
 		this.nickname = nickname;
 	}
 
+	public User(User userPS) {
+		this.userId = userPS.getUserId();
+		this.username = userPS.getUsername();
+	}
+
 }
