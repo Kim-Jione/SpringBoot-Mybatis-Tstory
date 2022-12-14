@@ -45,4 +45,7 @@ public interface UserDao {
 	public User findByUsernameAndenPassword(@Param("encPassword") String encPassword,
 			@Param("username") String username);
 
+	public User findByUserIdAndenPassword(@Param("encPassword") String encPassword,
+			@Param("userId") Integer userId);
+
 }
