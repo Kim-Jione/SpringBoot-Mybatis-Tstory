@@ -39,6 +39,7 @@ import site.metacoding.firstapp.web.dto.response.MailRespDto;
 public class UserController {
     private final HttpSession session;
     private final UserDao userDao;
+    private final SHA256 sha256;
     private final UserService userService;
 
     // 회원가입 페이지
@@ -71,8 +72,14 @@ public class UserController {
         if (userIdPS == null) {
             return new CMRespDto<>(-1, "아이디 혹은 비밀번호를 잘못 입력하셨습니다.", null);
         }
-        User userPS = userService.로그인(loginDto);
-        session.setAttribute("principal", userPS);
+
+        String encPassword = sha256.encrypt(loginDto.getPassword());
+        User usersPS = userDao.findByUsernameAndenPassword(encPassword, loginDto.getUsername());
+        if (usersPS == null) {
+            return new CMRespDto<>(-1, "아이디 혹은 비밀번호를 잘못 입력하셨습니다.", null);
+
+        }
+        userService.로그인(loginDto);
         return new CMRespDto<>(1, "로그인 되셨습니다.", null);
 
     }

@@ -53,8 +53,7 @@ function login() {
                 location.href = "/";
             } else {
                 alert(res.msg);
-                location.href = "/user/loginForm";
-
+                return false;
             }
         });
     }
