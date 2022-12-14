@@ -76,7 +76,6 @@ public class UserService {
 		}
 	}
 
-
 	public void 프로필이미지변경하기(String profileImg) {
 		User principal = (User) session.getAttribute("principal");
 		userDao.updateByProfileImage(profileImg, principal.getUserId());
@@ -168,7 +167,11 @@ public class UserService {
 	}
 
 	public void 닉네임수정하기(String nicknameUpdate, Integer userId) {
-  		userDao.updateByNickname(nicknameUpdate, userId);
+		userDao.updateByNickname(nicknameUpdate, userId);
+	}
+
+	public void 비밀번호수정하기(String passwordUpdate, Integer userId) {
+		userDao.updateByPassword(passwordUpdate, userId);
 	}
 
 }

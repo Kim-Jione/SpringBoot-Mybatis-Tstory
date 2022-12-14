@@ -202,8 +202,7 @@ public class UserController {
         if (userPS == null) {
             return new CMRespDto<>(-1, "실패", null);
         }
-        userDao.updateByPassword(updatePasswordDto.getPasswordUpdate(), principal.getUserId());
-
+        userService.비밀번호수정하기(updatePasswordDto.getPasswordUpdate(), principal.getUserId());
         return new CMRespDto<>(1, "성공", null);
     }
 
