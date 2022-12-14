@@ -55,9 +55,9 @@
 
 
 	<select id="findByUsername" resultType="site.metacoding.firstapp.domain.user.User">
-        SELECT username
+        SELECT *
 		FROM user
-		WHERE email = #{email}
+		WHERE email = #{email} OR username= #{username}
     </select>
 
     <select id="findByNickname"  resultType="site.metacoding.firstapp.web.dto.request.user.CheckDto">

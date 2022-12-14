@@ -50,8 +50,6 @@ public class UserController {
     // 회원가입 응답
     @PostMapping("/user/join")
     public @ResponseBody CMRespDto<?> join(@RequestBody JoinDto joinDto) {
-        System.out.println("디버그 : 컨트롤러 도착");
-        System.out.println("디버그 입력받은 비밀번호 : " + joinDto.getPassword());
         userService.회원가입(joinDto);
         return new CMRespDto<>(1, "회원가입성공", null);
     }
@@ -68,14 +66,15 @@ public class UserController {
 
     // 로그인 응답
     @PostMapping("/user/login")
-    public String login(LoginDto loginDto) {
-        User userPS = userService.로그인(loginDto);
-        if (userPS == null) {
-            return "redirect:/user/loginForm";
+    public @ResponseBody CMRespDto<?> login(@RequestBody LoginDto loginDto) {
+        User userIdPS = userDao.findByUsername(loginDto.getUsername());
+        if (userIdPS == null) {
+            return new CMRespDto<>(-1, "아이디 혹은 비밀번호를 잘못 입력하셨습니다.", null);
         }
-
+        User userPS = userService.로그인(loginDto);
         session.setAttribute("principal", userPS);
-        return "redirect:/";
+        return new CMRespDto<>(1, "로그인 되셨습니다.", null);
+
     }
 
     // 로그아웃

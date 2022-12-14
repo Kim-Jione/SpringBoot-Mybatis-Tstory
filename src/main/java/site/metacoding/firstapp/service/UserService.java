@@ -33,11 +33,8 @@ public class UserService {
 	@Transactional
 	public void 회원가입(JoinDto joinDto) {
 		String encPassword = sha256.encrypt(joinDto.getPassword());
-		System.out.println("디버그 암호화된 비밀번호 : " + encPassword);
 		joinDto.setPassword(encPassword); // 회원가입으로 받은 비밀번호 암호화
-		System.out.println("디버그 암호화 됐니? : " + joinDto.getPassword());
 		userDao.insert(joinDto.toEntity());
-		System.out.println("디버그 DB 추가완료");
 	}
 
 	public boolean 유저네임중복확인(String username) {
