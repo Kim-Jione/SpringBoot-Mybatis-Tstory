@@ -20,9 +20,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.RequiredArgsConstructor;
-import site.metacoding.firstapp.utill.JWTToken.TokenToSinedDto;
+import site.metacoding.firstapp.util.JWTToken.TokenToSinedDto;
 import site.metacoding.firstapp.web.dto.CMRespDto;
-import site.metacoding.firstapp.web.dto.response.user.SessionUserDto;
+import site.metacoding.firstapp.web.dto.response.SessionUserDto;
 
 @RequiredArgsConstructor
 public class JwtAuthorizationFilter implements Filter { // 토큰 검증 필터
@@ -51,7 +51,8 @@ public class JwtAuthorizationFilter implements Filter { // 토큰 검증 필터
             Map<String, Object> getSigned = decodedJWT.getClaim("sessionUserDto").asMap(); // 페이로드의 값들을 담는다
 
             TokenToSinedDto tokenToSinedDto = new TokenToSinedDto();
-            SessionUserDto sessionUserDto = tokenToSinedDto.tokenToSignedDto(getSigned); // 시그니처의 claim value 가져와서 로그인 Dto 변경
+            SessionUserDto sessionUserDto = tokenToSinedDto.tokenToSignedDto(getSigned); // 시그니처의 claim value 가져와서 로그인
+                                                                                         // Dto 변경
 
             HttpSession session = req.getSession();
 

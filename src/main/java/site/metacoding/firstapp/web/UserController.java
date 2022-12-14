@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,8 @@ import lombok.RequiredArgsConstructor;
 import site.metacoding.firstapp.domain.user.User;
 import site.metacoding.firstapp.domain.user.UserDao;
 import site.metacoding.firstapp.service.UserService;
+import site.metacoding.firstapp.util.JWTToken.CookieForToken;
+import site.metacoding.firstapp.util.JWTToken.CreateJWTToken;
 import site.metacoding.firstapp.utill.SHA256;
 import site.metacoding.firstapp.web.dto.CMRespDto;
 import site.metacoding.firstapp.web.dto.request.MailReqDto;
@@ -33,6 +36,7 @@ import site.metacoding.firstapp.web.dto.request.user.UpdatePasswordDto;
 import site.metacoding.firstapp.web.dto.request.user.UpdateProfileDto;
 import site.metacoding.firstapp.web.dto.request.user.UserUpdateDto;
 import site.metacoding.firstapp.web.dto.response.MailRespDto;
+import site.metacoding.firstapp.web.dto.response.SessionUserDto;
 
 @RequiredArgsConstructor
 @Controller
@@ -67,19 +71,28 @@ public class UserController {
 
     // 로그인 응답
     @PostMapping("/user/login")
-    public @ResponseBody CMRespDto<?> login(@RequestBody LoginDto loginDto) {
+    public @ResponseBody CMRespDto<?> login(@RequestBody LoginDto loginDto, HttpServletResponse resp) {
         User userIdPS = userDao.findByUsername(loginDto.getUsername());
         if (userIdPS == null) {
             return new CMRespDto<>(-1, "아이디 혹은 비밀번호를 잘못 입력하셨습니다.", null);
         }
 
         String encPassword = sha256.encrypt(loginDto.getPassword());
-        User usersPS = userDao.findByUsernameAndenPassword(encPassword, loginDto.getUsername());
-        if (usersPS == null) {
+        User userPS = userDao.findByUsernameAndenPassword(encPassword, loginDto.getUsername());
+        if (userPS == null) {
             return new CMRespDto<>(-1, "아이디 혹은 비밀번호를 잘못 입력하셨습니다.", null);
 
         }
-        userService.로그인(loginDto);
+        SessionUserDto principal = userService.로그인(loginDto);
+        System.out.println("디버그 : 로그인성공");
+        String token = CreateJWTToken.createToken(principal); // 로그인 될시 토큰생성
+        System.out.println("디버그 : 로그인 될시 토큰생성");
+        resp.addHeader("Authorization", "Bearer " + token); // 헤더에 토큰 추가
+        System.out.println("디버그 : 헤더에 토큰 추가 : " + token);
+        resp.addCookie(CookieForToken.setCookie(token)); // 쿠키 객체를 웹 브라우저로 보낸다. 쿠키 저장소에 저장하게 함
+        System.out.println("디버그 : 쿠키 객체를 웹 브라우저로 보낸다.");
+        session.setAttribute("principal", principal);
+        System.out.println("디버그 : 세션 저장 성공");
         return new CMRespDto<>(1, "로그인 되셨습니다.", null);
 
     }

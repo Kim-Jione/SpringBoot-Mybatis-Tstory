@@ -20,6 +20,7 @@ import site.metacoding.firstapp.web.dto.request.user.LoginDto;
 import site.metacoding.firstapp.web.dto.request.user.UpdateProfileDto;
 import site.metacoding.firstapp.web.dto.request.user.UserUpdateDto;
 import site.metacoding.firstapp.web.dto.response.MailRespDto;
+import site.metacoding.firstapp.web.dto.response.SessionUserDto;
 
 @RequiredArgsConstructor
 @Service
@@ -161,10 +162,10 @@ public class UserService {
 	}
 
 	@Transactional
-	public void 로그인(LoginDto loginDto) {
+	public SessionUserDto 로그인(LoginDto loginDto) {
 		String encPassword = sha256.encrypt(loginDto.getPassword());
 		User userPS = userDao.findByUsernameAndenPassword(encPassword, loginDto.getUsername());
-		session.setAttribute("principal", userPS);
+		return new SessionUserDto(userPS);
 	}
 
 }
