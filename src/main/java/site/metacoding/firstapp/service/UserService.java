@@ -161,14 +161,10 @@ public class UserService {
 	}
 
 	@Transactional
-	public User 로그인(LoginDto loginDto) {
+	public void 로그인(LoginDto loginDto) {
 		String encPassword = sha256.encrypt(loginDto.getPassword());
 		User userPS = userDao.findByUsernameAndenPassword(encPassword, loginDto.getUsername());
-
-		if (!userPS.getPassword().equals(encPassword)) {
-			throw new RuntimeException("아이디 혹은 패스워드가 잘못 입력되었습니다.");
-		}
-		return new User(userPS);
+		session.setAttribute("principal", userPS);
 	}
 
 }
