@@ -42,4 +42,7 @@ public interface UserDao {
 
 	public void passwordUpdate(@Param("passwordUpdate") String passwordUpdate, @Param("userId") Integer userId);
 
+	public User findByUsernameAndenPassword(@Param("encPassword") String encPassword,
+			@Param("username") String username);
+
 }

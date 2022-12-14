@@ -55,9 +55,9 @@
 
 
 	<select id="findByUsername" resultType="site.metacoding.firstapp.domain.user.User">
-        SELECT username
+        SELECT *
 		FROM user
-		WHERE email = #{email}
+		WHERE email = #{email} OR username= #{username}
     </select>
 
     <select id="findByNickname"  resultType="site.metacoding.firstapp.web.dto.request.user.CheckDto">
@@ -112,6 +112,11 @@
 		WHERE user_id=#{userId}
     </update>
 
+	<select id="findByUsernameAndenPassword" resultType="site.metacoding.firstapp.domain.user.User" >
+        SELECT *
+		FROM user
+		WHERE username=#{username} AND password = #{encPassword}
+    </select>
 </mapper>
     
 

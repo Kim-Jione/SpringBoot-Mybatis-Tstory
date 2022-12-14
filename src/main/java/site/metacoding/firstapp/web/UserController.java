@@ -21,7 +21,9 @@ import lombok.RequiredArgsConstructor;
 import site.metacoding.firstapp.domain.user.User;
 import site.metacoding.firstapp.domain.user.UserDao;
 import site.metacoding.firstapp.service.UserService;
+import site.metacoding.firstapp.utill.SHA256;
 import site.metacoding.firstapp.web.dto.CMRespDto;
+import site.metacoding.firstapp.web.dto.request.MailReqDto;
 import site.metacoding.firstapp.web.dto.request.user.JoinDto;
 import site.metacoding.firstapp.web.dto.request.user.LeaveDto;
 import site.metacoding.firstapp.web.dto.request.user.LoginDto;
@@ -30,7 +32,6 @@ import site.metacoding.firstapp.web.dto.request.user.UpdateNicknameDto;
 import site.metacoding.firstapp.web.dto.request.user.UpdatePasswordDto;
 import site.metacoding.firstapp.web.dto.request.user.UpdateProfileDto;
 import site.metacoding.firstapp.web.dto.request.user.UserUpdateDto;
-import site.metacoding.firstapp.web.dto.request.MailReqDto;
 import site.metacoding.firstapp.web.dto.response.MailRespDto;
 
 @RequiredArgsConstructor
@@ -65,14 +66,15 @@ public class UserController {
 
     // 로그인 응답
     @PostMapping("/user/login")
-    public String login(LoginDto loginDto) {
-        User userPS = userDao.login(loginDto);
-        if (userPS != null) {
-            session.setAttribute("principal", userPS);
-            return "redirect:/";
-        } else {
-            return "redirect:/user/loginForm";
+    public @ResponseBody CMRespDto<?> login(@RequestBody LoginDto loginDto) {
+        User userIdPS = userDao.findByUsername(loginDto.getUsername());
+        if (userIdPS == null) {
+            return new CMRespDto<>(-1, "아이디 혹은 비밀번호를 잘못 입력하셨습니다.", null);
         }
+        User userPS = userService.로그인(loginDto);
+        session.setAttribute("principal", userPS);
+        return new CMRespDto<>(1, "로그인 되셨습니다.", null);
+
     }
 
     // 로그아웃
@@ -155,8 +157,8 @@ public class UserController {
             return "redirect:/user/loginForm";
         }
         User userPS = userDao.findById(principal.getUserId());
-            model.addAttribute("userImg", userDao.findById(principal.getUserId()));
-            model.addAttribute("user", userPS);
+        model.addAttribute("userImg", userDao.findById(principal.getUserId()));
+        model.addAttribute("user", userPS);
         return "/user/profileUpdateForm";
     }
 
