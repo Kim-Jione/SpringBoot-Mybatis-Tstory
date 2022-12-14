@@ -3,33 +3,56 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
 <div class="container">
     <div class="my_auth_box">
         <div div class="my_auth_form_box">
-            <div class="my_auth_form_box_title">메일주소 확인</div>
+            <div class="my_auth_form_box_title">메일주소 변경</div>
             <div class="my_auth_form_box_sub_title" >
-                <div >계정의 메일주소를 변경하려고 합니다.</div> <div>계속하려면 메일로 발송된 확인 코드를 입력하세요.</div>
+                <div >계정의 이메일주소를 변경하려고 합니다.</div> <div>변경할 이메일 주소를 입력해주세요.</div>
             </div><br>
 
-            <form action="/s/api/user/updateForm">
+            <div>
+                <input type="hidden" name="userId" value="${user.userId}" />
+
                 <div style="display: flex">
-                    <div class="my_auth_form_box_info_detail_email">확인코드</div>
-                <input
-                    class="my_auth_form_box_input"
-                    type="password"
-                    name="password"
-                    placeholder="확인코드를 입력해주세요."
-                />
-                <br>
-                <input type="hidden" name="userId", value="${principal.userId}">
-            
+                    <div class="my_auth_form_box_info_detail">변경전</div>
+                    <input
+                        id="email"
+                        class="my_auth_form_box_input"
+                        type="text"
+                        value="${user.email}"
+                        maxlength="50"
+                        required
+                        readonly
+                    />
+                </div>
+                <div style="display: flex">
+                    <div
+                        class="my_auth_form_box_info_detail"
+                        style="padding-right: 30px"
+                    >
+                        변경후
+                    </div>
+                    <input
+                        oninput="checkEmail(); validEmail();"
+                        id="emailUpdate"
+                        class="my_auth_form_box_input"
+                        type="text"
+                        maxlength="50"
+                        required
+                    />
+                </div>
+                <span
+                    class="emailValid"
+                    style="padding-left: 90px; color: red; display: none"
+                ></span>
+                
             </div>
 
 
                 <div style="text-align: right">
-                        <button type="submit" class="btn btn-outline-primary">
+                        <button type="submit" class="btn btn-outline-primary" onclick="updateEmail();">
                             계속
                         </button>
                     </div>
             
-                </form>
             
         </div>
     </div>

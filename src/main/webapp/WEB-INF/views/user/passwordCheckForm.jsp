@@ -48,9 +48,10 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             },
         }).done((res) => {
             if (res.code == 1)  {
+                    alert("확인되었습니다.");
                    location.href = "/s/api/user/updateForm";
                 } else {
-                    alert("비밀번호가 맞지 않습니다");
+                    alert("비밀번호가 맞지 않습니다.");
                     return;
                 }
         });
