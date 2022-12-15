@@ -8,7 +8,6 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                 <div >중요한 정보에 접근하려고 합니다.</div>
                 <div >비밀번호를 다시 입력하세요</div>
             </div>
-            <form>
                 <input type="hidden" value="${principal.userId}" id="userId">
                 <input
                     id="password"
@@ -21,7 +20,6 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                  <div>
                    <a href="/user/passwordResetForm">아이디/비밀번호 찾기</a>
                 </div>
-            </form>
             
         </div>
     </div>

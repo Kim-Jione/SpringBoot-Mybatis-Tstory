@@ -138,15 +138,17 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
     }
 
     function updateNickname() {
+        if (validNickname()) {
+            alert("닉네임 정보를 다시 확인해주세요.");
+            return;
+        }
+
         if (isCheckNickname == false) {
             alert("이미 사용중인 닉네임입니다.");
             return;
         }
 
-        if (validNickname()) {
-            alert("닉네임 정보를 다시 확인해주세요.");
-            return;
-        }
+       
         if (confirm("닉네임을 변경하시겠습니까?") == true) {
             let data = {
                 nickname: $("#nickname").val(),
