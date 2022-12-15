@@ -85,7 +85,7 @@ public class PostController {
 		model.addAttribute("userImg", userDao.findById(principal.getUserId()));
 		model.addAttribute("titleList", titleDto);
 		return "/post/writeForm";
-	}
+	} 
 
 	// 게시글 등록 응답
 	@PostMapping("/s/api/post/write")
