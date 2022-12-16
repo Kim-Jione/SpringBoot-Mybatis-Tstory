@@ -9,10 +9,10 @@ import site.metacoding.firstapp.handler.LoginIntercepter;
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
-	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
+	// @Override
+	// public void addInterceptors(InterceptorRegistry registry) {
 
-		registry.addInterceptor(new LoginIntercepter())
-				.addPathPatterns("/s/**"); // 주소에 s 있으면 인터셉터 발동
-	}
+	// 	registry.addInterceptor(new LoginIntercepter())
+	// 			.addPathPatterns("/s/api/**"); // 주소에 s 있으면 인터셉터 발동
+	// }
 }

@@ -13,14 +13,14 @@ import site.metacoding.firstapp.web.dto.CMRespDto;
 @ControllerAdvice
 public class MyExceptionHanlder {
 
-	@ExceptionHandler(MyApiException.class)
-	public @ResponseBody CMRespDto<?> apiError(Exception e){
-		return new CMRespDto<>(-1, e.getMessage(), null);
-	}
+	// @ExceptionHandler(MyApiException.class)
+	// public @ResponseBody CMRespDto<?> apiError(Exception e){
+	// 	return new CMRespDto<>(-1, e.getMessage(), null);
+	// }
 	
-	@ExceptionHandler(MyException.class)
-	public @ResponseBody String m1(Exception e){
-		return Script.back(e.getMessage());
-	}
+	// @ExceptionHandler(MyException.class)
+	// public @ResponseBody String m1(Exception e){
+	// 	return Script.back(e.getMessage());
+	// }
 	
 }

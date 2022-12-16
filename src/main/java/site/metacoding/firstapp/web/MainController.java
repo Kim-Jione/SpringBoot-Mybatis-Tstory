@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import lombok.RequiredArgsConstructor;
 import site.metacoding.firstapp.domain.post.PostDao;
-import site.metacoding.firstapp.domain.user.User;
 import site.metacoding.firstapp.domain.user.UserDao;
+import site.metacoding.firstapp.web.dto.auth.SessionUserDto;
 
 @RequiredArgsConstructor
 @Controller
@@ -21,7 +21,7 @@ public class MainController {
 	// 메인 페이지
 	@GetMapping({ "/main/mainForm", "/" })
 	public String mainForm(Model model, String keyword) {
-		User principal = (User) session.getAttribute("principal");
+		SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
 		if (principal != null) {
 			model.addAttribute("userImg", userDao.findById(principal.getUserId()));
 			model.addAttribute("user", userDao.findById(principal.getUserId()));

@@ -129,6 +129,13 @@
 		  SET email = #{emailUpdate}
 		  WHERE user_id = #{userId}
     </update>
+
+	<select id="findByUsernameAndId" resultType="site.metacoding.firstapp.web.dto.auth.SessionUserDto" >
+        SELECT username, user_id
+		FROM user
+		WHERE username=#{username}
+    </select>
+
 </mapper>
     
 

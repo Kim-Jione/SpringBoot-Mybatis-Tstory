@@ -2,6 +2,7 @@ package site.metacoding.firstapp.service;
 
 import java.util.Random;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.mail.SimpleMailMessage;
@@ -10,14 +11,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
+import site.metacoding.firstapp.config.authfilter.JwtProperties;
 import site.metacoding.firstapp.domain.category.CategoryDao;
 import site.metacoding.firstapp.domain.user.User;
 import site.metacoding.firstapp.domain.user.UserDao;
+import site.metacoding.firstapp.utill.JWTToken.CookieForToken;
+import site.metacoding.firstapp.utill.JWTToken.CreateJWTToken;
 import site.metacoding.firstapp.utill.SHA256;
+import site.metacoding.firstapp.web.dto.auth.SessionUserDto;
 import site.metacoding.firstapp.web.dto.request.user.CheckDto;
 import site.metacoding.firstapp.web.dto.request.user.JoinDto;
 import site.metacoding.firstapp.web.dto.request.user.LoginDto;
-import site.metacoding.firstapp.web.dto.request.user.UpdateProfileDto;
 import site.metacoding.firstapp.web.dto.request.user.UserUpdateDto;
 import site.metacoding.firstapp.web.dto.response.MailRespDto;
 
@@ -156,10 +160,16 @@ public class UserService {
 	}
 
 	@Transactional
-	public void 로그인(LoginDto loginDto) {
+	public SessionUserDto 로그인(LoginDto loginDto) {
 		String encPassword = sha256.encrypt(loginDto.getPassword());
-		User userPS = userDao.findByUsernameAndenPassword(encPassword, loginDto.getUsername());
-		session.setAttribute("principal", userPS);
+		User userPS = userDao.findByUsername(loginDto.getUsername());
+		if (userPS == null) {
+			return null;
+		}
+		if (userPS.getPassword().equals(encPassword)) {
+			return new SessionUserDto(userPS);
+		}
+		throw new RuntimeException("아이디 혹은 패스워드가 잘못 입력되었습니다.");
 	}
 
 	public void 이메일수정하기(String emailUpdate, Integer userId) {

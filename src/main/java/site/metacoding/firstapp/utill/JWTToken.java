@@ -24,6 +24,7 @@ public class JWTToken {
             // map type 저장시 primitive type(또는 해당 Wrapping class)만 지원한다.
             // 커스텀 오브젝트는 저장을 지원하지 않는다. - 에러발생
             String jwtToken = JWT.create()
+                    .withSubject("김지원")
                     .withExpiresAt(
                             JwtProperties.EXPIRATION_TIME) // 토큰 만료시간
                     .withClaim("sessionUserDto", map) // 로그인 데이터 작성

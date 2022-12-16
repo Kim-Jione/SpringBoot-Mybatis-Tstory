@@ -35,7 +35,7 @@ public class JwtAuthorizationFilter implements Filter { // 토큰 검증 필터
         HttpServletResponse resp = (HttpServletResponse) response;
 
         String header = req.getHeader(JwtProperties.HEADER_STRING);
-
+        System.out.println("디버그 토큰검증필터 입장 header : " + header);
         if (header == null || !header.startsWith(JwtProperties.TOKEN_PREFIX)) {
             customResponse("JWT토큰이 없어서 인가할 수 없습니다.", resp);
             return;

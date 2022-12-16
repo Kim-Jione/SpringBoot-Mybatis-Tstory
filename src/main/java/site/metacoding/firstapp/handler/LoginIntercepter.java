@@ -15,31 +15,31 @@ import site.metacoding.firstapp.web.dto.CMRespDto;
 
 public class LoginIntercepter implements HandlerInterceptor {
 
-    @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-            throws Exception {
-        System.out.println(request.getRequestURI());
+    // @Override
+    // public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+    //         throws Exception {
+    //     System.out.println(request.getRequestURI());
 
-        String uri = request.getRequestURI();
+    //     String uri = request.getRequestURI();
 
-        HttpSession session = request.getSession();
-        User principal = (User) session.getAttribute("principal");
-        if (principal == null) {
-            if (uri.contains("api")) {
-                // System.out.println("디버그 : API 가 주소에 있음");
+    //     HttpSession session = request.getSession();
+    //     User principal = (User) session.getAttribute("principal");
+    //     if (principal == null) {
+    //         if (uri.contains("api")) {
+    //             // System.out.println("디버그 : API 가 주소에 있음");
 
-                response.setContentType("application/json; charset=utf-8");
-                PrintWriter out = response.getWriter();
-                CMRespDto<?> cmRespDto = new CMRespDto<>(-1, "로그인을 진행해주세요", null);
-                ObjectMapper om = new ObjectMapper();
-                String json = om.writeValueAsString(cmRespDto);
-                out.println(json);
-            } else {
-                // System.out.println("디버그 : API 가 주소에 없음");
-                response.sendRedirect("/loginForm");
-            }
-            return false;
-        }
-        return true;
-    }
+    //             response.setContentType("application/json; charset=utf-8");
+    //             PrintWriter out = response.getWriter();
+    //             CMRespDto<?> cmRespDto = new CMRespDto<>(-1, "로그인을 진행해주세요", null);
+    //             ObjectMapper om = new ObjectMapper();
+    //             String json = om.writeValueAsString(cmRespDto);
+    //             out.println(json);
+    //         } else {
+    //             // System.out.println("디버그 : API 가 주소에 없음");
+    //             response.sendRedirect("/loginForm");
+    //         }
+    //         return false;
+    //     }
+    //     return true;
+    // }
 }

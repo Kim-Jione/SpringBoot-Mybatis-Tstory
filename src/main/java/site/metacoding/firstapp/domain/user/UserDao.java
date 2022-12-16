@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import site.metacoding.firstapp.web.dto.auth.SessionUserDto;
 import site.metacoding.firstapp.web.dto.request.user.CheckDto;
 import site.metacoding.firstapp.web.dto.request.user.LoginDto;
 import site.metacoding.firstapp.web.dto.request.user.UserUpdateDto;
@@ -49,5 +50,7 @@ public interface UserDao {
 			@Param("userId") Integer userId);
 
 	public void updateByEmail(@Param("emailUpdate")String emailUpdate, @Param("userId") Integer userId);
+
+	public SessionUserDto findByUsernameAndId(String username);
 
 }
