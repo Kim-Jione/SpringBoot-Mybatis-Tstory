@@ -1,9 +1,11 @@
 package site.metacoding.firstapp.domain.user;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.ibatis.annotations.Param;
 
+import site.metacoding.firstapp.web.dto.auth.FindByUsernameDto;
 import site.metacoding.firstapp.web.dto.auth.SessionUserDto;
 import site.metacoding.firstapp.web.dto.request.user.CheckDto;
 import site.metacoding.firstapp.web.dto.request.user.LoginDto;
@@ -52,5 +54,7 @@ public interface UserDao {
 	public void updateByEmail(@Param("emailUpdate")String emailUpdate, @Param("userId") Integer userId);
 
 	public SessionUserDto findByUsernameAndId(String username);
+
+	public Optional<FindByUsernameDto> findAllUsername(String username);
 
 }

@@ -72,21 +72,21 @@ public class UserController {
     }
 
     // 로그인 응답
-    @PostMapping("/user/login")
-    public @ResponseBody CMRespDto<?> login(@RequestBody LoginDto loginDto, HttpServletResponse resp) {
-        SessionUserDto principal = userService.로그인(loginDto);
-        if (principal == null) {
-            return new CMRespDto<>(-1, "로그인실패", null);
-        }
+    // @PostMapping("/user/login")
+    // public @ResponseBody CMRespDto<?> login(@RequestBody LoginDto loginDto, HttpServletResponse resp) {
+    //     SessionUserDto principal = userService.로그인(loginDto);
+    //     if (principal == null) {
+    //         return new CMRespDto<>(-1, "로그인실패", null);
+    //     }
 
-        String token = CreateJWTToken.createToken(principal); // 로그인 될시 토큰생성
-        System.out.println("디버그 생성된 쿠키 : " + token);
-        resp.addHeader(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX + token); // 헤더에 토큰 추가
-        resp.addCookie(CookieForToken.setCookie(token)); // 쿠키 객체를 웹 브라우저로 보낸다. 쿠키 저장소에 저장하게 함
+    //     String token = CreateJWTToken.createToken(principal); // 로그인 될시 토큰생성
+    //     System.out.println("디버그 생성된 쿠키 : " + token);
+    //     resp.addHeader(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX + token); // 헤더에 토큰 추가
+    //     resp.addCookie(CookieForToken.setCookie(token)); // 쿠키 객체를 웹 브라우저로 보낸다. 쿠키 저장소에 저장하게 함
 
-        session.setAttribute("principal", principal);
-        return new CMRespDto<>(1, "로그인성공", principal);
-    }
+    //     session.setAttribute("principal", principal);
+    //     return new CMRespDto<>(1, "로그인성공", principal);
+    // }
 
     // 로그아웃
     @GetMapping("/user/logout")
