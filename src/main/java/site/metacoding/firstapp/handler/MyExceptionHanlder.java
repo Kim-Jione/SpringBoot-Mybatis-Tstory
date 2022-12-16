@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import site.metacoding.firstapp.handler.ex.MyApiException;
 import site.metacoding.firstapp.handler.ex.MyException;
-import site.metacoding.firstapp.util.Script;
+import site.metacoding.firstapp.utill.Script;
 import site.metacoding.firstapp.web.dto.CMRespDto;
 
 

@@ -1,4 +1,4 @@
-package site.metacoding.firstapp.util;
+package site.metacoding.firstapp.utill;
 
 public class Script {
 
