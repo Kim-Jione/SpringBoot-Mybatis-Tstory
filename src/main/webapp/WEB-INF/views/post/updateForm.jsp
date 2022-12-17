@@ -68,13 +68,11 @@ ${post.postContent}</textarea
 
         if ($("#file")[0].files[0] == null) { // 썸네일 수정 안할때
        
-            let data = {
+               let data = {
             categoryId: $("#categoryId").val(),
-            postId: $("#postId").val(),
             userId: $("#userId").val(),
             postTitle: $("#postTitle").val(),
             postContent: $("#postContent").val(),
-            noFile: $("#noFile").val()
         };
 
          $.ajax("/s/api/post/update/noImg", {

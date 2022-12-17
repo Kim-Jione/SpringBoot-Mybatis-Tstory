@@ -3,20 +3,23 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
 
 <div class="container">
     <c:if test="${principal.userId==category.userId}">
-   <span class="btn_form">
-    <a href="/s/api/category/updateForm/${category.categoryId}">
-    <span class="btn_form_update"><button id="btnUpdate" class="btn btn-outline-warning">수정</button></a></span>
-    
-    <span class="btn_form_delete">
-            <button onclick="removeCheck()"  type="submit" class=" btn btn-outline-danger">
-                삭제</button>
-    </span>
-    </span>
+  
 </c:if>
     <div style="display: inline-flex;">
 <div class="category_form">
     <h5 style="line-height: 50px;">${category.categoryTitle}(${categoryCount.categoryCount})</h5></div>
-
+ <span class="btn_form">
+    <a href="/s/api/category/updateForm/${category.categoryId}">
+        
+         <span class="btn_form_update">
+             <button id="btnUpdate" class="btn btn-outline-warning">수정</button></a>
+            
+    
+         <span class="btn_form_delete">
+            <button onclick="removeCheck()"  type="submit" class=" btn btn-outline-danger">
+                삭제</button>
+         </span>
+</span>
     <input type="hidden" value="${category.categoryId}" id="categoryId">
      <!-- 검색바 -->
         <div
@@ -42,13 +45,14 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
 
 
          <!-- 게시글 작성 -->
+         <div class="write_icon">
         <c:if test="${principal.userId == user.userId}">
         <div class="d-flex justify-content-end my_mb_sm_1" style="padding-left: 600px;">
         <a href="/s/api/post/writeForm" class="my_atag_none">
                 <i class="fa-solid fa-pencil fa-2x" style="padding-top: 20px;"></i>
         </a>
     </div>
-    </c:if>
+    </c:if></div>
 </div>
 
 

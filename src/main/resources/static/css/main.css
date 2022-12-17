@@ -43,7 +43,7 @@
     border-bottom: 1px solid rgb(25, 25, 25);
 }
 
-my_secondary_btn {
+.my_secondary_btn {
     background-color: black;
 }
 
@@ -51,6 +51,11 @@ my_secondary_btn {
     background-color: rgb(255, 85, 68);
     color: white;
     text-decoration-line: none;
+}
+
+.my_navbar_title_text{
+    font-weight: 600;
+    color: black;
 }
 
 .bd-navbar {
