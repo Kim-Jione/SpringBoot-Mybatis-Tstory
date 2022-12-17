@@ -30,7 +30,7 @@
 
 	<select id="findByUserId"
 		resultType="site.metacoding.firstapp.web.dto.response.main.HeaderDto">
-		SELECT c.category_id, c.category_title, u.username, u.user_id
+		SELECT *
 		FROM user u 
 		LEFT JOIN category c
 		ON u.user_id = c.user_id
@@ -76,6 +76,11 @@
 		FROM category
 		WHERE user_id = #{userId} AND category_id = #{categoryId}
     </select>
+
+	<select id="findByUser"
+		resultType="site.metacoding.firstapp.domain.category.Category">
+		SELECT * FROM category WHERE user_id=#{userId}
+	</select>
 
 </mapper>
 

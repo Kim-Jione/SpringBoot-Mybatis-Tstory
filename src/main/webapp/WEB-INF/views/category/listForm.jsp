@@ -2,12 +2,11 @@
 pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
 
 <div class="container">
-    <c:if test="${principal.userId==category.userId}">
   
-</c:if>
-    <div style="display: inline-flex;">
-<div class="category_form">
+    <div class = "my_list" style="display: inline-flex;">
+<div class="my_list_category_form">
     <h5 style="line-height: 50px;">${category.categoryTitle}(${categoryCount.categoryCount})</h5></div>
+    <c:if test="${principal.userId==category.userId}">
  <span class="btn_form">
     <a href="/s/api/category/updateForm/${category.categoryId}">
         
@@ -20,6 +19,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
                 삭제</button>
          </span>
 </span>
+</c:if>
     <input type="hidden" value="${category.categoryId}" id="categoryId">
      <!-- 검색바 -->
         <div

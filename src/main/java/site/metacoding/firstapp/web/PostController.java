@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.RequiredArgsConstructor;
+import site.metacoding.firstapp.domain.category.Category;
 import site.metacoding.firstapp.domain.category.CategoryDao;
 import site.metacoding.firstapp.domain.love.Love;
 import site.metacoding.firstapp.domain.post.PostDao;
@@ -81,6 +82,10 @@ public class PostController {
 	public String writeForm(Model model) {
 		User principal = (User) session.getAttribute("principal");
 		List<HeaderDto> titleDto = categoryDao.findByUserId(principal.getUserId());
+		Category categoryPS = categoryDao.findByUser(principal.getUserId());
+		if (categoryPS == null) {
+			return "redirect:/s/api/category/writeForm";      
+		}
 		model.addAttribute("user", userDao.findById(principal.getUserId()));
 		model.addAttribute("userImg", userDao.findById(principal.getUserId()));
 		model.addAttribute("titleList", titleDto);
