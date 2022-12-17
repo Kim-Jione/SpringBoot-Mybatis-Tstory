@@ -11,7 +11,6 @@ import site.metacoding.firstapp.config.authfilter.JwtAuthorizationFilter;
 import site.metacoding.firstapp.domain.user.UserDao;
 import site.metacoding.firstapp.utill.SHA256;
 
-@Slf4j
 @RequiredArgsConstructor
 @Configuration
 public class FilterConfig {

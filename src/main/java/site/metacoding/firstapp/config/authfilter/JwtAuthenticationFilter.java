@@ -12,6 +12,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -20,6 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.RequiredArgsConstructor;
 import site.metacoding.firstapp.domain.user.UserDao;
+import site.metacoding.firstapp.utill.JWTToken.CookieForToken;
 import site.metacoding.firstapp.utill.SHA256;
 import site.metacoding.firstapp.web.dto.CMRespDto;
 import site.metacoding.firstapp.web.dto.auth.FindByUsernameDto;
@@ -44,7 +46,6 @@ public class JwtAuthenticationFilter implements Filter { // 토큰 생성 필터
 		// Post요청이 아닌것을 거부
 		if (!req.getMethod().equals("POST")) {
 			customResponse("로그인시에는 post요청을 해야 합니다.", resp);
-			return;
 		}
 
 		// Body 값 받기
@@ -62,11 +63,10 @@ public class JwtAuthenticationFilter implements Filter { // 토큰 생성 필터
 		String encPassword = sha256.encrypt(loginDto.getPassword());
 		if (!usernamePS.get().getPassword().equals(encPassword)) {
 			customResponse("디버그 : 패스워드가 틀렸습니다.", resp);
-			return;
 		}
 
 		// JWT토큰 유효시간 1초 = 1/1000
-		Date expire = new Date(System.currentTimeMillis() + (1000 * 60 * 60)); // 1시간
+		Date expire = new Date(System.currentTimeMillis() + (1 * 60 * 60)); // 10시간
 
 		String jwtToken = JWT.create()
 				.withSubject("메타코딩") // 토큰 이름
@@ -75,10 +75,10 @@ public class JwtAuthenticationFilter implements Filter { // 토큰 생성 필터
 				.withClaim("username", usernamePS.get().getUsername())
 				.sign(Algorithm.HMAC512(JwtProperties.SECRET)); // 토큰 암호화 알고리즘 서명은 SECRET, 서버만 알고 있어야 함
 
-		System.out.println("디버그 jwtToken : " + jwtToken);
+		System.out.println("디버그 jwtToken 생성완료 : " + jwtToken);
 
 		// JWT토큰 성공 응답
-		customJwtResponse("로그인 성공", jwtToken, usernamePS.get(), resp);
+		customJwtResponse("로그인 성공!!!", jwtToken, usernamePS.get(), resp);
 
 	}
 
@@ -90,7 +90,7 @@ public class JwtAuthenticationFilter implements Filter { // 토큰 생성 필터
 		resp.addHeader(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX + jwtToken);
 		PrintWriter out = resp.getWriter();
 		resp.setStatus(200);
-		CMRespDto<?> responseDto = new CMRespDto<>(1, "로그인 성공", new SessionUserDto(findByUsernameDto));
+		CMRespDto<?> responseDto = new CMRespDto<>(1, msg, new SessionUserDto(findByUsernameDto));
 		ObjectMapper om = new ObjectMapper();
 		String body = om.writeValueAsString(responseDto);
 
