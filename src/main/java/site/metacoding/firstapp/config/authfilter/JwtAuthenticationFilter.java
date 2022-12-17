@@ -90,7 +90,7 @@ public class JwtAuthenticationFilter implements Filter { // 토큰 생성 필터
 		resp.addHeader(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX + jwtToken);
 		PrintWriter out = resp.getWriter();
 		resp.setStatus(200);
-		CMRespDto<?> responseDto = new CMRespDto<>(1, msg, new SessionUserDto(findByUsernameDto));
+		CMRespDto<?> responseDto = new CMRespDto<>(1, msg, jwtToken);
 		ObjectMapper om = new ObjectMapper();
 		String body = om.writeValueAsString(responseDto);
 

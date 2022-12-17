@@ -49,7 +49,10 @@ function login() {
             },
         }).done((res) => {
             if (res.code == 1) {
-                alert(res.msg);
+                if(res.data==null){
+                alert("토큰이 없습니다.");
+                }
+                alert(res.data);
             } else {
                 alert("dk");
                 return false;
