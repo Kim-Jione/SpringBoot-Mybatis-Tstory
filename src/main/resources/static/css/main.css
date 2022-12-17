@@ -58,6 +58,24 @@
     color: black;
 }
 
+.my_sidebar_title{
+    font-weight: 900;
+    font-size: medium;
+    color: black;
+    padding-top: 30px;
+    padding-left: 30px;
+}
+
+.my_sidebar_text_form{
+    padding-left: 30px;
+    padding-top: 10px;
+}
+
+.my_sidebar_text{
+    font-weight: 900;
+    color: black;
+}
+
 .bd-navbar {
                 z-index: 1071;
                 min-height: 4rem;

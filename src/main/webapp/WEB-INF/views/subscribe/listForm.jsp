@@ -163,16 +163,16 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                 <div
                     id="sidebar"
                     class="col-3 bd-sidebar"
-                    style="background-color: white; color: black"
+                    style="background-color: white; color: black; margin-top: 23px;"
                 >
-                    <div class="bd-sidebar-body">
+                    <div class="bd-sidebar-body" >
                         <ul class="nav">
-                            <li style="padding-top: 30px;padding-left: 30px;">
-                                구독
+                            <li>
+                                <h5 class="my_sidebar_title">구독목록</h5>
                             </li>
                             <c:forEach var="subscribe" items="${subscribeList}">
-                                <li style="padding-left: 30px;padding-top: 10px;">
-                                    <a
+                                <li  class="my_sidebar_text_form" >
+                                    <a class="my_sidebar_text"
                                         href="/post/listForm/${subscribe.usersId}"
                                         >${subscribe.nickname} 의 블로그</a
                                     >
@@ -191,6 +191,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                     id="main"
                     class="col-9 py-md-3 pl-md-5 bd-content"
                     role="main"
+                     style="margin-top: 35px;"
                 >
                     <c:forEach var="post" items="${postList}">
                         <div class="my_post_list_item">
