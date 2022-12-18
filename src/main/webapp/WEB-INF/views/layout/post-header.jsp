@@ -79,7 +79,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                 <div class="my_navbar_title">
                     <a
                         href="/post/listForm/${categoryList[0].userId}"
-                        style="color: black"
+                       class="my_navbar_title_text"
                         >${user.nickname} 의 블로그</a
                     >
                 </div>

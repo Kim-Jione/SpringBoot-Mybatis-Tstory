@@ -5,11 +5,12 @@
 
 .write_icon i {
     position: absolute;
-    left: 81%;
+    left: 77.5%;
 }
 
 .btn_form{
     display: inline-flex;
+    line-height: 50px;
 }
 
 .btn_form_update{
