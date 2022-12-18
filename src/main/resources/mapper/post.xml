@@ -180,4 +180,13 @@
 	) p 
     </select>
 	
+	<update id="updateNoThumnail">
+         UPDATE post
+		  SET post_title =#{postTitle},
+		  post_content = #{postContent},
+		  post_thumnail = #{postThumnail},
+		  category_id = #{categoryId}
+		  WHERE post_id = #{postId} AND user_id = #{userId}
+    </update>
+	
 </mapper>

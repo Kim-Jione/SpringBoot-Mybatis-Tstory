@@ -59,4 +59,6 @@ public interface PostDao {
 	public PagingDto paging(@Param("page") Integer page, @Param("userId") Integer userId,
 			@Param("keyword") String keyword);
 
+	public void updateNoThumnail(PostUpdateDto dto);
+
 }

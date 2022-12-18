@@ -20,6 +20,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
 
         <input type="hidden" id="userId" value="${principal.userId}" />
         <input type="hidden" id="postId" value="${post.postId}" />
+        <input type="hidden" id="noFile" value="${post.postThumnail}">
     </div>
 
     <input
@@ -37,7 +38,6 @@ ${post.postContent}</textarea
         <div>
             섬네일 사진 등록 :
             <input type="file" id="file"/>
-            <input type="hidden" id="noFile" value="${post.postThumnail}">
         </div>
     </div>
     <div  style="display: flex;justify-content: right;">
@@ -53,7 +53,9 @@ ${post.postContent}</textarea
     function update() {
 
         let postTitle = $("#postTitle").val();
+        let userId = $("#userId").val();
         let postContent = $("#postContent").val();
+        let noFile = $("#noFile").val();
 
           if (postTitle.length<1) {
             alert("제목을 입력해주셔야 합니다.");
@@ -67,12 +69,14 @@ ${post.postContent}</textarea
 
 
         if ($("#file")[0].files[0] == null) { // 썸네일 수정 안할때
-       
+            
                let data = {
+            postId:$("#postId").val(),
             categoryId: $("#categoryId").val(),
             userId: $("#userId").val(),
             postTitle: $("#postTitle").val(),
             postContent: $("#postContent").val(),
+            noFile: $("#noFile").val()   
         };
 
          $.ajax("/s/api/post/update/noImg", {
@@ -84,9 +88,9 @@ ${post.postContent}</textarea
             },
         }).done((res) => {
             if (res.code == 1) {
-                console.log("asdasd");
                 alert("게시글이 수정되었습니다.");
-                location.href = "/";
+                location.href = "/post/listForm/"+userId;
+
             } else {
                 alert("게시글 입력 정보를 다시 확인해주세요.");
                 return false;
@@ -118,7 +122,8 @@ ${post.postContent}</textarea
         }).done((res) => {
             if (res.code == 1) {
                 alert("게시글이 수정 되었습니다.");
-                location.href = "/";
+            location.href = "/post/listForm/"+userId;
+
             } else {
                 alert("게시글 입력 정보를 다시 확인해주세요.");
                 return false;

@@ -102,4 +102,8 @@ public class PostService {
 	public void 썸네일없는게시글로수정하기(PostUpdateDto postUpdateDto, Integer userId) {
 		postDao.insertNoUpdate(postUpdateDto);
 	}
+
+	public void 원래썸네일없는게시글수정하기(PostUpdateDto postUpdateDto, Integer userId) {
+		postDao.updateNoThumnail(postUpdateDto.toDto());
+	}
 }

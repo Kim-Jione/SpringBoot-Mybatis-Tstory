@@ -72,7 +72,12 @@ public class PostController {
 	// 썸네일 없는 게시글 수정 응답
 	@PutMapping("/s/api/post/update/noImg")
 	public @ResponseBody CMRespDto<?> updateNoImg(@RequestBody PostUpdateDto postUpdateDto) {
+		System.out.println("디버그 getNoFile : " + postUpdateDto.getNoFile());
 		User principal = (User) session.getAttribute("principal");
+		if (postUpdateDto.getNoFile() == null) {
+			System.out.println("디버그 : 원래 썸네일없");
+			postService.원래썸네일없는게시글수정하기(postUpdateDto, principal.getUserId());
+		}
 		postService.썸네일없는게시글로수정하기(postUpdateDto, principal.getUserId());
 		return new CMRespDto<>(1, "썸네일없는게시글 수정 성공", null);
 	}
@@ -82,9 +87,9 @@ public class PostController {
 	public String writeForm(Model model) {
 		User principal = (User) session.getAttribute("principal");
 		List<HeaderDto> titleDto = categoryDao.findByUserId(principal.getUserId());
-		Category categoryPS = categoryDao.findByUser(principal.getUserId());
+		List<Category> categoryPS = categoryDao.findByUser(principal.getUserId());
 		if (categoryPS == null) {
-			return "redirect:/s/api/category/writeForm";      
+			return "redirect:/s/api/category/writeForm";
 		}
 		model.addAttribute("user", userDao.findById(principal.getUserId()));
 		model.addAttribute("userImg", userDao.findById(principal.getUserId()));

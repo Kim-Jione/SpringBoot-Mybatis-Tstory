@@ -36,6 +36,6 @@ public interface CategoryDao {
 
 	public void deleteAll(Integer categoryId);
 
-	public Category findByUser(Integer userId);
+	public List<Category> findByUser(Integer userId);
 
 }
