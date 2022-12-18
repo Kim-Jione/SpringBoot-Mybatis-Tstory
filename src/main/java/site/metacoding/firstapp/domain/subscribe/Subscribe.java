@@ -11,13 +11,13 @@ import lombok.NoArgsConstructor;
 @Getter
 public class Subscribe {
 	private Integer subscribeId;
-	private Integer userId;
-	private Integer usersId;
+	private Integer fromUserId;
+	private Integer toUserId;
 	private Timestamp updatedAt;
 	private Timestamp createdAt;
 
-	public Subscribe(Integer userId, Integer usersId) {
-		this.userId = userId;
-		this.usersId = usersId;
+	public Subscribe(Integer userId, Integer toUserId) {
+		this.fromUserId = userId;
+		this.toUserId = toUserId;
 	}
 }

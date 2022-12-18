@@ -88,7 +88,8 @@ public class PostController {
 		User principal = (User) session.getAttribute("principal");
 		List<HeaderDto> titleDto = categoryDao.findByUserId(principal.getUserId());
 		List<Category> categoryPS = categoryDao.findByUser(principal.getUserId());
-		if (categoryPS == null) {
+		System.out.println("디버그 : " + principal.getUserId());
+		if (categoryPS.size() == 0) {
 			return "redirect:/s/api/category/writeForm";
 		}
 		model.addAttribute("user", userDao.findById(principal.getUserId()));

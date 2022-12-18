@@ -173,7 +173,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                             <c:forEach var="subscribe" items="${subscribeList}">
                                 <li  class="my_sidebar_text_form" >
                                     <a class="my_sidebar_text"
-                                        href="/post/listForm/${subscribe.usersId}"
+                                        href="/post/listForm/${subscribe.toUserId}"
                                         >${subscribe.nickname} 의 블로그</a
                                     >
                                 </li></c:forEach

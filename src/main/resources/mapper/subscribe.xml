@@ -18,15 +18,15 @@
 
 	<insert id="insert">
 		INSERT
-		INTO subscribe(user_id, users_id)
-		VALUES(#{userId}, #{usersId})
+		INTO subscribe(from_user_id, to_user_id)
+		VALUES(#{fromUserId}, #{toUserId})
 	</insert>
 
     <update id="update">
           UPDATE surbscribe
 		  SET 
-		  user_id = #{userId},
-		  users_id = #{usersId}
+		  from_user_id = #{fromUserId},
+		  to_user_id = #{toUserId}
     </update>
 
 	<delete id="delete">
@@ -34,29 +34,29 @@
 	</delete>
 
 
-    <select id="findByUserIdAndUsersId" resultType="Integer">
+    <select id="findByUserIdAndToUserId" resultType="Integer">
         SELECT subscribe_Id
     	FROM subscribe
-    	WHERE user_id = #{userId} and users_id = #{usersId}
+    	WHERE from_user_id = #{fromUserId} and to_user_id = #{toUserId}
     </select>
 
     <select id="findByUserId" resultType="site.metacoding.firstapp.domain.subscribe.Subscribe">
-          SELECT * FROM subscribe WHERE user_id=#{userId}
+          SELECT * FROM subscribe WHERE user_id=#{fromUserId}
     </select>
 
 	<select id="findByUserList"  resultType="site.metacoding.firstapp.web.dto.response.subscribe.UserListDto">
-       SELECT s.subscribe_id, s.user_id, (u.user_id)usersId, u.username, u.nickname
+       SELECT s.subscribe_id, s.from_user_id, (u.user_id)to_user_id, u.username, u.nickname
 		FROM subscribe s
 		INNER JOIN user u
-		ON u.user_id = s.users_id
-		WHERE s.user_id=#{userId}
+		ON u.user_id = s.to_user_id
+		WHERE s.from_user_id=#{fromUserId}
     </select>
 	
 	<select id="findAllSubscribePost" resultType="site.metacoding.firstapp.web.dto.response.subscribe.PostListDto">
-    	SELECT p.post_title,s.users_id,s.subscribe_id, p.post_content, p.post_thumnail, p.created_at, p.updated_at, u.nickname,u.user_id, p.post_id
-		FROM (SELECT * FROM subscribe WHERE user_id=#{userId}) s
+    	SELECT p.post_title,s.to_user_id,s.subscribe_id, p.post_content, p.post_thumnail, p.created_at, p.updated_at, u.nickname,u.user_id, p.post_id
+		FROM (SELECT * FROM subscribe WHERE from_user_id=#{fromUserId}) s
 		INNER JOIN post p
-		on p.user_id = s.users_id
+		on p.user_id = s.to_user_id
 		INNER JOIN user u
 		ON p.user_id = u.user_id
 		ORDER BY p.post_id DESC

@@ -77,7 +77,6 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                         maxlength="20"
                     />
                 </div>
-                <div style="padding-left: 120px;">*계정 분실 시 본인인증 정보로 활용됩니다.</div>
                 <span
                     class="nicknameValid"
                     style="padding-left: 120px; color: red; display: none"
@@ -98,6 +97,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                     class="emailValid"
                     style="padding-left: 120px; color: red; display: none"
                 ></span>
+                <div style="padding-left: 120px;">*계정 분실 시 본인인증 정보로 활용됩니다.</div>
                 <button onclick="join()" type="submit" class="my_secondary_btn">
                     회원가입
                 </button>
@@ -190,6 +190,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             },
         }).done((res) => {
             if (res.code == 1) {
+                alert("회원가입 축하드립니다.");
                 location.href = "/user/loginForm";
             } else {
                 alert(res.msg);

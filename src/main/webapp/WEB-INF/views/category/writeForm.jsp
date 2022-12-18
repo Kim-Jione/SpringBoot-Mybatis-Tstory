@@ -4,6 +4,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
     <div class="my_auth_box">
         <div class="my_auth_form_box">
             <div class="my_auth_form_box_title">JSotry</div>
+            <h5>카테고리를 등록하셔야 게시글 작성이 가능합니다.</h4>
             <div style="display: flex">
                 <div
                     class="my_auth_form_box_info_security_detail"
@@ -33,6 +34,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
 </div>
 <script>
     let isCheckCategoryTitle = false;
+    let userId =$("#userId").val();
 
     $("#saveBtn").click(() => {
         write();
@@ -64,7 +66,8 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
         }).done((res) => {
             if (res.code == 1) {
                 alert("카테고리 등록에 성공했습니다.");
-                location.href = "/";
+            location.href = "/post/listForm/"+userId;
+
             } else {
                 alert("카테고리 등록에 실패했습니다.");
                 location.href = "/";

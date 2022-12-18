@@ -32,25 +32,27 @@ public class SubscribeController {
 	@GetMapping("/s/api/subscribe/listForm")
 	public String ListForm(Model model) {
 		User principal = (User) session.getAttribute("principal");
-		List<PostListDto> postList = subscribeDao.findAllSubscribePost(principal.getUserId());
+		Integer fromUserId = principal.getUserId();
+		List<PostListDto> postList = subscribeDao.findAllSubscribePost(fromUserId);
 		model.addAttribute("postList", postList);
 
-		List<UserListDto> subscribeList = subscribeDao.findByUserList(principal.getUserId());
-		model.addAttribute("user", userDao.findById(principal.getUserId()));
+		List<UserListDto> subscribeList = subscribeDao.findByUserList(fromUserId);
+		model.addAttribute("user", userDao.findById(fromUserId));
 		model.addAttribute("subscribeList", subscribeList);
 		return "subscribe/listForm";
 	}
 
 	// 구독 응답
-	@PostMapping("/s/api/subscribe/{usersId}")
-	public @ResponseBody CMRespDto<Integer> companySubscribe(@PathVariable Integer usersId, Model model) {
+	@PostMapping("/s/api/subscribe/{toUserId}")
+	public @ResponseBody CMRespDto<Integer> companySubscribe(@PathVariable Integer toUserId, Model model) {
 		User principal = (User) session.getAttribute("principal");
 
-		Integer subscribeId = subscribeService.구독Id불러오기(principal.getUserId(), usersId);
+		Integer subscribeId = subscribeService.구독Id불러오기(principal.getUserId(), toUserId);
+		Integer fromUserId = principal.getUserId();
 
 		if (subscribeId == null) {
-			subscribeService.구독하기(principal.getUserId(), usersId);
-			subscribeId = subscribeService.구독Id불러오기(principal.getUserId(), usersId);
+			subscribeService.구독하기(fromUserId, toUserId);
+			subscribeId = subscribeService.구독Id불러오기(fromUserId, toUserId);
 			return new CMRespDto<Integer>(1, "구독 완료", subscribeId);
 		}
 

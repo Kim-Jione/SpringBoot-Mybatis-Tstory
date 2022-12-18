@@ -7,8 +7,8 @@ import lombok.Setter;
 @Getter
 public class UserListDto {
 	private Integer subscribeId;
-	private Integer userId;
-	private Integer usersId;
+	private Integer fromUserId;
+	private Integer toUserId;
 	private String username;
 	private String nickname;
 }

@@ -19,12 +19,12 @@ public interface SubscribeDao {
 
 	public void delete(Integer subscribeId);
 
-	public Integer findByUserIdAndUsersId(@Param("userId") Integer userId, @Param("usersId") Integer usersId);
-	
-	
-	public List<Subscribe> findByUserId(Integer userId); // user가 구독한 id들
+	public Integer findByUserIdAndToUserId(@Param("fromUserId") Integer fromUserId,
+			@Param("toUserId") Integer toUserId);
 
-	public List<UserListDto> findByUserList(Integer userId);
+	public List<Subscribe> findByUserId(Integer fromUserId); // user가 구독한 id들
 
-	public List<PostListDto> findAllSubscribePost(Integer userId);
+	public List<UserListDto> findByUserList(Integer fromUserId);
+
+	public List<PostListDto> findAllSubscribePost(Integer fromUserId);
 }
