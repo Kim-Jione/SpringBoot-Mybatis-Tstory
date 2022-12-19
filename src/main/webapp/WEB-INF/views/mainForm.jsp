@@ -33,9 +33,9 @@
                    
                    
                 </div>
-                <div class="my_main_content my_p_sm_1">
+                <div class="my_main_content my_p_sm_1" style="box-sizing: content-box;" >
                     <div class="my_main_item_title">
-                        <h3>${post.postTitle}</h3>
+                        <h4>${post.postTitle}</h4>
                     </div>
                     <div class="my_main_item_summary my_mb_sm_1 my_text_two_line">
                         ${post.createdAt}

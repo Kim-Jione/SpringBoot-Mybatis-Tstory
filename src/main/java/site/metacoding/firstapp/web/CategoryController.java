@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PutMapping; 
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -22,7 +22,7 @@ import site.metacoding.firstapp.domain.user.UserDao;
 import site.metacoding.firstapp.domain.visit.VisitDao;
 import site.metacoding.firstapp.web.dto.CMRespDto;
 import site.metacoding.firstapp.web.dto.request.category.UpdateCategoryTitleDto;
-import site.metacoding.firstapp.web.dto.request.user.CheckDto;
+import site.metacoding.firstapp.web.dto.request.user.CheckDto;	
 import site.metacoding.firstapp.web.dto.response.post.PagingDto;
 import site.metacoding.firstapp.web.dto.response.post.PostAllDto;
 

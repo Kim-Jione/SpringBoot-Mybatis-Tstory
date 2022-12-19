@@ -9,3 +9,4 @@ public class CountDto {
 	private Integer userId;
 	private Integer totalCount;
 }
+	
