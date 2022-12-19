@@ -1,11 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
 
-<style>
-    .ql-editor {
-        min-height: 40vh;
-    }
-</style>
 <div class="container">
     <!-- 카테고리 목록 -->
     <div class="form-group">
@@ -42,6 +37,11 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
     <br />
 </div>
 
+<script>
+	$('#postContent').summernote({
+		height : 400
+	});
+</script>
 <script>
     $("#writeBtn").click(() => {
         write();

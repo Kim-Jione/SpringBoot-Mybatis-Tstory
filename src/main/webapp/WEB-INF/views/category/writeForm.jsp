@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
+pageEncoding="UTF-8"%> 
+
+<%@ include file="../layout/main-header.jsp"%>
+
+
 <div class="container">
     <div class="my_auth_box">
         <div class="my_auth_form_box">
@@ -32,6 +36,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
     </div>
     <br />
 </div>
+
 <script>
     let isCheckCategoryTitle = false;
     let userId =$("#userId").val();

@@ -2,7 +2,7 @@
 pageEncoding="UTF-8"%><%@ taglib prefix="c"
 uri="http://java.sun.com/jsp/jstl/core"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<html lang="ko">
+<html lang="en">
     <head>
         <title>제이스토리</title>
         <meta charset="utf-8" />
@@ -36,6 +36,16 @@ uri="http://java.sun.com/jsp/jstl/core"%>
             href="https://cdn.quilljs.com/1.3.6/quill.snow.css"
             rel="stylesheet"
         />
+
+        <!--writeForm-->
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet">
+
 
         <link rel="stylesheet" href="/css/styles.css" />
     </head>
