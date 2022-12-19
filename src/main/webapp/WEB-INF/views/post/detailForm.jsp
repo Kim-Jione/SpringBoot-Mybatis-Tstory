@@ -5,9 +5,26 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
     <div class="my_post_detail_title">
         <h2>${post.postTitle}</h2>
     </div>
+    <br>
     <div style="display: flex;" >
 
-        <div style="display: inline-flex;">
+        
+        <c:choose>
+<c:when test="${principal.userId==post.userId}">
+        <div style="line-height: 40px;" >
+        작성자:<a href="/post/listForm/${post.userId}"> ${user.nickname}</a>&nbsp;&nbsp;
+                최근 수정일: ${post.updatedAt}
+        </div>
+        </c:when>
+        <c:otherwise>
+ <div  >
+        작성자:<a href="/post/listForm/${post.userId}"> ${user.nickname}</a>&nbsp;&nbsp;
+                최근 수정일: ${post.updatedAt}
+        </div>
+
+        </c:otherwise>
+        </c:choose>
+        <div style="display: inline-flex; padding-left: 30px;">
         <c:if test="${principal.userId==post.userId}">
             <a
                 class="btn btn-outline-warning"
@@ -21,22 +38,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/post-header.jsp"%>
                 </button>
             </form>
         </c:if>
-        </div>
-<c:choose>
-<c:when test="${principal.userId==post.userId}">
-        <div  style="padding-left: 550px; ">
-        작성자:<a href="/post/listForm/${post.userId}"> ${user.nickname}</a>&nbsp;&nbsp;
-                최근 수정일: ${post.updatedAt}
-        </div>
-        </c:when>
-        <c:otherwise>
- <div  style="padding-left: 750px; ">
-        작성자:<a href="/post/listForm/${post.userId}"> ${user.nickname}</a>&nbsp;&nbsp;
-                최근 수정일: ${post.updatedAt}
-        </div>
-
-        </c:otherwise>
-        </c:choose>
+    </div>
     </div>
     <hr><br>
    
