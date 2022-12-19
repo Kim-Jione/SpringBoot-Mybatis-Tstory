@@ -44,7 +44,11 @@ ${post.postContent}</textarea
     <button type="submit" class="my_active_btn" id="updateBtn">수정완료</button></div>
     <br />
 </div>
-
+<script>
+	$('#postContent').summernote({
+		height : 400
+	});
+</script>
 <script>
     $("#updateBtn").click(() => {
         update();
