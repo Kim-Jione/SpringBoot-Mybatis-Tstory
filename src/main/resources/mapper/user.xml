@@ -50,7 +50,7 @@
     <select id="findByPasswordAndUserId" resultType="site.metacoding.firstapp.domain.user.User" > 
         SELECT *
 		FROM user u
-		WHERE u.user_id=#{userId} AND u.password= #{password}     
+		WHERE u.user_id=#{userId} AND u.password= #{encPassword}     
     </select>
 
 
@@ -80,7 +80,7 @@
 
     <update id="updateByPassword">
           UPDATE user
-		  SET password = #{passwordUpdate}
+		  SET password = #{encPassword}
 		  WHERE user_id = #{userId}
     </update>
 

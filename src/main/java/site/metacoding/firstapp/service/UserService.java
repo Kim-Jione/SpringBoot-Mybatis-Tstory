@@ -171,7 +171,8 @@ public class UserService {
 	}
 
 	public void 비밀번호수정하기(String passwordUpdate, Integer userId) {
-		userDao.updateByPassword(passwordUpdate, userId);
+        String encPassword = sha256.encrypt(passwordUpdate);
+		userDao.updateByPassword(encPassword, userId);
 	}
 
 }
