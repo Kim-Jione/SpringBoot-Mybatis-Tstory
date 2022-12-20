@@ -22,7 +22,7 @@ public interface UserDao {
 
 	public void updateById(UserUpdateDto userUpdateDto);
 
-	public User findByPasswordAndUserId(@Param("password") String password, @Param("userId") Integer userId);
+	public User findByPasswordAndUserId(@Param("encPassword") String encPassword, @Param("userId") Integer userId);
 
 	public User findByUsername(String username);
 
@@ -32,7 +32,7 @@ public interface UserDao {
 
 	public void leave(Integer userId);
 
-	public void updateByPassword(@Param("passwordUpdate") String passwordUpdate, @Param("userId") Integer userId);
+	public void updateByPassword(@Param("encPassword") String encPassword, @Param("userId") Integer userId);
 
 	public void updateByNickname(@Param("nicknameUpdate") String nicknameUpdate, @Param("userId") Integer userId);
 

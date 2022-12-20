@@ -198,7 +198,8 @@ public class UserController {
     @PostMapping("/s/api/user/updatePassword")
     public @ResponseBody CMRespDto<?> updatePassword(@RequestBody UpdatePasswordDto updatePasswordDto) {
         User principal = (User) session.getAttribute("principal");
-        User userPS = userDao.findByPasswordAndUserId(updatePasswordDto.getPassword(), principal.getUserId());
+        String encPassword = sha256.encrypt(updatePasswordDto.getPassword());
+        User userPS = userDao.findByPasswordAndUserId(encPassword, principal.getUserId());
         if (userPS == null) {
             return new CMRespDto<>(-1, "실패", null);
         }
