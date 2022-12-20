@@ -38,7 +38,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                     placeholder="변경할 비밀번호를 입력해주세요."
                     maxlength="20"
                     required
-                />
+                /><i class="fa fa-eye fa-lg" style="line-height: 60px;"></i>
             </div>
             <span
                 class="passwordValid"
@@ -58,7 +58,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                     placeholder="비밀번호를 확인해주세요."
                     maxlength="20"
                     required
-                />
+                /><i class="fa fa-eye fa-lg" style="line-height: 60px;"></i>
             </div>
             <span
                 class="passwordSameValid"
@@ -180,5 +180,23 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
             return false;
         }
     }
+
+     // 비밀번호 미리보기  =====================================
+    $(document).ready(function () {
+        $(".my_auth_box i").on("click", function () {
+            $("input").toggleClass("active");
+            if ($("input").hasClass("active")) {
+                $(this)
+                    .attr("class", "fa fa-eye-slash fa-lg")
+                    .prev("input")
+                    .attr("type", "text");
+            } else {
+                $(this)
+                    .attr("class", "fa fa-eye fa-lg")
+                    .prev("input")
+                    .attr("type", "password");
+            }
+        });
+    });
 </script>
 <%@ include file="../layout/footer.jsp"%>
