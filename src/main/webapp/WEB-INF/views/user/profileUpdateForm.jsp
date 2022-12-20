@@ -30,8 +30,8 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                 >
                     이미지 변경
                 </button>
-            </div>
-
+            </div><br>
+<hr><br>
             <!-- 계정정보 -->
             <div>
                 <input type="hidden" name="userId" value="${user.userId}" />

@@ -7,9 +7,9 @@
 <div class="form-group row justify-content-center">
     
     <div class="d-flex justify-content-end" >
-		<div style="width: 1100px">
+		<div style="width: 1300px">
 			<form style="display: inline-flex" method="get" action="/">
-				<input style="width: 1070px;" class="my_auth_form_box_input" type="text" name="keyword">
+				<input style="width: 1280px;" class="my_auth_form_box_input" type="text" name="keyword">
 				<button class="btn btn-sm btn-light" type="submit">
                             <i class="fa fa-search -retro fa-2x"></i>
                         </button>
@@ -34,8 +34,8 @@
                    
                 </div>
                 <div class="my_main_content my_p_sm_1" style="box-sizing: content-box;" >
-                    <div class="my_main_item_title">
-                        <h4>${post.postTitle}</h4>
+                    <div >
+                        <h4 class="my_main_item_title">${post.postTitle}</h4>
                     </div>
                     <div class="my_main_item_summary my_mb_sm_1 my_text_two_line">
                         ${post.createdAt}
