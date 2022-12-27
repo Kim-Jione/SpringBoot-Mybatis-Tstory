@@ -56,7 +56,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                 location.href = "/user/loginForm";
             } else {
                 alert(res.msg);
-                location.href = "/user/passwordResetForm";
+                return;
             }
         });
     }

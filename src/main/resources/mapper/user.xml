@@ -88,7 +88,7 @@
 		DELETE FROM love WHERE user_id = #{userId};
 		DELETE FROM post WHERE user_id = #{userId};
 		DELETE FROM category WHERE user_id = #{userId};
-		DELETE FROM subscribe WHERE user_id = #{userId} OR users_id=#{userId};
+		DELETE FROM subscribe WHERE from_user_id = #{userId} OR to_user_id=#{userId};
 		DELETE FROM user WHERE user_id = #{userId};
     </delete>
 
