@@ -24,7 +24,6 @@ import site.metacoding.firstapp.service.UserService;
 import site.metacoding.firstapp.utill.SHA256;
 import site.metacoding.firstapp.web.dto.CMRespDto;
 import site.metacoding.firstapp.web.dto.request.MailReqDto;
-import site.metacoding.firstapp.web.dto.request.user.CheckDto;
 import site.metacoding.firstapp.web.dto.request.user.JoinDto;
 import site.metacoding.firstapp.web.dto.request.user.LeaveDto;
 import site.metacoding.firstapp.web.dto.request.user.LoginDto;
@@ -79,7 +78,10 @@ public class UserController {
         User usersPS = userDao.findByUsernameAndenPassword(encPassword, loginDto.getUsername());
         if (usersPS == null) {
             return new CMRespDto<>(-1, "아이디 혹은 비밀번호를 잘못 입력하셨습니다.", null);
-
+        }
+        if (loginDto.getUsername().equals("admin")) {
+            userService.로그인(loginDto);
+            return new CMRespDto<>(2, "관리자님 환영합니다.", null);
         }
         userService.로그인(loginDto);
         return new CMRespDto<>(1, "로그인 되셨습니다.", null);
