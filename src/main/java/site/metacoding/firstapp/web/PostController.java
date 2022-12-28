@@ -183,7 +183,7 @@ public class PostController {
 
 		// 좋아요 화면에 넣는용도
 		if (principal == null) {
-			visitDao.countByVisit(userId);
+			visitDao.countByVisit(userId, postId);
 			PostDetailDto postDetail = postDao.findByIdAndUser(postId, null);
 			model.addAttribute("post", postDetail);
 			model.addAttribute("user", userDao.findById(userId));
@@ -191,7 +191,7 @@ public class PostController {
 			model.addAttribute("postList", postDao.findByUserId(userId)); // 블로그 전체게시글
 			model.addAttribute("visit", visitDao.findByVisitCount(userId));
 		} else {
-			visitDao.countByVisit(userId);
+			visitDao.countByVisit(userId, postId);
 			PostDetailDto postDetail = postDao.findByIdAndUser(postId, principal.getUserId());
 			model.addAttribute("post", postDetail);
 			if (principal != null) {

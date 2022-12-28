@@ -53,6 +53,7 @@ function leave() {
 	}).done((res) => {
 		if (res.code == 1) {
             alert("회원탈퇴가 완료되었습니다.");
+            location.href = "/";
 		} else {
             alert("비밀번호가 맞지 않습니다.");
         }

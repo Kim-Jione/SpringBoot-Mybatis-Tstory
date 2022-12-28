@@ -35,8 +35,8 @@
 
     <insert id="countByVisit">
         INSERT 
-		INTO visit(user_id, total_count)
-		VALUES (#{userId},1)
+		INTO visit(user_id, post_id, total_count)
+		VALUES (#{userId},#{postId},1)
     </insert>
 
 

@@ -98,9 +98,9 @@ public class UserService {
 
 	// 임시 비밀번호로 업데이트
 	public void 비밀번호수정(String str, String email) {
-		String passwordUpdate = str; // 임시비밀번호 가져오기
+		String encPassword = sha256.encrypt(str); // 임시비밀번호 가져와서 암호화
 		Integer userId = userDao.findByUserEmail(email); // 입력받은 이메일 있는지 select
-		userDao.passwordUpdate(passwordUpdate, userId); // 유저 찾아서 비밀번호 업데이트
+		userDao.passwordUpdate(encPassword, userId); // 유저 찾아서 비밀번호 업데이트
 	}
 
 	// 랜덤함수로 임시비밀번호 구문 만들기
@@ -126,7 +126,7 @@ public class UserService {
 		message.setTo(mailDto.getAddress());
 		message.setSubject(mailDto.getTitle());
 		message.setText(mailDto.getMessage());
-		message.setFrom("받는사람 이메일"); // 적어야함
+		message.setFrom("보내는사람 이메일"); // 적어야함
 		// System.out.println("디버그 message : " + message);
 		mailSender.send(message);
 	}
@@ -171,7 +171,7 @@ public class UserService {
 	}
 
 	public void 비밀번호수정하기(String passwordUpdate, Integer userId) {
-        String encPassword = sha256.encrypt(passwordUpdate);
+		String encPassword = sha256.encrypt(passwordUpdate);
 		userDao.updateByPassword(encPassword, userId);
 	}
 

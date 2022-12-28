@@ -185,7 +185,8 @@ public class UserController {
     @DeleteMapping("/s/api/user/leave")
     public @ResponseBody CMRespDto<?> leave(@RequestBody LeaveDto leaveDto) {
         User principal = (User) session.getAttribute("principal");
-        User userPS = userDao.findByPasswordAndUserId(leaveDto.getPassword(), principal.getUserId());
+        String encPassword = sha256.encrypt(leaveDto.getPassword());
+        User userPS = userDao.findByPasswordAndUserId(encPassword, principal.getUserId());
         if (userPS != null) {
             session.invalidate();
             userDao.leave(principal.getUserId());
