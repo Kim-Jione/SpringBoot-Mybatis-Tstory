@@ -43,7 +43,7 @@
     <select id="findByVisitCount" resultType="site.metacoding.firstapp.web.dto.response.visit.CountDto">
 		SELECT user_id, COUNT(total_count) total_count 
 		FROM visit
-		WHERE user_id=#{userId};
+		WHERE user_id=#{userId}
     </select>
 
 
