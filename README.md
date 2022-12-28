@@ -15,7 +15,8 @@
 메인 상단 main-header </br>
 메인 하단 footer </br>
 카테고리 관리페이지 writeForm </br>
-카테고리별 게시글 목록페이지 listForm 
+카테고리별 게시글 목록페이지 listForm </br>
+구독관리 페이지 listForm 
 
 .
 </br>
