@@ -12,7 +12,12 @@ public class AdminController {
     // 로그인 페이지
     @GetMapping("/admin/managementForm")
     public String managementForm() {
-
         return "/admin/managementForm";
+    }
+
+    // 사용자 관리 페이지
+    @GetMapping("/admin/userManageForm")
+    public String userManageForm() {
+        return "/admin/userManageForm";
     }
 }
