@@ -62,8 +62,14 @@
 		ORDER BY p.post_id DESC
     </select>
 
+	<select id="findAllSubscribeRank"
+		resultType="site.metacoding.firstapp.web.dto.response.admin.SubscribeRankDto">
+    	SELECT row_number() over(order BY subscribe_count DESC) as rank,u.*, COUNT(s.subscribe_id) subscribe_count
+    	FROM user u
+    	LEFT JOIN subscribe s
+    	ON u.user_id = s.to_user_id
+    	GROUP BY s.to_user_id
+		ORDER BY subscribe_count DESC
+	</select>
 	
 </mapper>
-
-
-
