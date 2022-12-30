@@ -236,7 +236,7 @@ input:focus{
 			</td>
 			<td class="box">
 				<span class="txt_cate"> 콘텐츠 관리 </span>
-				<a href="" class="txt_name select"> 게시글 관리</a>
+				<a href="/admin/postManageForm" class="txt_name select"> 게시글 관리</a>
 				<a href="" class="txt_name select"> 카테고리 관리 </a>
 			</td>
 			<td class="box">

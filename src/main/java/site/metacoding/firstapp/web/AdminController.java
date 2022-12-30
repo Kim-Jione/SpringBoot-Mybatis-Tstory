@@ -32,5 +32,10 @@ public class AdminController {
         return "/admin/userManageForm";
     }
 
+    // 게시글 관리 페이지
+    @GetMapping("/admin/postManageForm")
+    public String postManageForm(Model model) {
+        return "/admin/postManageForm";
+    }
 
 }
