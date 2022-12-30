@@ -246,7 +246,7 @@ input:focus{
 				<a href="" class="txt_name select"> 게시글수 순위 </a>
 			</td>
 			<td class = "box">
-				<a class = "txt_cate" href=""> 로그아웃 하기 </a>
+				<a class = "txt_cate" href="/user/logout"> 로그아웃 하기 </a>
 			</td>
 		</tr>
 	</table>
