@@ -79,7 +79,7 @@ public class UserController {
         if (usersPS == null) {
             return new CMRespDto<>(-1, "아이디 혹은 비밀번호를 잘못 입력하셨습니다.", null);
         }
-        if (loginDto.getUsername().equals("admin")) {
+        if (userIdPS.getRole().equals("admin")) {
             userService.로그인(loginDto);
             return new CMRespDto<>(2, "관리자님 환영합니다.", null);
         }

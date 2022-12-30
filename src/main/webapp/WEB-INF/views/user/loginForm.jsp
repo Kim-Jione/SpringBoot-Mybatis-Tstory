@@ -49,11 +49,11 @@ function login() {
             },
         }).done((res) => {
             if (res.code == 1) {
-                alert(res.msg);
+                alert("성공");
                 location.href = "/";
             } 
             
-            if (res.code == 2) {
+            else if (res.code == 2) {
                 alert(res.msg);
                 location.href = "/admin/managementForm";
             }

@@ -17,8 +17,8 @@
 
 	<insert id="insert">
 		INSERT
-		INTO user(username, nickname,password, email,profile_img, updated_at, created_at)
-		VALUES(#{username}, #{nickname},#{password}, #{email}, #{profileImg}, now(), now())
+		INTO user(username, nickname,password, email,profile_img, role,updated_at, created_at)
+		VALUES(#{username}, #{nickname},#{password}, #{email}, #{profileImg},'member' ,now(), now())
 	</insert>
 
 	<delete id="delete">
@@ -131,4 +131,3 @@
     </update>
 </mapper>
     
-
