@@ -129,5 +129,13 @@
 		  SET email = #{emailUpdate}
 		  WHERE user_id = #{userId}
     </update>
+
+	<select id="findAllMember"
+		resultType="site.metacoding.firstapp.domain.user.User">
+		SELECT  @ROWNUM := @ROWNUM + 1 AS number, u.*
+    	FROM  user u,(SELECT @ROWNUM := 0 ) user
+    	WHERE role = 'member'
+	</select>
+
 </mapper>
     

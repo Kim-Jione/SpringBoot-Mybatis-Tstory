@@ -30,4 +30,7 @@ public class User {
 		this.username = userPS.getUsername();
 	}
 
+	// DB값 아님
+	private Integer number;
+
 }

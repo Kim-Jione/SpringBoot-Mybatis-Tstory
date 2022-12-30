@@ -11,11 +11,11 @@
 				<th>삭제</th>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody><c:forEach var="user" items="${userList}">
 				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
+					<td>${user.number}</td>
+					<td>${user.username}</td>
+					<td>${user.createdAt}</td>
 				 <td>
                         <a
                             href=""
@@ -31,7 +31,7 @@
                             <button class="btn btn-danger">삭제</button>
                         </form>
                     </td>
-				</tr>
+				</tr></c:forEach>
 		</tbody>
 	</table></div>
 
