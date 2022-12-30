@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import site.metacoding.firstapp.web.dto.request.post.PostSaveDto;
+import site.metacoding.firstapp.web.dto.response.admin.PostHistoryDto;
 import site.metacoding.firstapp.web.dto.response.main.KeywordDto;
 import site.metacoding.firstapp.web.dto.response.post.PagingDto;
 import site.metacoding.firstapp.web.dto.response.post.PostAllDto;
@@ -60,5 +61,7 @@ public interface PostDao {
 			@Param("keyword") String keyword);
 
 	public void updateNoThumnail(PostUpdateDto dto);
+
+	public List<PostHistoryDto> findAllHistory();
 
 }

@@ -6,18 +6,18 @@
 			<tr>
 				<th>번호</th>
 				<th>게시글명</th>
-				<th>작성일</th>
 				<th>작성자</th>
+				<th>작성일</th>
 				<th>수정</th>
 				<th>삭제</th>
 			</tr>
 		</thead>
-		<tbody><c:forEach var="user" items="${userList}">
+		<tbody><c:forEach var="post" items="${postList}">
 				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td> 
+					<td>${post.number}</td>
+					<td>${post.postTitle}</td>
+					<td>${post.nickname}</td>
+					<td>${post.createdAt}</td> 
 				 <td>
                         <a
                             href=""

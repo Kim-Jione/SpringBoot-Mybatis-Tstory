@@ -5,12 +5,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import lombok.RequiredArgsConstructor;
+import site.metacoding.firstapp.domain.post.PostDao;
 import site.metacoding.firstapp.domain.user.UserDao;
 
 @RequiredArgsConstructor
 @Controller
 public class AdminController {
     private final UserDao userDao;
+    private final PostDao postDao;
 
     // 로그인 페이지
     @GetMapping("/admin/managementForm")
@@ -35,6 +37,7 @@ public class AdminController {
     // 게시글 관리 페이지
     @GetMapping("/admin/postManageForm")
     public String postManageForm(Model model) {
+        model.addAttribute("postList", postDao.findAllHistory());
         return "/admin/postManageForm";
     }
 

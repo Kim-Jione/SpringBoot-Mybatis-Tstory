@@ -5,7 +5,7 @@
 		<thead>
 			<tr>
 				<th>번호</th>
-				<th>아이디</th>
+				<th>사용자 아이디</th>
 				<th>가입일</th>
 				<th>수정</th>
 				<th>삭제</th>

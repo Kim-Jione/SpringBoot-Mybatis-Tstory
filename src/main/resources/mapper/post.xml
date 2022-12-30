@@ -188,5 +188,13 @@
 		  category_id = #{categoryId}
 		  WHERE post_id = #{postId} AND user_id = #{userId}
     </update>
+
+	<select id="findAllHistory"
+		resultType="site.metacoding.firstapp.web.dto.response.admin.PostHistoryDto">
+		SELECT row_number() over(order BY p.post_id desc) as number, p.post_title, p.created_at, u.nickname
+		FROM post p 
+		INNER JOIN user u 
+		ON p.user_id = u.user_id
+	</select>
 	
 </mapper>
