@@ -32,6 +32,16 @@
 		DELETE FROM love WHERE love_id = #{loveId}
 	</delete>
 
-
+	<select id="findAllLoveRank"
+		resultType="site.metacoding.firstapp.web.dto.response.admin.LoveRankDto">
+		SELECT  row_number() over(order BY love_count DESC) as rank, p.*,COUNT(l.love_id) love_count,u.nickname
+    	FROM  post p
+    	left JOIN love l
+    	ON p.post_id = l.post_id
+    	LEFT JOIN user u
+    	ON p.user_id = u.user_id
+		GROUP BY p.post_id 
+		ORDER BY love_count DESC
+	</select>
 
 </mapper>

@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import lombok.RequiredArgsConstructor;
+import site.metacoding.firstapp.domain.love.LoveDao;
 import site.metacoding.firstapp.domain.post.PostDao;
 import site.metacoding.firstapp.domain.user.UserDao;
 
@@ -13,6 +14,7 @@ import site.metacoding.firstapp.domain.user.UserDao;
 public class AdminController {
     private final UserDao userDao;
     private final PostDao postDao;
+    private final LoveDao loveDao;
 
     // 로그인 페이지
     @GetMapping("/admin/managementForm")
@@ -39,6 +41,13 @@ public class AdminController {
     public String postManageForm(Model model) {
         model.addAttribute("postList", postDao.findAllHistory());
         return "/admin/postManageForm";
+    }
+
+    // 좋아요수 순위 페이지
+    @GetMapping("/admin/loveRankForm")
+    public String loveRankForm(Model model) {
+        model.addAttribute("loveRankList", loveDao.findAllLoveRank());
+        return "/admin/loveRankForm";
     }
 
 }
