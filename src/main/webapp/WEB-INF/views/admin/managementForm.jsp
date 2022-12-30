@@ -7,8 +7,48 @@ uri="http://java.sun.com/jsp/jstl/core"%>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
+
+
     <style>
-      
+       /* Default */
+            input[type=text],input[type=password]{font-family:"Malgun Gothic","맑은 고딕",Dotum,"돋움",Arial,sans-serif}
+            *{margin:0;padding:0;font-family:"Malgun Gothic","맑은 고딕",Dotum,"돋움",Arial,sans-serif}
+            body{font-size:12px;color:#555;background:transparent;-webkit-user-select:none;-moz-user-select:none;-webkit-text-size-adjust:none;-moz-text-size-adjust:none;-ms-text-size-adjust:none}
+            ol,ul{list-style:none} 
+            table{table-layout:fixed;width:100%;border-collapse:collapse;border-spacing:0}
+            caption{overflow:hidden;width:0;height:0;font-size:0;line-height:0;text-indent:-999em}
+            img,fieldset{border:0}
+            legend{height:0;visibility:hidden}
+            em,address{font-style:normal}
+            img{border:0 none;vertical-align:middle}
+            a{color:#555;text-decoration:none}
+            input,select{margin:0;padding:0;vertical-align:middle}
+            button{margin:0;padding:0;font-family:inherit;border:0 none;background:transparent;cursor:pointer}
+            button::-moz-focus-inner{border:0;padding:0}
+            header,footer,aside,nav,section,article{display:block}
+
+            .clearfix{*zoom:1}
+            .clearfix:after{content:"";display:block;clear:both;overflow:hidden}
+
+            /* Search */
+            .searchBox{border:none}
+            .searchBox tbody th{padding:20px 10px 20px 35px;font-size:14px;font-weight:bold;text-align:left;vertical-align:top;border:none;background:#e6e6e6 }
+            .searchBox tbody td{padding:12px 10px 12px 25px;border:none;background-color:#efefef}
+        
+            .searchDate{overflow:hidden;margin-bottom:10px;*zoom:1}
+            .searchDate:after{display:block;clear:both;content:''}
+            .searchDate li{position:relative;float:left;margin:0 7px 0 0}
+            .searchDate li .chkbox2{display:block;text-align:center}
+            .searchDate li .chkbox2 input{position:absolute;z-index:-1}
+            .searchDate li .chkbox2 label{display:block;width:72px;height:26px;font-size:14px;font-weight:bold;color:#fff;text-align:center;line-height:25px;text-decoration:none;cursor:pointer;background:#a5b0b6}
+            .searchDate li .chkbox2.on label{background:#ec6a6a}
+        
+            .demi{display:inline-block;margin:0 1px;vertical-align:middle}
+            .inpType{padding-left:6px;height:24px;line-height:24px;border:1px solid #dbdbdb}
+            .btncalendar{display:inline-block;width:22px;height:22px;background:url(images/btn_calendar.gif) center center no-repeat;text-indent:-999em}
+
+
 
 html, body {
 	padding: 0;
@@ -227,7 +267,7 @@ input:focus{
 	<table>
 		<tr>
 			<td class="box_userinfo">
-				<span> 님, 환영합니다! </span>
+				<span> ${userInfo.nickname} 님, 환영합니다! </span>
 			</td>
 			<td class="box">
 				<span class="txt_cate"> 회원 관리 </span>

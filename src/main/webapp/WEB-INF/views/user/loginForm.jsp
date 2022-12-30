@@ -55,7 +55,7 @@ function login() {
             
             else if (res.code == 2) {
                 alert(res.msg);
-                location.href = "/admin/managementForm";
+                location.href = "/admin/userManageForm";
             }
 
             else {
