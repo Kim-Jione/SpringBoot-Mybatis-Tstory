@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import site.metacoding.firstapp.web.dto.request.post.PostSaveDto;
 import site.metacoding.firstapp.web.dto.response.admin.PostHistoryDto;
+import site.metacoding.firstapp.web.dto.response.admin.PostRankDto;
 import site.metacoding.firstapp.web.dto.response.main.KeywordDto;
 import site.metacoding.firstapp.web.dto.response.post.PagingDto;
 import site.metacoding.firstapp.web.dto.response.post.PostAllDto;
@@ -63,5 +64,7 @@ public interface PostDao {
 	public void updateNoThumnail(PostUpdateDto dto);
 
 	public List<PostHistoryDto> findAllHistory();
+
+	public List<PostRankDto> findAllPostRank();
 
 }

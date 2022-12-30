@@ -35,7 +35,7 @@ public class AdminController {
     @GetMapping("/admin/adminManageForm")
     public String adminManageForm(Model model) {
         model.addAttribute("userList", userDao.findAllAdmin());
-        return "/admin/userManageForm";
+        return "/admin/adminManageForm";
     }
 
     // 게시글 관리 페이지
@@ -57,6 +57,13 @@ public class AdminController {
     public String subscribeRankForm(Model model) {
         model.addAttribute("subscribeRankList", subscribeDao.findAllSubscribeRank());
         return "/admin/subscribeRankForm";
+    }
+
+    // 게시글수 순위 페이지
+    @GetMapping("/admin/postRankForm")
+    public String postRankForm(Model model) {
+        model.addAttribute("postRankList", postDao.findAllPostRank());
+        return "/admin/postRankForm";
     }
 
 }

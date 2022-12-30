@@ -29,4 +29,5 @@ public interface SubscribeDao {
 	public List<PostListDto> findAllSubscribePost(Integer fromUserId);
 
 	public List<SubscribeRankDto> findAllSubscribeRank();
+
 }

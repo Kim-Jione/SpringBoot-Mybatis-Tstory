@@ -243,7 +243,7 @@ input:focus{
 				<span class="txt_cate"> 순위 분석 </span>
 				<a href="/admin/loveRankForm" class="txt_name select"> 좋아요수 순위 </a>
 				<a href="/admin/subscribeRankForm" class="txt_name select"> 구독자수 순위 </a>
-				<a href="" class="txt_name select"> 게시글수 순위 </a>
+				<a href="/admin/postRankForm" class="txt_name select"> 게시글수 순위 </a>
 			</td>
 			<td class = "box">
 				<a class = "txt_cate" href="/user/logout"> 로그아웃 하기 </a>
