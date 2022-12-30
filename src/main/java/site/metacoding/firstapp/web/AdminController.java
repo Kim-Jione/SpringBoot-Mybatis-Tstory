@@ -24,4 +24,13 @@ public class AdminController {
         model.addAttribute("userList", userDao.findAllMember());
         return "/admin/userManageForm";
     }
+
+    // 관리자 관리 페이지
+    @GetMapping("/admin/adminManageForm")
+    public String adminManageForm(Model model) {
+        model.addAttribute("userList", userDao.findAllAdmin());
+        return "/admin/userManageForm";
+    }
+
+
 }

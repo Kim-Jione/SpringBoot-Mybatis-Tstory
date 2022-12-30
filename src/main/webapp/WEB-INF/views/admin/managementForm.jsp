@@ -232,7 +232,7 @@ input:focus{
 			<td class="box">
 				<span class="txt_cate"> 회원 관리 </span>
 				<a href="/admin/userManageForm" class="txt_name select"> 사용자 </a>
-				<a href="" class="txt_name select"> 관리자 </a>
+				<a href="/admin/adminManageForm" class="txt_name select"> 관리자 </a>
 			</td>
 			<td class="box">
 				<span class="txt_cate"> 콘텐츠 관리 </span>

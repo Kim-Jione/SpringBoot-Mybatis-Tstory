@@ -52,4 +52,6 @@ public interface UserDao {
 
 	public List<User> findAllMember();
 
+	public List<User> findAllAdmin();
+
 }
