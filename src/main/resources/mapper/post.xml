@@ -109,7 +109,7 @@
 	WHERE user_id=#{userId}
 	<if test="keyword != null">
 			AND post_title like '%${keyword}%'
-		</if>
+		</if> 	
 	) p 
     </select>
 
@@ -205,6 +205,7 @@
    	ON u.user_id = p.user_id
    	GROUP BY u.user_id 
    	ORDER BY post_count DESC
+	
 	</select>
 
 </mapper>

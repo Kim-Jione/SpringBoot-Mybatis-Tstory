@@ -1,7 +1,7 @@
 <%@ include file="managementForm.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-	<div style="display: flex; width: 2300px;text-align: center;padding : 50px;padding-left: 150px; "><table class="table table-striped">
+	<div style="display: flex; width: auto;text-align: center;padding : 50px;padding-left: 150px; "><table class="table table-striped">
 		<thead>
 			<tr>
 				<th>번호</th>

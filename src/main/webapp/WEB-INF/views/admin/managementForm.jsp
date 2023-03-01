@@ -251,15 +251,16 @@ input:focus{
     <div id="wrap_top">
 <form action="" method="get" name="searchForm">	
 	<div class="title">
-		<span> DDV </span>
-		<span> Administration </span>
+		<span> 관리자</span>
+		<span> <a href="/" style="color:white">제이스토리</a> </span>
 	</div>
 	
 	<a class="btn_search"><span>검색</span></a>
     <input type="text" name="txtSearch" placeholder="내용을 입력하세요" value="${txtSearch}" onKeypress="javascript:if(event.keyCode==13) {adminSearch(searchForm)}" autocomplete="off">
 
     <select id="topOptions" name="category" class="top_options">
-    
+    <option>작성자</option>
+    <option>게시글명</option>
     </select>
 </form>
 </div>
@@ -267,17 +268,16 @@ input:focus{
 	<table>
 		<tr>
 			<td class="box_userinfo">
-				<span> ${userInfo.nickname} 님, 환영합니다! </span>
+				<span> ${principal.nickname} 님, 환영합니다! </span>
 			</td>
 			<td class="box">
 				<span class="txt_cate"> 회원 관리 </span>
-				<a href="/admin/userManageForm" class="txt_name select"> 사용자 </a>
+				<a href="/admin/memberManageForm" class="txt_name select"> 사용자 </a>
 				<a href="/admin/adminManageForm" class="txt_name select"> 관리자 </a>
 			</td>
 			<td class="box">
 				<span class="txt_cate"> 콘텐츠 관리 </span>
 				<a href="/admin/postManageForm" class="txt_name select"> 게시글 관리</a>
-				<a href="" class="txt_name select"> 카테고리 관리 </a>
 			</td>
 			<td class="box">
 				<span class="txt_cate"> 순위 분석 </span>

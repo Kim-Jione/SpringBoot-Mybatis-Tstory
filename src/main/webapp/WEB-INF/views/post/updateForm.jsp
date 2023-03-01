@@ -11,6 +11,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
     <div class="form-group">
         <select class="form-control" id="categoryId">
             <option value="${post.categoryId}">${post.categoryTitle}</option>
+            
             <c:forEach var="category" items="${titleList}"
                 ><option value="${category.categoryId}">
                     ${category.categoryTitle}

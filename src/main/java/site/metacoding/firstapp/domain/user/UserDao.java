@@ -54,4 +54,6 @@ public interface UserDao {
 
 	public List<User> findAllAdmin();
 
+	public void deleteById(Integer userId);
+
 }

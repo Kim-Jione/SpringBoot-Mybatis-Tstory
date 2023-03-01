@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.UUID;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -73,6 +72,8 @@ public class UserController {
         if (userIdPS == null) {
             return new CMRespDto<>(-1, "아이디 혹은 비밀번호를 잘못 입력하셨습니다.", null);
         }
+        System.out.println("디버그 getUsername : " + loginDto.getUsername());
+        System.out.println("디버그 getPassword : " + loginDto.getPassword());
 
         String encPassword = sha256.encrypt(loginDto.getPassword());
         User usersPS = userDao.findByUsernameAndenPassword(encPassword, loginDto.getUsername());

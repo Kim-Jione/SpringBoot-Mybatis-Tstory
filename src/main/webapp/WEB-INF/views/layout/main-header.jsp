@@ -103,8 +103,6 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                 <div class="my_navbar_title">
                     <a class="drawer-brand" href="/">제이스토리 </a>
                 </div>
-
-
         <c:choose>
     <c:when  test="${principal != null}">
         <c:choose>
@@ -116,26 +114,16 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                             </div>
 
                             <div class="dropdown-menu">
-                                <a
+
+                                <c:choose>
+                                <c:when  test="${principal.role=='admin'}">
+                                 <a
                                     class="dropdown-item"
-                                    href="/s/api/subscribe/listForm"
-                                    >구독관리</a
+                                    href="/admin/memberManageForm"
+                                    >관리자</a
                                 >
-                                <a
-                                    class="dropdown-item"
-                                    href="/post/listForm/${principal.userId}"
-                                    >내블로그</a
-                                >
-                                <a
-                                    class="dropdown-item"
-                                    href="/s/api/user/passwordCheckForm"
-                                    >계정관리</a
-                                >
-                                <a
-                                    class="dropdown-item"
-                                    href="/s/api/category/writeForm"
-                                    >카테고리등록</a
-                                >
+                                 </c:when>
+                                 </c:choose>
 
                                 <a class="dropdown-item" href="/user/logout"
                                     >로그아웃</a
@@ -149,26 +137,16 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                             </div>
 
                             <div class="dropdown-menu">
-                                <a
+                             
+                                 <c:choose>
+                                <c:when  test="${principal.role=='admin'}">
+                                 <a
                                     class="dropdown-item"
-                                    href="/s/api/subscribe/listForm"
-                                    >구독관리</a
+                                    href="/admin/memberManageForm"
+                                    >관리자</a
                                 >
-                                <a
-                                    class="dropdown-item"
-                                    href="/post/listForm/${principal.userId}"
-                                    >내블로그</a
-                                >
-                                <a
-                                    class="dropdown-item"
-                                    href="/s/api/user/passwordCheckForm"
-                                    >계정관리</a
-                                >
-                                <a
-                                    class="dropdown-item"
-                                    href="/s/api/category/writeForm"
-                                    >카테고리등록</a
-                                >
+                                 </c:when>
+                                 </c:choose>
 
                                 <a class="dropdown-item" href="/user/logout"
                                     >로그아웃</a

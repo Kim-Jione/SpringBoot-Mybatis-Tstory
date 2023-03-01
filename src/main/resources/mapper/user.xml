@@ -144,5 +144,9 @@
     	WHERE role = 'admin'
 	</select>
 
+	<delete id="deleteById">
+		DELETE FROM user WHERE user_id = #{userId}
+	</delete>
+
 </mapper>
     

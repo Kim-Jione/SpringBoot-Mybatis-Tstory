@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<div style="display: flex; flex-wrap: wrap; width: 2300px;text-align: center;padding : 50px;padding-left: 150px; ">
+<div style="display: flex; flex-wrap: wrap; width: auto;text-align: center;padding : 50px;padding-left: 150px; ">
 	<div style="width: 750px;">
 <form>
         <!-- search -->
@@ -141,24 +141,6 @@
                 }
             }); 
 
-            //시작일.
-            /*$('#searchStartDate').datepicker("option","onClose", function( selectedDate ) {    
-                // 시작일 datepicker가 닫힐때
-                // 종료일의 선택할수있는 최소 날짜(minDate)를 선택한 시작일로 지정
-                $("#searchEndDate").datepicker( "option", "minDate", selectedDate );
-                $(".searchDate").find(".chkbox2").removeClass("on");
-            });
-            */
-
-            //종료일.
-            /*$('#searchEndDate').datepicker("option","onClose", function( selectedDate ) {    
-                // 종료일 datepicker가 닫힐때
-                // 시작일의 선택할수있는 최대 날짜(maxDate)를 선택한 종료일로 지정 
-                $("#searchStartDate").datepicker( "option", "maxDate", selectedDate );
-                $(".searchDate").find(".chkbox2").removeClass("on");
-            });
-            */
-
             $(".dateclick").dateclick();    // DateClick
             $(".searchDate").schDate();        // searchDate
             
@@ -216,11 +198,7 @@
             $("#searchStartDate").datepicker( "option", "maxDate", endDate );
 
         }
-
-            
         </script>
-
-
 
 
 </body>
