@@ -48,6 +48,12 @@ public interface UserDao {
 	public User findByUserIdAndenPassword(@Param("encPassword") String encPassword,
 			@Param("userId") Integer userId);
 
-	public void updateByEmail(@Param("emailUpdate")String emailUpdate, @Param("userId") Integer userId);
+	public void updateByEmail(@Param("emailUpdate") String emailUpdate, @Param("userId") Integer userId);
+
+	public List<User> findAllMember();
+
+	public List<User> findAllAdmin();
+
+	public void deleteById(Integer userId);
 
 }

@@ -115,7 +115,15 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                                     href="/s/api/category/writeForm"
                                     >카테고리등록</a
                                 >
-
+<c:choose>
+                                <c:when  test="${principal.role=='admin'}">
+                                 <a
+                                    class="dropdown-item"
+                                    href="/admin/memberManageForm"
+                                    >관리자</a
+                                >
+                                 </c:when>
+                                 </c:choose>
                                 <a class="dropdown-item" href="/user/logout"
                                     >로그아웃</a
                                 >
@@ -148,7 +156,15 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                                     href="/s/api/category/writeForm"
                                     >카테고리등록</a
                                 >
-
+<c:choose>
+                                <c:when  test="${principal.role=='admin'}">
+                                 <a
+                                    class="dropdown-item"
+                                    href="/admin/memberManageForm"
+                                    >관리자</a
+                                >
+                                 </c:when>
+                                 </c:choose>
                                 <a class="dropdown-item" href="/user/logout"
                                     >로그아웃</a
                                 >

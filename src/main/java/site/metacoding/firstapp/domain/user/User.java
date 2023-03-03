@@ -14,6 +14,7 @@ public class User {
 	private String password;
 	private String email;
 	private String profileImg;
+	private String role;
 	private Timestamp updatedAt;
 	private Timestamp createdAt;
 
@@ -28,5 +29,8 @@ public class User {
 		this.userId = userPS.getUserId();
 		this.username = userPS.getUsername();
 	}
+
+	// DB값 아님
+	private Integer number;
 
 }

@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.UUID;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -24,7 +23,6 @@ import site.metacoding.firstapp.service.UserService;
 import site.metacoding.firstapp.utill.SHA256;
 import site.metacoding.firstapp.web.dto.CMRespDto;
 import site.metacoding.firstapp.web.dto.request.MailReqDto;
-import site.metacoding.firstapp.web.dto.request.user.CheckDto;
 import site.metacoding.firstapp.web.dto.request.user.JoinDto;
 import site.metacoding.firstapp.web.dto.request.user.LeaveDto;
 import site.metacoding.firstapp.web.dto.request.user.LoginDto;
@@ -74,12 +72,17 @@ public class UserController {
         if (userIdPS == null) {
             return new CMRespDto<>(-1, "아이디 혹은 비밀번호를 잘못 입력하셨습니다.", null);
         }
+        System.out.println("디버그 getUsername : " + loginDto.getUsername());
+        System.out.println("디버그 getPassword : " + loginDto.getPassword());
 
         String encPassword = sha256.encrypt(loginDto.getPassword());
         User usersPS = userDao.findByUsernameAndenPassword(encPassword, loginDto.getUsername());
         if (usersPS == null) {
             return new CMRespDto<>(-1, "아이디 혹은 비밀번호를 잘못 입력하셨습니다.", null);
-
+        }
+        if (userIdPS.getRole().equals("admin")) {
+            userService.로그인(loginDto);
+            return new CMRespDto<>(2, "관리자님 환영합니다.", null);
         }
         userService.로그인(loginDto);
         return new CMRespDto<>(1, "로그인 되셨습니다.", null);

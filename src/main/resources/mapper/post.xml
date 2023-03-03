@@ -109,7 +109,7 @@
 	WHERE user_id=#{userId}
 	<if test="keyword != null">
 			AND post_title like '%${keyword}%'
-		</if>
+		</if> 	
 	) p 
     </select>
 
@@ -188,5 +188,24 @@
 		  category_id = #{categoryId}
 		  WHERE post_id = #{postId} AND user_id = #{userId}
     </update>
+
+	<select id="findAllHistory"
+		resultType="site.metacoding.firstapp.web.dto.response.admin.PostHistoryDto">
+		SELECT row_number() over(order BY p.post_id desc) as number, p.post_title, p.created_at, u.nickname
+		FROM post p 
+		INNER JOIN user u 
+		ON p.user_id = u.user_id
+	</select>
 	
+	<select id="findAllPostRank"
+		resultType="site.metacoding.firstapp.web.dto.response.admin.PostRankDto">
+   	SELECT row_number() over(order BY post_count DESC) as rank,u.*,COUNT(p.post_id) post_count
+   	FROM user u 
+   	LEFT JOIN post p
+   	ON u.user_id = p.user_id
+   	GROUP BY u.user_id 
+   	ORDER BY post_count DESC
+	
+	</select>
+
 </mapper>

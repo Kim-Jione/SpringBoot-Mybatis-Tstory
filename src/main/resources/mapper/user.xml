@@ -17,8 +17,8 @@
 
 	<insert id="insert">
 		INSERT
-		INTO user(username, nickname,password, email,profile_img, updated_at, created_at)
-		VALUES(#{username}, #{nickname},#{password}, #{email}, #{profileImg}, now(), now())
+		INTO user(username, nickname,password, email,profile_img, role,updated_at, created_at)
+		VALUES(#{username}, #{nickname},#{password}, #{email}, #{profileImg},'member' ,now(), now())
 	</insert>
 
 	<delete id="delete">
@@ -129,6 +129,24 @@
 		  SET email = #{emailUpdate}
 		  WHERE user_id = #{userId}
     </update>
+
+	<select id="findAllMember"
+		resultType="site.metacoding.firstapp.domain.user.User">
+		SELECT  row_number() over(order BY u.user_id desc) as number, u.*
+    	FROM  user u
+    	WHERE role = 'member'
+	</select>
+
+	<select id="findAllAdmin"
+		resultType="site.metacoding.firstapp.domain.user.User">
+		SELECT  row_number() over(order BY u.user_id desc) as number, u.*
+    	FROM  user u
+    	WHERE role = 'admin'
+	</select>
+
+	<delete id="deleteById">
+		DELETE FROM user WHERE user_id = #{userId}
+	</delete>
+
 </mapper>
     
-

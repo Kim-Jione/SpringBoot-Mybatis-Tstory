@@ -41,7 +41,7 @@ public class PagingDto {
 	}
 
 	public void makeBlockInfoByCategoryPostAll(String keyword) {
-		this.keyword = keyword;
+		this.keyword = keyword;	
 		this.blockCount = 5;
 		this.currentBlock = currentPage / blockCount;
 		this.startPageNum = 1 + blockCount * currentBlock; // 1

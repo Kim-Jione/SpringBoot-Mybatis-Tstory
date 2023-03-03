@@ -49,9 +49,16 @@ function login() {
             },
         }).done((res) => {
             if (res.code == 1) {
-                alert(res.msg);
+                alert("성공");
                 location.href = "/";
-            } else {
+            } 
+            
+            else if (res.code == 2) {
+                alert(res.msg);
+                location.href = "/admin/memberManageForm";
+            }
+
+            else {
                 alert(res.msg);
                 return false;
             }

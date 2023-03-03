@@ -1,10 +1,10 @@
 package site.metacoding.firstapp.domain.subscribe;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import site.metacoding.firstapp.web.dto.response.admin.SubscribeRankDto;
 import site.metacoding.firstapp.web.dto.response.subscribe.PostListDto;
 import site.metacoding.firstapp.web.dto.response.subscribe.UserListDto;
 
@@ -27,4 +27,7 @@ public interface SubscribeDao {
 	public List<UserListDto> findByUserList(Integer fromUserId);
 
 	public List<PostListDto> findAllSubscribePost(Integer fromUserId);
+
+	public List<SubscribeRankDto> findAllSubscribeRank();
+
 }
