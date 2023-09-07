@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.metacoding.firstapp.domain.report.ReportDao">
+
+	<select id="findById"
+		resultType="site.metacoding.firstapp.domain.report.Report">
+		SELECT * FROM report WHERE report_id=#{reportId}
+	</select>
+
+	<select id="findAll"
+		resultType="site.metacoding.firstapp.domain.report.Report">
+		SELECT *
+		FROM report 
+		WHERE report_id=#{reportId}
+	</select>
+
+	<insert id="insert">
+		INSERT
+		INTO report(report_content,report_category,user_id,target_id, target_type, created_at, updated_at)
+		VALUES(#{reportContent}, #{reportCategory},#{userId},#{targetId},#{targetType}, now(), now())
+	</insert>
+
+    <update id="update">
+          UPDATE report
+		  SET 
+          report_content = #{reportContent},
+          report_category = #{reportCategory},
+		  user_id = #{userId},
+          target_id = #{targetId},
+		  target_type = #{targetType},
+		  updated_at = now()
+    </update>
+
+	<delete id="delete">
+		DELETE FROM report WHERE report_id = #{reportId}
+	</delete>
+
+</mapper>

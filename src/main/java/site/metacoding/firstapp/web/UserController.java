@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.UUID;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -20,8 +21,8 @@ import lombok.RequiredArgsConstructor;
 import site.metacoding.firstapp.domain.user.User;
 import site.metacoding.firstapp.domain.user.UserDao;
 import site.metacoding.firstapp.service.UserService;
-import site.metacoding.firstapp.utill.SHA256;
 import site.metacoding.firstapp.web.dto.CMRespDto;
+import site.metacoding.firstapp.web.dto.SessionUserDto;
 import site.metacoding.firstapp.web.dto.request.MailReqDto;
 import site.metacoding.firstapp.web.dto.request.user.JoinDto;
 import site.metacoding.firstapp.web.dto.request.user.LeaveDto;
@@ -39,7 +40,6 @@ import site.metacoding.firstapp.web.dto.response.MailRespDto;
 public class UserController {
     private final HttpSession session;
     private final UserDao userDao;
-    private final SHA256 sha256;
     private final UserService userService;
 
     // 회원가입 페이지
@@ -51,14 +51,14 @@ public class UserController {
     // 회원가입 응답
     @PostMapping("/user/join")
     public @ResponseBody CMRespDto<?> join(@RequestBody JoinDto joinDto) {
-        userService.회원가입(joinDto);
+        userService.join(joinDto);
         return new CMRespDto<>(1, "회원가입성공", null);
     }
 
     // 로그인 페이지
     @GetMapping("/user/loginForm")
     public String loginForm() {
-        User principal = (User) session.getAttribute("principal");
+        SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
         if (principal != null) {
             return "redirect:/";
         }
@@ -68,23 +68,12 @@ public class UserController {
     // 로그인 응답
     @PostMapping("/user/login")
     public @ResponseBody CMRespDto<?> login(@RequestBody LoginDto loginDto) {
-        User userIdPS = userDao.findByUsername(loginDto.getUsername());
-        if (userIdPS == null) {
+        SessionUserDto userPS = userService.findByUser(loginDto.getPassword(), loginDto.getLoginId());
+        if (userPS == null) {
             return new CMRespDto<>(-1, "아이디 혹은 비밀번호를 잘못 입력하셨습니다.", null);
         }
-        System.out.println("디버그 getUsername : " + loginDto.getUsername());
-        System.out.println("디버그 getPassword : " + loginDto.getPassword());
-
-        String encPassword = sha256.encrypt(loginDto.getPassword());
-        User usersPS = userDao.findByUsernameAndenPassword(encPassword, loginDto.getUsername());
-        if (usersPS == null) {
-            return new CMRespDto<>(-1, "아이디 혹은 비밀번호를 잘못 입력하셨습니다.", null);
-        }
-        if (userIdPS.getRole().equals("admin")) {
-            userService.로그인(loginDto);
-            return new CMRespDto<>(2, "관리자님 환영합니다.", null);
-        }
-        userService.로그인(loginDto);
+        userService.login(loginDto.getPassword(), loginDto.getLoginId(), userPS);
+        System.out.println("디버그: 성공!");
         return new CMRespDto<>(1, "로그인 되셨습니다.", null);
 
     }
@@ -99,7 +88,7 @@ public class UserController {
     // 비밀번호 초기화 페이지
     @GetMapping("/user/passwordResetForm")
     public String passwordResetForm(Model model) {
-        User principal = (User) session.getAttribute("principal");
+        SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
         if (principal != null) {
             model.addAttribute("user", userDao.findById(principal.getUserId()));
             model.addAttribute("userImg", userDao.findById(principal.getUserId()));
@@ -110,7 +99,7 @@ public class UserController {
     // 비밀번호 확인 페이지
     @GetMapping("/s/api/user/passwordCheckForm")
     public String passwordCheckForm(Model model) {
-        User principal = (User) session.getAttribute("principal");
+        SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
         model.addAttribute("user", userDao.findById(principal.getUserId()));
         model.addAttribute("userImg", userDao.findById(principal.getUserId()));
         return "/user/passwordCheckForm";
@@ -119,11 +108,10 @@ public class UserController {
     // 비밀번호 확인 응답
     @PostMapping("/s/api/user/checkPassword")
     public @ResponseBody CMRespDto<?> passwordCheck(@RequestBody PasswordCheckDto passwordCheckDto) {
-        User principal = (User) session.getAttribute("principal");
-        String encPassword = sha256.encrypt(passwordCheckDto.getPassword());
-        User userPS = userDao.findByUserIdAndenPassword(encPassword, principal.getUserId());
+        SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
+        SessionUserDto userPS = userService.findByUserIdAndPassword(passwordCheckDto.getPassword(), principal.getUserId());
         if (userPS == null) {
-            return new CMRespDto<>(-1, "실패", null);
+            return new CMRespDto<>(-1, "비밀번호가 다릅니다.", null);
         }
         return new CMRespDto<>(1, "성공", null);
     }
@@ -131,7 +119,7 @@ public class UserController {
     // 비밀번호 수정 페이지
     @GetMapping("/s/api/user/passwordUpdateForm")
     public String passwordUpdateForm(Model model) {
-        User principal = (User) session.getAttribute("principal");
+        SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
         model.addAttribute("userImg", userDao.findById(principal.getUserId()));
         model.addAttribute("user", userDao.findById(principal.getUserId()));
         return "/user/passwordUpdateForm";
@@ -140,7 +128,7 @@ public class UserController {
     // 이메일 변경 페이지
     @GetMapping("/s/api/user/emailCheckForm")
     public String emailCheckForm(Model model) {
-        User principal = (User) session.getAttribute("principal");
+        SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
         model.addAttribute("user", userDao.findById(principal.getUserId()));
         model.addAttribute("userImg", userDao.findById(principal.getUserId()));
         return "/user/emailCheckForm";
@@ -149,7 +137,7 @@ public class UserController {
     // 계정 수정 페이지
     @GetMapping("/s/api/user/updateForm")
     public String updateForm(Model model) {
-        User principal = (User) session.getAttribute("principal");
+        SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
         model.addAttribute("user", userDao.findById(principal.getUserId()));
         model.addAttribute("userImg", userDao.findById(principal.getUserId()));
         return "/user/updateForm";
@@ -158,14 +146,14 @@ public class UserController {
     // 계정 수정 응답
     @PostMapping("/s/api/user/update")
     public String update(UserUpdateDto userUpdateDto) {
-        userService.게시글수정하기(userUpdateDto);
+        userService.updateUser(userUpdateDto);
         return "redirect:/";
     }
 
     // 프로필 수정 페이지
     @GetMapping("/s/api/user/profileUpdateForm")
     public String profileUpdateForm(Model model) {
-        User principal = (User) session.getAttribute("principal");
+        SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
         if (principal == null) {
             return "redirect:/user/loginForm";
         }
@@ -178,7 +166,7 @@ public class UserController {
     // 회원 탈퇴 페이지
     @GetMapping("/s/api/user/leaveCheckForm")
     public String leaveCheckForm(Model model) {
-        User principal = (User) session.getAttribute("principal");
+        SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
         model.addAttribute("userImg", userDao.findById(principal.getUserId()));
         model.addAttribute("user", userDao.findById(principal.getUserId()));
         return "/user/leaveCheckForm";
@@ -187,12 +175,11 @@ public class UserController {
     // 회원 탈퇴 응답
     @DeleteMapping("/s/api/user/leave")
     public @ResponseBody CMRespDto<?> leave(@RequestBody LeaveDto leaveDto) {
-        User principal = (User) session.getAttribute("principal");
-        String encPassword = sha256.encrypt(leaveDto.getPassword());
-        User userPS = userDao.findByPasswordAndUserId(encPassword, principal.getUserId());
+        SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
+        User userPS = userService.findByPasswordAndUserId(leaveDto.getPassword(), principal.getUserId());
         if (userPS != null) {
             session.invalidate();
-            userDao.leave(principal.getUserId());
+            userService.leave(principal.getUserId());
             return new CMRespDto<>(1, "성공", null);
         }
         return new CMRespDto<>(-1, "실패", null);
@@ -201,13 +188,12 @@ public class UserController {
     // 비밀번호 수정 응답
     @PostMapping("/s/api/user/updatePassword")
     public @ResponseBody CMRespDto<?> updatePassword(@RequestBody UpdatePasswordDto updatePasswordDto) {
-        User principal = (User) session.getAttribute("principal");
-        String encPassword = sha256.encrypt(updatePasswordDto.getPassword());
-        User userPS = userDao.findByPasswordAndUserId(encPassword, principal.getUserId());
+        SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
+        User userPS = userService.findByPasswordAndUserId(updatePasswordDto.getPassword(), principal.getUserId());
         if (userPS == null) {
             return new CMRespDto<>(-1, "실패", null);
         }
-        userService.비밀번호수정하기(updatePasswordDto.getPasswordUpdate(), principal.getUserId());
+        userService.updatePassword(updatePasswordDto.getPasswordUpdate(), principal.getUserId());
         return new CMRespDto<>(1, "성공", null);
     }
 
@@ -236,7 +222,7 @@ public class UserController {
             System.out.println("사진저장");
         }
         updateProfileDto.setProfileImg(imgName);
-        userService.프로필이미지변경하기(updateProfileDto.getProfileImg());
+        userService.updateByProfileImage(updateProfileDto.getProfileImg());
 
         return new CMRespDto<>(1, "업로드 성공", imgName);
     }
@@ -244,29 +230,29 @@ public class UserController {
     // 닉네임 수정 응답
     @PostMapping("/s/api/user/updateNickname")
     public @ResponseBody CMRespDto<?> updateNickname(@RequestBody UpdateNicknameDto updateNicknameDto) {
-        User principal = (User) session.getAttribute("principal");
-        userService.닉네임수정하기(updateNicknameDto.getNicknameUpdate(), principal.getUserId());
+        SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
+        userService.updateNickname(updateNicknameDto.getNicknameUpdate(), principal.getUserId());
         return new CMRespDto<>(1, "성공", null);
     }
 
     // 아이디/임시비밀번호 보내기
     @PostMapping("/user/sendPassword")
     public @ResponseBody CMRespDto<?> sendPassword(@RequestBody MailReqDto mailReqDto) {
-        Integer userPS = userDao.findByUserEmail(mailReqDto.getEmail()); // DB에 unique 걸기
+        User userPS = userService.findByEmail(mailReqDto.getEmail()); // DB에 unique 걸기
         if (userPS == null) {
             return new CMRespDto<>(-1, "해당 이메일이 존재하지 않습니다.", null);
         }
-        MailRespDto mailDto = userService.임시비밀번호만들기(mailReqDto.getEmail());
+        MailRespDto mailDto = userService.createRandomPassword(mailReqDto.getEmail());
         // System.out.println("디버그 getAddress : " + mailDto.getAddress());
-        userService.이메일보내기(mailDto);
+        userService.sendEmail(mailDto);
         return new CMRespDto<>(1, "아이디/임시 비밀번호 보내기 성공", null);
     }
 
     // 이메일 수정 응답
     @PostMapping("/s/api/user/updateEmail")
     public @ResponseBody CMRespDto<?> updateEmail(@RequestBody UpdateEmailDto updateEmailDto) {
-        User principal = (User) session.getAttribute("principal");
-        userService.이메일수정하기(updateEmailDto.getEmailUpdate(), principal.getUserId());
+        SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
+        userService.updateEmail(updateEmailDto.getEmailUpdate(), principal.getUserId());
         return new CMRespDto<>(1, "성공", null);
     }
 }

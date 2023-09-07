@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.metacoding.firstapp.domain.tag.TagDao">
+
+	<select id="findById"
+		resultType="site.metacoding.firstapp.domain.tag.Tag">
+		SELECT * FROM tag WHERE tag_id=#{tagId}
+	</select>
+
+	<select id="findByTag"
+		resultType="java.lang.String">
+		SELECT tag_name FROM tag WHERE post_id=#{postId}
+	</select>
+
+	<select id="findAll"
+		resultType="site.metacoding.firstapp.domain.tag.Tag">
+		SELECT *
+		FROM tag 
+		WHERE tag_id=#{tagId}
+	</select>
+
+	<insert id="insert">
+		INSERT
+		INTO tag(tag_name,post_id, created_at, updated_at)
+		VALUES(#{tagName},#{postId}, now(), now())
+	</insert>
+
+    <update id="update">
+          UPDATE tag
+		  SET 
+          tag_name = #{tagName},
+          post_id = #{postId},
+		  updated_at = now()
+    </update>
+
+	<delete id="delete">
+		DELETE FROM tag WHERE post_id = #{postId}
+	</delete>
+
+</mapper>

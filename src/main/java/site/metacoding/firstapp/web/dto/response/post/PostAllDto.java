@@ -10,7 +10,7 @@ import lombok.Setter;
 public class PostAllDto {
 	private Integer postId;
 	private String postTitle;
-	private String username;
+	private String loginId;
 	private String nickname;
 	private Integer userId;
 	private String postThumnail;

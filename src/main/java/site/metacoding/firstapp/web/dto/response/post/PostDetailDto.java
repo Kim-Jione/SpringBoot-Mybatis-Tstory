@@ -16,7 +16,7 @@ public class PostDetailDto {
 	private Integer categoryId;
 	private Timestamp updatedAt;
 	private Timestamp createdAt;
-	private String username;
+	private String loginId;
 	private String nickname;
 	private Integer loveCount;
 	private boolean isLoved;

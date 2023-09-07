@@ -4,12 +4,12 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import site.metacoding.firstapp.web.dto.response.admin.SubscribeRankDto;
 import site.metacoding.firstapp.web.dto.response.subscribe.PostListDto;
 import site.metacoding.firstapp.web.dto.response.subscribe.UserListDto;
 
-public interface SubscribeDao {
-	public Subscribe findById(Integer subscribeId);
+public interface  SubscribeDao {
+                  
+    public Subscribe findById(Integer subscribeId);
 
 	public List<Subscribe> findAll();
 
@@ -19,15 +19,12 @@ public interface SubscribeDao {
 
 	public void delete(Integer subscribeId);
 
-	public Integer findByUserIdAndToUserId(@Param("fromUserId") Integer fromUserId,
-			@Param("toUserId") Integer toUserId);
+    public Integer findByUserId(@Param("subscriberId") Integer subscriberId,
+			@Param("creatorId") Integer creatorId);
 
-	public List<Subscribe> findByUserId(Integer fromUserId); // user가 구독한 id들
+    public List<PostListDto> findAllSubscribePost(Integer fromUserId);
 
-	public List<UserListDto> findByUserList(Integer fromUserId);
+    public Integer findByUserIdAndToUserId(Integer fromUserId, Integer toUserId);
 
-	public List<PostListDto> findAllSubscribePost(Integer fromUserId);
-
-	public List<SubscribeRankDto> findAllSubscribeRank();
-
+    public List<UserListDto> findByUserList(Integer fromUserId);
 }

@@ -13,7 +13,7 @@ public class PostListDto {
 	private Integer categoryId;
 	private String postTitle;
 	private String postContent;
-	private String username;
+	private String loginId;
 	private String nickname;
 	private String postThumnail;
 	private Timestamp updatedAt;

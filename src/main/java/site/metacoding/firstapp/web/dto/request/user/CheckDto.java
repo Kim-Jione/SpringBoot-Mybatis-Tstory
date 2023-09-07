@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class CheckDto {
 	private Integer userId;
-	private String username;
+	private String loginId;
 	private String password;
 	private String email;
 	private String nickname;

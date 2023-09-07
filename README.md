@@ -1,6 +1,7 @@
 # READ ME
 
 ## 1. View 생성</span>
+
 메인페이지 mainForm </br>
 개인정보 수정페이지 updateForm </br>
 비밀번호 수정페이지 passwordResetForm </br>
@@ -16,11 +17,12 @@
 메인 하단 footer </br>
 카테고리 관리페이지 writeForm </br>
 카테고리별 게시글 목록페이지 listForm </br>
-구독관리 페이지 listForm 
+구독관리 페이지 listForm
 
 .
 </br>
 </br>
+
 ## 2. 기능
 
 계정관리 기능 (완)
@@ -41,6 +43,7 @@
 </br>
 </br>
 .
+
 ## 3. 고급 기능
 
 구독 목록보기 (완)
@@ -67,8 +70,8 @@
 
 이메일로 아이디/비밀번호 보내기 기능 (완)
 
-
 .
+
 ## 4. 테이블 생성
 
 ```sql
@@ -76,7 +79,7 @@ USE blogdb;
 
 create table user(
     users_id int primary KEY auto_increment,
-    username VARCHAR(20) NOT NULL UNIQUE,
+    loginId VARCHAR(20) NOT NULL UNIQUE,
     password varchar(20) NOT NULL,
     email VARCHAR(50) NOT NULL UNIQUE,
     profile_img LONGTEXT,
@@ -129,18 +132,23 @@ create table subscribe(
    created_at TIMESTAMP NOT NULL DEFAULT current_timestamp
 );
 ```
+
 .
 </br>
 </br>
+
 ## 5. 더미데이터
+
 </br>
 
 ```sql
-INSERT INTO user(username, password,email,profile_img ,updated_at,created_at) VALUES('ssar','1234','ssar@nate.com','testimg1',NOW(), NOW());
-INSERT INTO user(username, password,email,profile_img ,updated_at,created_at) VALUES('cos','1234','cos@nate.com','testimg2',NOW(), NOW());
-INSERT INTO user(username, password,email,profile_img ,updated_at,created_at) VALUES('tan','1234','tan@nate.com','testimg3',NOW(), NOW());
+INSERT INTO user(loginId, password,email,profile_img ,updated_at,created_at) VALUES('ssar','1234','ssar@nate.com','testimg1',NOW(), NOW());
+INSERT INTO user(loginId, password,email,profile_img ,updated_at,created_at) VALUES('cos','1234','cos@nate.com','testimg2',NOW(), NOW());
+INSERT INTO user(loginId, password,email,profile_img ,updated_at,created_at) VALUES('tan','1234','tan@nate.com','testimg3',NOW(), NOW());
 ```
+
 .
 </br>
 </br>
+
 ## 6. 결과

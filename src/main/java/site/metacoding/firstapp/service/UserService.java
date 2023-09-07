@@ -10,14 +10,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
-import site.metacoding.firstapp.domain.category.CategoryDao;
 import site.metacoding.firstapp.domain.user.User;
 import site.metacoding.firstapp.domain.user.UserDao;
-import site.metacoding.firstapp.utill.SHA256;
-import site.metacoding.firstapp.web.dto.request.user.CheckDto;
+import site.metacoding.firstapp.web.dto.SessionUserDto;
 import site.metacoding.firstapp.web.dto.request.user.JoinDto;
-import site.metacoding.firstapp.web.dto.request.user.LoginDto;
-import site.metacoding.firstapp.web.dto.request.user.UpdateProfileDto;
 import site.metacoding.firstapp.web.dto.request.user.UserUpdateDto;
 import site.metacoding.firstapp.web.dto.response.MailRespDto;
 
@@ -27,18 +23,30 @@ public class UserService {
 	private final UserDao userDao;
 	private final HttpSession session;
 	private final JavaMailSender mailSender;
-	private final CategoryDao categoryDao;
-	private final SHA256 sha256;
 
+	// 로그인 아이디와 비밀번호로 계정 찾기
+	public SessionUserDto findByUser(String password, String loginId) {
+		SessionUserDto userPS = userDao.findByUser(password, loginId);
+		return userPS;
+	}
+
+	// 로그인
 	@Transactional
-	public void 회원가입(JoinDto joinDto) {
-		String encPassword = sha256.encrypt(joinDto.getPassword());
-		joinDto.setPassword(encPassword); // 회원가입으로 받은 비밀번호 암호화
+	public void login(String password, String loginId, SessionUserDto userPS) {
+		session.setAttribute("principal", userPS);
+	}
+
+	// 회원가입
+	@Transactional
+	public void join(JoinDto joinDto) {
+		joinDto.setPassword(joinDto.getPassword()); // 회원가입으로 받은 비밀번호 암호화
 		userDao.insert(joinDto.toEntity());
 	}
 
-	public boolean 유저네임중복확인(String username) {
-		User usersPS = userDao.findByUsername(username);
+	// 로그인 아이디 중복체크
+	@Transactional
+	public boolean checkDuplicateLoginId(String loginId) {
+		User usersPS = userDao.findByLoginId(loginId);
 
 		if (usersPS == null) { // 중복 안됨
 			return false;
@@ -47,8 +55,10 @@ public class UserService {
 		}
 	}
 
-	public boolean 이메일중복확인(String email) {
-		CheckDto usersPS = userDao.findByEmail(email);
+	// 닉네임 중복체크
+	@Transactional
+	public boolean checkDuplicateNickname(String nickname) {
+		User usersPS = userDao.findByEmail(nickname);
 
 		if (usersPS == null) { // 중복 안됨
 			return false;
@@ -57,8 +67,10 @@ public class UserService {
 		}
 	}
 
-	public boolean 닉네임중복확인(String nickname) {
-		CheckDto usersPS = userDao.findByNickname(nickname);
+	// 이메일 중복체크
+	@Transactional
+	public boolean checkDuplicateEmail(String email) {
+		User usersPS = userDao.findByEmail(email);
 
 		if (usersPS == null) { // 중복 안됨
 			return false;
@@ -67,44 +79,37 @@ public class UserService {
 		}
 	}
 
-	public boolean 카테고리명중복확인(String categoryTitle, Integer userId) {
-		CheckDto categoryPS = categoryDao.findByCategoryTitle(categoryTitle, userId);
-		if (categoryPS == null) { // 중복 안됨
-			return false;
-		} else { // 중복됨
-			return true;
-		}
-	}
-
-	public void 프로필이미지변경하기(String profileImg) {
+	// 프로필 이미지 수정
+	@Transactional
+	public void updateByProfileImage(String profileImg) {
 		User principal = (User) session.getAttribute("principal");
 		userDao.updateByProfileImage(profileImg, principal.getUserId());
 	}
 
+	// 임시비밀번호만들기
 	@Transactional
-	public MailRespDto 임시비밀번호만들기(String email) {
-		User userPS = userDao.findByUsername(email);
-		// System.out.println("디버그 getUsername : " + userPS.getUsername());
+	public MailRespDto createRandomPassword(String email) {
+		User userPS = userDao.findByEmail(email);
+		// System.out.println("디버그 getLoginId : " + userPS.getLoginId());
 
-		String str = 랜덤비밀번호생성();
+		String str = createRandomPassword();
 		MailRespDto dto = new MailRespDto();
 		dto.setAddress(email); // 보낼 이메일 주소
 		dto.setTitle("제이스토리 계정찾기 안내 이메일 입니다.");
-		dto.setMessage("안녕하세요. 제이스토리 임시비밀번호 안내 관련 이메일 입니다." + "\n연결된 계정 ID : " + userPS.getUsername() + "\n임시비밀번호 : "
+		dto.setMessage("안녕하세요. 제이스토리 임시비밀번호 안내 관련 이메일 입니다." + "\n연결된 계정 ID : " + userPS.getLoginId() + "\n임시비밀번호 : "
 				+ str + " 입니다." + "\n로그인 후에 비밀번호를 변경을 해주세요");
-		비밀번호수정(str, email); // 임시비밀번호로 DB 업데이트
+		updatePassword(str, email); // 임시비밀번호로 DB 업데이트
 		return dto;
 	}
 
 	// 임시 비밀번호로 업데이트
-	public void 비밀번호수정(String str, String email) {
-		String encPassword = sha256.encrypt(str); // 임시비밀번호 가져와서 암호화
-		Integer userId = userDao.findByUserEmail(email); // 입력받은 이메일 있는지 select
-		userDao.passwordUpdate(encPassword, userId); // 유저 찾아서 비밀번호 업데이트
+	public void updatePassword(String str, String email) {
+		User userPS = userDao.findByEmail(email); // 입력받은 이메일 있는지 select
+		userDao.passwordUpdate(str, userPS.getUserId()); // 유저 찾아서 비밀번호 업데이트
 	}
 
 	// 랜덤함수로 임시비밀번호 구문 만들기
-	public String 랜덤비밀번호생성() {
+	public String createRandomPassword() {
 		char[] charSet = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F',
 				'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
 
@@ -121,7 +126,7 @@ public class UserService {
 
 	// 메일보내기
 	@Transactional
-	public void 이메일보내기(MailRespDto mailDto) {
+	public void sendEmail(MailRespDto mailDto) {
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setTo(mailDto.getAddress());
 		message.setSubject(mailDto.getTitle());
@@ -131,8 +136,9 @@ public class UserService {
 		mailSender.send(message);
 	}
 
+	// 인증코드 보내기
 	@Transactional
-	public void 인증코드보내기(String email) {
+	public void sendAccessCode(String email) {
 		Random random = new Random(); // 난수 생성을 위한 랜덤 클래스
 		String key = ""; // 인증번호
 
@@ -151,28 +157,61 @@ public class UserService {
 
 	}
 
-	public void 게시글수정하기(UserUpdateDto userUpdateDto) {
-		userDao.updateById(userUpdateDto);
-	}
-
+	// 계정 정보 수정
 	@Transactional
-	public void 로그인(LoginDto loginDto) {
-		String encPassword = sha256.encrypt(loginDto.getPassword());
-		User userPS = userDao.findByUsernameAndenPassword(encPassword, loginDto.getUsername());
-		session.setAttribute("principal", userPS);
+	public void updateUser(UserUpdateDto userUpdateDto) {
+		userDao.updateByUser(userUpdateDto);
 	}
 
-	public void 이메일수정하기(String emailUpdate, Integer userId) {
+	// 이메일 수정
+	@Transactional
+	public void updateEmail(String emailUpdate, Integer userId) {
 		userDao.updateByEmail(emailUpdate, userId);
 	}
 
-	public void 닉네임수정하기(String nicknameUpdate, Integer userId) {
+	// 닉네임 수정
+	@Transactional
+	public void updateNickname(String nicknameUpdate, Integer userId) {
 		userDao.updateByNickname(nicknameUpdate, userId);
 	}
 
-	public void 비밀번호수정하기(String passwordUpdate, Integer userId) {
-		String encPassword = sha256.encrypt(passwordUpdate);
-		userDao.updateByPassword(encPassword, userId);
+	// 비밀번호 수정
+	@Transactional
+	public void updatePassword(String passwordUpdate, Integer userId) {
+		userDao.updateByPassword(passwordUpdate, userId);
 	}
+
+	// 로그인 아이디와 비밀번호로 계정 찾기
+	@Transactional
+	public SessionUserDto findByUserIdAndPassword(String password, Integer userId) {
+		SessionUserDto userPS = userDao.findByUserIdAndPassword(password, userId);
+		return userPS;
+	}
+	
+	// 로그인 아이디로 계정 찾기
+	@Transactional
+	public User findByLoginId(String loginId) {
+		User userPS = userDao.findByLoginId(loginId);
+		return userPS;
+	}
+	@Transactional
+    public User findByUsernameAndenPassword(String password, String loginId) {
+		User userPS = userDao.findByUsernameAndenPassword(password,loginId);
+		return userPS;
+    }
+	@Transactional
+	public User findByPasswordAndUserId(String password, Integer userId) {
+		return null;
+	}
+	@Transactional
+	public void leave(Integer userId) {
+		userDao.leave(userId);
+    }
+
+	public User findByEmail(String email) {
+		User userPS = userDao.findByEmail(email);
+		return userPS;
+	}
+
 
 }

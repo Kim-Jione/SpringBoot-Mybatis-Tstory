@@ -2,11 +2,11 @@ package site.metacoding.firstapp.domain.love;
 
 import java.util.List;
 
-import site.metacoding.firstapp.web.dto.response.admin.LoveRankDto;
+import org.apache.ibatis.annotations.Param;
 
-public interface LoveDao {
-
-	public Love findById(Integer loveId);
+public interface  LoveDao {
+          
+    public Love findById(Integer loveId);
 
 	public List<Love> findAll();
 
@@ -16,5 +16,5 @@ public interface LoveDao {
 
 	public void delete(Integer loveId);
 
-	public List<LoveRankDto> findAllLoveRank();
+    public Integer findByLoveId(@Param("userId") Integer userId, @Param("postId") Integer postId);  
 }

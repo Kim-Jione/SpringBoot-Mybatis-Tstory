@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Getter
-public class PostUpdateDto {
+public class PostBeChangedDto {
 	private Integer postId;
 	private Integer categoryId;
 	private String categoryTitle;
@@ -17,12 +17,12 @@ public class PostUpdateDto {
 	private Integer userId;
 	private String noFile; // 썸네일 수정 안할때!
 
-	public PostUpdateDto(Integer postId, Integer categoryId, String categoryTitle, String postTitle,
+	public PostBeChangedDto(Integer postId, Integer categoryId, String categoryTitle, String postTitle,
 			String postContent, Integer userId, String postThumnail) {
 	}
 
-	public PostUpdateDto toDto() {
-		PostUpdateDto postUpdateDto = new PostUpdateDto(this.postId, this.categoryId, this.categoryTitle,
+	public PostBeChangedDto toDto() {
+		PostBeChangedDto postUpdateDto = new PostBeChangedDto(this.postId, this.categoryId, this.categoryTitle,
 				this.postTitle, this.postContent, this.userId, this.postThumnail);
 		return postUpdateDto;
 	}

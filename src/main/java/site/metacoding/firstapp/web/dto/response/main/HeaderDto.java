@@ -9,5 +9,5 @@ public class HeaderDto {
 	private Integer categoryId;
 	private String categoryTitle;
 	private Integer userId;
-	private String username;
+	private String loginId;
 }

@@ -6,6 +6,6 @@ import lombok.Setter;
 @Setter
 @Getter
 public class PasswordResetReqDto {
-	private String username;
+	private String loginId;
 	private String email;
 }
