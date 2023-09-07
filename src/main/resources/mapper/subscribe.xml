@@ -16,60 +16,30 @@
 		WHERE subscribe_id=#{subscribeId}
 	</select>
 
+	<select id="findByUserId"
+		resultType="Integer">
+        SELECT subscribe_id
+    	FROM subscribe
+    	WHERE subscriber_id = #{subscriberId} AND creator_id = #{creatorId}
+	</select>
+	
+
 	<insert id="insert">
 		INSERT
-		INTO subscribe(from_user_id, to_user_id)
-		VALUES(#{fromUserId}, #{toUserId})
+		INTO subscribe(subscriber_id,creator_id, created_at, updated_at)
+		VALUES(#{subscriberId},#{creatorId}, now(), now())
 	</insert>
 
     <update id="update">
-          UPDATE surbscribe
+          UPDATE subscribe
 		  SET 
-		  from_user_id = #{fromUserId},
-		  to_user_id = #{toUserId}
+          subscriber_id = #{subscriberId},
+          creator_id = #{creatorId},
+		  updated_at = now()
     </update>
 
 	<delete id="delete">
 		DELETE FROM subscribe WHERE subscribe_id = #{subscribeId}
 	</delete>
 
-
-    <select id="findByUserIdAndToUserId" resultType="Integer">
-        SELECT subscribe_Id
-    	FROM subscribe
-    	WHERE from_user_id = #{fromUserId} and to_user_id = #{toUserId}
-    </select>
-
-    <select id="findByUserId" resultType="site.metacoding.firstapp.domain.subscribe.Subscribe">
-          SELECT * FROM subscribe WHERE user_id=#{fromUserId}
-    </select>
-
-	<select id="findByUserList"  resultType="site.metacoding.firstapp.web.dto.response.subscribe.UserListDto">
-       SELECT s.subscribe_id, s.from_user_id, (u.user_id)to_user_id, u.username, u.nickname
-		FROM subscribe s
-		INNER JOIN user u
-		ON u.user_id = s.to_user_id
-		WHERE s.from_user_id=#{fromUserId}
-    </select>
-	
-	<select id="findAllSubscribePost" resultType="site.metacoding.firstapp.web.dto.response.subscribe.PostListDto">
-    	SELECT p.post_title,s.to_user_id,s.subscribe_id, p.post_content, p.post_thumnail, p.created_at, p.updated_at, u.nickname,u.user_id, p.post_id
-		FROM (SELECT * FROM subscribe WHERE from_user_id=#{fromUserId}) s
-		INNER JOIN post p
-		on p.user_id = s.to_user_id
-		INNER JOIN user u
-		ON p.user_id = u.user_id
-		ORDER BY p.post_id DESC
-    </select>
-
-	<select id="findAllSubscribeRank"
-		resultType="site.metacoding.firstapp.web.dto.response.admin.SubscribeRankDto">
-    	SELECT row_number() over(order BY subscribe_count DESC) as rank,u.*, COUNT(s.subscribe_id) subscribe_count
-    	FROM user u
-    	LEFT JOIN subscribe s
-    	ON u.user_id = s.to_user_id
-    	GROUP BY s.to_user_id
-		ORDER BY subscribe_count DESC
-	</select>
-	
 </mapper>

@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import site.metacoding.firstapp.domain.user.User;
 import site.metacoding.firstapp.web.dto.CMRespDto;
+import site.metacoding.firstapp.web.dto.SessionUserDto;
 
 public class LoginIntercepter implements HandlerInterceptor {
 
@@ -23,10 +24,9 @@ public class LoginIntercepter implements HandlerInterceptor {
         String uri = request.getRequestURI();
 
         HttpSession session = request.getSession();
-        User principal = (User) session.getAttribute("principal");
+        SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
         if (principal == null) {
             if (uri.contains("api")) {
-                // System.out.println("디버그 : API 가 주소에 있음");
 
                 response.setContentType("application/json; charset=utf-8");
                 PrintWriter out = response.getWriter();
@@ -35,7 +35,6 @@ public class LoginIntercepter implements HandlerInterceptor {
                 String json = om.writeValueAsString(cmRespDto);
                 out.println(json);
             } else {
-                // System.out.println("디버그 : API 가 주소에 없음");
                 response.sendRedirect("/loginForm");
             }
             return false;

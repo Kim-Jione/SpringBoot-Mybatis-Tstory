@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.metacoding.firstapp.domain.notice.NoticeDao">
+
+	<select id="findById"
+		resultType="site.metacoding.firstapp.domain.notice.Notice">
+		SELECT * FROM notice WHERE notice_id=#{noticeId}
+	</select>
+
+	<select id="findAll"
+		resultType="site.metacoding.firstapp.domain.notice.Notice">
+		SELECT *
+		FROM notice 
+		WHERE notice_id=#{noticeId}
+	</select>
+
+	<insert id="insert">
+		INSERT
+		INTO notice(title,content, admin_id, created_at, updated_at)
+		VALUES(#{title}, #{content}, #{adminId}, now(), now())
+	</insert>
+
+    <update id="update">
+          UPDATE notice
+		  SET 
+		  title = #{title},
+          content = #{content},
+          admin_id = #{adminId},
+          updated_at = now()
+    </update>
+
+	<delete id="delete">
+		DELETE FROM notice WHERE notice_id = #{noticeId}
+	</delete>
+
+</mapper>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.metacoding.firstapp.domain.user_interest.UserInterestDao">
+
+	<select id="findById"
+		resultType="site.metacoding.firstapp.domain.user_interest.UserInterest">
+		SELECT * FROM user_interest WHERE user_interest_id=#{userInterestId}
+	</select>
+
+	<select id="findAll"
+		resultType="site.metacoding.firstapp.domain.user_interest.UserInterest">
+		SELECT *
+		FROM user_interest 
+		WHERE user_interest_id=#{userInterestId}
+	</select>
+
+	<insert id="insert">
+		INSERT
+		INTO user_interest(user_id,category_id, interest_title, created_at, updated_at)
+		VALUES(#{userId}, #{categoryId}, #{interestTitle}, now(), now())
+	</insert>
+
+	<insert id="insertJoin">
+		INSERT
+		INTO user_interest(user_id,category_id, interest_title, created_at, updated_at)
+		VALUES(#{userId}, #{categoryId}, #{interestTitle}, now(), now())
+	</insert>
+
+    <update id="update">
+          UPDATE user_interest
+		  SET 
+		  user_id = #{userId},
+          category_id = #{categoryId},
+          interest_title = #{interestTitle},
+		  updated_at = now()
+    </update>
+
+	<delete id="delete">
+		DELETE FROM user_interest WHERE user_interest_id = #{userInterestId}
+	</delete>
+
+</mapper>

@@ -20,9 +20,9 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/main-header.jsp"%>
                 <div style="display: flex">
                     <div class="my_auth_form_box_info_detail">아이디</div>
                     <input
-                        id="username"
+                        id="loginId"
                         class="my_auth_form_box_input"
-                        placeholder="${user.username}"
+                        placeholder="${user.loginId}"
                         maxlength="20"
                         required
                         readonly

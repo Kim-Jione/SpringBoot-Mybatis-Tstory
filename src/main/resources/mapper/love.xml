@@ -16,32 +16,29 @@
 		WHERE love_id=#{loveId}
 	</select>
 
-	<insert id="insert" useGeneratedKeys="true" keyProperty="loveId">
+	<select id="findByLoveId"
+		resultType="Integer">
+		SELECT *
+		FROM love 
+		WHERE user_id=#{userId} AND post_id = #{postId}
+	</select>
+
+	<insert id="insert">
 		INSERT
-		INTO love(post_id, user_id)
-		VALUES(#{postId}, #{userId})
+		INTO love(user_id,post_id, created_at, updated_at)
+		VALUES(#{userId}, #{postId}, now(), now())
 	</insert>
 
     <update id="update">
           UPDATE love
-		  SET post_id = #{postId},
-		  user_id = #{userId}
+		  SET 
+		  user_id = #{userId},
+          post_id = #{postId},
+		  updated_at = now()
     </update>
 
 	<delete id="delete">
 		DELETE FROM love WHERE love_id = #{loveId}
 	</delete>
-
-	<select id="findAllLoveRank"
-		resultType="site.metacoding.firstapp.web.dto.response.admin.LoveRankDto">
-		SELECT  row_number() over(order BY love_count DESC) as rank, p.*,COUNT(l.love_id) love_count,u.nickname
-    	FROM  post p
-    	left JOIN love l
-    	ON p.post_id = l.post_id
-    	LEFT JOIN user u
-    	ON p.user_id = u.user_id
-		GROUP BY p.post_id 
-		ORDER BY love_count DESC
-	</select>
 
 </mapper>

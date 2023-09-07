@@ -4,56 +4,49 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import site.metacoding.firstapp.web.dto.SessionUserDto;
 import site.metacoding.firstapp.web.dto.request.user.CheckDto;
-import site.metacoding.firstapp.web.dto.request.user.LoginDto;
 import site.metacoding.firstapp.web.dto.request.user.UserUpdateDto;
 
-public interface UserDao {
 
+public interface  UserDao {
+                          
 	public User findById(Integer userId);
+	
+    public SessionUserDto findByLoginId(String loginId);
 
 	public List<User> findAll();
 
 	public void insert(User user);
 
-	public void delete(User user);
+	public void update(User user);
+	
+	public void delete(Integer userId);
 
-	public User login(LoginDto loginDto);
+	public SessionUserDto findByUser(@Param("password")String password, @Param("loginId")String loginId);
 
-	public void updateById(UserUpdateDto userUpdateDto);
+	public User findByEmail(String email);
 
-	public User findByPasswordAndUserId(@Param("encPassword") String encPassword, @Param("userId") Integer userId);
+    public CheckDto findByNickname(String nickname);
 
-	public User findByUsername(String username);
+    public void updateByProfileImage(@Param("profileImg")String profileImg, @Param("userId")Integer userId);
 
-	public CheckDto findByEmail(String email);
+    public void passwordUpdate(String password, Integer userId);
 
-	public CheckDto findByNickname(String nickname);
+	public void updateByUser(UserUpdateDto userUpdateDto);
+
+
+    public void updateByEmail(String emailUpdate, Integer userId);
+
+	public void updateByNickname(String nicknameUpdate, Integer userId);
+
+    public void updateByPassword(String password, Integer userId);
+
+	public SessionUserDto findByUserIdAndPassword(String password, Integer userId);
+
+    public User findByUsernameAndenPassword(String password, String loginId);
 
 	public void leave(Integer userId);
 
-	public void updateByPassword(@Param("encPassword") String encPassword, @Param("userId") Integer userId);
-
-	public void updateByNickname(@Param("nicknameUpdate") String nicknameUpdate, @Param("userId") Integer userId);
-
-	public void updateByProfileImage(@Param("profileImg") String profileImg, @Param("userId") Integer userId);
-
-	public Integer findByUserEmail(String email);
-
-	public void passwordUpdate(@Param("passwordUpdate") String passwordUpdate, @Param("userId") Integer userId);
-
-	public User findByUsernameAndenPassword(@Param("encPassword") String encPassword,
-			@Param("username") String username);
-
-	public User findByUserIdAndenPassword(@Param("encPassword") String encPassword,
-			@Param("userId") Integer userId);
-
-	public void updateByEmail(@Param("emailUpdate") String emailUpdate, @Param("userId") Integer userId);
-
-	public List<User> findAllMember();
-
-	public List<User> findAllAdmin();
-
-	public void deleteById(Integer userId);
-
+	
 }

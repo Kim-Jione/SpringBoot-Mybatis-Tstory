@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.metacoding.firstapp.domain.comment.CommentDao">
+
+	<select id="findById"
+		resultType="site.metacoding.firstapp.domain.comment.Comment">
+		SELECT * FROM comment WHERE comment_id=#{commentId}
+	</select>
+
+	<select id="findAll"
+		resultType="site.metacoding.firstapp.domain.comment.Comment">
+		SELECT *
+		FROM comment 
+		WHERE comment_id=#{commentId}
+	</select>
+
+	<insert id="insert">
+		INSERT
+		INTO comment(comment_content, parent_comment_id,user_id,target_id,target_type, created_at, updated_at)
+		VALUES(#{commentContent}, #{parentCommentId},#{userId}, #{targetId}, #{targetType}, now(), now())
+	</insert>
+
+    <update id="update">
+          UPDATE comment
+		  SET 
+		  comment_content = #{commentContent},
+          parent_comment_id = #{parentCommentId},
+          user_id = #{userId},
+          target_id = #{targetId},
+		  target_type = #{targetType},
+		  updated_at = now()
+		  where comment_id=#{commentId}
+    </update>
+
+	<delete id="delete">
+		DELETE FROM comment WHERE comment_id = #{commentId}
+	</delete>
+
+</mapper>

@@ -15,197 +15,26 @@
 		FROM post 
 	</select>
 
-    <select id="findAllAndUsername" resultType="site.metacoding.firstapp.web.dto.response.post.PostAllDto">
-        SELECT u.user_id, p.post_id, u.username, p.post_title, p.post_thumnail, p.created_at, u.nickname
-		FROM post p LEFT JOIN  user u ON p.user_id = u.user_id
-		ORDER BY p.post_id DESC
-    </select>
-
 	<insert id="insert">
 		INSERT
-		INTO post(post_title, post_content, post_thumnail, user_id, category_id, updated_at, created_at)
-		VALUES(#{postTitle}, #{postContent}, #{postThumnail}, #{userId}, #{categoryId}, now(), now())
+		INTO post(post_title,post_content,post_thumbnail, user_id,category_id,status, created_at, updated_at)
+		VALUES(#{postTitle}, #{postContent}, #{postThumbnail}, #{userId}, #{categoryId}, #{status}, now(), now())
 	</insert>
 
     <update id="update">
           UPDATE post
-		  SET post_title = #{postTitle},
-		  post_content = #{postContent},
-		  post_thumnail = #{postThumnail},
-		  user_id = #{userId}
-		  category_id = #{categoryId}
+		  SET 
+          post_title = #{postTitle},
+          post_content = #{postContent},
+          post_thumbnail = #{postThumbnail},
+          category_id = #{categoryId},
+          status = #{status},
+		  updated_at = now()
+		  WHERE post_id = #{postId}
     </update>
-
-    <select id="findByIdAndUser" resultType="site.metacoding.firstapp.web.dto.response.post.PostDetailDto">	
-		SELECT p.post_id,p.post_title,p.post_content,p.post_thumnail,p.user_id,p.category_id,p.updated_at,p.created_at, u.username, u.nickname , l.love_id loveId, if(l.love_id IS NULL, 0, 1) as isLoved,(SELECT COUNT(*) 
-		FROM love 
-		WHERE post_id = #{postId} ) loveCount 
-		FROM post p 
-		LEFT JOIN  (SELECT * FROM love WHERE user_id = #{userId} ) l 
-		ON p.post_id = l.post_id 
-		LEFT JOIN user u ON l.user_id = u.user_id 
-		WHERE p.post_id = #{postId}
-    </select>
-
 
 	<delete id="delete">
 		DELETE FROM post WHERE post_id = #{postId}
 	</delete>
-
-
-
-    <select id="findByCategoryId" resultType="site.metacoding.firstapp.domain.post.Post">
-          SELECT * FROM post WHERE category_id=#{categoryId}
-    </select>
-
-
-    <select id="findByIdUpdate" resultType="site.metacoding.firstapp.web.dto.response.post.PostUpdateDto">
-          SELECT c.category_id, c.category_title, p.post_id, p.post_title, p.post_content, p.post_thumnail, p.user_id
-		  FROM category c left JOIN post p ON c.user_id = p.user_id
-		  WHERE c.user_id = #{userId} AND c.category_id = #{categoryId} AND p.post_id = #{postId}
-    </select>
-
-
-    <update id="insertUpdate">
-         UPDATE post
-		  SET post_title =#{postTitle},
-		  post_content = #{postContent},
-		  post_thumnail = #{postThumnail},
-		  category_id = #{categoryId}
-		  WHERE post_id = #{postId} AND user_id = #{userId}
-    </update>
-
-	<update id="insertNoUpdate">
-         UPDATE post
-		  SET post_title =#{postTitle},
-		  post_content = #{postContent},
-		  post_thumnail = #{noFile},
-		  category_id = #{categoryId}
-		  WHERE post_id = #{postId} AND user_id = #{userId}
-    </update>
-
-
-    <insert id="insertSave">
-          INSERT
-		INTO post(post_title, post_content, post_thumnail, user_id, category_id)
-		VALUES(#{postTitle}, #{postContent}, #{postThumnail}, #{userId}, #{categoryId})
-    </insert>
-
-
-	<select id="findByUserId"
-		resultType="site.metacoding.firstapp.domain.post.Post">
-		SELECT * FROM post WHERE user_id=#{userId}
-	</select>
-
-	<select id="paging" resultType="site.metacoding.firstapp.web.dto.response.post.PagingDto">
-   SELECT p.totalCount,p.totalPage,p.currentPage,
-	(case currentPage when 0 then 1 else 0 END) FIRST,
-	(case currentPage when totalPage-1 then 1 else 0 END) last
-	FROM
-	(
-	select  count(*) totalCount, CEILING(count(*)/5) totalPage, #{page} as currentPage, 0 as
-	first, 0 as last
-	FROM post 
-	WHERE user_id=#{userId}
-	<if test="keyword != null">
-			AND post_title like '%${keyword}%'
-		</if> 	
-	) p 
-    </select>
-
-    <select id="findSearchAllPost" resultType="site.metacoding.firstapp.web.dto.response.main.KeywordDto">
-	SELECT p.post_title, p.user_id, u.username, p.post_id, p.post_content, p.post_thumnail,u.nickname
-	FROM user u 
-	LEFT JOIN post p
-	ON u.user_id = p.user_id
-	WHERE p.post_title LIKE '%${keyword}%' 
-	ORDER BY p.post_id DESC
-    </select>
-
-    <select id="categoryCount" resultType="site.metacoding.firstapp.domain.post.Post">
-        SELECT COUNT(post_title) as categoryCount
-		FROM post
-		WHERE category_id= #{categoryId} AND user_id = #{userId}
-		<if test="keyword != null">
-			AND post_title like '%${keyword}%'
-		</if>
-    </select>
-
-
-    <select id="postCount" resultType="site.metacoding.firstapp.domain.post.Post">
-        SELECT COUNT(post_title) as postCount
-		FROM post
-		WHERE user_id = #{userId}
-		<if test="keyword != null">
-			AND post_title like '%${keyword}%'
-		</if>
-    </select>
-
-	<select id="findAllPost" resultType="site.metacoding.firstapp.web.dto.response.post.PostAllDto">
-          SELECT p.post_id, p.post_title, u.username, u.user_id, p.post_thumnail, p.category_id, p.created_at, u.nickname
-		  FROM post p
-		  INNER JOIN user u
-		  ON p.user_id = u.user_id
-		  WHERE p.user_id = #{userId} AND p.post_title like '%${keyword}%'
-		  ORDER BY p.post_id DESC
-		  OFFSET #{startNum} ROWS
-		  FETCH NEXT 5 ROWS ONLY
-    </select>
-
-
-	<select id="findPost"  resultType="site.metacoding.firstapp.web.dto.response.post.PostAllDto">
-          SELECT p.post_id, p.post_title, u.username, u.user_id, p.post_thumnail, p.category_id, p.created_at
-		  FROM post p
-		  INNER JOIN user u
-		  ON p.user_id = u.user_id
-		  WHERE p.user_id = #{userId} AND p.category_id=#{categoryId} AND p.post_title like '%${keyword}%'
-		  ORDER BY p.post_id DESC
-		  OFFSET #{startNum} ROWS
-		  FETCH NEXT 5 ROWS ONLY
-    </select>
-
-	<select id="pagingByCategory" resultType="site.metacoding.firstapp.web.dto.response.post.PagingDto">
-    SELECT p.totalCount,p.totalPage,p.currentPage,
-	(case currentPage when 0 then 1 else 0 END) FIRST,
-	(case currentPage when totalPage-1 then 1 else 0 END) last
-	FROM
-	(
-	select  count(*) totalCount, CEILING(count(*)/5) totalPage, #{page} as currentPage, 0 as
-	first, 0 as last
-	FROM post 
-	WHERE user_id=#{userId} AND category_id=#{categoryId}
-	<if test="keyword != null">
-			AND post_title like '%${keyword}%'
-		</if>
-	) p 
-    </select>
-	
-	<update id="updateNoThumnail">
-         UPDATE post
-		  SET post_title =#{postTitle},
-		  post_content = #{postContent},
-		  post_thumnail = #{postThumnail},
-		  category_id = #{categoryId}
-		  WHERE post_id = #{postId} AND user_id = #{userId}
-    </update>
-
-	<select id="findAllHistory"
-		resultType="site.metacoding.firstapp.web.dto.response.admin.PostHistoryDto">
-		SELECT row_number() over(order BY p.post_id desc) as number, p.post_title, p.created_at, u.nickname
-		FROM post p 
-		INNER JOIN user u 
-		ON p.user_id = u.user_id
-	</select>
-	
-	<select id="findAllPostRank"
-		resultType="site.metacoding.firstapp.web.dto.response.admin.PostRankDto">
-   	SELECT row_number() over(order BY post_count DESC) as rank,u.*,COUNT(p.post_id) post_count
-   	FROM user u 
-   	LEFT JOIN post p
-   	ON u.user_id = p.user_id
-   	GROUP BY u.user_id 
-   	ORDER BY post_count DESC
-	
-	</select>
 
 </mapper>

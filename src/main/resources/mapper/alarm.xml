@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.metacoding.firstapp.domain.alarm.AlarmDao">
+
+	<select id="findById"
+		resultType="site.metacoding.firstapp.domain.alarm.Alarm">
+		SELECT * FROM alarm WHERE alarm_id=#{alarmId}
+	</select>
+
+	<select id="findAll"
+		resultType="site.metacoding.firstapp.domain.alarm.Alarm">
+		SELECT *
+		FROM alarm 
+		WHERE alarm_id=#{alarmId}
+	</select>
+
+	<insert id="insert">
+		INSERT
+		INTO alarm(alarm_sender, alarm_receiver, target_id, target_type, message, is_read, created_at, updated_at)
+		VALUES(#{alarmSender}, #{alarmReceiver},#{targetId}, #{targetType},  #{message}, #{isRead}, now(), now())
+	</insert>
+
+    <update id="update">
+          UPDATE alarm
+		  SET 
+		  alarm_sender = #{alarmSender},
+          alarm_receiver = #{alarmReceiver},
+          target_id = #{targetId},
+          target_type = #{targetType},
+          message = #{message},
+          is_read = #{isRead},
+		  updated_at = now()
+    </update>
+
+	<delete id="delete">
+		DELETE FROM alarm WHERE alarm_id = #{alarmId}
+	</delete>
+
+</mapper>

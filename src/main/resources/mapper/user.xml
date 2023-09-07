@@ -9,144 +9,51 @@
 		SELECT * FROM user WHERE user_id=#{userId}
 	</select>
 
+	<select id="findByLoginId"
+		resultType="site.metacoding.firstapp.web.dto.SessionUserDto">
+		SELECT * FROM user WHERE login_id=#{loginId}
+	</select>
+
+	<select id="findByUser"
+		resultType="site.metacoding.firstapp.web.dto.SessionUserDto">
+		SELECT * FROM user WHERE password=#{password} AND login_id=#{loginId}
+	</select>
+
 	<select id="findAll"
 		resultType="site.metacoding.firstapp.domain.user.User">
 		SELECT *
 		FROM user 
+		WHERE user_id=#{userId}
 	</select>
 
 	<insert id="insert">
 		INSERT
-		INTO user(username, nickname,password, email,profile_img, role,updated_at, created_at)
-		VALUES(#{username}, #{nickname},#{password}, #{email}, #{profileImg},'member' ,now(), now())
+		INTO user(login_id, password, email, nickname, age, birthday, gender, profile_img, role, created_at, updated_at)
+		VALUES(#{loginId}, #{password}, #{email},#{nickname},#{age}, #{birthday}, #{gender},#{profileImg}, 'USER', now(), now());
 	</insert>
+
+    <update id="update">
+          UPDATE user
+		  SET 
+          email = #{email},
+          nickname = #{nickname},
+          age = #{age},
+          birthday = #{birthday},
+          gender = #{gender},
+          profile_img = #{profileImg},
+		  updated_at = now()
+		  WHERE user_id = #{userId}
+    </update>
+
+    <update id="updatePassword">
+		UPDATE user
+		SET 
+		password = #{password}
+		WHERE user_id = #{userId}
+  </update>
 
 	<delete id="delete">
 		DELETE FROM user WHERE user_id = #{userId}
 	</delete>
 
-	 <update id="updateById">
-          UPDATE user
-		  SET username = #{username},
-		  nickname = #{nickname},
-		  password = #{passwordUpdate},
-		  email = #{email},
-		  profile_img = #{profileImg}
-		  WHERE user_id = #{userId}
-    </update>
-
- 	<select id="findByUsernameAndPassword" resultType="site.metacoding.firstapp.domain.user.User" >
-        SELECT *
-		FROM user
-		WHERE username=#{username} AND password = #{password}
-    </select>
-
-	<select id="login"
-		resultType="site.metacoding.firstapp.domain.user.User">
-		SELECT * FROM user WHERE username=#{username} AND password = #{password}
-	</select>
-
-
-    <select id="findByPasswordAndUserId" resultType="site.metacoding.firstapp.domain.user.User" > 
-        SELECT *
-		FROM user u
-		WHERE u.user_id=#{userId} AND u.password= #{encPassword}     
-    </select>
-
-
-	<select id="findByUsername" resultType="site.metacoding.firstapp.domain.user.User">
-        SELECT *
-		FROM user
-		WHERE email = #{email} OR username= #{username}
-    </select>
-
-    <select id="findByNickname"  resultType="site.metacoding.firstapp.web.dto.request.user.CheckDto">
-        SELECT nickname
-		FROM user
-		WHERE nickname = #{nickname}
-    </select>
-
-    <select id="findByEmail"  resultType="site.metacoding.firstapp.web.dto.request.user.CheckDto">
-        SELECT email
-		FROM user
-		WHERE email = #{email}
-    </select>
-
-    <update id="updateByNickname">
-          UPDATE user
-		  SET nickname = #{nicknameUpdate}
-		  WHERE user_id = #{userId}
-    </update>
-
-    <update id="updateByPassword">
-          UPDATE user
-		  SET password = #{encPassword}
-		  WHERE user_id = #{userId}
-    </update>
-
-    <delete id="leave">
-		DELETE FROM love WHERE user_id = #{userId};
-		DELETE FROM post WHERE user_id = #{userId};
-		DELETE FROM category WHERE user_id = #{userId};
-		DELETE FROM subscribe WHERE from_user_id = #{userId} OR to_user_id=#{userId};
-		DELETE FROM user WHERE user_id = #{userId};
-    </delete>
-
-
-    <update id="updateByProfileImage">
-          UPDATE user
-		  SET profile_img = #{profileImg}
-		  WHERE user_id = #{userId}
-    </update>
-
-	<select id="findByUserEmail"  resultType="Integer">
-        SELECT user_id
-		FROM user
-		WHERE email = #{email}
-    </select>
-
-	<update id="passwordUpdate">
-        UPDATE user
-		SET 
-		password = #{passwordUpdate}
-		WHERE user_id=#{userId}
-    </update>
-
-	<select id="findByUsernameAndenPassword" resultType="site.metacoding.firstapp.domain.user.User" >
-        SELECT *
-		FROM user
-		WHERE username=#{username} AND password = #{encPassword}
-    </select>
-
-	<select id="findByUserIdAndenPassword" resultType="site.metacoding.firstapp.domain.user.User" >
-        SELECT *
-		FROM user
-		WHERE user_id=#{userId} AND password = #{encPassword}
-    </select>
-
-	<update id="updateByEmail">
-          UPDATE user
-		  SET email = #{emailUpdate}
-		  WHERE user_id = #{userId}
-    </update>
-
-	<select id="findAllMember"
-		resultType="site.metacoding.firstapp.domain.user.User">
-		SELECT  row_number() over(order BY u.user_id desc) as number, u.*
-    	FROM  user u
-    	WHERE role = 'member'
-	</select>
-
-	<select id="findAllAdmin"
-		resultType="site.metacoding.firstapp.domain.user.User">
-		SELECT  row_number() over(order BY u.user_id desc) as number, u.*
-    	FROM  user u
-    	WHERE role = 'admin'
-	</select>
-
-	<delete id="deleteById">
-		DELETE FROM user WHERE user_id = #{userId}
-	</delete>
-
 </mapper>
-    

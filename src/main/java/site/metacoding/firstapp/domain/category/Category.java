@@ -3,14 +3,13 @@ package site.metacoding.firstapp.domain.category;
 import java.sql.Timestamp;
 
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
-@Setter
+@NoArgsConstructor
 @Getter
 public class Category {
-	private Integer categoryId;
+    private Integer categoryId;
 	private String categoryTitle;
-	private Integer userId;
-	private Timestamp updatedAt;
 	private Timestamp createdAt;
+	private Timestamp updatedAt;	
 }
