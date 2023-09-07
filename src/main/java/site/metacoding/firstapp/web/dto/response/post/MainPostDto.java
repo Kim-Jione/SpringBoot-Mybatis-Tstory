@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class PostAllDto {
+public class MainPostDto {
 	private Integer postId;
 	private String postTitle;
 	private String loginId;

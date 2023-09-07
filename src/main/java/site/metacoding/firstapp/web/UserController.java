@@ -219,7 +219,7 @@ public class UserController {
             Files.copy(file.getInputStream(), dest.toPath());
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("사진저장");
+            System.out.println("디버그: 사진저장");
         }
         updateProfileDto.setProfileImg(imgName);
         userService.updateByProfileImage(updateProfileDto.getProfileImg());

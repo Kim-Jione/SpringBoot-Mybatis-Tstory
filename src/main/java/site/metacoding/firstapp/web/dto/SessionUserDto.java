@@ -10,4 +10,8 @@ public class SessionUserDto {
 	private String loginId;
 	private String role;
 	private String nickname;
+	private String profileImg;
+	private Integer age;
+	private String birthday;
+	private String gender;
 }

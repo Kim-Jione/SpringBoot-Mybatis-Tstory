@@ -15,7 +15,7 @@ import site.metacoding.firstapp.domain.post.PostDao;
 import site.metacoding.firstapp.web.dto.request.post.PostSaveDto;
 import site.metacoding.firstapp.web.dto.request.post.PostUpdateDto;
 import site.metacoding.firstapp.web.dto.response.main.KeywordDto;
-import site.metacoding.firstapp.web.dto.response.post.PostAllDto;
+import site.metacoding.firstapp.web.dto.response.post.MainPostDto;
 import site.metacoding.firstapp.web.dto.response.post.PostBeChangedDto;
 
 @RequiredArgsConstructor
@@ -101,7 +101,7 @@ public class PostService {
 	// 	postDao.updateNoThumnail(postUpdateDto.toDto());
 	// }
 
-    public  List<PostAllDto> findAllAndUsername() {
+    public  List<MainPostDto> findAllAndUsername() {
         return null;
     }
 
@@ -117,4 +117,8 @@ public class PostService {
     public PostBeChangedDto postBeChanged(Integer postId, Integer userId) {
         return null;
     }
+
+	public List<MainPostDto> findByMainPostList(String keyword) {
+		return null;
+	}
 }

@@ -22,26 +22,14 @@ public class User {
     private String role;
 	private Timestamp createdAt;
     private Timestamp updatedAt;
-    
-    @Builder
-    public User(Integer userId, String loginId, String password, String email, String insert, String nickname, Integer age, String phoneNumber, Date birthday, String gender, Timestamp createdAt, Timestamp updatedAt) {
-    super();
-    this.userId = userId;
-    this.loginId = loginId;
-    this.password = password;
-    this.email = email;
-    this.nickname = nickname;
-    this.age = age;
-    this.birthday = birthday;
-    this.gender = gender;
-    this.createdAt = createdAt;
-    this.updatedAt = updatedAt;
-    }
 
-    public User(String loginId, String password, String email, String nickname) {
+    public User(String loginId, String password, String email, String nickname, String gender, Date birthday, Integer age) {
         this.loginId = loginId;
         this.password = password;
         this.email = email;
         this.nickname = nickname;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.age = age;
     }
 }

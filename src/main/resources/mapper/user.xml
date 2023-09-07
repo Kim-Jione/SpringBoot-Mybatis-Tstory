@@ -10,7 +10,7 @@
 	</select>
 
 	<select id="findByLoginId"
-		resultType="site.metacoding.firstapp.domain.user.User">
+		resultType="site.metacoding.firstapp.web.dto.SessionUserDto">
 		SELECT * FROM user WHERE login_id=#{loginId}
 	</select>
 

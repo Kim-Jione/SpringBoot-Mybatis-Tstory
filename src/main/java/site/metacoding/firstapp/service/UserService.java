@@ -46,7 +46,7 @@ public class UserService {
 	// 로그인 아이디 중복체크
 	@Transactional
 	public boolean checkDuplicateLoginId(String loginId) {
-		User usersPS = userDao.findByLoginId(loginId);
+		SessionUserDto usersPS = userDao.findByLoginId(loginId);
 
 		if (usersPS == null) { // 중복 안됨
 			return false;
@@ -190,8 +190,8 @@ public class UserService {
 	
 	// 로그인 아이디로 계정 찾기
 	@Transactional
-	public User findByLoginId(String loginId) {
-		User userPS = userDao.findByLoginId(loginId);
+	public SessionUserDto findByLoginId(String loginId) {
+		SessionUserDto userPS = userDao.findByLoginId(loginId);
 		return userPS;
 	}
 	@Transactional

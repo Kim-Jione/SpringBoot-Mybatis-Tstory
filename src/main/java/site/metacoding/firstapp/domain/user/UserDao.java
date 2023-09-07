@@ -13,7 +13,7 @@ public interface  UserDao {
                           
 	public User findById(Integer userId);
 	
-    public User findByLoginId(String loginId);
+    public SessionUserDto findByLoginId(String loginId);
 
 	public List<User> findAll();
 
